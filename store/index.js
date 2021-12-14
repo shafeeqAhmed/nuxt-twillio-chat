@@ -52,14 +52,16 @@ export const actions = {
     },
 
     // register the user
-    register({ commit, dispatch, getters }, { email, password } = {}) {
-        if (getters.loggedIn) return dispatch('validate')
-
-        return getFirebaseBackend().registerUser(email, password).then((response) => {
-            const user = response
-            commit('SET_CURRENT_USER', user)
-            return user
-        });
+        register({ commit },payload) {
+        return new Promise((resolve, reject) => {
+        this.$axios
+          .post(`register`, payload)
+          .then(response => {
+           
+            resolve(response)
+          })
+          .catch(error => reject(error))
+      })    
     },
 
     // register the user

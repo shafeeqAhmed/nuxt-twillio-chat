@@ -14,7 +14,9 @@ export default {
             user: {
                 username: "",
                 email: "",
-                password: ""
+                password: "",
+                phone_no:"03216910563",
+                password_confirmation:'11111111'
             },
             submitted: false,
             regError: null,
@@ -46,7 +48,8 @@ export default {
             },
         },
     },
-    created() {},
+    created() {
+    },
     methods: {
         // Try to register the user in with the email, username
         // and password they provided.
@@ -63,10 +66,11 @@ export default {
                 //     this.regError = null;
               if (!this.$v.$invalid && !this.isMatchPassword) {
                 const payload = {
-                    name: this.name,
-                    email: this.email,
-                    password: this.password,
-                    password_confirmation: this.confirmPassword,
+                    name: this.user.username,
+                    email: this.user.email,
+                    phone_no: this.user.phone_no,
+                    password: this.user.password,
+                    password_confirmation: this.user.password_confirmation,
                     terms: 'on',
                     baseDomain: 'customer',
                 }
@@ -74,7 +78,35 @@ export default {
                     email: this.email,
                     password: this.password,
                     device_name: 'mobile',
-                }
+                }                
+
+                const reponse = this.$axios.post(`register`, payload)
+            .then(response => {
+               
+                if (response.data.status) {
+                    /*   this.$notify({
+                            group: 'addCartSuccess',
+                            title: 'Success!',
+                            text: 'A verfication email has been sent to you please confirm it from your Inbox!'
+                        });*/
+                    this.$router.push('/account/login');      
+               }
+               
+           })
+            .catch(error => {
+            
+                console.log( error.response.data.errors);
+                   this.backendErrors = error.response.data.errors
+                })
+                .catch(() => {
+
+                   this.isDisabled = false
+
+        });
+        
+
+
+    /*
                 this.$store.dispatch('register', payload)
                .then(response => {
                    if(response.data.status) {
@@ -83,11 +115,8 @@ export default {
                             title: 'Success!',
                             text: 'A verfication email has been sent to you please confirm it from your Inbox!'
                         });
-                    // this.$router.push('/account/login');
-                    this.$auth.loginWith('local', { data: loginInfo }).then(response => {
-                        this.$auth.setUser(response.data.data.userData)
-                        this.$auth.$storage.setUniversal('user', response.data.data.userData)
-                    })
+                    this.$router.push('/account/login');
+                  
                    }
                })
                .catch(error => {
@@ -96,7 +125,7 @@ export default {
                 .catch(() => {
                    this.isDisabled = false
 
-                })
+                })*/
                 // this.$router.push('/account/login');
             }
                 // if (process.env.auth === "firebase") {

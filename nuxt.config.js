@@ -95,7 +95,7 @@ export default {
     }
   },
   axios: {
-            baseURL: 'http://localhost/chat-app/twillo-api/api'
+            baseURL: 'http://localhost/twillio/twillo-api/api'
     },
   auth: {
     strategies: {

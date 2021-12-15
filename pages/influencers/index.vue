@@ -10,7 +10,6 @@
 
                  <nuxt-link to="/influencers/add" class="btn btn-primary waves-effect waves-light">  <i class="fe-plus mr-1"></i>Add New</nuxt-link>
                 
-                   
                  </div> </div><br>
                 
                 <div class="card-body pt-0">

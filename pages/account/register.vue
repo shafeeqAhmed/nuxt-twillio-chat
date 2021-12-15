@@ -14,13 +14,17 @@ export default {
             user: {
                 username: "",
                 email: "",
-                password: ""
+                password: "",
+                phone_no:"",
+                password_confirmation:''
             },
             submitted: false,
             regError: null,
             tryingToRegister: false,
             isRegisterError: false,
             registerSuccess: false,
+             backendErrors: {},
+            isDisabled: false
         };
     },
     layout: "auth",
@@ -44,9 +48,16 @@ export default {
             password: {
                 required
             },
+             phone_no: {
+                required
+            },
+             password_confirmation: {
+                required
+            },
         },
     },
-    created() {},
+    created() {
+    },
     methods: {
         // Try to register the user in with the email, username
         // and password they provided.
@@ -63,31 +74,26 @@ export default {
                 //     this.regError = null;
               if (!this.$v.$invalid && !this.isMatchPassword) {
                 const payload = {
-                    name: this.name,
-                    email: this.email,
-                    password: this.password,
-                    password_confirmation: this.confirmPassword,
+                    name: this.user.username,
+                    email: this.user.email,
+                    phone_no: this.user.phone_no,
+                    password: this.user.password,
+                    password_confirmation: this.user.password_confirmation,
                     terms: 'on',
                     baseDomain: 'customer',
                 }
-                const loginInfo = {
-                    email: this.email,
-                    password: this.password,
-                    device_name: 'mobile',
-                }
+               
+    
                 this.$store.dispatch('register', payload)
                .then(response => {
                    if(response.data.status) {
-                       this.$notify({
+                       /*this.$notify({
                             group: 'addCartSuccess',
                             title: 'Success!',
                             text: 'A verfication email has been sent to you please confirm it from your Inbox!'
-                        });
-                    // this.$router.push('/account/login');
-                    this.$auth.loginWith('local', { data: loginInfo }).then(response => {
-                        this.$auth.setUser(response.data.data.userData)
-                        this.$auth.$storage.setUniversal('user', response.data.data.userData)
-                    })
+                        });*/
+                    this.$router.push('/account/login');
+                  
                    }
                })
                .catch(error => {
@@ -97,48 +103,10 @@ export default {
                    this.isDisabled = false
 
                 })
-                // this.$router.push('/account/login');
+        
             }
-                // if (process.env.auth === "firebase") {
-                //     this.tryingToRegister = true;
-                //     // Reset the regError if it existed.
-                //     this.regError = null;
-                //     return (
-                //         this.$store
-                //         .dispatch("auth/register", {
-                //             email: this.user.email,
-                //             password: this.user.password,
-                //         })
-                //         // eslint-disable-next-line no-unused-vars
-                //         .then((token) => {
-                //             this.tryingToRegister = false;
-                //             this.isRegisterError = false;
-                //             this.registerSuccess = true;
-                //             if (this.registerSuccess) {
-                //                 this.$router.push(
-                //                     this.$route.query.redirectFrom || {
-                //                         path: "/"
-                //                     }
-                //                 );
-                //             }
-                //         })
-                //         .catch((error) => {
-                //             this.tryingToRegister = false;
-                //             this.regError = error ? error : "";
-                //             this.isRegisterError = true;
-                //         })
-                //     );
-                // } else if (process.env.auth === "fakebackend") {
-                //     const {
-                //         email,
-                //         username,
-                //         password
-                //     } = this.user;
-                //     if (email && username && password) {
-                //         this.$store.dispatch("authfack/registeruser", this.user);
-                //         this.$store.dispatch('notification/clear')
-                //     }
-                // }
+
+            
             }
         },
     },
@@ -174,6 +142,7 @@ export default {
 
                     <b-alert :variant="notification.type" class="mt-3" v-if="notification.message" :show="notificationAutoCloseDuration" dismissible>{{notification.message}}</b-alert>
 
+
                     <div class="form-group">
                         <label for="fullname">Username</label>
                         <input class="form-control" v-model="user.username" type="text" id="fullname" placeholder="Enter your name" :class="{ 'is-invalid': submitted && $v.user.username.$error }" />
@@ -186,6 +155,17 @@ export default {
                             <span v-if="!$v.user.email.required">Email is required.</span>
                             <span v-if="!$v.user.email.email">Please enter valid email.</span>
                         </div>
+                        <span 
+                v-if="backendErrors.email"
+                class="text-danger"
+                >
+                 {{ backendErrors.email[0] }}
+                </span>
+                    </div>
+                      <div class="form-group">
+                        <label for="fullname">Phone Number</label>
+                        <input class="form-control" v-model="user.phone_no" type="text" id="phone_no" placeholder="Enter your phone_no" :class="{ 'is-invalid': submitted && $v.user.phone_no.$error }" />
+                        <div v-if="submitted && !$v.user.phone_no.required" class="invalid-feedback">Phone Number is required.</div>
                     </div>
                     <div class="form-group">
                         <label for="password">Password</label>
@@ -197,6 +177,25 @@ export default {
                                 </div>
                             </div>
                             <div v-if="submitted && !$v.user.password.required" class="invalid-feedback">Password is required.</div>
+
+                        </div>
+                           <span 
+                v-if="backendErrors.password"
+                class="text-danger"
+                >
+                 {{ backendErrors.password[0] }}
+                </span>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Confirm Password</label>
+                        <div class="input-group input-group-merge">
+                            <input type="password" v-model="user.password_confirmation" id="password_confirmation" class="form-control" :class="{ 'is-invalid': submitted && $v.user.password_confirmation.$error }" placeholder="Enter your password" />
+                            <div class="input-group-append" data-password="false">
+                                <div class="input-group-text">
+                                    <span class="password-eye"></span>
+                                </div>
+                            </div>
+                            <div v-if="submitted && !$v.user.password_confirmation.required" class="invalid-feedback">Confirm Password is required.</div>
                         </div>
                     </div>
                     <div class="form-group">
@@ -213,31 +212,6 @@ export default {
                     </div>
                 </form>
 
-                <!-- <div class="text-center">
-                    <h5 class="mt-3 text-muted">Sign Up using</h5>
-                    <ul class="social-list list-inline mt-3 mb-0">
-                        <li class="list-inline-item">
-                            <a href="javascript: void(0);" class="social-list-item border-purple text-purple">
-                                <i class="mdi mdi-facebook"></i>
-                            </a>
-                        </li>
-                        <li class="list-inline-item">
-                            <a href="javascript: void(0);" class="social-list-item border-danger text-danger">
-                                <i class="mdi mdi-google"></i>
-                            </a>
-                        </li>
-                        <li class="list-inline-item">
-                            <a href="javascript: void(0);" class="social-list-item border-info text-info">
-                                <i class="mdi mdi-twitter"></i>
-                            </a>
-                        </li>
-                        <li class="list-inline-item">
-                            <a href="javascript: void(0);" class="social-list-item border-secondary text-secondary">
-                                <i class="mdi mdi-github"></i>
-                            </a>
-                        </li>
-                    </ul>
-                </div> -->
             </div>
             <!-- end card-body -->
         </div>

@@ -30,12 +30,13 @@ export default function ({ store, route, redirect }) {
       } else if (process.env.auth === "fakebackend") {
         const publicPages = ['/account/login', '/account/register', '/account/forgot-password'];
         const authpage = !publicPages.includes(route.path);
-        const loggeduser = localStorage.getItem('user');
-    
+        const loggeduser = localStorage.getItem('auth.user');
+      
+       
         if (authpage && !loggeduser) {
-          return redirect('/account/login');
+       
+         return redirect('/account/login');
         }
-    
         redirect();
       }
 }

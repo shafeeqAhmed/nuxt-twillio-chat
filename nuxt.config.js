@@ -4,7 +4,7 @@ export default {
     extendRoutes(routes) {
       routes.push({
         path: "/",
-        component: "~/pages/dashboard/sales/index.vue"
+        component: "~/pages/influencers/index.vue"
       });
     },
     // middleware: ['authentication']
@@ -95,7 +95,7 @@ export default {
     }
   },
   axios: {
-            baseURL: 'http://localhost/chat-app/backend/api'
+            baseURL: 'http://localhost/chat-app/twillo-api/api'
     },
   auth: {
     strategies: {

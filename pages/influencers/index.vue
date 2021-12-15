@@ -22,16 +22,24 @@
                                     <th>Phone Number</th>
                                     <th>Email</th>
                                     <th>Twilio Number</th>
+                                   <th>Ation</th>
                                     
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr v-for="user in users" :key="user.id">
+                                <tr v-if='users.list'  v-for="user in users.list" :key="user.id">
                                     <td>{{ user.fname}}</td>
                                     <td>{{ user.lname }}</td>
                                     <td>{{ user.phone_no }}</td>
                                     <td>{{ user.email }}</td>
                                     <td>{{ user.twilio_number }}</td>
+                                    <td>
+                                        <ul class="list-inline table-action m-0">
+                                            <li class="list-inline-item">
+                                     <a  @click="$router.push(`/influencers/${user.user_uuid}`)"class="action-icon px-1"><i class="mdi mdi-square-edit-outline"></i></a >
+                                        </li> </ul>
+
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>

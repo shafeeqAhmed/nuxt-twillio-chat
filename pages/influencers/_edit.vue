@@ -183,7 +183,7 @@ export default {
   },
   data() {
     return {
-      title: "Add Users",
+      title: "Edit Users",
       items: [
         {
           text: "Minton",
@@ -207,7 +207,9 @@ export default {
       backendErrors: {},
       submitted: false,
       countries:[],
-      twilio_numbers:[]
+      twilio_numbers:[],
+      user:[]
+
     };
   },
   validations: {
@@ -280,7 +282,35 @@ export default {
         },
     },
      created() {
+      
+     
+      const payload={
+        uuid:this.$route.params.edit
+      }
 
+
+this.$store.dispatch('getUserDetail',payload)
+.then(response => {
+   if(response.data.status) {
+     const user=response.data.data.user_detail
+
+       this.fname=user.fname;
+      this.lname= user.lname;
+      this.email= user.email;
+      this.phone_no=user.phone_no;
+      this.country_id= user.country_id;
+      this.twilio_number= user.twilio_number;
+
+   }
+})
+.catch(error => {
+   this.backendErrors = error.response.data.errors
+})
+.catch(() => {
+   this.isDisabled = false
+
+})
+//////////////////////////////
 
 this.$store.dispatch('getInfluencersDropdowns')
 .then(response => {

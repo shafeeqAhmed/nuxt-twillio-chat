@@ -157,7 +157,7 @@ export default {
                         </div>
                         <span 
                 v-if="backendErrors.email"
-                class="red--text"
+                class="text-danger"
                 >
                  {{ backendErrors.email[0] }}
                 </span>
@@ -181,7 +181,7 @@ export default {
                         </div>
                            <span 
                 v-if="backendErrors.password"
-                class="red--text"
+                class="text-danger"
                 >
                  {{ backendErrors.password[0] }}
                 </span>

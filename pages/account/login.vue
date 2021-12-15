@@ -1,3 +1,5 @@
+
+
 <script>
 import {
     required,
@@ -8,6 +10,7 @@ import {
  * Login component
  */
 export default {
+    name: 'login',
     data() {
         return {
             email: "",
@@ -17,6 +20,7 @@ export default {
             tryingToLogIn: false,
             isAuthError: false,
             device_name: 'mobile',
+            backendErrors: {},
         };
     },
     computed: {
@@ -55,71 +59,17 @@ export default {
                         if(!response.data.status) {
                            this.invalidCredential= response.data.message
                         }
+                      
                         if(response.data.status) {
                             this.$auth.setUser(response.data.data.userData)
                             this.$auth.$storage.setUniversal('user', response.data.data.userData)
-                            // const redirect = this.$store.state.common.redirectUrl;
-                            // if(redirect) {
-                            //     this.$router.push(redirect)
-                            // } else {
-                            // this.$router.push('/')
-
-                            // }
-                           this.$router.push('/')
+                            this.$router.push('/')
                         }
                     }).catch(error => {
                         this.backendErrors = error.response.data.errors
                     })
         }
-            // this.submitted = true;
-            // // stop here if form is invalid
-            // this.$v.$touch();
-
-            // if (this.$v.$invalid) {
-            //     return;
-            // } else {
-            //     if (process.env.auth === "firebase") {
-            //         this.tryingToLogIn = true;
-            //         // Reset the authError if it existed.
-            //         this.authError = null;
-            //         return (
-            //             this.$store.dispatch('auth/logIn', {
-            //                 email: this.email,
-            //                 password: this.password,
-            //             })
-            //             // eslint-disable-next-line no-unused-vars
-            //             .then((token) => {
-            //                 this.tryingToLogIn = false;
-            //                 this.isAuthError = false;
-            //                 // Redirect to the originally requested page, or to the home page
-            //                 this.$router.push(
-            //                     this.$route.query.redirectFrom || {
-            //                         path: "/"
-            //                     }
-            //                 );
-            //             })
-            //             .catch((error) => {
-            //                 this.tryingToLogIn = false;
-            //                 this.authError = error ? error : "";
-            //                 this.isAuthError = true;
-            //             })
-            //         );
-            //     } else if (process.env.auth === "fakebackend") {
-            //         const {
-            //             email,
-            //             password
-            //         } = this;
-            //         if (email && password) {
-            //             this.$store.dispatch('authfack/login', {
-            //                 email,
-            //                 password
-            //             });
-            //             this.$store.dispatch('notification/clear')
-            //         }
-            //     }else if (process.env.auth === "local") {
-            //     alert('this is the')
-            //     }
-            // }
+            
         },
     },
     layout: 'auth'
@@ -159,6 +109,12 @@ export default {
                             <span v-if="!$v.email.required">Email is required.</span>
                             <span v-if="!$v.email.email">Please enter valid email.</span>
                         </div>
+                        <span 
+                v-if="backendErrors.email"
+                class="text-danger"
+                >
+                 {{ backendErrors.email[0] }}
+                </span>
                     </div>
 
                     <div class="form-group mb-3">
@@ -173,6 +129,12 @@ export default {
                             </div>
                             <div v-if="submitted && !$v.password.required" class="invalid-feedback">Password is required.</div>
                         </div>
+                        <span 
+                v-if="backendErrors.password"
+                class="text-danger"
+                >
+                 {{ backendErrors.password[0] }}
+                </span>
                     </div>
 
                     <!-- <div class="form-group mb-3">

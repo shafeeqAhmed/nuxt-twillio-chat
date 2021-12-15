@@ -323,9 +323,10 @@ export default {
                     <i class="fe-briefcase mr-1"></i>
                     <span>{{ $t('navbar.dropdown.createnew.list.projects') }}</span>
                 </b-dropdown-item> -->
-                <b-dropdown-item href="#">
-                    <i class="fe-user mr-1"></i>
-                    <span>{{ $t('navbar.dropdown.createnew.list.users') }}</span>
+                <b-dropdown-item >
+                  <NuxtLink to="/influencers/add"> <i class="fe-user mr-1"></i>
+                    <span>{{ $t('navbar.dropdown.createnew.list.users') }}</span></NuxtLink>
+                   
                 </b-dropdown-item>
                 <!-- <b-dropdown-item href="#">
                     <i class="fe-bar-chart-line- mr-1"></i>

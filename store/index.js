@@ -98,6 +98,17 @@ export const actions = {
       })    
     },
 
+  getUserDetail({ commit },payload) {
+        return new Promise((resolve, reject) => {
+        this.$axios
+          .get(`users/`+payload.uuid)
+          .then(response => {
+           
+            resolve(response)
+          })
+          .catch(error => reject(error))
+      })    
+    },
 
     // register the user
     // eslint-disable-next-line no-unused-vars

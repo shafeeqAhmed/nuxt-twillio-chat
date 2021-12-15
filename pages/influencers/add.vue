@@ -259,13 +259,9 @@ export default {
             this.$store.dispatch('createInfluencer', payload)
                .then(response => {
                    if(response.data.status) {
-                        /*this.$notify({
-                            group: 'addCartSuccess',
-                            title: 'Success!',
-                            text: 'A verfication email has been sent to you please confirm it from your Inbox!'
-                        });*/
-                      alert(response.data.message);
-                    //this.$router.push('/account/login');
+                       
+                     
+                    this.$router.push('/influencers');
                   
                    }
                })

@@ -74,6 +74,17 @@ export const actions = {
           .catch(error => reject(error))
       })    
     },
+    getInfluencers({ commit }) {
+        return new Promise((resolve, reject) => {
+        this.$axios
+          .get(`get-influencers`)
+          .then(response => {
+           
+            resolve(response)
+          })
+          .catch(error => reject(error))
+      })    
+    },
     // register the user
     // eslint-disable-next-line no-unused-vars
     resetPassword({ commit, dispatch, getters }, { email } = {}) {

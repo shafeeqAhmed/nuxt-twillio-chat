@@ -63,7 +63,17 @@ export const actions = {
           .catch(error => reject(error))
       })    
     },
-
+    createInfluencer({ commit },payload) {
+        return new Promise((resolve, reject) => {
+        this.$axios
+          .post(`create-influencer`, payload)
+          .then(response => {
+           
+            resolve(response)
+          })
+          .catch(error => reject(error))
+      })    
+    },
     // register the user
     // eslint-disable-next-line no-unused-vars
     resetPassword({ commit, dispatch, getters }, { email } = {}) {

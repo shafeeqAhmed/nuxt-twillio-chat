@@ -93,6 +93,7 @@
               </div>
 
               <div class="form-group">
+
                 <label for="phno">
                   Country
                   <span class="text-danger">*</span>
@@ -103,8 +104,7 @@
                   :class="{ 'is-invalid': submitted && $v.country_id.$error }"
                 >
                   <option value="">Select</option>
-                  <option value="1">Pakistan</option>
-                  <option value="2">India</option>
+                   <option v-for="country in countries" :value="country.country_id">{{ country.country_name }}</option>
                 </select>
                 <div
                   v-if="submitted && !$v.country_id.required"
@@ -130,8 +130,7 @@
                   }"
                 >
                   <option value="">Select</option>
-                  <option value="03216910563">03216910563</option>
-                  <option value="03068101958">03068101958</option>
+                <option v-for="number in twilio_numbers" :value="number.id">{{ number.phone_no }}</option>
                 </select>
                 <div
                   v-if="submitted && !$v.twilio_number.required"
@@ -207,6 +206,8 @@ export default {
       twilio_number: "",
       backendErrors: {},
       submitted: false,
+      countries:[],
+      twilio_numbers:[]
     };
   },
   validations: {
@@ -251,7 +252,7 @@ export default {
                     email: this.email,
                     phone_no: this.phone_no,
                     country_id: this.country_id,
-                    twilio_number: this.twilio_number,
+                    twilio_id: this.twilio_number,
                     terms: 'on',
                     baseDomain: 'customer',
                 }
@@ -259,8 +260,7 @@ export default {
             this.$store.dispatch('createInfluencer', payload)
                .then(response => {
                    if(response.data.status) {
-                       
-                     
+                        
                     this.$router.push('/influencers');
                   
                    }
@@ -279,6 +279,24 @@ export default {
             }
         },
     },
+     created() {
+
+
+this.$store.dispatch('getInfluencersDropdowns')
+.then(response => {
+   if(response.data.status) {
+        this.countries=response.data.data.countries;
+        this.twilio_numbers=response.data.data.twillio_numbers;  
+   }
+})
+.catch(error => {
+   this.backendErrors = error.response.data.errors
+})
+.catch(() => {
+   this.isDisabled = false
+
+})
+  },
   middleware: "router-auth",
 };
 </script>

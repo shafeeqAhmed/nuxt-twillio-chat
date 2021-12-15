@@ -9,9 +9,9 @@
               <div class="row"><div class="col-sm-3">
 
                  <nuxt-link to="/influencers/add" class="btn btn-primary waves-effect waves-light">  <i class="fe-plus mr-1"></i>Add New</nuxt-link>
-                
+
                  </div> </div><br>
-                
+
                 <div class="card-body pt-0">
                     <div class="table-responsive mb-0">
                         <table class="table table-hover table-centered mb-0">
@@ -22,7 +22,7 @@
                                     <th>Phone Number</th>
                                     <th>Email</th>
                                     <th>Twilio Number</th>
-                                    
+
                                 </tr>
                             </thead>
                             <tbody>
@@ -40,7 +40,7 @@
             </Portlet>
         </div>
     </div>
-   
+
 </div>
 </template>
 
@@ -51,10 +51,10 @@ export default {
     head() {
         return {
             title: `Sales Dashboard | Minton - Nuxtjs Responsive Admin Dashboard Template`,
-           
+
         };
     },
-    middleware: 'router-auth',
+    // middleware: 'router-auth',
     data() {
         return {
             title: "Welcome !",
@@ -73,17 +73,17 @@ export default {
             tableTitle: "Users",
         };
     },
-    
- 
+
+
   created() {
 
 
 this.$store.dispatch('getInfluencers')
 .then(response => {
    if(response.data.status) {
-      
+
       this.users=response.data.data
-      
+
    }
 })
 .catch(error => {

@@ -256,13 +256,13 @@ export default {
                     terms: 'on',
                     baseDomain: 'customer',
                 }
-               
+
             this.$store.dispatch('createInfluencer', payload)
                .then(response => {
                    if(response.data.status) {
-                        
+
                     this.$router.push('/influencers');
-                  
+
                    }
                })
                .catch(error => {
@@ -275,7 +275,7 @@ export default {
 
             }
 
-            
+
             }
         },
     },
@@ -286,7 +286,7 @@ this.$store.dispatch('getInfluencersDropdowns')
 .then(response => {
    if(response.data.status) {
         this.countries=response.data.data.countries;
-        this.twilio_numbers=response.data.data.twillio_numbers;  
+        this.twilio_numbers=response.data.data.twillio_numbers;
    }
 })
 .catch(error => {
@@ -297,6 +297,6 @@ this.$store.dispatch('getInfluencersDropdowns')
 
 })
   },
-  middleware: "router-auth",
+  // middleware: "router-auth",
 };
 </script>

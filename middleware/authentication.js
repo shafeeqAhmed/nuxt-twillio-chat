@@ -8,7 +8,7 @@ export default function ({ route, redirect, $auth }) {
       // && !route.query.hasOwnProperty('signature')
 
     ) {
-      return redirect('/account/login');
+      // return redirect('/account/login');
     }
   }
 }

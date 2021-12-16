@@ -7,7 +7,7 @@ export default {
         component: "~/pages/influencers/index.vue"
       });
     },
-    // middleware: ['authentication']
+    middleware: ['authentication']
 
   },
   /*

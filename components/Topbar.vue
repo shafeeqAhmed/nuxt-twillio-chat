@@ -223,9 +223,6 @@ export default {
                     <div class="nav-user mr-0">
                         <img src="~/assets/images/users/avatar-1.jpg" alt="user-image" class="rounded-circle" />
                         <span class="pro-user-name ml-1">
-                          <span v-if="$auth.user.loggedIn">
-                            {{ $auth.user.name}}
-                          </span>
                             <!-- {{ $t('navbar.dropdown.name.text') }} -->
                             <i class="mdi mdi-chevron-down"></i>
                         </span>

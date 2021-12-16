@@ -1,5 +1,5 @@
 export default function ({ route, redirect, $auth }) {
-
+console.log($auth.loggedIn)
   if (!$auth.loggedIn) {
     if (route.path !== '/account/login' && route.path !== '/account/register'
       && route.path !== '/account/reset' && route.path !== '/account/forgot-password'

@@ -6,11 +6,11 @@
         <!-- Table -->
         <div class="col-xl-12">
             <Portlet :headertitle="tableTitle">
-              <div class="row"><div class="col-sm-3">
+<!--              <div class="row"><div class="col-sm-3">-->
 
-                 <nuxt-link to="/influencers/add" class="btn btn-primary waves-effect waves-light">  <i class="fe-plus mr-1"></i>Add New</nuxt-link>
+<!--                 <nuxt-link to="/influencers/add" class="btn btn-primary waves-effect waves-light">  <i class="fe-plus mr-1"></i>Add New</nuxt-link>-->
 
-                 </div> </div><br>
+<!--                 </div> </div><br>-->
 
                 <div class="card-body pt-0">
                     <div class="table-responsive mb-0">
@@ -21,18 +21,20 @@
                                     <th>Last Name</th>
                                     <th>Phone Number</th>
                                     <th>Email</th>
+                                    <th>Country</th>
                                     <th>Twilio Number</th>
-                                   <th>Ation</th>
-                                    
+                                   <th>Action</th>
+
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr v-if='users.list'  v-for="user in users.list" :key="user.id">
-                                    <td>{{ user.fname}}</td>
+                                    <td>{{ user.fname ? user.fname : user.name }}</td>
                                     <td>{{ user.lname }}</td>
                                     <td>{{ user.phone_no }}</td>
                                     <td>{{ user.email }}</td>
-                                    <td>{{ user.twilio_number }}</td>
+                                    <td>{{ user.hasOwnProperty('country') && user.country ? user.country.country_name : '' }}</td>
+                                    <td>{{ user.hasOwnProperty('twilio') && user.twilio ? user.twilio.phone_no : '' }}</td>
                                     <td>
                                         <ul class="list-inline table-action m-0">
                                             <li class="list-inline-item">
@@ -67,18 +69,13 @@ export default {
         return {
             title: "Welcome !",
              users:[],
-            items: [{
-                    text: "Minton"
-                },
+            items: [
                 {
-                    text: "Dashboards"
-                },
-                {
-                    text: "Sales",
+                    text: "In Fluencder Listing",
                     active: true
                 }
             ],
-            tableTitle: "Users",
+            tableTitle: "In Fluencer Users",
         };
     },
 
@@ -89,7 +86,6 @@ export default {
 this.$store.dispatch('getInfluencers')
 .then(response => {
    if(response.data.status) {
-
       this.users=response.data.data
 
    }

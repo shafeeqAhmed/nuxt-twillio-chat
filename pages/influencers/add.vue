@@ -93,6 +93,27 @@
               </div>
 
               <div class="form-group">
+                <label for="fname">password</label>
+                <input
+                  class="form-control"
+                  v-model="password"
+                  type="text"
+                  id="password"
+                  placeholder="Enter your Password"
+                  :class="{ 'is-invalid': submitted && $v.password.$error }"
+                />
+                <div
+                  v-if="submitted && !$v.password.required"
+                  class="invalid-feedback"
+                >
+                  Phone Number is required.
+                </div>
+                 <span v-if="backendErrors.password" class="text-danger">
+                  {{ backendErrors.password[0] }}
+                </span>
+              </div>
+
+              <div class="form-group">
 
                 <label for="phno">
                   Country
@@ -104,7 +125,7 @@
                   :class="{ 'is-invalid': submitted && $v.country_id.$error }"
                 >
                   <option value="">Select</option>
-                   <option v-for="country in countries" :value="country.country_id">{{ country.country_name }}</option>
+                   <option v-for="country in countries" :value="country.id">{{ country.country_name }}</option>
                 </select>
                 <div
                   v-if="submitted && !$v.country_id.required"
@@ -124,37 +145,38 @@
                 </label>
                 <select
                   class="form-control"
-                  v-model="twilio_number"
+                  v-model="twilio_id"
                   :class="{
-                    'is-invalid': submitted && $v.twilio_number.$error,
+                    'is-invalid': submitted && $v.twilio_id.$error,
                   }"
                 >
                   <option value="">Select</option>
                 <option v-for="number in twilio_numbers" :value="number.id">{{ number.phone_no }}</option>
                 </select>
                 <div
-                  v-if="submitted && !$v.twilio_number.required"
+                  v-if="submitted && !$v.twilio_id.required"
                   class="invalid-feedback"
                 >
                   Twilio Number is required.
                 </div>
-                 <span v-if="backendErrors.twilio_number" class="text-danger">
-                  {{ backendErrors.twilio_number[0] }}
+                 <span v-if="backendErrors.twilio_id" class="text-danger">
+                  {{ backendErrors.twilio_id[0] }}
                 </span>
               </div>
 
-              <div class="form-group">
-                <div class="checkbox checkbox-purple">
-                  <input id="checkbox6a" type="checkbox" />
-                  <label for="checkbox6a">Remember me</label>
-                </div>
-              </div>
+<!--              <div class="form-group">-->
+<!--                <div class="checkbox checkbox-purple">-->
+<!--                  <input id="checkbox6a" type="checkbox" />-->
+<!--                  <label for="checkbox6a">Remember me</label>-->
+<!--                </div>-->
+<!--              </div>-->
 
               <div class="form-group text-right m-b-0">
                 <button class="btn btn-primary" type="submit">Submit</button>
-                <button type="reset" class="btn btn-secondary m-l-5 ml-1">
+                <NuxtLink to="/" class="btn btn-secondary m-l-5 ml-1">
                   Cancel
-                </button>
+                </NuxtLink>
+
               </div>
             </form>
           </div>
@@ -178,32 +200,29 @@ export default {
   name: "add",
   head() {
     return {
-      title: `${this.title} | Minton - Nuxtjs Responsive Admin Dashboard Template`,
+      title: `${this.title} | Influencer`,
     };
   },
   data() {
     return {
-      title: "Add Users",
+      title: "Add In Fluencer",
       items: [
         {
-          text: "Minton",
-          href: "/",
+          text: "In Fluencers",
+          to: "/",
         },
         {
-          text: "Forms",
-          href: "/",
-        },
-        {
-          text: "Validation",
-          active: true,
+          text: "Add Form",
+          active: true
         },
       ],
       fname: "",
       lname: "",
       email: "",
       phone_no: "",
+      password: "",
       country_id: "",
-      twilio_number: "",
+      twilio_id: "",
       backendErrors: {},
       submitted: false,
       countries:[],
@@ -224,10 +243,13 @@ export default {
     phone_no: {
       required,
     },
+    password: {
+      required,
+    },
     country_id: {
       required,
     },
-    twilio_number: {
+    twilio_id: {
       required,
     },
   },
@@ -251,12 +273,13 @@ export default {
                     lname: this.lname,
                     email: this.email,
                     phone_no: this.phone_no,
+                  password: this.password,
                     country_id: this.country_id,
-                    twillo_id: this.twilio_number,
+                  twilio_id: this.twilio_id,
                     terms: 'on',
                     baseDomain: 'customer',
                 }
-          
+
             this.$store.dispatch('createInfluencer', payload)
                .then(response => {
                    if(response.data.status) {

@@ -126,20 +126,20 @@ export default {
 <div class="navbar-custom">
     <div class="container-fluid">
         <ul class="list-unstyled topnav-menu float-right mb-0">
-            <li class="d-none d-lg-block">
-                <form class="app-search">
-                    <div class="app-search-box">
-                        <div class="input-group">
-                            <input type="search" class="form-control" :placeholder="$t('navbar.search.text')" id="top-search" />
-                            <div class="input-group-append">
-                                <button class="btn" type="submit">
-                                    <i class="fe-search"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </form>
-            </li>
+<!--            <li class="d-none d-lg-block">-->
+<!--                <form class="app-search">-->
+<!--                    <div class="app-search-box">-->
+<!--                        <div class="input-group">-->
+<!--                            <input type="search" class="form-control" :placeholder="$t('navbar.search.text')" id="top-search" />-->
+<!--                            <div class="input-group-append">-->
+<!--                                <button class="btn" type="submit">-->
+<!--                                    <i class="fe-search"></i>-->
+<!--                                </button>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </form>-->
+<!--            </li>-->
 
             <li class="dropdown d-inline-block d-lg-none">
                 <a class="nav-link dropdown-toggle arrow-none waves-effect waves-light" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
@@ -266,11 +266,11 @@ export default {
                 </a>
             </b-nav-item-dropdown>
 
-            <li class="dropdown notification-list">
-                <a href="javascript:void(0);" @click="toggleRightSidebar" class="nav-link right-bar-toggle toggle-right">
-                    <i class="fe-settings noti-icon toggle-right"></i>
-                </a>
-            </li>
+<!--            <li class="dropdown notification-list">-->
+<!--                <a href="javascript:void(0);" @click="toggleRightSidebar" class="nav-link right-bar-toggle toggle-right">-->
+<!--                    <i class="fe-settings noti-icon toggle-right"></i>-->
+<!--                </a>-->
+<!--            </li>-->
         </ul>
 
         <!-- LOGO -->

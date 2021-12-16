@@ -175,7 +175,6 @@
 import { required, email } from "vuelidate/lib/validators";
 
 export default {
-  name: "add",
   head() {
     return {
       title: `${this.title} | Minton - Nuxtjs Responsive Admin Dashboard Template`,

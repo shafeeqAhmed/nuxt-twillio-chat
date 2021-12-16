@@ -34,8 +34,8 @@
                 </thead>
 
                 <tbody>
-                  
-                    <tr  v-if="users.list" v-for="user in users.list" :key="user.id">
+                    <template v-if="users.list">
+                    <tr   v-for="user in users.list" :key="user.id">
                       <td>{{ user.fname }}</td>
                       <td>{{ user.lname }}</td>
                       <td>{{ user.phone_no }}</td>
@@ -56,7 +56,7 @@
                         </ul>
                       </td>
                     </tr>
-                 
+                    </template>
                 </tbody>
               </table>
             </div>
@@ -68,7 +68,9 @@
 </template>
 
 <script>
+import templates from '../email/templates.vue';
 export default {
+  components: { templates },
   name: "index",
   head() {
     return {

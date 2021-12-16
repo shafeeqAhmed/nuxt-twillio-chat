@@ -125,7 +125,7 @@
                   :class="{ 'is-invalid': submitted && $v.country_id.$error }"
                 >
                   <option value="">Select</option>
-                   <option v-for="country in countries" :value="country.id" :key="country.id">{{ country.country_name }}</option>
+                   <option v-for="country in countries" :value="country.id">{{ country.country_name }}</option>
                 </select>
                 <div
                   v-if="submitted && !$v.country_id.required"
@@ -151,7 +151,7 @@
                   }"
                 >
                   <option value="">Select</option>
-                <option v-for="number in twilio_numbers" :value="number.id" :key="number.id" v-if="number.status=='active'" >{{ number.phone_no }}</option>
+                <option v-for="number in twilio_numbers" :value="number.id">{{ number.phone_no }}</option>
                 </select>
                 <div
                   v-if="submitted && !$v.twilio_id.required"

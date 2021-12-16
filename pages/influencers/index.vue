@@ -1,7 +1,7 @@
 <template>
-  <div>
+<div>
     <PageHeader :title="title" :items="items" />
-    <!-- end row -->
+       <!-- end row -->
     <div class="row">
         <!-- Table -->
         <div class="col-xl-12">
@@ -41,43 +41,21 @@
                                      <a  @click="$router.push(`/influencers/${user.user_uuid}`)"class="action-icon px-1"><i class="mdi mdi-square-edit-outline"></i></a >
                                         </li> </ul>
 
-                <tbody>
-                    <template v-if="users.list">
-                    <tr   v-for="user in users.list" :key="user.id">
-                      <td>{{ user.fname }}</td>
-                      <td>{{ user.lname }}</td>
-                      <td>{{ user.phone_no }}</td>
-                      <td>{{ user.email }}</td>
-                      <td>{{ user.country.country_name }}</td>
-                      <td>{{ user.twilo.phone_no }}</td>
-                      <td>
-                        <ul class="list-inline table-action m-0">
-                          <li class="list-inline-item">
-                            <a
-                              @click="
-                                $router.push(`/influencers/${user.user_uuid}`)
-                              "
-                              class="action-icon px-1"
-                              ><i class="mdi mdi-square-edit-outline"></i
-                            ></a>
-                          </li>
-                        </ul>
-                      </td>
-                    </tr>
-                    </template>
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </Portlet>
-      </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </Portlet>
+        </div>
     </div>
 
 </div>
 </template>
 
 <script>
-import templates from '../email/templates.vue';
+
 export default {
      name: "index",
     head() {
@@ -118,20 +96,7 @@ this.$store.dispatch('getInfluencers')
 .catch(() => {
    this.isDisabled = false
 
-  created() {
-    this.$store
-      .dispatch("getInfluencers")
-      .then((response) => {
-        if (response.data.status) {
-          this.users = response.data.data;
-        }
-      })
-      .catch((error) => {
-        this.backendErrors = error.response.data.errors;
-      })
-      .catch(() => {
-        this.isDisabled = false;
-      });
+})
   },
 };
 </script>

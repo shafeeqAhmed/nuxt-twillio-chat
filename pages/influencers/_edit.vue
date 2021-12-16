@@ -118,7 +118,7 @@
               <div class="form-group">
 
                 <label for="phno">
-                  Country
+                  Country 
                   <span class="text-danger">*</span>
                 </label>
                 <select
@@ -126,8 +126,8 @@
                   v-model="country_id"
                   :class="{ 'is-invalid': submitted && $v.country_id.$error }"
                 >
-                  <option value="">Select</option>
-                   <option v-for="country in countries" :value="country.country_id"  :selected="country.id == country_id" >{{ country.country_name }} - {{ country.id }} </option>
+                 
+                   <option v-for="country in countries" :value="country.id" :key="country.id">{{ country.country_name }}</option>
                 </select>
                 <div
                   v-if="submitted && !$v.country_id.required"
@@ -152,8 +152,8 @@
                     'is-invalid': submitted && $v.twilio_id.$error,
                   }"
                 >
-                  <option value="">Select</option>
-                <option v-for="number in twilio_numbers" :value="number.id">{{ number.phone_no }}</option>
+                
+                <option v-for="number in getTwilioNumbers" :value="number.id" :key="number.id"  >{{ number.phone_no }}</option>
                 </select>
                 <div
                   v-if="submitted && !$v.twilio_id.required"
@@ -193,7 +193,6 @@
 import { required, email } from "vuelidate/lib/validators";
 
 export default {
-  name: "add",
   head() {
     return {
       title: `${this.title} | In Fluencer`,
@@ -262,8 +261,7 @@ export default {
                 return;
             } else {
                this.tryingToRegister = true;
-                //     // Reset the regError if it existed.
-                //     this.regError = null;
+                
               if (!this.$v.$invalid && !this.isMatchPassword) {
                 const payload = {
                     fname: this.fname,
@@ -291,7 +289,7 @@ export default {
                 .catch(() => {
                    this.isDisabled = false
 
-                })
+                }) 
 
             }
 
@@ -345,6 +343,17 @@ this.$store.dispatch('getInfluencersDropdowns')
    this.isDisabled = false
 
 })
+  },
+  computed:{
+  getTwilioNumbers :function(){
+  let assign_number=this.twilio_number;
+    let filetred_numbers =  this.twilio_numbers.filter(function(number) {
+    return   number.id==assign_number || number.status == 'active';
+});
+
+return filetred_numbers;
+
+  }
   },
   middleware: "router-auth",
 };

@@ -74,6 +74,17 @@ export const actions = {
           .catch(error => reject(error))
       })    
     },
+    updateInfluencer({ commit },payload) {
+        return new Promise((resolve, reject) => {
+        this.$axios
+          .post(`update-influencer`, payload)
+          .then(response => {
+           
+            resolve(response)
+          })
+          .catch(error => reject(error))
+      })    
+    },
     getInfluencers({ commit }) {
         return new Promise((resolve, reject) => {
         this.$axios

@@ -95,7 +95,7 @@
               <div class="form-group">
 
                 <label for="phno">
-                  Country
+                  Country 
                   <span class="text-danger">*</span>
                 </label>
                 <select
@@ -103,8 +103,8 @@
                   v-model="country_id"
                   :class="{ 'is-invalid': submitted && $v.country_id.$error }"
                 >
-                  <option value="">Select</option>
-                   <option v-for="country in countries" :value="country.country_id">{{ country.country_name }}</option>
+                 
+                   <option v-for="country in countries" :value="country.id" :key="country.id">{{ country.country_name }}</option>
                 </select>
                 <div
                   v-if="submitted && !$v.country_id.required"
@@ -129,8 +129,8 @@
                     'is-invalid': submitted && $v.twilio_number.$error,
                   }"
                 >
-                  <option value="">Select</option>
-                <option v-for="number in twilio_numbers" :value="number.id">{{ number.phone_no }}</option>
+                
+                <option v-for="number in getTwilioNumbers" :value="number.id" :key="number.id"  >{{ number.phone_no }}</option>
                 </select>
                 <div
                   v-if="submitted && !$v.twilio_number.required"
@@ -152,9 +152,9 @@
 
               <div class="form-group text-right m-b-0">
                 <button class="btn btn-primary" type="submit">Submit</button>
-                <button type="reset" class="btn btn-secondary m-l-5 ml-1">
+              <nuxt-link to="/"  class="btn btn-secondary m-l-5 ml-1">
                   Cancel
-                </button>
+                </nuxt-link>
               </div>
             </form>
           </div>
@@ -204,6 +204,7 @@ export default {
       phone_no: "",
       country_id: "",
       twilio_number: "",
+      user_uuid: 0,
       backendErrors: {},
       submitted: false,
       countries:[],
@@ -245,8 +246,7 @@ export default {
                 return;
             } else {
                this.tryingToRegister = true;
-                //     // Reset the regError if it existed.
-                //     this.regError = null;
+                
               if (!this.$v.$invalid && !this.isMatchPassword) {
                 const payload = {
                     fname: this.fname,
@@ -254,15 +254,16 @@ export default {
                     email: this.email,
                     phone_no: this.phone_no,
                     country_id: this.country_id,
-                    twillo_id: this.twilio_number,
-                    terms: 'on',
-                    baseDomain: 'customer',
+                    twilo_id: this.twilio_number,
+                    user_uuid:this.user_uuid 
                 }
+
+                console.log(payload);
           
-            this.$store.dispatch('createInfluencer', payload)
+            this.$store.dispatch('updateInfluencer', payload)
                .then(response => {
                    if(response.data.status) {
-                        
+                         
                     this.$router.push('/influencers');
                   
                    }
@@ -273,7 +274,7 @@ export default {
                 .catch(() => {
                    this.isDisabled = false
 
-                })
+                }) 
 
             }
 
@@ -292,15 +293,14 @@ export default {
 this.$store.dispatch('getUserDetail',payload)
 .then(response => {
    if(response.data.status) {
-     const user=response.data.data.user_detail
-
+     const user=response.data.data.user_detail;
        this.fname=user.fname;
       this.lname= user.lname;
       this.email= user.email;
       this.phone_no=user.phone_no;
       this.country_id= user.country_id;
-      this.twilio_number= user.twilio_number;
-
+      this.twilio_number= user.twilo_id;
+      this.user_uuid= user.user_uuid ;
    }
 })
 .catch(error => {
@@ -326,6 +326,17 @@ this.$store.dispatch('getInfluencersDropdowns')
    this.isDisabled = false
 
 })
+  },
+  computed:{
+  getTwilioNumbers :function(){
+  let assign_number=this.twilio_number;
+    let filetred_numbers =  this.twilio_numbers.filter(function(number) {
+    return   number.id==assign_number || number.status == 'active';
+});
+
+return filetred_numbers;
+
+  }
   },
   middleware: "router-auth",
 };

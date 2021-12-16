@@ -104,7 +104,7 @@
                   :class="{ 'is-invalid': submitted && $v.country_id.$error }"
                 >
                   <option value="">Select</option>
-                   <option v-for="country in countries" :value="country.country_id">{{ country.country_name }}</option>
+                   <option v-for="country in countries" :value="country.id" :key="country.id">{{ country.country_name }}</option>
                 </select>
                 <div
                   v-if="submitted && !$v.country_id.required"
@@ -130,7 +130,7 @@
                   }"
                 >
                   <option value="">Select</option>
-                <option v-for="number in twilio_numbers" :value="number.id">{{ number.phone_no }}</option>
+                <option v-for="number in twilio_numbers" :value="number.id" :key="number.id" v-if="number.status=='active'" >{{ number.phone_no }}</option>
                 </select>
                 <div
                   v-if="submitted && !$v.twilio_number.required"
@@ -152,9 +152,9 @@
 
               <div class="form-group text-right m-b-0">
                 <button class="btn btn-primary" type="submit">Submit</button>
-                <button type="reset" class="btn btn-secondary m-l-5 ml-1">
+                <nuxt-link to="/"  class="btn btn-secondary m-l-5 ml-1">
                   Cancel
-                </button>
+                </nuxt-link>
               </div>
             </form>
           </div>
@@ -252,7 +252,7 @@ export default {
                     email: this.email,
                     phone_no: this.phone_no,
                     country_id: this.country_id,
-                    twillo_id: this.twilio_number,
+                    twilo_id: this.twilio_number,
                     terms: 'on',
                     baseDomain: 'customer',
                 }

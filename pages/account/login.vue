@@ -59,17 +59,18 @@ export default {
                         if(!response.data.status) {
                            this.invalidCredential= response.data.message
                         }
-                      
+
                         if(response.data.status) {
                             this.$auth.setUser(response.data.data.userData)
                             this.$auth.$storage.setUniversal('user', response.data.data.userData)
+                            this.$auth.$storage.setUniversal('loggedIn', true)
                             this.$router.push('/')
                         }
                     }).catch(error => {
                         this.backendErrors = error.response.data.errors
                     })
         }
-            
+
         },
     },
     layout: 'auth'
@@ -109,7 +110,7 @@ export default {
                             <span v-if="!$v.email.required">Email is required.</span>
                             <span v-if="!$v.email.email">Please enter valid email.</span>
                         </div>
-                        <span 
+                        <span
                 v-if="backendErrors.email"
                 class="text-danger"
                 >
@@ -129,7 +130,7 @@ export default {
                             </div>
                             <div v-if="submitted && !$v.password.required" class="invalid-feedback">Password is required.</div>
                         </div>
-                        <span 
+                        <span
                 v-if="backendErrors.password"
                 class="text-danger"
                 >

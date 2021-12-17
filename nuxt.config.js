@@ -57,7 +57,9 @@ export default {
     "~/plugins/quill-editor.js",
     "~/plugins/chartist.js",
     "~/plugins/vue-googlemap.js",
-    "~/plugins/string-filter"
+    "~/plugins/string-filter",
+    "~/plugins/persistedstate.js"
+
   ],
   /*
   ** Auto import components
@@ -98,6 +100,12 @@ export default {
             baseURL: 'http://localhost/twillio/twillo-api/api'
     },
   auth: {
+    redirect: {
+      login: '/account/login',
+      logout: '/',
+      callback: '/account/login',
+      home: '/'
+    },
     strategies: {
       local: {
         token: {

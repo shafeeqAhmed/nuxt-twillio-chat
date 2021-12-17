@@ -1,6 +1,6 @@
 <template>
   <div>
-    <PageHeader :title="title" :items="items" />
+    <PageHeader :title="title" :items="items"/>
     <div class="row">
       <div class="col-lg-8 mx-auto">
         <div class="card">
@@ -23,7 +23,7 @@
                 >
                   First Name is required.
                 </div>
-                  <span v-if="backendErrors.fname" class="text-danger">
+                <span v-if="backendErrors.fname" class="text-danger">
                   {{ backendErrors.fname[0] }}
                 </span>
               </div>
@@ -44,7 +44,7 @@
                 >
                   Last Name is required.
                 </div>
-                  <span v-if="backendErrors.lname" class="text-danger">
+                <span v-if="backendErrors.lname" class="text-danger">
                   {{ backendErrors.lname[0] }}
                 </span>
               </div>
@@ -74,7 +74,8 @@
               <div class="form-group">
                 <label for="fname">Phone Number</label>
                 <input
-                  class="form-control"
+                  :disabled="true"
+                  class="form-control disabled"
                   v-model="phone_no"
                   type="text"
                   id="phone_no"
@@ -87,7 +88,7 @@
                 >
                   Phone Number is required.
                 </div>
-                 <span v-if="backendErrors.phone_no" class="text-danger">
+                <span v-if="backendErrors.phone_no" class="text-danger">
                   {{ backendErrors.phone_no[0] }}
                 </span>
               </div>
@@ -108,7 +109,7 @@
                 >
                   Phone Number is required.
                 </div>
-                 <span v-if="backendErrors.password" class="text-danger">
+                <span v-if="backendErrors.password" class="text-danger">
                   {{ backendErrors.password[0] }}
                 </span>
               </div>
@@ -125,7 +126,7 @@
                   :class="{ 'is-invalid': submitted && $v.country_id.$error }"
                 >
                   <option value="">Select</option>
-                   <option v-for="country in countries" :value="country.id">{{ country.country_name }}</option>
+                  <option v-for="country in countries" :value="country.id">{{ country.country_name }}</option>
                 </select>
                 <div
                   v-if="submitted && !$v.country_id.required"
@@ -133,43 +134,11 @@
                 >
                   Country is required.
                 </div>
-                 <span v-if="backendErrors.country_id" class="text-danger">
+                <span v-if="backendErrors.country_id" class="text-danger">
                   {{ backendErrors.country_id[0] }}
                 </span>
               </div>
 
-              <div class="form-group">
-                <label for="phno">
-                  Twilio Number
-                  <span class="text-danger">*</span>
-                </label>
-                <select
-                  class="form-control"
-                  v-model="twilio_id"
-                  :class="{
-                    'is-invalid': submitted && $v.twilio_id.$error,
-                  }"
-                >
-                  <option value="">Select</option>
-                <option v-for="number in twilio_numbers" :value="number.id">{{ number.phone_no }}</option>
-                </select>
-                <div
-                  v-if="submitted && !$v.twilio_id.required"
-                  class="invalid-feedback"
-                >
-                  Twilio Number is required.
-                </div>
-                 <span v-if="backendErrors.twilio_id" class="text-danger">
-                  {{ backendErrors.twilio_id[0] }}
-                </span>
-              </div>
-
-<!--              <div class="form-group">-->
-<!--                <div class="checkbox checkbox-purple">-->
-<!--                  <input id="checkbox6a" type="checkbox" />-->
-<!--                  <label for="checkbox6a">Remember me</label>-->
-<!--                </div>-->
-<!--              </div>-->
 
               <div class="form-group text-right m-b-0">
                 <button class="btn btn-primary" type="submit">Submit</button>
@@ -194,7 +163,7 @@
 /**
  * Form Validation component
  */
-import { required, email } from "vuelidate/lib/validators";
+import {required, email} from "vuelidate/lib/validators";
 
 export default {
   name: "add",
@@ -205,7 +174,7 @@ export default {
   },
   data() {
     return {
-      title: "Add In Fluencer",
+      title: "Add Influencer",
       items: [
         {
           text: "In Fluencers",
@@ -219,14 +188,12 @@ export default {
       fname: "",
       lname: "",
       email: "",
-      phone_no: "",
+      phone_no: "03021234567",
       password: "",
       country_id: "",
-      twilio_id: "",
       backendErrors: {},
       submitted: false,
-      countries:[],
-      twilio_numbers:[]
+      countries: [],
     };
   },
   validations: {
@@ -249,76 +216,71 @@ export default {
     country_id: {
       required,
     },
-    twilio_id: {
-      required,
+  },
+  methods: {
+    // Try to register the user in with the email, username
+    // and password they provided.
+    tryToRegisterIn() {
+      this.submitted = true;
+      // stop here if form is invalid
+      this.$v.$touch();
+
+      if (this.$v.$invalid) {
+        return;
+      } else {
+        this.tryingToRegister = true;
+        //     // Reset the regError if it existed.
+        //     this.regError = null;
+        if (!this.$v.$invalid && !this.isMatchPassword) {
+          const payload = {
+            fname: this.fname,
+            lname: this.lname,
+            email: this.email,
+            phone_no: this.phone_no,
+            password: this.password,
+            country_id: this.country_id,
+            terms: 'on',
+            baseDomain: 'customer',
+          }
+
+          this.$store.dispatch('createInfluencer', payload)
+            .then(response => {
+              if (response.data.status) {
+
+                this.$router.push('/influencers');
+
+              }
+            })
+            .catch(error => {
+              this.backendErrors = error.response.data.errors
+            })
+            .catch(() => {
+              this.isDisabled = false
+
+            })
+
+        }
+
+
+      }
     },
   },
-    methods: {
-        // Try to register the user in with the email, username
-        // and password they provided.
-        tryToRegisterIn() {
-            this.submitted = true;
-            // stop here if form is invalid
-            this.$v.$touch();
-
-            if (this.$v.$invalid) {
-                return;
-            } else {
-               this.tryingToRegister = true;
-                //     // Reset the regError if it existed.
-                //     this.regError = null;
-              if (!this.$v.$invalid && !this.isMatchPassword) {
-                const payload = {
-                    fname: this.fname,
-                    lname: this.lname,
-                    email: this.email,
-                    phone_no: this.phone_no,
-                  password: this.password,
-                    country_id: this.country_id,
-                  twilio_id: this.twilio_id,
-                    terms: 'on',
-                    baseDomain: 'customer',
-                }
-
-            this.$store.dispatch('createInfluencer', payload)
-               .then(response => {
-                   if(response.data.status) {
-
-                    this.$router.push('/influencers');
-
-                   }
-               })
-               .catch(error => {
-                   this.backendErrors = error.response.data.errors
-                })
-                .catch(() => {
-                   this.isDisabled = false
-
-                })
-
-            }
+  created() {
 
 
-            }
-        },
-    },
-     created() {
+    this.$store.dispatch('getInfluencersDropdowns')
+      .then(response => {
+        if (response.data.status) {
+          this.countries = response.data.data.countries;
+        }
+      })
+      .catch(error => {
+        this.backendErrors = error.response.data.errors
+      })
+      .catch(() => {
+        this.isDisabled = false
 
-
-this.$store.dispatch('getInfluencersDropdowns')
-.then(response => {
-   if(response.data.status) {
-        this.countries=response.data.data.countries;
-        this.twilio_numbers=response.data.data.twillio_numbers;
-   }
-})
-.catch(error => {
-   this.backendErrors = error.response.data.errors
-})
-.catch(() => {
-   this.isDisabled = false
-
-})
+      })
   },
   // middleware: "router-auth",
 };

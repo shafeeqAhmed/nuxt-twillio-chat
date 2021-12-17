@@ -2079,6 +2079,11 @@
   "resolved" "https://registry.npmjs.org/acorn/-/acorn-8.6.0.tgz"
   "version" "8.6.0"
 
+"add@^2.0.6":
+  "integrity" "sha1-JI8Kn25aUo7yKV2+7DBTITCuIjU="
+  "resolved" "https://registry.npmjs.org/add/-/add-2.0.6.tgz"
+  "version" "2.0.6"
+
 "aggregate-error@^3.0.0":
   "integrity" "sha512-4I7Td01quW/RpocfNayFdFVk1qSuoh0E7JrbRJ16nH01HhKFQ88INq9Sd+nd72zqRySlr9BmDA8xlEJ6vJMrYA=="
   "resolved" "https://registry.npmjs.org/aggregate-error/-/aggregate-error-3.1.0.tgz"
@@ -5822,7 +5827,7 @@
   "resolved" "https://registry.npmjs.org/js-base64/-/js-base64-2.6.4.tgz"
   "version" "2.6.4"
 
-"js-cookie@^3.0.0":
+"js-cookie@^3.0.0", "js-cookie@^3.0.1":
   "integrity" "sha512-+0rgsUXZu4ncpPxRL+lNEptWMOWl9etvPHc/koSRp6MPwpRYAhmk0dUG00J4bxVV3r9uUzfo24wW0knS07SKSw=="
   "resolved" "https://registry.npmjs.org/js-cookie/-/js-cookie-3.0.1.tgz"
   "version" "3.0.1"
@@ -6933,6 +6938,11 @@
   dependencies:
     "cssnano" "^4.1.10"
     "last-call-webpack-plugin" "^3.0.0"
+
+"or@^0.2.0":
+  "integrity" "sha1-mQTqYeJZQ/k14g9PR0ngoUGoK2o="
+  "resolved" "https://registry.npmjs.org/or/-/or-0.2.0.tgz"
+  "version" "0.2.0"
 
 "os-browserify@^0.3.0":
   "integrity" "sha1-hUNzx/XCMVkU/Jv8a9gjj92h7Cc="
@@ -8775,6 +8785,11 @@
   "resolved" "https://registry.npmjs.org/shell-quote/-/shell-quote-1.7.3.tgz"
   "version" "1.7.3"
 
+"shvl@^2.0.3":
+  "integrity" "sha512-V7C6S9Hlol6SzOJPnQ7qzOVEWUQImt3BNmmzh40wObhla3XOYMe4gGiYzLrJd5TFa+cI2f9LKIRJTTKZSTbWgw=="
+  "resolved" "https://registry.npmjs.org/shvl/-/shvl-2.0.3.tgz"
+  "version" "2.0.3"
+
 "side-channel@^1.0.4":
   "integrity" "sha512-q5XPytqFEIKHkGdiMIrY10mvLRvnQh42/+GoBlFW3b2LXLE2xxJpZFdm94we0BaoV3RwJyGqg5wS7epxTv0Zvw=="
   "resolved" "https://registry.npmjs.org/side-channel/-/side-channel-1.0.4.tgz"
@@ -10070,7 +10085,15 @@
   "resolved" "https://registry.npmjs.org/vuelidate/-/vuelidate-0.7.7.tgz"
   "version" "0.7.7"
 
-"vuex@^3.5.1", "vuex@^3.6.2":
+"vuex-persistedstate@^4.1.0":
+  "integrity" "sha512-3SkEj4NqwM69ikJdFVw6gObeB0NHyspRYMYkR/EbhR0hbvAKyR5gksVhtAfY1UYuWUOCCA0QNGwv9pOwdj+XUQ=="
+  "resolved" "https://registry.npmjs.org/vuex-persistedstate/-/vuex-persistedstate-4.1.0.tgz"
+  "version" "4.1.0"
+  dependencies:
+    "deepmerge" "^4.2.2"
+    "shvl" "^2.0.3"
+
+"vuex@^3.0 || ^4.0.0-rc", "vuex@^3.5.1", "vuex@^3.6.2":
   "integrity" "sha512-ETW44IqCgBpVomy520DT5jf8n0zoCac+sxWnn+hMe/CzaSejb/eVw2YToiXYX+Ex/AuHHia28vWTq4goAexFbw=="
   "resolved" "https://registry.npmjs.org/vuex/-/vuex-3.6.2.tgz"
   "version" "3.6.2"
@@ -10418,6 +10441,11 @@
     "string-width" "^4.2.0"
     "y18n" "^5.0.5"
     "yargs-parser" "^20.2.2"
+
+"yarn@^1.22.17":
+  "integrity" "sha512-H0p241BXaH0UN9IeH//RT82tl5PfNraVpSpEoW+ET7lmopNC61eZ+A+IDvU8FM6Go5vx162SncDL8J1ZjRBriQ=="
+  "resolved" "https://registry.npmjs.org/yarn/-/yarn-1.22.17.tgz"
+  "version" "1.22.17"
 
 "yocto-queue@^0.1.0":
   "integrity" "sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q=="

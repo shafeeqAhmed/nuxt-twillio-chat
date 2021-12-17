@@ -314,7 +314,7 @@ export default {
             <b-nav-item-dropdown class="d-none d-lg-block">
                 <template slot="button-content">
 <!--                    {{ $t('navbar.dropdown.createnew.text') }}-->
-                  Menu
+                  Influencer
                     <i class="mdi mdi-chevron-down"></i>
                 </template>
                 <!-- <b-dropdown-item href="#">
@@ -323,7 +323,8 @@ export default {
                 </b-dropdown-item> -->
                 <b-dropdown-item >
                   <NuxtLink to="/influencers/add"> <i class="fe-user mr-1"></i>
-                    <span>{{ $t('navbar.dropdown.createnew.list.users') }}</span></NuxtLink>
+                    <span>Create</span></NuxtLink>
+<!--                    <span>{{ $t('navbar.dropdown.createnew.list.users') }}</span></NuxtLink>-->
 
                 </b-dropdown-item>
                 <!-- <b-dropdown-item href="#">

@@ -22,7 +22,6 @@
                                     <th>Phone Number</th>
                                     <th>Email</th>
                                     <th>Country</th>
-                                    <th>Twilio Number</th>
                                    <th>Action</th>
 
                                 </tr>
@@ -34,7 +33,6 @@
                                     <td>{{ user.phone_no }}</td>
                                     <td>{{ user.email }}</td>
                                     <td>{{ user.hasOwnProperty('country') && user.country ? user.country.country_name : '' }}</td>
-                                    <td>{{ user.hasOwnProperty('twilio') && user.twilio ? user.twilio.phone_no : '' }}</td>
                                     <td>
                                         <ul class="list-inline table-action m-0">
                                             <li class="list-inline-item">

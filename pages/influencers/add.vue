@@ -93,6 +93,14 @@
                 </span>
               </div>
 
+
+               <div class="form-group twilio_no" v-if='is_twilio_no'>
+               <a href="#" @click="generateTwilioNumber()"> <label for="fname">Generate Twilio Number</label></a>
+               
+              </div>
+
+
+
               <div class="form-group">
                 <label for="fname">password</label>
                 <input
@@ -188,12 +196,13 @@ export default {
       fname: "",
       lname: "",
       email: "",
-      phone_no: "03021234567",
+      phone_no: "",
       password: "",
       country_id: "",
       backendErrors: {},
       submitted: false,
       countries: [],
+      is_twilio_no:1
     };
   },
   validations: {
@@ -218,6 +227,21 @@ export default {
     },
   },
   methods: {
+
+    generateTwilioNumber(){
+     this.$store.dispatch('createTwilioNumber')
+            .then(response => {
+              this.phone_no=response.data.data.number
+               this.is_twilio_no=0
+             })
+            .catch(error => {
+              this.backendErrors = error.response.data.errors
+            })
+            .catch(() => {
+              this.isDisabled = false
+
+            })
+    },
     // Try to register the user in with the email, username
     // and password they provided.
     tryToRegisterIn() {

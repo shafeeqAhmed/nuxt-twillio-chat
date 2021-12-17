@@ -57,44 +57,44 @@ export const actions = {
         this.$axios
           .post(`register`, payload)
           .then(response => {
-           
+
             resolve(response)
           })
           .catch(error => reject(error))
-      })    
+      })
     },
-    createInfluencer({ commit },payload) {
-        return new Promise((resolve, reject) => {
-        this.$axios
-          .post(`create-influencer`, payload)
-          .then(response => {
-           
-            resolve(response)
-          })
-          .catch(error => reject(error))
-      })    
-    },
-    updateInfluencer({ commit },payload) {
+  updateInfluencer({ commit },payload) {
         return new Promise((resolve, reject) => {
         this.$axios
           .post(`update-influencer`, payload)
           .then(response => {
-           
+
             resolve(response)
           })
           .catch(error => reject(error))
-      })    
+      })
+    },
+  createInfluencer({ commit },payload) {
+        return new Promise((resolve, reject) => {
+        this.$axios
+          .post(`create-influencer`, payload)
+          .then(response => {
+
+            resolve(response)
+          })
+          .catch(error => reject(error))
+      })
     },
     getInfluencers({ commit }) {
         return new Promise((resolve, reject) => {
         this.$axios
           .get(`get-influencers`)
           .then(response => {
-           
+
             resolve(response)
           })
           .catch(error => reject(error))
-      })    
+      })
     },
 
     getInfluencersDropdowns({ commit }) {
@@ -102,11 +102,11 @@ export const actions = {
         this.$axios
           .get(`get-influencers-dropdowns`)
           .then(response => {
-           
+
             resolve(response)
           })
           .catch(error => reject(error))
-      })    
+      })
     },
 
   getUserDetail({ commit },payload) {
@@ -114,11 +114,11 @@ export const actions = {
         this.$axios
           .get(`users/`+payload.uuid)
           .then(response => {
-           
+
             resolve(response)
           })
           .catch(error => reject(error))
-      })    
+      })
     },
 
     // register the user

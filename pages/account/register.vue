@@ -82,31 +82,31 @@ export default {
                     terms: 'on',
                     baseDomain: 'customer',
                 }
-               
-    
+
+
                 this.$store.dispatch('register', payload)
                .then(response => {
                    if(response.data.status) {
-                       /*this.$notify({
-                            group: 'addCartSuccess',
-                            title: 'Success!',
-                            text: 'A verfication email has been sent to you please confirm it from your Inbox!'
-                        });*/
-                    this.$router.push('/account/login');
-                  
+                     this.$store.dispatch('notification/success','Signup Successfully! please Login Now')
+                     this.$router.push('/account/login');
+
                    }
                })
                .catch(error => {
                    this.backendErrors = error.response.data.errors
+                 if(this.backendErrors ) {
+                   this.$store.dispatch('notification/error','There is the Error Please take a Look')
+                 }
+
                 })
                 .catch(() => {
                    this.isDisabled = false
 
                 })
-        
+
             }
 
-            
+
             }
         },
     },
@@ -155,7 +155,7 @@ export default {
                             <span v-if="!$v.user.email.required">Email is required.</span>
                             <span v-if="!$v.user.email.email">Please enter valid email.</span>
                         </div>
-                        <span 
+                        <span
                 v-if="backendErrors.email"
                 class="text-danger"
                 >
@@ -179,7 +179,7 @@ export default {
                             <div v-if="submitted && !$v.user.password.required" class="invalid-feedback">Password is required.</div>
 
                         </div>
-                           <span 
+                           <span
                 v-if="backendErrors.password"
                 class="text-danger"
                 >

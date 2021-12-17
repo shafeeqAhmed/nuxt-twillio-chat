@@ -1,5 +1,5 @@
 export default {
-  loading: "~/components/loading.vue",
+  loading: "./components/Loading.vue",
   router: {
     extendRoutes(routes) {
       routes.push({
@@ -7,7 +7,7 @@ export default {
         component: "~/pages/influencers/index.vue"
       });
     },
-    // middleware: ['authentication']
+    middleware: ['authentication']
 
   },
   /*
@@ -57,7 +57,9 @@ export default {
     "~/plugins/quill-editor.js",
     "~/plugins/chartist.js",
     "~/plugins/vue-googlemap.js",
-    "~/plugins/string-filter"
+    "~/plugins/string-filter",
+    "~/plugins/persistedstate.js"
+
   ],
   /*
   ** Auto import components
@@ -95,9 +97,15 @@ export default {
     }
   },
   axios: {
-            baseURL: 'http://localhost/chat-app/twillo-api/api'
+            baseURL: 'http://localhost/twillio/twillo-api/api'
     },
   auth: {
+    redirect: {
+      login: '/account/login',
+      logout: '/',
+      callback: '/account/login',
+      home: '/'
+    },
     strategies: {
       local: {
         token: {

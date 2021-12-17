@@ -189,7 +189,6 @@ export default {
       backendErrors: {},
       submitted: false,
       countries: [],
-      twilio_numbers: [],
       user: []
 
     };
@@ -262,10 +261,7 @@ export default {
     getDropdown() {
       this.$store.dispatch('getInfluencersDropdowns')
         .then(response => {
-          if (response.data.status) {
-            this.countries = response.data.data.countries;
-            this.twilio_numbers = response.data.data.twillio_numbers;
-          }
+            this.countries = response.data.data;
         })
         .catch(error => {
           this.backendErrors = error.response.data.errors
@@ -285,16 +281,13 @@ export default {
 
     this.$store.dispatch('getUserDetail', payload)
       .then(response => {
-        if (response.data.status) {
           const user = response.data.data.user_detail
-
           this.fname = user.fname ? user.fname : user.name;
           this.lname = user.lname;
           this.email = user.email;
           this.phone_no = user.phone_no;
           this.country_id = user.country_id;
           this.getDropdown()
-        }
       })
       .catch(error => {
         this.backendErrors = error.response.data.errors

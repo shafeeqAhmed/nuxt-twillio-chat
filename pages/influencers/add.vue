@@ -245,11 +245,7 @@ export default {
 
           this.$store.dispatch('createInfluencer', payload)
             .then(response => {
-              if (response.data.status) {
-
-                this.$router.push('/influencers');
-
-              }
+             this.$router.push('/influencers');        
             })
             .catch(error => {
               this.backendErrors = error.response.data.errors
@@ -267,19 +263,15 @@ export default {
   },
   created() {
 
-
     this.$store.dispatch('getInfluencersDropdowns')
       .then(response => {
-        if (response.data.status) {
-          this.countries = response.data.data.countries;
-        }
+          this.countries = response.data.data;
       })
       .catch(error => {
         this.backendErrors = error.response.data.errors
       })
       .catch(() => {
         this.isDisabled = false
-
       })
   },
   // middleware: "router-auth",

@@ -126,7 +126,7 @@
                   :class="{ 'is-invalid': submitted && $v.country_id.$error }"
                 >
                   <option value="">Select</option>
-                  <option v-for="country in countries" :value="country.id">{{ country.country_name }}</option>
+                  <option v-for="country in countries" :value="country.id" :key="country.id"  >{{ country.country_name }}</option>
                 </select>
                 <div
                   v-if="submitted && !$v.country_id.required"

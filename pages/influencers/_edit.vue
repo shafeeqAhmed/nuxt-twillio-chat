@@ -102,15 +102,7 @@
                   placeholder="Enter your password"
 
                 />
-                <!--                <div-->
-                <!--                  v-if="submitted && !$v.password.required"-->
-                <!--                  class="invalid-feedback"-->
-                <!--                >-->
-                <!--                  Phone Number is required.-->
-                <!--                </div>-->
-                <!--                <span v-if="backendErrors.password" class="text-danger">-->
-                <!--                  {{ backendErrors.password[0] }}-->
-                <!--                </span>-->
+               
               </div>
 
 
@@ -126,7 +118,7 @@
                   :class="{ 'is-invalid': submitted && $v.country_id.$error }"
                 >
                   <option value="">Select</option>
-                  <option v-for="country in countries" :value="country.id" :selected="country.id == country_id">
+                  <option v-for="country in countries" :key="country.id" :value="country.id" :selected="country.id == country_id">
                     {{ country.country_name }}
                   </option>
                 </select>
@@ -252,11 +244,7 @@ export default {
 
           this.$store.dispatch('updateInfluencer', payload)
             .then(response => {
-              if (response.data.status) {
-
-                this.$router.push('/influencers');
-
-              }
+                this.$router.push('/influencers'); 
             })
             .catch(error => {
               this.backendErrors = error.response.data.errors

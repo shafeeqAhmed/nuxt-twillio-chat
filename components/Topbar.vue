@@ -107,12 +107,9 @@ export default {
          */
         logoutUser() {
             this.$auth.$storage.removeUniversal('user')
+           
             this.$auth.logout()
-            // if (process.env.auth === "firebase") {
-            //     this.$store.dispatch("auth/logOut");
-            // } else if (process.env.auth === "fakebackend") {
-            //     this.$store.dispatch("authfack/logout");
-            // }
+           //   this.$auth.$storage.removeUniversal('accessToken')
             this.$router.push({
                 path: "/account/login",
             });
@@ -257,7 +254,7 @@ export default {
                 </b-dropdown-item> -->
 
                 <b-dropdown-divider></b-dropdown-divider>
-                <a class="dropdown-item" @click="logoutUser" href="jvascript: void(0);">
+                <a class="dropdown-item" @click="logoutUser" >
                     <i class="fe-log-out mr-1"></i>
                     <span>{{ $t('navbar.dropdown.name.list.logout') }}</span>
                 </a>

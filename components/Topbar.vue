@@ -108,6 +108,7 @@ export default {
         logoutUser() {
           this.$auth.$storage.removeUniversal('user')
           this.$auth.$storage.removeUniversal('loggedIn')
+          this.$auth.$storage.removeUniversal('accessToken')
             this.$auth.logout()
            //   this.$auth.$storage.removeUniversal('accessToken')
             this.$router.push({

@@ -101,9 +101,9 @@ export default {
     },
   auth: {
     redirect: {
-      login: '/account/login',
+      login: '/login',
       logout: '/',
-      callback: '/account/login',
+      callback: '/login',
       home: '/'
     },
     strategies: {
@@ -111,6 +111,7 @@ export default {
         token: {
           property: 'data.accessToken',
           required: true,
+          global: true,
           maxAge: 43200,
           type: 'Bearer',
           name: 'Authorization'

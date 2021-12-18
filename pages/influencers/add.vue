@@ -93,6 +93,14 @@
                 </span>
               </div>
 
+
+               <div class="form-group twilio_no" v-if='is_twilio_no'>
+               <a href="#" @click="generateTwilioNumber()"> <label for="fname">Generate Twilio Number</label></a>
+               
+              </div>
+
+
+
               <div class="form-group">
                 <label for="fname">password</label>
                 <input
@@ -126,7 +134,7 @@
                   :class="{ 'is-invalid': submitted && $v.country_id.$error }"
                 >
                   <option value="">Select</option>
-                  <option v-for="country in countries" :value="country.id">{{ country.country_name }}</option>
+                  <option v-for="country in countries" :value="country.id" :key="country.id"  >{{ country.country_name }}</option>
                 </select>
                 <div
                   v-if="submitted && !$v.country_id.required"
@@ -188,12 +196,13 @@ export default {
       fname: "",
       lname: "",
       email: "",
-      phone_no: "03021234567",
+      phone_no: "",
       password: "",
       country_id: "",
       backendErrors: {},
       submitted: false,
       countries: [],
+      is_twilio_no:1
     };
   },
   validations: {
@@ -218,6 +227,21 @@ export default {
     },
   },
   methods: {
+
+    generateTwilioNumber(){
+     this.$store.dispatch('createTwilioNumber')
+            .then(response => {
+              this.phone_no=response.data.data.number
+               this.is_twilio_no=0
+             })
+            .catch(error => {
+              this.backendErrors = error.response.data.errors
+            })
+            .catch(() => {
+              this.isDisabled = false
+
+            })
+    },
     // Try to register the user in with the email, username
     // and password they provided.
     tryToRegisterIn() {
@@ -245,11 +269,7 @@ export default {
 
           this.$store.dispatch('createInfluencer', payload)
             .then(response => {
-              if (response.data.status) {
-
-                this.$router.push('/influencers');
-
-              }
+             this.$router.push('/influencers');        
             })
             .catch(error => {
               this.backendErrors = error.response.data.errors
@@ -267,19 +287,15 @@ export default {
   },
   created() {
 
-
     this.$store.dispatch('getInfluencersDropdowns')
       .then(response => {
-        if (response.data.status) {
-          this.countries = response.data.data.countries;
-        }
+          this.countries = response.data.data;
       })
       .catch(error => {
         this.backendErrors = error.response.data.errors
       })
       .catch(() => {
         this.isDisabled = false
-
       })
   },
   // middleware: "router-auth",

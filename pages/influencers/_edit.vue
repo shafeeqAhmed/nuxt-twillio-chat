@@ -102,15 +102,7 @@
                   placeholder="Enter your password"
 
                 />
-                <!--                <div-->
-                <!--                  v-if="submitted && !$v.password.required"-->
-                <!--                  class="invalid-feedback"-->
-                <!--                >-->
-                <!--                  Phone Number is required.-->
-                <!--                </div>-->
-                <!--                <span v-if="backendErrors.password" class="text-danger">-->
-                <!--                  {{ backendErrors.password[0] }}-->
-                <!--                </span>-->
+               
               </div>
 
 
@@ -126,7 +118,7 @@
                   :class="{ 'is-invalid': submitted && $v.country_id.$error }"
                 >
                   <option value="">Select</option>
-                  <option v-for="country in countries" :value="country.id" :selected="country.id == country_id">
+                  <option v-for="country in countries" :key="country.id" :value="country.id" :selected="country.id == country_id">
                     {{ country.country_name }}
                   </option>
                 </select>
@@ -197,7 +189,6 @@ export default {
       backendErrors: {},
       submitted: false,
       countries: [],
-      twilio_numbers: [],
       user: []
 
     };
@@ -252,11 +243,7 @@ export default {
 
           this.$store.dispatch('updateInfluencer', payload)
             .then(response => {
-              if (response.data.status) {
-
-                this.$router.push('/influencers');
-
-              }
+                this.$router.push('/influencers'); 
             })
             .catch(error => {
               this.backendErrors = error.response.data.errors
@@ -274,10 +261,7 @@ export default {
     getDropdown() {
       this.$store.dispatch('getInfluencersDropdowns')
         .then(response => {
-          if (response.data.status) {
-            this.countries = response.data.data.countries;
-            this.twilio_numbers = response.data.data.twillio_numbers;
-          }
+            this.countries = response.data.data;
         })
         .catch(error => {
           this.backendErrors = error.response.data.errors
@@ -297,16 +281,13 @@ export default {
 
     this.$store.dispatch('getUserDetail', payload)
       .then(response => {
-        if (response.data.status) {
           const user = response.data.data.user_detail
-
           this.fname = user.fname ? user.fname : user.name;
           this.lname = user.lname;
           this.email = user.email;
           this.phone_no = user.phone_no;
           this.country_id = user.country_id;
           this.getDropdown()
-        }
       })
       .catch(error => {
         this.backendErrors = error.response.data.errors

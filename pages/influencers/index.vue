@@ -27,7 +27,8 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr v-if='users.list'  v-for="user in users.list" :key="user.id">
+                                <template v-if='users.list'>
+                                <tr   v-for="user in users.list" :key="user.id">
                                     <td>{{ user.fname ? user.fname : user.name }}</td>
                                     <td>{{ user.lname }}</td>
                                     <td>{{ user.phone_no }}</td>
@@ -41,6 +42,7 @@
 
                                     </td>
                                 </tr>
+                                </template>
                             </tbody>
                         </table>
                     </div>
@@ -80,13 +82,9 @@ export default {
 
   created() {
 
-
 this.$store.dispatch('getInfluencers')
 .then(response => {
-   if(response.data.status) {
-      this.users=response.data.data
-
-   }
+      this.users=response.data.data 
 })
 .catch(error => {
    this.backendErrors = error.response.data.errors

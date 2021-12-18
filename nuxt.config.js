@@ -101,9 +101,9 @@ export default {
     },
   auth: {
     redirect: {
-      login: '/login',
+      login: '/account/login',
       logout: '/',
-      callback: '/login',
+      callback: '/account/login',
       home: '/'
     },
     strategies: {

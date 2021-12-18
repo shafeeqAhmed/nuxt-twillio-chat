@@ -9,7 +9,7 @@ console.log($auth.user)
       // && !route.query.hasOwnProperty('signature')
 
     ) {
-      // return redirect('/account/login');
+      return redirect('/account/login');
     }
   }
 }

@@ -106,7 +106,8 @@ export default {
          * Logout user
          */
         logoutUser() {
-            this.$auth.$storage.removeUniversal('user')
+          this.$auth.$storage.removeUniversal('user')
+          this.$auth.$storage.removeUniversal('loggedIn')
             this.$auth.logout()
             // if (process.env.auth === "firebase") {
             //     this.$store.dispatch("auth/logOut");

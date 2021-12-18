@@ -5,7 +5,7 @@
     <div class="row">
         <!-- Table -->
         <div class="col-xl-12">
-            <Portlet :headertitle="tableTitle">
+            <Portlet :headertitle="tableTitle"  v-if="$auth.hasScope('admin')">
 <!--              <div class="row"><div class="col-sm-3">-->
 
 <!--                 <nuxt-link to="/influencers/add" class="btn btn-primary waves-effect waves-light">  <i class="fe-plus mr-1"></i>Add New</nuxt-link>-->
@@ -47,7 +47,10 @@
                         </table>
                     </div>
                 </div>
-            </Portlet>
+            </Portlet  >
+          <Portlet  v-else>
+            <h1>This Dashboard for Influencer</h1>
+          </Portlet>
         </div>
     </div>
 
@@ -60,7 +63,7 @@ export default {
      name: "index",
     head() {
         return {
-            title: `Sales Dashboard | Minton - Nuxtjs Responsive Admin Dashboard Template`,
+            title: 'Dashboard',
 
         };
     },
@@ -78,13 +81,16 @@ export default {
             tableTitle: "In Fluencer Users",
         };
     },
+  computed: {
+
+  },
 
 
   created() {
 
 this.$store.dispatch('getInfluencers')
 .then(response => {
-      this.users=response.data.data 
+      this.users=response.data.data
 })
 .catch(error => {
    this.backendErrors = error.response.data.errors

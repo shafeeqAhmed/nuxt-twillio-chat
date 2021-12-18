@@ -96,7 +96,7 @@
 
                <div class="form-group twilio_no" v-if='is_twilio_no'>
                <a href="#" @click="generateTwilioNumber()"> <label for="fname">Generate Twilio Number</label></a>
-               
+
               </div>
 
 
@@ -229,7 +229,8 @@ export default {
   methods: {
 
     generateTwilioNumber(){
-     this.$store.dispatch('createTwilioNumber')
+      this.is_twilio_no=0
+      this.$store.dispatch('createTwilioNumber')
             .then(response => {
               this.phone_no=response.data.data.number
                this.is_twilio_no=0
@@ -238,6 +239,8 @@ export default {
               this.backendErrors = error.response.data.errors
             })
             .catch(() => {
+              this.is_twilio_no=1
+
               this.isDisabled = false
 
             })
@@ -269,7 +272,7 @@ export default {
 
           this.$store.dispatch('createInfluencer', payload)
             .then(response => {
-             this.$router.push('/influencers');        
+             this.$router.push('/influencers');
             })
             .catch(error => {
               this.backendErrors = error.response.data.errors

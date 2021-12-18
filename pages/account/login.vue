@@ -65,7 +65,6 @@ export default {
                             this.$auth.setUser(response.data.data.userData)
                             this.$auth.$storage.setUniversal('user', response.data.data.userData)
                             this.$auth.$storage.setUniversal('loggedIn', true)
-                            // this.$auth.$storage.setUniversal('test', 'pakistan')
                             this.$router.push('/')
                         }
                     }).catch(error => {

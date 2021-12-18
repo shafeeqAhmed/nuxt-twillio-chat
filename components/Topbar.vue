@@ -227,14 +227,12 @@ export default {
                     </div>
                 </template>
 
-                <!-- <b-dropdown-header>
-                    <h6 class="text-overflow m-0 py-2">{{ $t('navbar.dropdown.name.list.greet') }}</h6>
-                </b-dropdown-header> -->
+                <b-dropdown-header v-if="$auth.loggedIn">
+                    <h6 class="text-overflow m-0 py-2">
+                      {{ $auth.user.name }}
+                    </h6>
+                </b-dropdown-header>
 
-                <b-dropdown-item href="#">
-                    <i class="remixicon-account-circle-line"></i>
-                    <span>{{ $t('navbar.dropdown.name.list.account') }}</span>
-                </b-dropdown-item>
 
                 <!-- <b-dropdown-item href="#">
                     <i class="remixicon-settings-3-line"></i>
@@ -309,7 +307,7 @@ export default {
                 </a>
                 <!-- End mobile menu toggle-->
             </li>
-            <b-nav-item-dropdown class="d-none d-lg-block">
+            <b-nav-item-dropdown class="d-none d-lg-block" v-if="$auth.hasScope('admin')">
                 <template slot="button-content">
 <!--                    {{ $t('navbar.dropdown.createnew.text') }}-->
                   Influencer

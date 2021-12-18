@@ -289,7 +289,7 @@ export default {
         </div>
 
         <!--- Sidemenu -->
-        <div id="sidebar-menu">
+        <div id="sidebar-menu" v-if="$auth.hasScope('admin')">
             <!-- Left Menu Start -->
             <ul class="list-unstyled" id="side-menu">
                 <template v-for="item in menuItems">

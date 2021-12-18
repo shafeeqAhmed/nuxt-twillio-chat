@@ -1,6 +1,6 @@
 <template>
   <div>
-    <PageHeader :title="title" :items="items"/>
+    <PageHeader :title="title" :items="items" />
     <div class="row">
       <div class="col-lg-8 mx-auto">
         <div class="card">
@@ -93,13 +93,23 @@
                 </span>
               </div>
 
-
-               <div class="form-group twilio_no" v-if='is_twilio_no'>
-               <a href="#" @click="generateTwilioNumber()"> <label for="fname">Generate Twilio Number</label></a>
-
+              <div class="form-group twilio_no" v-if="is_twilio_no">
+                <a  role="button" href="#" @click="generateTwilioNumber()">
+                  <label for="fname">Generate Twilio Number</label></a
+                >
               </div>
 
-
+                <div class="loader" v-if="isLoading">
+        
+                      
+              <div class="card-portlets-loader" >
+                          <span
+                          aria-hidden="true"
+                          class="m-2 spinner-border text-primary"
+                        ></span>
+                      </div>
+                
+                </div>
 
               <div class="form-group">
                 <label for="fname">password</label>
@@ -123,7 +133,6 @@
               </div>
 
               <div class="form-group">
-
                 <label for="phno">
                   Country
                   <span class="text-danger">*</span>
@@ -134,7 +143,13 @@
                   :class="{ 'is-invalid': submitted && $v.country_id.$error }"
                 >
                   <option value="">Select</option>
-                  <option v-for="country in countries" :value="country.id" :key="country.id"  >{{ country.country_name }}</option>
+                  <option
+                    v-for="country in countries"
+                    :value="country.id"
+                    :key="country.id"
+                  >
+                    {{ country.country_name }}
+                  </option>
                 </select>
                 <div
                   v-if="submitted && !$v.country_id.required"
@@ -147,13 +162,11 @@
                 </span>
               </div>
 
-
               <div class="form-group text-right m-b-0">
                 <button class="btn btn-primary" type="submit">Submit</button>
                 <NuxtLink to="/" class="btn btn-secondary m-l-5 ml-1">
                   Cancel
                 </NuxtLink>
-
               </div>
             </form>
           </div>
@@ -163,7 +176,11 @@
       <!-- end col -->
     </div>
     <!-- end row -->
+    
+  
   </div>
+
+
 </template>
 
 
@@ -171,7 +188,7 @@
 /**
  * Form Validation component
  */
-import {required, email} from "vuelidate/lib/validators";
+import { required, email } from "vuelidate/lib/validators";
 
 export default {
   name: "add",
@@ -190,7 +207,7 @@ export default {
         },
         {
           text: "Add Form",
-          active: true
+          active: true,
         },
       ],
       fname: "",
@@ -202,7 +219,8 @@ export default {
       backendErrors: {},
       submitted: false,
       countries: [],
-      is_twilio_no:1
+      is_twilio_no: 1,
+      isLoading:0
     };
   },
   validations: {
@@ -227,23 +245,29 @@ export default {
     },
   },
   methods: {
+    enableSpinner() {
+      this.$store.dispatch("spinner/success", "single_loader");
+    },
+    disableSpinner() {
+      this.$store.dispatch("spinner/clear", "");
+    },
 
-    generateTwilioNumber(){
-      this.is_twilio_no=0
-      this.$store.dispatch('createTwilioNumber')
-            .then(response => {
-              this.phone_no=response.data.data.number
-               this.is_twilio_no=0
-             })
-            .catch(error => {
-              this.backendErrors = error.response.data.errors
-            })
-            .catch(() => {
-              this.is_twilio_no=1
+    generateTwilioNumber() {
 
-              this.isDisabled = false
-
-            })
+      this.isLoading=1;
+      this.$store
+        .dispatch("createTwilioNumber")
+        .then((response) => {
+          this.phone_no = response.data.data.number;
+          this.is_twilio_no = 0;
+          this.isLoading=0;
+        })
+        .catch((error) => {
+          this.backendErrors = error.response.data.errors;
+        })
+        .catch(() => {
+          this.isDisabled = false;
+        });
     },
     // Try to register the user in with the email, username
     // and password they provided.
@@ -266,40 +290,37 @@ export default {
             phone_no: this.phone_no,
             password: this.password,
             country_id: this.country_id,
-            terms: 'on',
-            baseDomain: 'customer',
-          }
+            terms: "on",
+            baseDomain: "customer",
+          };
 
-          this.$store.dispatch('createInfluencer', payload)
-            .then(response => {
-             this.$router.push('/influencers');
+          this.$store
+            .dispatch("createInfluencer", payload)
+            .then((response) => {
+              this.$router.push("/influencers");
             })
-            .catch(error => {
-              this.backendErrors = error.response.data.errors
+            .catch((error) => {
+              this.backendErrors = error.response.data.errors;
             })
             .catch(() => {
-              this.isDisabled = false
-
-            })
-
+              this.isDisabled = false;
+            });
         }
-
-
       }
     },
   },
   created() {
-
-    this.$store.dispatch('getInfluencersDropdowns')
-      .then(response => {
-          this.countries = response.data.data;
+    this.$store
+      .dispatch("getInfluencersDropdowns")
+      .then((response) => {
+        this.countries = response.data.data;
       })
-      .catch(error => {
-        this.backendErrors = error.response.data.errors
+      .catch((error) => {
+        this.backendErrors = error.response.data.errors;
       })
       .catch(() => {
-        this.isDisabled = false
-      })
+        this.isDisabled = false;
+      });
   },
   // middleware: "router-auth",
 };

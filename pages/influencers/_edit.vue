@@ -72,9 +72,11 @@
               </div>
 
               <div class="form-group">
+                
                 <label for="fname">Phone Number</label>
                 <input
-                  class="form-control"
+                   :disabled="true"
+                  class="form-control disabled"
                   v-model="phone_no"
                   type="text"
                   id="phone_no"
@@ -274,6 +276,8 @@ export default {
 
   },
   created() {
+    
+
     const payload = {
       uuid: this.$route.params.edit
     }

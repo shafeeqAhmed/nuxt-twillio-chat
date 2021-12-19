@@ -99,17 +99,7 @@
                 >
               </div>
 
-                <div class="loader" v-if="isLoading">
-        
-                      
-              <div class="card-portlets-loader" >
-                          <span
-                          aria-hidden="true"
-                          class="m-2 spinner-border text-primary"
-                        ></span>
-                      </div>
-                
-                </div>
+
 
               <div class="form-group">
                 <label for="fname">password</label>
@@ -125,7 +115,7 @@
                   v-if="submitted && !$v.password.required"
                   class="invalid-feedback"
                 >
-                  Phone Number is required.
+                  password is required.
                 </div>
                 <span v-if="backendErrors.password" class="text-danger">
                   {{ backendErrors.password[0] }}
@@ -160,6 +150,31 @@
                 <span v-if="backendErrors.country_id" class="text-danger">
                   {{ backendErrors.country_id[0] }}
                 </span>
+              </div>
+
+
+
+              <div class="form-group">
+                <label for="role">
+                  Role
+                  <span class="text-danger">*</span>
+                </label>
+                <select
+                  class="form-control"
+                  v-model="role"
+                  :class="{ 'is-invalid': submitted && $v.role.$error }"
+                >
+                  <option value="">Select</option>
+                  <option value="admin" >Admin </option>
+                   <option value="influencer" >Influencer</option>
+                </select>
+                <div
+                  v-if="submitted && !$v.role.required"
+                  class="invalid-feedback"
+                >
+                  Role is required.
+                </div>
+              
               </div>
 
               <div class="form-group text-right m-b-0">
@@ -220,7 +235,7 @@ export default {
       submitted: false,
       countries: [],
       is_twilio_no: 1,
-      isLoading:0
+      role:''
     };
   },
   validations: {
@@ -243,6 +258,9 @@ export default {
     country_id: {
       required,
     },
+    role: {
+      required,
+    },
   },
   methods: {
     enableSpinner() {
@@ -253,21 +271,21 @@ export default {
     },
 
     generateTwilioNumber() {
-
-      this.isLoading=1;
-      this.$store
+      
+      this.enableSpinner();
+       this.$store
         .dispatch("createTwilioNumber")
         .then((response) => {
           this.phone_no = response.data.data.number;
           this.is_twilio_no = 0;
-          this.isLoading=0;
+        this.disableSpinner()
         })
         .catch((error) => {
           this.backendErrors = error.response.data.errors;
         })
         .catch(() => {
           this.isDisabled = false;
-        });
+        }); 
     },
     // Try to register the user in with the email, username
     // and password they provided.
@@ -292,6 +310,7 @@ export default {
             country_id: this.country_id,
             terms: "on",
             baseDomain: "customer",
+            role: this.role,
           };
 
           this.$store
@@ -310,6 +329,7 @@ export default {
     },
   },
   created() {
+        // this.enableSpinner();
     this.$store
       .dispatch("getInfluencersDropdowns")
       .then((response) => {

@@ -93,14 +93,7 @@
                 </span>
               </div>
 
-              <div class="form-group twilio_no" v-if="is_twilio_no">
-                <a  role="button" href="#" @click="generateTwilioNumber()">
-                  <label for="fname">Generate Twilio Number</label></a
-                >
-              </div>
-
-
-
+          
               <div class="form-group">
                 <label for="fname">password</label>
                 <input
@@ -128,6 +121,7 @@
                   <span class="text-danger">*</span>
                 </label>
                 <select
+                 @click="changeCountry()"
                   class="form-control"
                   v-model="country_id"
                   :class="{ 'is-invalid': submitted && $v.country_id.$error }"
@@ -137,6 +131,7 @@
                     v-for="country in countries"
                     :value="country.id"
                     :key="country.id"
+                   
                   >
                     {{ country.country_name }}
                   </option>
@@ -153,6 +148,11 @@
               </div>
 
 
+               <div class="form-group twilio_no " v-if="is_twilio_no">
+                <a  role="button" href="#" :class="{ 'disabled' :!is_country}"  @click="generateTwilioNumber()">
+                  <label for="fname">Generate Twilio Number</label></a
+                >
+              </div>
 
               <div class="form-group">
                 <label for="role">
@@ -176,6 +176,7 @@
                 </div>
               
               </div>
+               
 
               <div class="form-group text-right m-b-0">
                 <button class="btn btn-primary" type="submit">Submit</button>
@@ -235,7 +236,8 @@ export default {
       submitted: false,
       countries: [],
       is_twilio_no: 1,
-      role:''
+      role:'',
+      is_country:0
     };
   },
   validations: {
@@ -269,12 +271,22 @@ export default {
     disableSpinner() {
       this.$store.dispatch("spinner/clear", "");
     },
+    changeCountry(){
+     if(this.country_id!=''){
+         this.is_country=1;
+     }else{
+       this.is_country=0;
+     }
+    },
 
     generateTwilioNumber() {
       
       this.enableSpinner();
+      const payload={
+        country_id:this.country_id
+      }
        this.$store
-        .dispatch("createTwilioNumber")
+        .dispatch("createTwilioNumber",payload)
         .then((response) => {
           this.phone_no = response.data.data.number;
           this.is_twilio_no = 0;
@@ -282,6 +294,7 @@ export default {
         })
         .catch((error) => {
           this.backendErrors = error.response.data.errors;
+          this.disableSpinner()
         })
         .catch(() => {
           this.isDisabled = false;

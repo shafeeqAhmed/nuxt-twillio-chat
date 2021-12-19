@@ -99,17 +99,7 @@
                 >
               </div>
 
-                <div class="loader" v-if="isLoading">
-        
-                      
-              <div class="card-portlets-loader" >
-                          <span
-                          aria-hidden="true"
-                          class="m-2 spinner-border text-primary"
-                        ></span>
-                      </div>
-                
-                </div>
+
 
               <div class="form-group">
                 <label for="fname">password</label>
@@ -219,8 +209,7 @@ export default {
       backendErrors: {},
       submitted: false,
       countries: [],
-      is_twilio_no: 1,
-      isLoading:0
+      is_twilio_no: 1
     };
   },
   validations: {
@@ -253,21 +242,21 @@ export default {
     },
 
     generateTwilioNumber() {
-
-      this.isLoading=1;
-      this.$store
+      
+      this.enableSpinner();
+       this.$store
         .dispatch("createTwilioNumber")
         .then((response) => {
           this.phone_no = response.data.data.number;
           this.is_twilio_no = 0;
-          this.isLoading=0;
+        this.disableSpinner()
         })
         .catch((error) => {
           this.backendErrors = error.response.data.errors;
         })
         .catch(() => {
           this.isDisabled = false;
-        });
+        }); 
     },
     // Try to register the user in with the email, username
     // and password they provided.
@@ -310,6 +299,7 @@ export default {
     },
   },
   created() {
+        // this.enableSpinner();
     this.$store
       .dispatch("getInfluencersDropdowns")
       .then((response) => {

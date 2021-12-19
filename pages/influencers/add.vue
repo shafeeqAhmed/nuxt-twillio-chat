@@ -115,7 +115,7 @@
                   v-if="submitted && !$v.password.required"
                   class="invalid-feedback"
                 >
-                  Phone Number is required.
+                  password is required.
                 </div>
                 <span v-if="backendErrors.password" class="text-danger">
                   {{ backendErrors.password[0] }}
@@ -150,6 +150,31 @@
                 <span v-if="backendErrors.country_id" class="text-danger">
                   {{ backendErrors.country_id[0] }}
                 </span>
+              </div>
+
+
+
+              <div class="form-group">
+                <label for="role">
+                  Role
+                  <span class="text-danger">*</span>
+                </label>
+                <select
+                  class="form-control"
+                  v-model="role"
+                  :class="{ 'is-invalid': submitted && $v.role.$error }"
+                >
+                  <option value="">Select</option>
+                  <option value="admin" >Admin </option>
+                   <option value="influencer" >Influencer</option>
+                </select>
+                <div
+                  v-if="submitted && !$v.role.required"
+                  class="invalid-feedback"
+                >
+                  Role is required.
+                </div>
+              
               </div>
 
               <div class="form-group text-right m-b-0">
@@ -209,7 +234,8 @@ export default {
       backendErrors: {},
       submitted: false,
       countries: [],
-      is_twilio_no: 1
+      is_twilio_no: 1,
+      role:''
     };
   },
   validations: {
@@ -230,6 +256,9 @@ export default {
       required,
     },
     country_id: {
+      required,
+    },
+    role: {
       required,
     },
   },
@@ -281,6 +310,7 @@ export default {
             country_id: this.country_id,
             terms: "on",
             baseDomain: "customer",
+            role: this.role,
           };
 
           this.$store

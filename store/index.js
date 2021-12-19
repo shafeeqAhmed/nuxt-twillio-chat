@@ -122,10 +122,10 @@ export const actions = {
     },
 
 
-    createTwilioNumber({ commit }) {
+    createTwilioNumber({ commit },payload) {
       return new Promise((resolve, reject) => {
       this.$axios
-        .get(`buy-twillio-numbers/1`)
+        .get(`buy-twillio-numbers/1/`+payload.country_id)
         .then(response => {
 
           resolve(response)

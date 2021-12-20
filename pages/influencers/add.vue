@@ -71,6 +71,51 @@
                 </span>
               </div>
 
+
+              <div class="form-group">
+                <label for="phno">
+                  Country
+                  <span class="text-danger">*</span>
+                </label>
+                <select
+                 @click="changeCountry()"
+                  class="form-control"
+                  v-model="country_id"
+                  :class="{ 'is-invalid': submitted && $v.country_id.$error, 'disabled' :!is_twilio_no }"
+                >
+                  <option value="">Select</option>
+                  <option
+                    v-for="country in countries"
+                    :value="country.id"
+                    :key="country.id"
+
+                  >
+                    {{ country.country_name }}
+                  </option>
+                </select>
+                <div
+                  v-if="submitted && !$v.country_id.required"
+                  class="invalid-feedback"
+                >
+                  Country is required.
+                </div>
+                <span v-if="backendErrors.country_id" class="text-danger">
+                  {{ backendErrors.country_id[0] }}
+                </span>
+              </div>
+
+               <div class="form-group twilio_no " v-if="is_twilio_no">
+                  <a  role="button" href="#" :class="{ 'disabled' :!is_country}"  @click="generateTwilioNumber()">
+                    <label for="fname">Generate Twilio Number</label></a
+                  >
+                </div>
+
+                <div class="form-group twilio_no " v-if="is_twilio_no==0">
+                  <a  role="button" href="#" :class="{ 'disabled' :!is_country}"  @click="removeTwilioNumber()">
+                    <label for="fname">Remove Twilio Number</label></a
+                  >
+                </div>
+
               <div class="form-group">
                 <label for="fname">Phone Number</label>
                 <input
@@ -93,7 +138,7 @@
                 </span>
               </div>
 
-          
+
               <div class="form-group">
                 <label for="fname">password</label>
                 <input
@@ -115,44 +160,6 @@
                 </span>
               </div>
 
-              <div class="form-group">
-                <label for="phno">
-                  Country
-                  <span class="text-danger">*</span>
-                </label>
-                <select
-                 @click="changeCountry()"
-                  class="form-control"
-                  v-model="country_id"
-                  :class="{ 'is-invalid': submitted && $v.country_id.$error }"
-                >
-                  <option value="">Select</option>
-                  <option
-                    v-for="country in countries"
-                    :value="country.id"
-                    :key="country.id"
-                   
-                  >
-                    {{ country.country_name }}
-                  </option>
-                </select>
-                <div
-                  v-if="submitted && !$v.country_id.required"
-                  class="invalid-feedback"
-                >
-                  Country is required.
-                </div>
-                <span v-if="backendErrors.country_id" class="text-danger">
-                  {{ backendErrors.country_id[0] }}
-                </span>
-              </div>
-
-
-               <div class="form-group twilio_no " v-if="is_twilio_no">
-                <a  role="button" href="#" :class="{ 'disabled' :!is_country}"  @click="generateTwilioNumber()">
-                  <label for="fname">Generate Twilio Number</label></a
-                >
-              </div>
 
               <div class="form-group">
                 <label for="role">
@@ -174,9 +181,9 @@
                 >
                   Role is required.
                 </div>
-              
+
               </div>
-               
+
 
               <div class="form-group text-right m-b-0">
                 <button class="btn btn-primary" type="submit">Submit</button>
@@ -192,8 +199,8 @@
       <!-- end col -->
     </div>
     <!-- end row -->
-    
-  
+
+
   </div>
 
 
@@ -280,7 +287,7 @@ export default {
     },
 
     generateTwilioNumber() {
-      
+
       this.enableSpinner();
       const payload={
         country_id:this.country_id
@@ -298,7 +305,12 @@ export default {
         })
         .catch(() => {
           this.isDisabled = false;
-        }); 
+        });
+    },
+    removeTwilioNumber() {
+    this.phone_no = ''
+    this.country_id = ''
+    this.is_twilio_no = 1
     },
     // Try to register the user in with the email, username
     // and password they provided.

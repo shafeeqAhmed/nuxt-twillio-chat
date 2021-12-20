@@ -62,11 +62,22 @@ export const actions = {
           })
           .catch(error => reject(error))
       })
-    },
+  },
   updateInfluencer({ commit },payload) {
         return new Promise((resolve, reject) => {
         this.$axios
           .post(`update-influencer`, payload)
+          .then(response => {
+
+            resolve(response)
+          })
+          .catch(error => reject(error))
+      })
+    },
+      updateUser({ commit },payload) {
+        return new Promise((resolve, reject) => {
+        this.$axios
+          .post(`update-profile`, payload)
           .then(response => {
 
             resolve(response)
@@ -113,6 +124,18 @@ export const actions = {
         return new Promise((resolve, reject) => {
         this.$axios
           .get(`users/`+payload.uuid)
+          .then(response => {
+
+            resolve(response)
+          })
+          .catch(error => reject(error))
+      })
+  },
+
+  getUserstats({ commit },payload) {
+        return new Promise((resolve, reject) => {
+        this.$axios
+          .post(`msg-tracking/`)
           .then(response => {
 
             resolve(response)

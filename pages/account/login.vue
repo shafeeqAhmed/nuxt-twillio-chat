@@ -176,11 +176,11 @@ export default {
 
         <div class="row mt-3">
             <div class="col-12 text-center">
-                <p>
+                <!-- <p>
                     <nuxt-link to="/account/forgot-password" class="text-muted ml-1">Forgot your password?</nuxt-link>
                 </p>
                 <p class="text-muted">Don't have an account? <nuxt-link to="/account/register" class="text-primary font-weight-medium ml-1">Sign Up</nuxt-link>
-                </p>
+                </p> -->
             </div> <!-- end col -->
         </div>
         <!-- end row -->

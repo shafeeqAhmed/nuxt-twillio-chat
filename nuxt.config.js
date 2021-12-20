@@ -97,7 +97,7 @@ export default {
     }
   },
   axios: {
-            baseURL: 'http://localhost/twillio-project/twillo-api/api'
+    baseURL: 'https://text-app.tkit.co.uk/api/api'
     },
   auth: {
     redirect: {

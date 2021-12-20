@@ -235,7 +235,7 @@ export default {
                     </h6>
                 </b-dropdown-header>
 
-
+                
                 <b-dropdown-item @click="$router.push(`/user/profile/${$auth.user.user_uuid}`)">
                     <i class="remixicon-settings-3-line"></i>
                     <span>My Account</span>

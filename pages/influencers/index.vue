@@ -37,7 +37,7 @@
                                     <td>
                                         <ul class="list-inline table-action m-0">
                                             <li class="list-inline-item">
-                                     <a  @click="$router.push(`/influencers/${user.user_uuid}`)"class="action-icon px-1"><i class="mdi mdi-square-edit-outline"></i></a >
+                                     <a  @click="$router.push(`/influencers/${user.user_uuid}`)" class="action-icon px-1"><i class="mdi mdi-square-edit-outline"></i></a >
                                         </li> </ul>
 
                                     </td>
@@ -74,7 +74,7 @@ export default {
              users:[],
             items: [
                 {
-                    text: "In Fluencder Listing",
+                    text: "In Fluencer Listing",
                     active: true
                 }
             ],

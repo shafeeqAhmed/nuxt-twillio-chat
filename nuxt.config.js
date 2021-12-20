@@ -97,7 +97,7 @@ export default {
     }
   },
   axios: {
-            baseURL: 'http://localhost/twillio/twillo-api/api'
+            baseURL: 'http://localhost/twillio-project/twillo-api/api'
     },
   auth: {
     redirect: {

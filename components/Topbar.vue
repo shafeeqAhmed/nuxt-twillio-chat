@@ -218,8 +218,10 @@ export default {
 
             <b-nav-item-dropdown right class="notification-list topbar-dropdown" menu-class="profile-dropdown" toggle-class="p-0">
                 <template slot="button-content" class="nav-link dropdown-toggle">
-                    <div class="nav-user mr-0">
-                        <img src="~/assets/images/users/avatar-1.jpg" alt="user-image" class="rounded-circle" />
+                    <div class="nav-user mr-0" v-if="$auth.loggedIn">
+
+                        <img v-if="$auth.user.profile_photo_path != null" :src="$auth.user.profile_photo_path" alt="user-image" class="rounded-circle" />
+                        <img v-else src="~/assets/images/users/avatar-1.jpg" alt="user-image" class="rounded-circle" />
                         <span class="pro-user-name ml-1">
                             <!-- {{ $t('navbar.dropdown.name.text') }} -->
                             <i class="mdi mdi-chevron-down"></i>
@@ -234,10 +236,10 @@ export default {
                 </b-dropdown-header>
 
 
-                <!-- <b-dropdown-item href="#">
+                <b-dropdown-item @click="$router.push(`/user/profile/${$auth.user.user_uuid}`)">
                     <i class="remixicon-settings-3-line"></i>
-                    <span>{{ $t('navbar.dropdown.name.list.settings') }}</span>
-                </b-dropdown-item> -->
+                    <span>My Account</span>
+                </b-dropdown-item>
 
                 <!-- <b-dropdown-item href="#">
                     <i class="remixicon-wallet-line"></i>

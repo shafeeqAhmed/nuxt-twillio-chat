@@ -310,7 +310,7 @@ export default {
     removeTwilioNumber() {
     this.phone_no = ''
     this.country_id = ''
-    this.is_twilio_no = ''
+    this.is_twilio_no = 1
     },
     // Try to register the user in with the email, username
     // and password they provided.

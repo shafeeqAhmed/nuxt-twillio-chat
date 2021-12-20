@@ -130,6 +130,18 @@ export const actions = {
           })
           .catch(error => reject(error))
       })
+  },
+
+  getUserstats({ commit },payload) {
+        return new Promise((resolve, reject) => {
+        this.$axios
+          .post(`msg-tracking/`)
+          .then(response => {
+
+            resolve(response)
+          })
+          .catch(error => reject(error))
+      })
     },
 
 

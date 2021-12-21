@@ -23,7 +23,7 @@
                     <th>Email</th>
                     <th>Country</th>
                     <th>Action</th>
-                    <th>Stats</th>
+                    <!-- <th >Stats</th> -->
                   </tr>
                 </thead>
                 <tbody>
@@ -52,14 +52,14 @@
 
                         </ul>
                       </td>
-                      <td>
+                     <!--  <td>
                         <a
                               @click="
                                 $router.push(`/influencers/stats/${user.user_uuid}`)
                               "
                               class="action-icon px-1"
                               >Stats</a>
-                      </td>
+                      </td> -->
                     </tr>
                   </template>
                 </tbody>
@@ -69,6 +69,30 @@
         </Portlet>
         <Portlet v-else>
           <h1>This Dashboard for Influencer</h1>
+    <div class="card-body pt-0">
+            <div class="table-responsive mb-0">
+              <table class="table table-hover table-centered mb-0">
+                <thead>
+                  <tr>
+                    <th>Total Contact Numbers</th>
+                    <th>Total Send Messages</th>
+                     <th>Total Receive Messages</th>
+                   
+                  </tr>
+                </thead>
+                <tbody>
+                  <template v-if="users.list">
+                    <tr>
+                      <td>0</td>
+                      <td>0</td>
+                      <td>0</td>
+                    </tr>
+                  </template>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          
         </Portlet>
       </div>
     </div>

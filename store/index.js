@@ -98,6 +98,7 @@ export const actions = {
     },
     getInfluencers({ commit }) {
         return new Promise((resolve, reject) => {
+          
         this.$axios
           .get(`get-influencers`)
           .then(response => {

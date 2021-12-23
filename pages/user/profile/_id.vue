@@ -178,7 +178,8 @@ export default {
           payload.append("lname", this.lname);
           payload.append("previewImage", this.file);
           payload.append("password", this.password);
-
+          payload.append("user_uuid", this.$route.params.id);
+     
           this.$store
             .dispatch("updateUser", payload)
             .then((response) => {
@@ -213,6 +214,7 @@ export default {
     },
   },
   created() {
+   
     const payload = {
       uuid: this.$route.params.id,
     };

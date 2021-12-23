@@ -155,6 +155,16 @@ export default {
                     <i class="fe-maximize noti-icon"></i>
                 </a>
             </li>
+
+
+             <li class="dropdown d-none d-lg-inline-block">
+                <nuxt-link class="nav-link dropdown-toggle arrow-none waves-effect waves-light" aria-current="page" to="/apps/chat">
+                   <i class="ri-message-2-line"></i> <span>Chat</span>
+                </nuxt-link>
+
+
+            </li>
+
             <!-- <b-nav-item-dropdown variant="white" class="d-none d-lg-inline-block topbar-dropdown" toggle-class="nav-link" right menu-class="dropdown-lg p-0">
                 <template v-slot:button-content>
                     <i class="fe-grid noti-icon"></i>
@@ -235,7 +245,7 @@ export default {
                     </h6>
                 </b-dropdown-header>
 
-
+                
                 <b-dropdown-item @click="$router.push(`/user/profile/${$auth.user.user_uuid}`)">
                     <i class="remixicon-settings-3-line"></i>
                     <span>My Account</span>

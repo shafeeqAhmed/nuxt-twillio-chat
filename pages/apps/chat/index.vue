@@ -349,8 +349,8 @@ export default {
   methods: {
     send_messages() {
       const payload = {
-        receiver_number: "+18167744894",
-        receiver_id: 2,
+        receiver_number: "+15106835863",
+        receiver_id: 10,
         message: this.form.message,
       };
 
@@ -415,7 +415,7 @@ export default {
   
   created(){
 
-      this.getChatMessages('2')
+      this.getChatMessages('10')
      
   },
   middleware: "router-auth",

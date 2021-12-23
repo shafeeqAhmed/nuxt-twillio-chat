@@ -7,14 +7,14 @@ export const actions = {
 
   saveMessage({ commit },payload) {
         return new Promise((resolve, reject) => {
-          console.log(payload)
-       /*  this.$axios
-          .post(`create-influencer`, payload)
+          
+        this.$axios
+          .post(`sms_service`, payload)
           .then(response => {
 
             resolve(response)
           })
-          .catch(error => reject(error)) */
+          .catch(error => reject(error)) 
       })
     },
  

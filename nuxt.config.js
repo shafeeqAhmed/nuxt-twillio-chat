@@ -58,7 +58,8 @@ export default {
     "~/plugins/chartist.js",
     "~/plugins/vue-googlemap.js",
     "~/plugins/string-filter",
-    "~/plugins/persistedstate.js"
+    "~/plugins/persistedstate.js",
+    '~/plugins/axios'
 
   ],
   /*
@@ -97,7 +98,7 @@ export default {
     }
   },
   axios: {
-    baseURL: 'https://text-app.tkit.co.uk/api/api'
+            baseURL: 'http://localhost/chat-app/twillo-api/api'
    //baseURL: 'http://localhost/chat-app/twillo-api/api'
     },
   auth: {
@@ -109,6 +110,7 @@ export default {
     },
     strategies: {
       local: {
+        
         token: {
           property: 'data.accessToken',
           required: true,

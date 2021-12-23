@@ -1,100 +1,3 @@
-<script>
-import {
-    chatData,
-    chatMessagesData
-} from "./data";
-import {
-    required
-} from "vuelidate/lib/validators";
-
-/**
- * Chat comoponent
- */
-export default {
-    head() {
-        return {
-            title: `${this.title} | Minton - Nuxtjs Responsive Admin Dashboard Template`,
-        };
-    },
-    data() {
-        return {
-            chatData: chatData,
-            chatMessagesData: chatMessagesData,
-            title: "Chat",
-            items: [{
-                    text: "Minton",
-                },
-                {
-                    text: "Apps",
-                },
-                {
-                    text: "Chat",
-                    active: true,
-                },
-            ],
-            submitted: false,
-            form: {
-                message: "",
-            },
-            username: "Designer",
-        };
-    },
-    validations: {
-        form: {
-            message: {
-                required,
-            },
-        },
-    },
-    methods: {
-        /**
-         * Get the name of user
-         */
-        chatUsername(name, image) {
-            this.username = name;
-            this.usermessage = "Hello";
-
-            this.chatMessagesData = [];
-            const currentDate = new Date();
-            this.chatMessagesData.push({
-                image: image,
-                name: this.username,
-                message: this.usermessage,
-                time: currentDate.getHours() + ":" + currentDate.getMinutes(),
-            });
-        },
-
-        /**
-         * Char form Submit
-         */
-        // eslint-disable-next-line no-unused-vars
-        formSubmit(e) {
-            this.submitted = true;
-
-            // stop here if form is invalid
-            this.$v.$touch();
-
-            if (this.$v.$invalid) {
-                return;
-            } else {
-                const message = this.form.message;
-                const currentDate = new Date();
-                this.chatMessagesData.push({
-                    align: "right",
-                    name: "Marcus",
-                    message,
-                    time: currentDate.getHours() + ":" + currentDate.getMinutes(),
-                    image: require("~/assets/images/users/avatar-1.jpg"),
-                });
-            }
-            this.submitted = false;
-            this.form = {};
-        },
-    },
-    middleware: "router-auth",
-};
-</script>
-
 <template>
 <div>
     <PageHeader :title="title" :items="items" />
@@ -108,7 +11,7 @@ export default {
                         <img src="~/assets/images/users/avatar-1.jpg" class="mr-2 rounded-circle" height="42" alt="Brandon Smith" />
                         <div class="media-body">
                             <h5 class="mt-0 mb-0 font-15">
-                                <nuxt-link to="/contacts/profile" class="text-reset">Nik Patel</nuxt-link>
+                                <nuxt-link to="/contacts/profile" class="text-reset">{{ this.$auth.user.name }}</nuxt-link>
                             </h5>
                             <p class="mt-1 mb-0 text-muted font-14">
                                 <small class="mdi mdi-circle text-success"></small> Online
@@ -169,6 +72,7 @@ export default {
 
         <!-- chat area -->
         <div class="col-xl-9 col-lg-8">
+        
             <div class="card">
                 <div class="card-body py-2 px-3 border-bottom border-light">
                     <div class="media py-1">
@@ -176,9 +80,7 @@ export default {
                         <div class="media-body">
                             <h5 class="mt-0 mb-0 font-15">
                                 <nuxt-link to="/contacts/profile" class="text-reset">
-                                    {{
-                    username
-                    }}
+                                    {{username}}
                                 </nuxt-link>
                             </h5>
                             <p class="mt-1 mb-0 text-muted font-12">
@@ -263,7 +165,7 @@ export default {
                                                 <a href="#" class="btn btn-light">
                                                     <i class="fe-paperclip"></i>
                                                 </a>
-                                                <button type="submit" class="btn btn-success chat-send btn-block">
+                                                <button type="submit" @click="send_messages()" class="btn btn-success chat-send btn-block">
                                                     <i class="fe-send"></i>
                                                 </button>
                                             </div>
@@ -287,3 +189,123 @@ export default {
     <!-- end row-->
 </div>
 </template>
+
+<script>
+import {
+    chatData,
+    chatMessagesData
+} from "./data";
+import {
+    required
+} from "vuelidate/lib/validators";
+
+/**
+ * Chat comoponent
+ */
+export default {
+    head() {
+        return {
+            title: `${this.title} | Minton - Nuxtjs Responsive Admin Dashboard Template`,
+        };
+    },
+    data() {
+        return {
+            chatData: chatData,
+            chatMessagesData: chatMessagesData,
+            title: "Chat",
+            items: [{
+                    text: "Minton",
+                },
+                {
+                    text: "Apps",
+                },
+                {
+                    text: "Chat",
+                    active: true,
+                },
+            ],
+            submitted: false,
+            form: {
+                message: "",
+            },
+            username: "Designer",
+        };
+    },
+    validations: {
+        form: {
+            message: {
+                required,
+            },
+        },
+    },
+    methods: {
+
+        send_messages(){
+        
+      const payload={
+          receiver_id:11,
+          message:this.form.message
+      }
+
+        this.$store
+        .dispatch("chat/saveMessage",payload)
+        .then((response) => {
+       //   this.phone_no = response.data.data.number;
+      
+        })
+        .catch((error) => {
+          this.backendErrors = error.response.data.errors;
+        
+        })
+        .catch(() => {
+          this.isDisabled = false;
+        });
+
+        },
+        /**
+         * Get the name of user
+         */
+        chatUsername(name, image) {
+            this.username = name;
+            this.usermessage = "Hello";
+
+            this.chatMessagesData = [];
+            const currentDate = new Date();
+            this.chatMessagesData.push({
+                image: image,
+                name: this.username,
+                message: this.usermessage,
+                time: currentDate.getHours() + ":" + currentDate.getMinutes(),
+            });
+        },
+
+        /**
+         * Char form Submit
+         */
+        // eslint-disable-next-line no-unused-vars
+        formSubmit(e) {
+            this.submitted = true;
+
+            // stop here if form is invalid
+            this.$v.$touch();
+
+            if (this.$v.$invalid) {
+                return;
+            } else {
+                const message = this.form.message;
+                const currentDate = new Date();
+                this.chatMessagesData.push({
+                    align: "right",
+                    name: "Marcus",
+                    message,
+                    time: currentDate.getHours() + ":" + currentDate.getMinutes(),
+                    image: require("~/assets/images/users/avatar-1.jpg"),
+                });
+            }
+            this.submitted = false;
+            this.form = {};
+        },
+    },
+    middleware: "router-auth",
+};
+</script>

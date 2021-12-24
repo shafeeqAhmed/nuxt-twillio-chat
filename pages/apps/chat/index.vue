@@ -425,7 +425,6 @@ export default {
   
   mounted(){
     
-    console.log(this.$auth.user.user_uuid)
       this.getChatMessages('2')
    this.$echo.channel(`chat.${this.$auth.user.user_uuid}`).on("chat.event", (res) => {
     console.log(res);

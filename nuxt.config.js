@@ -71,6 +71,14 @@ export default {
   ** Nuxt.js dev-modules
   */
   buildModules: [
+    [
+      '@nuxtjs/laravel-echo', {
+        broadcaster: 'pusher',
+        key: '7d65294556a4568cae7f',
+        cluster: 'mt1',
+        forceTLS: true
+      }
+    ]
   ],
   /*
   ** Nuxt.js modules
@@ -81,6 +89,7 @@ export default {
     'nuxt-i18n',
     '@nuxtjs/axios',
     '@nuxtjs/auth-next'
+    //'@nuxtjs/laravel-echo',
   ],
 
   i18n: {

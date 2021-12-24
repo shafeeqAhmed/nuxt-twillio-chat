@@ -53,26 +53,31 @@
             <!-- users -->
             <div class="row">
               <div class="col">
-                <simplebar data-simplebar style="max-height: 498px">
+               
+                <simplebar data-simplebar style="max-height: 498px" v-if="chatData">
                   <a
                     href="javascript:void(0);"
                     class="text-body"
                     v-for="(item, index) in chatData"
                     :key="index"
-                    @click="chatUsername(item.name, item.image)"
+                    @click="chatUsername(item.name, item.profile_photo_path)"
                   >
+                 
                     <div class="media p-2">
                       <div class="position-relative">
-                        <span
+                         <span
+                          class="user-status online"
+                        ></span>
+                       <!--  <span
                           class="user-status"
                           :class="{
                             online: item.status === 'online',
                             busy: item.status === 'away',
                             'do-not-disturb': item.status === 'do-not-disturb',
                           }"
-                        ></span>
+                        ></span> -->
                         <img
-                          :src="item.image"
+                          :src="item.profile_photo_path"
                           class="mr-2 rounded-circle"
                           height="42"
                           alt="user"
@@ -86,9 +91,9 @@
                               text-muted
                               font-weight-normal font-12
                             "
-                            >{{ item.time }}</span
+                            >4:30am</span
                           >
-                          {{ item.name }}
+                         How are you today?
                         </h5>
                         <p class="mt-1 mb-0 text-muted font-14">
                           <span class="w-75">{{ item.message }}</span>
@@ -301,8 +306,9 @@
 </template>
 
 <script>
-import { chatData, chatMessagesData } from "./data";
+import {  chatMessagesData } from "./data";
 import { required } from "vuelidate/lib/validators";
+
 
 /**
  * Chat comoponent
@@ -316,7 +322,7 @@ export default {
   data() {
     return {
       backendErrors: [],
-      chatData: chatData,
+      chatData: {},
       chatMessages:[],
       chatMessagesData: chatMessagesData,
       title: "Chat",
@@ -350,7 +356,7 @@ export default {
     send_messages() {
       const payload = {
         receiver_number: "+15106835863",
-        receiver_id: 10,
+        receiver_id: 2,
         message: this.form.message,
       };
 
@@ -367,6 +373,10 @@ export default {
    async  getChatMessages(receiver_id){
      const messages =await  this.$axios.$get('/get_chat_users/'+receiver_id)
      this.chatMessages=messages.data
+
+    const chat_contacts =await  this.$axios.$get('/get_chat_contacts')
+    this.chatData=chat_contacts.data
+     
     },
     /**
      * Get the name of user
@@ -375,9 +385,9 @@ export default {
       this.username = name;
       this.usermessage = "Hello";
 
-      this.chatMessagesData = [];
+      this.chatMessages.chat_messages = [];
       const currentDate = new Date();
-      this.chatMessagesData.push({
+      this.chatMessages.chat_messages.push({
         image: image,
         name: this.username,
         message: this.usermessage,
@@ -413,9 +423,14 @@ export default {
     },
   },
   
-  created(){
-
-      this.getChatMessages('10')
+  mounted(){
+    
+    console.log(this.$auth.user.user_uuid)
+      this.getChatMessages('2')
+   this.$echo.channel(`chat.${this.$auth.user.user_uuid}`).on("chat.event", (res) => {
+    console.log(res);
+});
+   
      
   },
   middleware: "router-auth",

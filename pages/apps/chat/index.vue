@@ -47,7 +47,7 @@
               </div>
             </form>
             <!-- end search box -->
-
+           
             <h6 class="font-13 text-muted text-uppercase mb-2">Contacts</h6>
 
             <!-- users -->
@@ -60,7 +60,7 @@
                     class="text-body"
                     v-for="(item, index) in chatData"
                     :key="index"
-                    @click="chatUsername(item.name, item.profile_photo_path)"
+                    @click="chatUsername(item.id,item.name, item.profile_photo_path,item.phone_no)"
                   >
                  
                     <div class="media p-2">
@@ -93,10 +93,10 @@
                             "
                             >4:30am</span
                           >
-                         How are you today?
+                        {{item.name}}
                         </h5>
-                        <p class="mt-1 mb-0 text-muted font-14">
-                          <span class="w-75">{{ item.message }}</span>
+                        <p v-if="item.message[0]" class="mt-1 mb-0 text-muted font-14">
+                          <span class="w-75">{{ item.message[0].message }}</span>
                         </p>
                       </div>
                     </div>
@@ -115,15 +115,16 @@
       <!-- end chat users-->
 
       <!-- chat area -->
+    
       <div class="col-xl-9 col-lg-8">
         <div class="card">
           <div class="card-body py-2 px-3 border-bottom border-light">
             <div class="media py-1">
-              <img
-                src="~/assets/images/users/avatar-5.jpg"
+              <img v-if="image"
+                :src="image"
                 class="mr-2 rounded-circle"
                 height="36"
-                alt="Brandon Smith"
+                :alt="username"
               />
               <div class="media-body">
                 <h5 class="mt-0 mb-0 font-15">
@@ -131,8 +132,8 @@
                     {{ username }}
                   </nuxt-link>
                 </h5>
-                <p class="mt-1 mb-0 text-muted font-12">
-                  <small class="mdi mdi-circle text-success"></small> Online
+                <p class="mt-1 mb-0 text-muted font-12" v-if="status">
+                  <small class="mdi mdi-circle text-success"></small> {{status}}
                 </p>
               </div>
               <div>
@@ -171,10 +172,11 @@
               </div>
             </div>
           </div>
+          
           <div class="card-body">
-             
+              
             <simplebar data-simplebar style="max-height: 460px">
-               
+              
               <ul class="conversation-list chat-app-conversation">
                   <template v-if="chatMessages">
                 <li
@@ -323,7 +325,9 @@ export default {
     return {
       backendErrors: [],
       chatData: {},
-      chatMessages:[],
+      chatMessages:[
+
+      ],
       chatMessagesData: chatMessagesData,
       title: "Chat",
       items: [
@@ -342,7 +346,11 @@ export default {
       form: {
         message: "",
       },
-      username: "Designer",
+      username: "",
+      status: "",
+      image:'',
+      receiver_id:'',
+      receiver_number:''
     };
   },
   validations: {
@@ -355,11 +363,11 @@ export default {
   methods: {
     send_messages() {
       const payload = {
-        receiver_number: "+15106835863",
-        receiver_id: 2,
+        receiver_number: this.receiver_number,
+        receiver_id: this.receiver_id,
         message: this.form.message,
       };
-
+        if(this.receiver_id){
       this.$store
         .dispatch("chat/saveMessage", payload)
         .then((response) => {})
@@ -369,10 +377,10 @@ export default {
         .catch(() => {
           this.isDisabled = false;
         });
+        } 
     },
-   async  getChatMessages(receiver_id){
-     const messages =await  this.$axios.$get('/get_chat_users/'+receiver_id)
-     this.chatMessages=messages.data
+   async  getChatMessages(){
+   
 
     const chat_contacts =await  this.$axios.$get('/get_chat_contacts')
     this.chatData=chat_contacts.data
@@ -381,18 +389,14 @@ export default {
     /**
      * Get the name of user
      */
-    chatUsername(name, image) {
+   async chatUsername(id,name, image,phone_no) {
+      this.receiver_id=id;
+     const messages =await  this.$axios.$get('/get_chat_users/'+id)
+     this.chatMessages=messages.data
       this.username = name;
-      this.usermessage = "Hello";
-
-      this.chatMessages.chat_messages = [];
-      const currentDate = new Date();
-      this.chatMessages.chat_messages.push({
-        image: image,
-        name: this.username,
-        message: this.usermessage,
-        time: currentDate.getHours() + ":" + currentDate.getMinutes(),
-      });
+      this.status='online';
+      this.image=image;
+      this.receiver_number=phone_no;
     },
 
     /**
@@ -410,13 +414,41 @@ export default {
       } else {
         const message = this.form.message;
         const currentDate = new Date();
-        this.chatMessages.chat_messages.push({
+      
+      if(this.receiver_id){
+     
+     if(Object.keys(this.chatMessages.chat_messages).length==0){
+     
+       this.chatMessages={ 
+    chat_messages: [ 
+    
+    {
           align: "right",
-          name: "Marcus",
+          name: `${this.$auth.user.name}`,
           message,
           time: currentDate.getHours() + ":" + currentDate.getMinutes(),
-          image: require("~/assets/images/users/avatar-1.jpg"),
-        });
+          image: `${this.$auth.user.profile_photo_path}`,
+        }
+   ]
+    
+};
+
+
+   
+      
+        }else{
+        this.chatMessages.chat_messages.push({
+          align: "right",
+          name: `${this.$auth.user.name}`,
+          message,
+          time: currentDate.getHours() + ":" + currentDate.getMinutes(),
+          image: `${this.$auth.user.profile_photo_path}`,
+        }); 
+        }
+      }
+        
+   
+       
       }
       this.submitted = false;
       this.form = {};
@@ -424,12 +456,53 @@ export default {
   },
   
   mounted(){
+    const newMessages=this.chatMessages;
+  
+      this.getChatMessages()
+    this.$echo.channel(`chat.${this.$auth.user.user_uuid}`).on("chat.event", (res) => {
+
+ console.log(this.receiver_id)
+  console.log(res.data.sender_id);
+
+
+  if(this.receiver_id==res.data.sender_id){
+   if(Object.keys(this.chatMessages.chat_messages).length==0){
+     
+       this.chatMessages={ 
+    chat_messages: [ 
     
-      this.getChatMessages('2')
-   this.$echo.channel(`chat.${this.$auth.user.user_uuid}`).on("chat.event", (res) => {
-    console.log(res);
+    {
+           align: "",
+          name: this.name,
+          message:res.data.message,
+          time: res.data.created_at,
+          image: this.image,
+        }
+   ]
+    
+};
+   }else{
+  this.chatMessages.chat_messages.push(
+
+{
+          align: "",
+          name: this.name,
+          message:res.data.message,
+          time: res.data.created_at,
+          image: this.image,
+        }
+
+  )
+   }
+  }
+ 
+
+
+  
+  
+      
+
 });
-   
      
   },
   middleware: "router-auth",

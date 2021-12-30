@@ -55,12 +55,20 @@
               <div class="col">
                
                 <simplebar data-simplebar style="max-height: 498px" v-if="chatData">
+                  <!-- <a
+                    href="javascript:void(0);"
+                    class="text-body"
+                    v-for="(item, index) in chatData"
+                    :key="index"
+                   @click="chatUsername(item.id,item.name, item.profile_photo_path,item.phone_no)"
+                  > -->
+
                   <a
                     href="javascript:void(0);"
                     class="text-body"
                     v-for="(item, index) in chatData"
                     :key="index"
-                    @click="chatUsername(item.id,item.name, item.profile_photo_path,item.phone_no)"
+                   @click="chatUsername(item.id,'talha', '',item.local_number)"
                   >
                  
                     <div class="media p-2">
@@ -93,11 +101,15 @@
                             "
                             >4:30am</span
                           >
-                        {{item.name}}
+                          talha
+                        <!-- {{item.name}} -->
                         </h5>
-                        <p v-if="item.message[0]" class="mt-1 mb-0 text-muted font-14">
-                          <span class="w-75">{{ item.message[0].message }}</span>
+                         <p  class="mt-1 mb-0 text-muted font-14">
+                          <span class="w-75">hi</span>
                         </p>
+                       <!--  <p v-if="item.message[0]" class="mt-1 mb-0 text-muted font-14">
+                          <span class="w-75">{{ item.message[0].message }}</span>
+                        </p> -->
                       </div>
                     </div>
                   </a>
@@ -182,7 +194,7 @@
                 <li
                
                   class="clearfix"
-                  v-for="(data, index) in chatMessages.chat_messages"
+                  v-for="(data, index) in chatMessages"
                   :key="index"
                   :class="{ odd: data.align === 'right' }"
                 >

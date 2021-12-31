@@ -59,8 +59,8 @@ export default {
     "~/plugins/vue-googlemap.js",
     "~/plugins/string-filter",
     "~/plugins/persistedstate.js",
-    '~/plugins/axios'
-
+    '~/plugins/axios',
+    '~/plugins/filter.js'
   ],
   /*
   ** Auto import components
@@ -107,8 +107,8 @@ export default {
     }
   },
   axios: {
-          //  baseURL: 'http://localhost/twillo-api/api'
-   baseURL: 'http://localhost/chat-app/twillo-api/api'
+      baseURL: 'http://localhost/twillo-api/api'
+  // baseURL: 'http://localhost/chat-app/twillo-api/api'
     },
   auth: {
     redirect: {

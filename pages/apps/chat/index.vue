@@ -68,7 +68,7 @@
                     class="text-body"
                     v-for="(item, index) in chatData"
                     :key="index"
-                   @click="chatUsername(item.id,'talha', '',item.local_number)"
+                   @click="chatUsername(item.id,item.local_number, '',item.local_number)"
                   >
                  
                     <div class="media p-2">
@@ -85,7 +85,7 @@
                           }"
                         ></span> -->
                         <img
-                          :src="item.profile_photo_path"
+                          src="~/assets/images/users/default.png"
                           class="mr-2 rounded-circle"
                           height="42"
                           alt="user"
@@ -99,14 +99,16 @@
                               text-muted
                               font-weight-normal font-12
                             "
-                            >4:30am</span
+                            >
+                             {{  formatDate(item.created_at) }}
+                            </span
                           >
                          {{item.local_number}}
                         <!-- {{item.name}} -->
                         </h5>
-                         <p  class="mt-1 mb-0 text-muted font-14">
+                       <!--   <p  class="mt-1 mb-0 text-muted font-14">
                           <span class="w-75">hi</span>
-                        </p>
+                        </p> -->
                        <!--  <p v-if="item.message[0]" class="mt-1 mb-0 text-muted font-14">
                           <span class="w-75">{{ item.message[0].message }}</span>
                         </p> -->
@@ -205,7 +207,7 @@
                   </div>
                   <div class="conversation-text">
                     <div class="ctext-wrap">
-                      <i>{{ data.name }}</i>
+                      <i>{{ data.to }}</i>
                       <p>{{ data.message }}</p>
                     </div>
                     <div
@@ -369,6 +371,11 @@ export default {
     },
   },
   methods: {
+
+     formatDate(date) {
+      const options = { year: 'numeric', month: 'numeric', day: 'numeric' }
+      return new Date(date).toLocaleDateString('en', options)
+    },
     send_messages() {
       const payload = {
         receiver_number: this.receiver_number,
@@ -401,7 +408,7 @@ export default {
    async chatUsername(id,name, image,phone_no) {
       this.receiver_id=id;
      const messages =await  this.$axios.$get('/get_chat_users/'+id)
-     this.chatMessages=messages.data
+     this.chatMessages=messages.data.slice().reverse()
       this.username = name;
       this.status='online';
       this.image=image;

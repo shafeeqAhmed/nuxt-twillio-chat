@@ -101,7 +101,7 @@
                             "
                             >4:30am</span
                           >
-                          talha
+                         {{item.local_number}}
                         <!-- {{item.name}} -->
                         </h5>
                          <p  class="mt-1 mb-0 text-muted font-14">
@@ -320,7 +320,6 @@
 </template>
 
 <script>
-import {  chatMessagesData } from "./data";
 import { required } from "vuelidate/lib/validators";
 
 
@@ -337,10 +336,7 @@ export default {
     return {
       backendErrors: [],
       chatData: {},
-      chatMessages:[
-
-      ],
-      chatMessagesData: chatMessagesData,
+      chatMessages:{},
       title: "Chat",
       items: [
         {
@@ -379,8 +375,9 @@ export default {
         receiver_id: this.receiver_id,
         message: this.form.message,
       };
+     
         if(this.receiver_id){
-      this.$store
+       this.$store
         .dispatch("chat/saveMessage", payload)
         .then((response) => {})
         .catch((error) => {
@@ -388,7 +385,7 @@ export default {
         })
         .catch(() => {
           this.isDisabled = false;
-        });
+        }); 
         } 
     },
    async  getChatMessages(){
@@ -426,13 +423,14 @@ export default {
       } else {
         const message = this.form.message;
         const currentDate = new Date();
-      
+    
       if(this.receiver_id){
+         
+    
+     if(Object.keys(this.chatMessages).length==0){
      
-     if(Object.keys(this.chatMessages.chat_messages).length==0){
-     
-       this.chatMessages={ 
-    chat_messages: [ 
+    
+    this.chatMessages=[ 
     
     {
           align: "right",
@@ -441,15 +439,12 @@ export default {
           time: currentDate.getHours() + ":" + currentDate.getMinutes(),
           image: `${this.$auth.user.profile_photo_path}`,
         }
-   ]
+   ];
     
-};
 
 
-   
-      
         }else{
-        this.chatMessages.chat_messages.push({
+        this.chatMessages.push({
           align: "right",
           name: `${this.$auth.user.name}`,
           message,

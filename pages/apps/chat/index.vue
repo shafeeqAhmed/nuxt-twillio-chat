@@ -47,32 +47,45 @@
               </div>
             </form>
             <!-- end search box -->
-
+           
             <h6 class="font-13 text-muted text-uppercase mb-2">Contacts</h6>
 
             <!-- users -->
             <div class="row">
               <div class="col">
-                <simplebar data-simplebar style="max-height: 498px">
+               
+                <simplebar data-simplebar style="max-height: 498px" v-if="chatData">
+                  <!-- <a
+                    href="javascript:void(0);"
+                    class="text-body"
+                    v-for="(item, index) in chatData"
+                    :key="index"
+                   @click="chatUsername(item.id,item.name, item.profile_photo_path,item.phone_no)"
+                  > -->
+
                   <a
                     href="javascript:void(0);"
                     class="text-body"
                     v-for="(item, index) in chatData"
                     :key="index"
-                    @click="chatUsername(item.name, item.image)"
+                   @click="chatUsername(item.id,item.local_number, '',item.local_number)"
                   >
+                 
                     <div class="media p-2">
                       <div class="position-relative">
-                        <span
+                         <span
+                          class="user-status online"
+                        ></span>
+                       <!--  <span
                           class="user-status"
                           :class="{
                             online: item.status === 'online',
                             busy: item.status === 'away',
                             'do-not-disturb': item.status === 'do-not-disturb',
                           }"
-                        ></span>
+                        ></span> -->
                         <img
-                          :src="item.image"
+                          src="~/assets/images/users/default.png"
                           class="mr-2 rounded-circle"
                           height="42"
                           alt="user"
@@ -86,13 +99,19 @@
                               text-muted
                               font-weight-normal font-12
                             "
-                            >{{ item.time }}</span
+                            >
+                             {{  formatDate(item.created_at) }}
+                            </span
                           >
-                          {{ item.name }}
+                         {{item.local_number}}
+                        <!-- {{item.name}} -->
                         </h5>
-                        <p class="mt-1 mb-0 text-muted font-14">
-                          <span class="w-75">{{ item.message }}</span>
-                        </p>
+                       <!--   <p  class="mt-1 mb-0 text-muted font-14">
+                          <span class="w-75">hi</span>
+                        </p> -->
+                       <!--  <p v-if="item.message[0]" class="mt-1 mb-0 text-muted font-14">
+                          <span class="w-75">{{ item.message[0].message }}</span>
+                        </p> -->
                       </div>
                     </div>
                   </a>
@@ -110,15 +129,16 @@
       <!-- end chat users-->
 
       <!-- chat area -->
+    
       <div class="col-xl-9 col-lg-8">
         <div class="card">
           <div class="card-body py-2 px-3 border-bottom border-light">
             <div class="media py-1">
-              <img
-                src="~/assets/images/users/avatar-5.jpg"
+              <img v-if="image"
+                :src="image"
                 class="mr-2 rounded-circle"
                 height="36"
-                alt="Brandon Smith"
+                :alt="username"
               />
               <div class="media-body">
                 <h5 class="mt-0 mb-0 font-15">
@@ -126,8 +146,8 @@
                     {{ username }}
                   </nuxt-link>
                 </h5>
-                <p class="mt-1 mb-0 text-muted font-12">
-                  <small class="mdi mdi-circle text-success"></small> Online
+                <p class="mt-1 mb-0 text-muted font-12" v-if="status">
+                  <small class="mdi mdi-circle text-success"></small> {{status}}
                 </p>
               </div>
               <div>
@@ -166,16 +186,17 @@
               </div>
             </div>
           </div>
+          
           <div class="card-body">
-             
+              
             <simplebar data-simplebar style="max-height: 460px">
-               
+              
               <ul class="conversation-list chat-app-conversation">
                   <template v-if="chatMessages">
                 <li
                
                   class="clearfix"
-                  v-for="(data, index) in chatMessages.chat_messages"
+                  v-for="(data, index) in chatMessages"
                   :key="index"
                   :class="{ odd: data.align === 'right' }"
                 >
@@ -186,7 +207,7 @@
                   </div>
                   <div class="conversation-text">
                     <div class="ctext-wrap">
-                      <i>{{ data.name }}</i>
+                      <i>{{ data.to }}</i>
                       <p>{{ data.message }}</p>
                     </div>
                     <div
@@ -301,8 +322,8 @@
 </template>
 
 <script>
-import { chatData, chatMessagesData } from "./data";
 import { required } from "vuelidate/lib/validators";
+
 
 /**
  * Chat comoponent
@@ -316,9 +337,8 @@ export default {
   data() {
     return {
       backendErrors: [],
-      chatData: chatData,
-      chatMessages:[],
-      chatMessagesData: chatMessagesData,
+      chatData: {},
+      chatMessages:{},
       title: "Chat",
       items: [
         {
@@ -336,7 +356,11 @@ export default {
       form: {
         message: "",
       },
-      username: "Designer",
+      username: "",
+      status: "",
+      image:'',
+      receiver_id:'',
+      receiver_number:''
     };
   },
   validations: {
@@ -347,14 +371,20 @@ export default {
     },
   },
   methods: {
+
+     formatDate(date) {
+      const options = { year: 'numeric', month: 'numeric', day: 'numeric' }
+      return new Date(date).toLocaleDateString('en', options)
+    },
     send_messages() {
       const payload = {
-        receiver_number: "+18167744894",
-        receiver_id: 2,
+        receiver_number: this.receiver_number,
+        receiver_id: this.receiver_id,
         message: this.form.message,
       };
-
-      this.$store
+     
+        if(this.receiver_id){
+       this.$store
         .dispatch("chat/saveMessage", payload)
         .then((response) => {})
         .catch((error) => {
@@ -362,27 +392,27 @@ export default {
         })
         .catch(() => {
           this.isDisabled = false;
-        });
+        }); 
+        } 
     },
-   async  getChatMessages(receiver_id){
-     const messages =await  this.$axios.$get('/get_chat_users/'+receiver_id)
-     this.chatMessages=messages.data
+   async  getChatMessages(){
+   
+
+    const chat_contacts =await  this.$axios.$get('/get_chat_contacts')
+    this.chatData=chat_contacts.data
+     
     },
     /**
      * Get the name of user
      */
-    chatUsername(name, image) {
+   async chatUsername(id,name, image,phone_no) {
+      this.receiver_id=id;
+     const messages =await  this.$axios.$get('/get_chat_users/'+id)
+     this.chatMessages=messages.data.slice().reverse()
       this.username = name;
-      this.usermessage = "Hello";
-
-      this.chatMessagesData = [];
-      const currentDate = new Date();
-      this.chatMessagesData.push({
-        image: image,
-        name: this.username,
-        message: this.usermessage,
-        time: currentDate.getHours() + ":" + currentDate.getMinutes(),
-      });
+      this.status='online';
+      this.image=image;
+      this.receiver_number=phone_no;
     },
 
     /**
@@ -400,22 +430,93 @@ export default {
       } else {
         const message = this.form.message;
         const currentDate = new Date();
-        this.chatMessages.chat_messages.push({
+    
+      if(this.receiver_id){
+         
+    
+     if(Object.keys(this.chatMessages).length==0){
+     
+    
+    this.chatMessages=[ 
+    
+    {
           align: "right",
-          name: "Marcus",
+          name: `${this.$auth.user.name}`,
           message,
           time: currentDate.getHours() + ":" + currentDate.getMinutes(),
-          image: require("~/assets/images/users/avatar-1.jpg"),
-        });
+          image: `${this.$auth.user.profile_photo_path}`,
+        }
+   ];
+    
+
+
+        }else{
+        this.chatMessages.push({
+          align: "right",
+          name: `${this.$auth.user.name}`,
+          message,
+          time: currentDate.getHours() + ":" + currentDate.getMinutes(),
+          image: `${this.$auth.user.profile_photo_path}`,
+        }); 
+        }
+      }
+        
+   
+       
       }
       this.submitted = false;
       this.form = {};
     },
   },
   
-  created(){
+  mounted(){
+    const newMessages=this.chatMessages;
+  
+      this.getChatMessages()
+    this.$echo.channel(`chat.${this.$auth.user.user_uuid}`).on("chat.event", (res) => {
 
-      this.getChatMessages('2')
+ console.log(this.receiver_id)
+  console.log(res.data.sender_id);
+
+
+  if(this.receiver_id==res.data.sender_id){
+   if(Object.keys(this.chatMessages.chat_messages).length==0){
+     
+       this.chatMessages={ 
+    chat_messages: [ 
+    
+    {
+           align: "",
+          name: this.name,
+          message:res.data.message,
+          time: res.data.created_at,
+          image: this.image,
+        }
+   ]
+    
+};
+   }else{
+  this.chatMessages.chat_messages.push(
+
+{
+          align: "",
+          name: this.name,
+          message:res.data.message,
+          time: res.data.created_at,
+          image: this.image,
+        }
+
+  )
+   }
+  }
+ 
+
+
+  
+  
+      
+
+});
      
   },
   middleware: "router-auth",

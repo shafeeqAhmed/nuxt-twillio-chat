@@ -33,6 +33,7 @@
     "nuxt": "^2.14.0",
     "nuxt-i18n": "^6.15.0",
     "or": "^0.2.0",
+    "pusher-js": "^7.0.3",
     "simplebar-vue": "^2.0.0-beta.4",
     "sweetalert2": "^9.17.1",
     "v-click-outside": "^3.1.0",
@@ -62,6 +63,7 @@
     "yarn": "^1.22.17"
   },
   "devDependencies": {
+    "@nuxtjs/laravel-echo": "^1.1.0",
     "eslint": "^8.4.1",
     "eslint-plugin-vue": "^8.2.0",
     "sass": "^1.45.0",

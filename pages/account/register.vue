@@ -73,15 +73,15 @@ export default {
       password: {
         required,
       },
-      phone_no: {
-        required,
-      },
       password_confirmation: {
         required,
       },
     },
   },
   created() {
+    if(!this.$route.query.id){
+      this.$router.push({ path: "/account/login" });
+    }
     this.$store
       .dispatch("getInfluencersDropdowns")
       .then((response) => {
@@ -104,8 +104,6 @@ export default {
       // stop here if form is invalid
       this.$v.$touch();
       if (this.$v.$invalid) {
-        console.log(this.$v.user)
-
         return;
       } else {
         this.tryingToRegister = true;
@@ -113,6 +111,7 @@ export default {
         //     this.regError = null;
         if (!this.$v.$invalid && !this.isMatchPassword) {
           const payload = {
+            reference: this.$route.query.id,
             first_name: this.user.first_name,
             last_name: this.user.last_name,
             email: this.user.email,
@@ -139,6 +138,12 @@ export default {
                   "Signup Successfully! please Login Now"
                 );
                 this.$router.push("/account/login");
+              } else {
+                alert(response.data.message)
+                this.$store.dispatch(
+                  "notification/error",
+                  response.data.message
+                );
               }
             })
             .catch((error) => {

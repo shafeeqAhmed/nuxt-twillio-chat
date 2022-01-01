@@ -107,8 +107,8 @@ export default {
     }
   },
   axios: {
-      baseURL: 'http://localhost/twillo-api/api'
-  // baseURL: 'http://localhost/chat-app/twillo-api/api'
+
+      baseURL: 'http://localhost/js/twillo-api/api'
     },
   auth: {
     redirect: {
@@ -119,7 +119,6 @@ export default {
     },
     strategies: {
       local: {
-        
         token: {
           property: 'data.accessToken',
           required: true,

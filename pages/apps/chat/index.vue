@@ -338,7 +338,7 @@ export default {
     return {
       backendErrors: [],
       chatData: {},
-      chatMessages:{},
+      chatMessages:[],
       title: "Chat",
       items: [
         {
@@ -408,7 +408,11 @@ export default {
    async chatUsername(id,name, image,phone_no) {
       this.receiver_id=id;
      const messages =await  this.$axios.$get('/get_chat_users/'+id)
-     this.chatMessages=messages.data.slice().reverse()
+     this.chatMessages=messages.data
+   //  this.chatMessages.slice().reverse()
+     console.log(typeof(this.chatMessages))
+
+     
       this.username = name;
       this.status='online';
       this.image=image;

@@ -400,7 +400,15 @@ export default {
    async chatUsername(id,name, image,phone_no) {
       this.receiver_id=id;
      const messages =await  this.$axios.$get('/get_chat_users/'+id)
-     this.chatMessages= messages.data
+   //  this.chatMessages= messages.data
+
+    let arr = []
+Object.entries(messages.data).forEach(ob => {
+      arr.push(ob[1]);
+      });
+  
+
+  this.chatMessages= arr
    //  this.chatMessages.slice().reverse()
      console.log(typeof(this.chatMessages))
 

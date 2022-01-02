@@ -199,7 +199,7 @@
                   </div>
                   <div class="conversation-text">
                     <div class="ctext-wrap">
-                      <i>{{ data.to }}</i>
+                      <i>{{ data.from }}</i>
                       <p>{{ data.message }}</p>
                     </div>
                     <div
@@ -408,7 +408,7 @@ Object.entries(messages.data).forEach(ob => {
       });
   
 
-  this.chatMessages= arr
+  this.chatMessages= arr.slice().reverse()
    //  this.chatMessages.slice().reverse()
      console.log(typeof(this.chatMessages))
 
@@ -448,7 +448,8 @@ this.username = name;
           message,
           direction:'outbound-api',
           id:0,
-          to :this.receiver_id,
+          to :this.receiver_number,
+          from :this.receiver_number,
           time: currentDate.getHours() + ":" + currentDate.getMinutes(),
           image: `${this.$auth.user.profile_photo_path}`,
         }
@@ -464,7 +465,8 @@ this.username = name;
           message,
           direction:'outbound-api',
           id:0,
-          to :this.receiver_id,
+          to :this.receiver_number,
+          from :this.receiver_number,
           time: currentDate.getHours() + ":" + currentDate.getMinutes(),
           image: `${this.$auth.user.profile_photo_path}`,
         }); 

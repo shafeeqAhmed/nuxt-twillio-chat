@@ -385,7 +385,7 @@ export default {
         .catch(() => {
           this.isDisabled = false;
         }); 
-        } 
+        }  
     },
    async  getChatMessages(){
    
@@ -402,24 +402,10 @@ export default {
      const messages =await  this.$axios.$get('/get_chat_users/'+id)
      this.chatMessages= messages.data
    //  this.chatMessages.slice().reverse()
-  let obj= messages.data
-  console.log(typeof(obj))
- 
-  /*  const objectToArray = obj => {
-      let sol = [];
-      for (key in obj) {
-        sol.push([key, obj[key]]);
-      }
-      return sol;
-    }; */
-
- 
-  // this.chatMessages=objectToArray(obj);
-    //console.log(this.chatMessages)
      console.log(typeof(this.chatMessages))
 
-     
-      this.username = name;
+
+this.username = name;
       this.status='online';
       this.image=image;
       this.receiver_number=phone_no;
@@ -443,8 +429,7 @@ export default {
     
       if(this.receiver_id){
          
-    
-     if(Object.keys(this.chatMessages).length==0){
+      if(Object.keys(this.chatMessages).length==0){
      
     
     this.chatMessages=[ 
@@ -453,6 +438,9 @@ export default {
           align: "right",
           name: `${this.$auth.user.name}`,
           message,
+          direction:'outbound-api',
+          id:0,
+          to :this.receiver_id,
           time: currentDate.getHours() + ":" + currentDate.getMinutes(),
           image: `${this.$auth.user.profile_photo_path}`,
         }
@@ -461,14 +449,20 @@ export default {
 
 
         }else{
+        
         this.chatMessages.push({
           align: "right",
           name: `${this.$auth.user.name}`,
           message,
+          direction:'outbound-api',
+          id:0,
+          to :this.receiver_id,
           time: currentDate.getHours() + ":" + currentDate.getMinutes(),
           image: `${this.$auth.user.profile_photo_path}`,
         }); 
-        }
+
+
+        } 
       }
         
    
@@ -487,19 +481,20 @@ export default {
 
  console.log(this.receiver_id)
   console.log(res.data.sender_id);
-console.log(this.chatMessages);
 
-
-
-console.log({
-          align: "",
+        const originalObj = this.chatMessages
+   
+/* 
+       this.chatMessages = { ...originalObj,   align: "",
           name: this.name,
           message:res.data.message,
           time: res.data.created_at,
           image: this.image,
           align:res.data.align,
-          direction:res.data.direction
-        });
+          direction:res.data.direction} */
+
+           console.log(Object.entries(this.chatMessages));
+
   if(this.receiver_id==res.data.sender_id){
    
      if(Object.keys(this.chatMessages).length==0){
@@ -532,7 +527,7 @@ console.log({
 
   )
    }  
-  }
+  } 
  
 
 

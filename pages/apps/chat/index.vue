@@ -55,21 +55,14 @@
               <div class="col">
                
                 <simplebar data-simplebar style="max-height: 498px" v-if="chatData">
-                  <!-- <a
+              
+                   <a
                     href="javascript:void(0);"
                     class="text-body"
                     v-for="(item, index) in chatData"
                     :key="index"
-                   @click="chatUsername(item.id,item.name, item.profile_photo_path,item.phone_no)"
-                  > -->
-
-                  <a
-                    href="javascript:void(0);"
-                    class="text-body"
-                    v-for="(item, index) in chatData"
-                    :key="index"
-                   @click="chatUsername(item.id,item.local_number, '',item.local_number)"
-                  >
+                   @click="chatUsername(item.user.id,item.user.name, item.user.profile_photo_path,item.user.phone_no)"
+                  > 
                  
                     <div class="media p-2">
                       <div class="position-relative">
@@ -100,15 +93,14 @@
                               font-weight-normal font-12
                             "
                             >
-                             {{  formatDate(item.created_at) }}
+                             {{  formatDate(item.user.created_at) }}
                             </span
                           >
-                         {{item.local_number}}
-                        <!-- {{item.name}} -->
+                         {{item.user.name}} 
                         </h5>
-                       <!--   <p  class="mt-1 mb-0 text-muted font-14">
-                          <span class="w-75">hi</span>
-                        </p> -->
+                        <p  class="mt-1 mb-0 text-muted font-14">
+                          <span class="w-75">  {{item.user.phone_no}} </span>
+                        </p> 
                        <!--  <p v-if="item.message[0]" class="mt-1 mb-0 text-muted font-14">
                           <span class="w-75">{{ item.message[0].message }}</span>
                         </p> -->
@@ -400,7 +392,7 @@ export default {
 
     const chat_contacts =await  this.$axios.$get('/get_chat_contacts')
     this.chatData=chat_contacts.data
-     
+      
     },
     /**
      * Get the name of user
@@ -408,8 +400,22 @@ export default {
    async chatUsername(id,name, image,phone_no) {
       this.receiver_id=id;
      const messages =await  this.$axios.$get('/get_chat_users/'+id)
-     this.chatMessages=messages.data
+     this.chatMessages= messages.data
    //  this.chatMessages.slice().reverse()
+  let obj= messages.data
+  console.log(typeof(obj))
+ 
+  /*  const objectToArray = obj => {
+      let sol = [];
+      for (key in obj) {
+        sol.push([key, obj[key]]);
+      }
+      return sol;
+    }; */
+
+ 
+  // this.chatMessages=objectToArray(obj);
+    //console.log(this.chatMessages)
      console.log(typeof(this.chatMessages))
 
      
@@ -481,26 +487,38 @@ export default {
 
  console.log(this.receiver_id)
   console.log(res.data.sender_id);
+console.log(this.chatMessages);
 
 
-  if(this.receiver_id==res.data.sender_id){
-   if(Object.keys(this.chatMessages.chat_messages).length==0){
-     
-       this.chatMessages={ 
-    chat_messages: [ 
-    
-    {
-           align: "",
+
+console.log({
+          align: "",
           name: this.name,
           message:res.data.message,
           time: res.data.created_at,
           image: this.image,
-        }
-   ]
+          align:res.data.align,
+          direction:res.data.direction
+        });
+  if(this.receiver_id==res.data.sender_id){
+   
+     if(Object.keys(this.chatMessages).length==0){
+     
+       this.chatMessages=[  
     
-};
+   {
+          align: "",
+          name: this.name,
+          message:res.data.message,
+          time: res.data.created_at,
+          image: this.image,
+          align:res.data.align,
+          direction:res.data.direction
+        }
+   
+       ];
    }else{
-  this.chatMessages.chat_messages.push(
+  this.chatMessages.push(
 
 {
           align: "",
@@ -508,10 +526,12 @@ export default {
           message:res.data.message,
           time: res.data.created_at,
           image: this.image,
+          align:res.data.align,
+          direction:res.data.direction
         }
 
   )
-   }
+   }  
   }
  
 

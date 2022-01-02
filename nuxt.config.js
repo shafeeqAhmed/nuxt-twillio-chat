@@ -108,7 +108,7 @@ export default {
   },
   axios: {
 
-      baseURL: 'http://localhost/js/twillo-api/api'
+      baseURL: 'http://localhost/twillo-api/api'
     },
   auth: {
     redirect: {

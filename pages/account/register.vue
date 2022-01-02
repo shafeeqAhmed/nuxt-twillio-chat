@@ -64,9 +64,9 @@ export default {
       gender: {
         required,
       },
-      phone_no: {
-        required,
-      },
+      // phone_no: {
+      //   required,
+      // },
      dob: {
         required,
       },
@@ -118,7 +118,7 @@ export default {
             country_id: this.user.country_id,
             city: this.user.city,
             gender: this.user.gender,
-            phone_no: this.user.phone_no,
+            // phone_no: this.user.phone_no,
             dob: this.user.dob,
             instagram: this.user.instagram,
             twitter: this.user.twitter,
@@ -361,7 +361,7 @@ export default {
               </div>
 
             </div>
-            <div class="form-group">
+            <!-- <div class="form-group">
               <label for="fullname">Phone Number<span class="text-danger">*</span></label>
               <input
                 class="form-control"
@@ -377,7 +377,7 @@ export default {
               >
                 Phone Number is required.
               </div>
-            </div>
+            </div> -->
              <div class="form-group">
               <label for="fullname">Date Of Birth<span class="text-danger">*</span></label>
               <input

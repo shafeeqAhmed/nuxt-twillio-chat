@@ -548,7 +548,7 @@ this.username = name;
 });
      
 this.$echo.channel(`user.${this.$auth.user.user_uuid}`).on("user.event", (res) => {
-
+console.log(res)
 });
 
   },

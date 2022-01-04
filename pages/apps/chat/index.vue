@@ -8,12 +8,16 @@
         <div class="card">
           <div class="card-body">
             <div class="media mb-3">
-              <img  v-if="$auth.user.profile_photo_path != null" :src="$auth.user.profile_photo_path"
+              <img
+                v-if="$auth.user.profile_photo_path != null"
+                :src="$auth.user.profile_photo_path"
                 class="mr-2 rounded-circle"
                 height="42"
                 alt="Brandon Smith"
               />
-               <img v-else src="~/assets/images/users/avatar-1.jpg"
+              <img
+                v-else
+                src="~/assets/images/users/avatar-1.jpg"
                 class="mr-2 rounded-circle"
                 height="42"
                 alt="Brandon Smith"
@@ -47,29 +51,35 @@
               </div>
             </form>
             <!-- end search box -->
-           
+
             <h6 class="font-13 text-muted text-uppercase mb-2">Contacts</h6>
 
             <!-- users -->
             <div class="row">
               <div class="col">
-               
-                <simplebar data-simplebar style="max-height: 498px" v-if="chatData">
-              
-                   <a
+                <simplebar
+                  data-simplebar
+                  style="max-height: 498px"
+                  v-if="chatData"
+                >
+                  <a
                     href="javascript:void(0);"
                     class="text-body"
                     v-for="(item, index) in chatData"
                     :key="index"
-                   @click="chatUsername(item.user.id,item.user.name, item.user.profile_photo_path,item.user.phone_no)"
-                  > 
-                 
+                    @click="
+                      chatUsername(
+                        item.user.id,
+                        item.user.name,
+                        item.user.profile_photo_path,
+                        item.user.phone_no
+                      )
+                    "
+                  >
                     <div class="media p-2">
                       <div class="position-relative">
-                         <span
-                          class="user-status online"
-                        ></span>
-                       <!--  <span
+                        <span class="user-status online"></span>
+                        <!--  <span
                           class="user-status"
                           :class="{
                             online: item.status === 'online',
@@ -87,21 +97,16 @@
                       <div class="media-body">
                         <h5 class="mt-0 mb-0 font-14">
                           <span
-                            class="
-                              float-right
-                              text-muted
-                              font-weight-normal font-12
-                            "
-                            >
-                             {{  formatDate(item.user.created_at) }}
-                            </span
+                            class="float-right text-muted font-weight-normal font-12"
                           >
-                         {{item.user.name}} 
+                            {{ formatDate(item.user.created_at) }}
+                          </span>
+                          {{ item.user.name }}
                         </h5>
-                        <p  class="mt-1 mb-0 text-muted font-14">
-                          <span class="w-75">  {{item.user.phone_no}} </span>
-                        </p> 
-                       <!--  <p v-if="item.message[0]" class="mt-1 mb-0 text-muted font-14">
+                        <p class="mt-1 mb-0 text-muted font-14">
+                          <span class="w-75"> {{ item.user.phone_no }} </span>
+                        </p>
+                        <!--  <p v-if="item.message[0]" class="mt-1 mb-0 text-muted font-14">
                           <span class="w-75">{{ item.message[0].message }}</span>
                         </p> -->
                       </div>
@@ -121,12 +126,13 @@
       <!-- end chat users-->
 
       <!-- chat area -->
-    
+
       <div class="col-xl-9 col-lg-8">
         <div class="card">
           <div class="card-body py-2 px-3 border-bottom border-light">
             <div class="media py-1">
-              <img v-if="image"
+              <img
+                v-if="image"
                 :src="image"
                 class="mr-2 rounded-circle"
                 height="36"
@@ -139,7 +145,8 @@
                   </nuxt-link>
                 </h5>
                 <p class="mt-1 mb-0 text-muted font-12" v-if="status">
-                  <small class="mdi mdi-circle text-success"></small> {{status}}
+                  <small class="mdi mdi-circle text-success"></small>
+                  {{ status }}
                 </p>
               </div>
               <div>
@@ -178,79 +185,78 @@
               </div>
             </div>
           </div>
-          
+
           <div class="card-body">
-              
             <simplebar data-simplebar style="max-height: 460px">
-              
               <ul class="conversation-list chat-app-conversation">
-                  <template v-if="chatMessages">
-                <li
-               
-                  class="clearfix"
-                  v-for="(data, index) in chatMessages"
-                  :key="index"
-                  :class="{ odd: data.align === 'right' }"
-                >
-                  
-                  <div class="chat-avatar">
-                    <img :src="data.image" class="rounded" alt="James Z" />
-                    <i>{{ data.time }}</i>
-                  </div>
-                  <div class="conversation-text">
-                    <div class="ctext-wrap">
-                      <i>{{ data.from }}</i>
-                      <p>{{ data.message }}</p>
+                <template v-if="chatMessages">
+                  <li
+                    class="clearfix"
+                    v-for="(data, index) in chatMessages"
+                    :key="index"
+                    :class="{ odd: data.align === 'right' }"
+                  >
+                    <div class="chat-avatar">
+                      <!-- <img :src="data.image" class="rounded" alt="Jamr" /> -->
+                      <img
+                      src="~/assets/images/users/default.png"
+                       class="rounded" alt="Jaml" />
+                      <i>{{ data.time }}</i>
                     </div>
-                    <div
-                      class="card mt-2 mb-1 shadow-none border text-left"
-                      v-if="data.file === true"
-                    >
-                      <div class="p-2">
-                        <div class="row align-items-center">
-                          <div class="col-auto">
-                            <div class="avatar-sm">
-                              <span class="avatar-title bg-primary rounded"
-                                >PDF</span
-                              >
+                    <div class="conversation-text">
+                      <div class="ctext-wrap">
+                        <i>{{ data.to }}</i>
+                        <p>{{ data.message }}</p>
+                      </div>
+                      <div
+                        class="card mt-2 mb-1 shadow-none border text-left"
+                        v-if="data.file === true"
+                      >
+                        <div class="p-2">
+                          <div class="row align-items-center">
+                            <div class="col-auto">
+                              <div class="avatar-sm">
+                                <span class="avatar-title bg-primary rounded"
+                                  >PDF</span
+                                >
+                              </div>
                             </div>
-                          </div>
-                          <div class="col pl-0">
-                            <a
-                              href="javascript:void(0);"
-                              class="text-muted font-weight-medium"
-                              >minton-presentation.pdf</a
-                            >
-                            <p class="mb-0">2.3 MB</p>
-                          </div>
-                          <div class="col-auto">
-                            <!-- Button -->
-                            <a
-                              href="javascript:void(0);"
-                              class="btn btn-link btn-lg text-muted"
-                            >
-                              <i class="dripicons-download"></i>
-                            </a>
+                            <div class="col pl-0">
+                              <a
+                                href="javascript:void(0);"
+                                class="text-muted font-weight-medium"
+                                >minton-presentation.pdf</a
+                              >
+                              <p class="mb-0">2.3 MB</p>
+                            </div>
+                            <div class="col-auto">
+                              <!-- Button -->
+                              <a
+                                href="javascript:void(0);"
+                                class="btn btn-link btn-lg text-muted"
+                              >
+                                <i class="dripicons-download"></i>
+                              </a>
+                            </div>
                           </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                  <b-dropdown
-                    class="conversation-actions"
-                    toggle-class="btn-sm btn-link text-reset p-0"
-                    variant="black"
-                    right
-                  >
-                    <template v-slot:button-content>
-                      <i class="mdi mdi-dots-vertical font-18"></i>
-                    </template>
-                    <a class="dropdown-item" href="#">Copy Message</a>
-                    <a class="dropdown-item" href="#">Edit</a>
-                    <a class="dropdown-item" href="#">Delete</a>
-                  </b-dropdown>
-                </li>
-                  </template>
+                    <b-dropdown
+                      class="conversation-actions"
+                      toggle-class="btn-sm btn-link text-reset p-0"
+                      variant="black"
+                      right
+                    >
+                      <template v-slot:button-content>
+                        <i class="mdi mdi-dots-vertical font-18"></i>
+                      </template>
+                      <a class="dropdown-item" href="#">Copy Message</a>
+                      <a class="dropdown-item" href="#">Edit</a>
+                      <a class="dropdown-item" href="#">Delete</a>
+                    </b-dropdown>
+                  </li>
+                </template>
               </ul>
             </simplebar>
             <div class="row">
@@ -316,7 +322,6 @@
 <script>
 import { required } from "vuelidate/lib/validators";
 
-
 /**
  * Chat comoponent
  */
@@ -330,7 +335,7 @@ export default {
     return {
       backendErrors: [],
       chatData: {},
-      chatMessages:[],
+      chatMessages: [],
       title: "Chat",
       items: [
         {
@@ -350,9 +355,9 @@ export default {
       },
       username: "",
       status: "",
-      image:'',
-      receiver_id:'',
-      receiver_number:''
+      image: "",
+      receiver_id: "",
+      receiver_number: "",
     };
   },
   validations: {
@@ -363,10 +368,9 @@ export default {
     },
   },
   methods: {
-
-     formatDate(date) {
-      const options = { year: 'numeric', month: 'numeric', day: 'numeric' }
-      return new Date(date).toLocaleDateString('en', options)
+    formatDate(date) {
+      const options = { year: "numeric", month: "numeric", day: "numeric" };
+      return new Date(date).toLocaleDateString("en", options);
     },
     send_messages() {
       const payload = {
@@ -374,49 +378,49 @@ export default {
         receiver_id: this.receiver_id,
         message: this.form.message,
       };
-     
-        if(this.receiver_id){
-       this.$store
-        .dispatch("chat/saveMessage", payload)
-        .then((response) => {})
-        .catch((error) => {
-          this.backendErrors = error.response.data.errors;
-        })
-        .catch(() => {
-          this.isDisabled = false;
-        }); 
-        }  
-    },
-   async  getChatMessages(){
-   
 
-    const chat_contacts =await  this.$axios.$get('/get_chat_contacts')
-    this.chatData=chat_contacts.data
-      
+      if (this.receiver_id) {
+        this.$store
+          .dispatch("chat/saveMessage", payload)
+          .then((response) => {})
+          .catch((error) => {
+            this.backendErrors = error.response.data.errors;
+          })
+          .catch(() => {
+            this.isDisabled = false;
+          });
+      }
+    },
+    async getChatMessages() {
+      const chat_contacts = await this.$axios.$get("/get_chat_contacts");
+      this.chatData = chat_contacts.data;
     },
     /**
      * Get the name of user
      */
-   async chatUsername(id,name, image,phone_no) {
-      this.receiver_id=id;
-     const messages =await  this.$axios.$get('/get_chat_users/'+id)
-   //  this.chatMessages= messages.data
+    async chatUsername(id, name, image, phone_no) {
+      this.receiver_id = id;
+      const messages = await this.$axios.$get("/get_chat_users/" + id);
+      //  this.chatMessages= messages.data
 
-    let arr = []
-Object.entries(messages.data).forEach(ob => {
-      arr.push(ob[1]);
+      let arr = [];
+      Object.entries(messages.data).forEach((ob) => {
+        arr.push(ob[1]);
       });
-  
+
 
   this.chatMessages= arr.slice().reverse()
    //  this.chatMessages.slice().reverse()
      console.log(typeof(this.chatMessages))
 
+      this.chatMessages = arr.slice().reverse();
+      // this.chatMessages.slice().reverse()
+      console.log(typeof this.chatMessages);
 
-this.username = name;
-      this.status='online';
-      this.image=image;
-      this.receiver_number=phone_no;
+      this.username = name;
+      this.status = "online";
+      this.image = image;
+      this.receiver_number = phone_no;
     },
 
     /**
@@ -434,67 +438,50 @@ this.username = name;
       } else {
         const message = this.form.message;
         const currentDate = new Date();
-    
-      if(this.receiver_id){
-         
-      if(Object.keys(this.chatMessages).length==0){
-     
-    
-    this.chatMessages=[ 
-    
-    {
-          align: "right",
-          name: `${this.$auth.user.name}`,
-          message,
-          direction:'outbound-api',
-          id:0,
-          to :this.receiver_number,
-          from :this.receiver_number,
-          time: currentDate.getHours() + ":" + currentDate.getMinutes(),
-          image: `${this.$auth.user.profile_photo_path}`,
+
+        if (this.receiver_id) {
+          if (Object.keys(this.chatMessages).length == 0) {
+            this.chatMessages = [
+              {
+                align: "right",
+                name: `${this.$auth.user.name}`,
+                message,
+                direction: "outbound-api",
+                id: 0,
+                to: this.receiver_id,
+                time: currentDate.getHours() + ":" + currentDate.getMinutes(),
+                image: `${this.$auth.user.profile_photo_path}`,
+              },
+            ];
+          } else {
+            this.chatMessages.push({
+              align: "right",
+              name: `${this.$auth.user.name}`,
+              message,
+              direction: "outbound-api",
+              id: 0,
+              to: this.receiver_id,
+              time: currentDate.getHours() + ":" + currentDate.getMinutes(),
+              image: `${this.$auth.user.profile_photo_path}`,
+            });
+          }
         }
-   ];
-    
-
-
-        }else{
-        
-        this.chatMessages.push({
-          align: "right",
-          name: `${this.$auth.user.name}`,
-          message,
-          direction:'outbound-api',
-          id:0,
-          to :this.receiver_number,
-          from :this.receiver_number,
-          time: currentDate.getHours() + ":" + currentDate.getMinutes(),
-          image: `${this.$auth.user.profile_photo_path}`,
-        }); 
-
-
-        } 
-      }
-        
-   
-       
       }
       this.submitted = false;
       this.form = {};
     },
   },
-  
-  mounted(){
-    const newMessages=this.chatMessages;
-  
-      this.getChatMessages()
-    this.$echo.channel(`chat.${this.$auth.user.user_uuid}`).on("chat.event", (res) => {
 
- console.log(this.receiver_id)
-  console.log(res.data.sender_id);
+  mounted() {
+    const newMessages = this.chatMessages;
 
-        const originalObj = this.chatMessages
-   
-/* 
+    this.getChatMessages();
+    this.$echo
+      .channel(`chat.${this.$auth.user.user_uuid}`)
+      .on("chat.event", (res) => {
+        const originalObj = this.chatMessages;
+
+        /*
        this.chatMessages = { ...originalObj,   align: "",
           name: this.name,
           message:res.data.message,
@@ -503,54 +490,33 @@ this.username = name;
           align:res.data.align,
           direction:res.data.direction} */
 
-           console.log(Object.entries(this.chatMessages));
 
-  if(this.receiver_id==res.data.sender_id){
-   
-     if(Object.keys(this.chatMessages).length==0){
-     
-       this.chatMessages=[  
-    
-   {
-          align: "",
-          name: this.name,
-          message:res.data.message,
-          time: res.data.created_at,
-          image: this.image,
-          align:res.data.align,
-          direction:res.data.direction
+        if (this.receiver_id == res.data.sender_id) {
+          if (Object.keys(this.chatMessages).length == 0) {
+            this.chatMessages = [
+              {
+                align: "",
+                name: this.name,
+                message: res.data.message,
+                time: res.data.created_at,
+                image: this.image,
+                align: res.data.align,
+                direction: res.data.direction,
+              },
+            ];
+          } else {
+            this.chatMessages.push({
+              align: "",
+              name: this.name,
+              message: res.data.message,
+              time: res.data.created_at,
+              image: this.image,
+              align: res.data.align,
+              direction: res.data.direction,
+            });
+          }
         }
-   
-       ];
-   }else{
-  this.chatMessages.push(
-
-{
-          align: "",
-          name: this.name,
-          message:res.data.message,
-          time: res.data.created_at,
-          image: this.image,
-          align:res.data.align,
-          direction:res.data.direction
-        }
-
-  )
-   }  
-  } 
- 
-
-
-  
-  
-      
-
-});
-     
-this.$echo.channel(`user.${this.$auth.user.user_uuid}`).on("user.event", (res) => {
-console.log(res)
-});
-
+      });
   },
   middleware: "router-auth",
 };

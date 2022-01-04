@@ -155,9 +155,7 @@ export default {
                     <i class="fe-maximize noti-icon"></i>
                 </a>
             </li>
-
-
-             <li class="dropdown d-none d-lg-inline-block">
+             <li class="dropdown d-none d-lg-inline-block" v-if="$auth.hasScope('influencer')">
                 <nuxt-link class="nav-link dropdown-toggle arrow-none waves-effect waves-light" aria-current="page" to="/apps/chat">
                    <i class="ri-message-2-line"></i> <span>Chat</span>
                 </nuxt-link>
@@ -245,7 +243,7 @@ export default {
                     </h6>
                 </b-dropdown-header>
 
-                
+
                 <b-dropdown-item @click="$router.push(`/user/profile/${$auth.user.user_uuid}`)">
                     <i class="remixicon-settings-3-line"></i>
                     <span>My Account</span>

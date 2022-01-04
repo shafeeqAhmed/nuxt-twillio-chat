@@ -74,8 +74,8 @@ export default {
     [
       '@nuxtjs/laravel-echo', {
         broadcaster: 'pusher',
-        key: '3fef7a0ccafd37cf4a23',
-        cluster: 'ap2',
+        key: '7d65294556a4568cae7f',
+        cluster: 'mt1',
         forceTLS: true
       }
     ]
@@ -107,7 +107,8 @@ export default {
     }
   },
   axios: {
-    baseURL: 'https://text-app.tkit.co.uk/api/api'
+
+      baseURL: 'http://localhost/twillo-api/api'
     },
   auth: {
     redirect: {

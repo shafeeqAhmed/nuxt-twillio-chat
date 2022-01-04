@@ -329,7 +329,7 @@ export default {
   data() {
     return {
       backendErrors: [],
-      chatData: {},
+      chatData: [],
       chatMessages:[],
       title: "Chat",
       items: [
@@ -547,9 +547,20 @@ this.username = name;
 
 });
      
-this.$echo.channel(`user.${this.$auth.user.user_uuid}`).on("user.event", (res) => {
-console.log(res)
+this.$echo.channel(`user.${this.$auth.user.user_uuid}`).on("user.event", (record) => {
+let data={
+  created_at: "",
+fan_club_uuid: "",
+fan_id: 0,
+id: 0,
+local_number: "",
+temp_id: "",
+user:record.data
+}
+this.chatData.push(data);
 });
+
+
 
   },
   middleware: "router-auth",

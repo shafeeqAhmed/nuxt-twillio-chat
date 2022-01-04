@@ -463,7 +463,7 @@ Object.entries(messages.data).forEach(ob => {
           direction:'outbound-api',
           id:0,
           to :this.receiver_number,
-          from :this.receiver_number,
+          from :`${this.$auth.user.phone_no}`,
           time: currentDate.getHours() + ":" + currentDate.getMinutes(),
           image: `${this.$auth.user.profile_photo_path}`,
         }
@@ -480,7 +480,7 @@ Object.entries(messages.data).forEach(ob => {
           direction:'outbound-api',
           id:0,
           to :this.receiver_number,
-          from :this.receiver_number,
+          from :`${this.$auth.user.phone_no}`,
           time: currentDate.getHours() + ":" + currentDate.getMinutes(),
           image: `${this.$auth.user.profile_photo_path}`,
         }); 

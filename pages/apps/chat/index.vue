@@ -200,8 +200,19 @@
                 >
                   
                   <div class="chat-avatar">
-                    <img :src="data.image" class="rounded" alt="James Z" />
-                    <i>{{  formatDate(data.time.date)  }}</i>
+                  
+                    <img v-if="data.image"
+                          :src="data.image"
+                         class="rounded" alt="James Z"
+                        />
+                         <img v-else
+                          src="~/assets/images/users/default.png"
+                         class="rounded" alt="James Z"
+                        />
+
+
+
+                    <i>{{  data.time  }}</i>
                   </div>
                   <div class="conversation-text">
                     <div class="ctext-wrap">

@@ -77,7 +77,13 @@
                             'do-not-disturb': item.status === 'do-not-disturb',
                           }"
                         ></span> -->
-                        <img
+                        <img v-if="item.user.profile_photo_path"
+                          :src="item.user.profile_photo_path"
+                          class="mr-2 rounded-circle"
+                          height="42"
+                          alt="user"
+                        />
+                         <img v-else
                           src="~/assets/images/users/default.png"
                           class="mr-2 rounded-circle"
                           height="42"
@@ -388,8 +394,7 @@ export default {
         }  
     },
    async  getChatMessages(){
-   
-
+  
     const chat_contacts =await  this.$axios.$get('/get_chat_contacts')
     this.chatData=chat_contacts.data
       
@@ -409,11 +414,8 @@ Object.entries(messages.data).forEach(ob => {
   
 
   this.chatMessages= arr.slice().reverse()
-   //  this.chatMessages.slice().reverse()
-     console.log(typeof(this.chatMessages))
-
-
-this.username = name;
+   
+       this.username = name;
       this.status='online';
       this.image=image;
       this.receiver_number=phone_no;
@@ -493,17 +495,6 @@ this.username = name;
   console.log(res.data.sender_id);
 
         const originalObj = this.chatMessages
-   
-/* 
-       this.chatMessages = { ...originalObj,   align: "",
-          name: this.name,
-          message:res.data.message,
-          time: res.data.created_at,
-          image: this.image,
-          align:res.data.align,
-          direction:res.data.direction} */
-
-           console.log(Object.entries(this.chatMessages));
 
   if(this.receiver_id==res.data.sender_id){
    
@@ -538,12 +529,7 @@ this.username = name;
   )
    }  
   } 
- 
 
-
-  
-  
-      
 
 });
      

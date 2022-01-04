@@ -201,7 +201,7 @@
                   
                   <div class="chat-avatar">
                     <img :src="data.image" class="rounded" alt="James Z" />
-                    <i>{{ data.time }}</i>
+                    <i>{{  formatDate(data.time.date)  }}</i>
                   </div>
                   <div class="conversation-text">
                     <div class="ctext-wrap">
@@ -419,6 +419,7 @@ Object.entries(messages.data).forEach(ob => {
       this.status='online';
       this.image=image;
       this.receiver_number=phone_no;
+     
     },
 
     /**
@@ -493,8 +494,8 @@ Object.entries(messages.data).forEach(ob => {
 
  console.log(this.receiver_id)
   console.log(res.data.sender_id);
-
-        const originalObj = this.chatMessages
+ 
+   const originalObj = this.chatMessages
 
   if(this.receiver_id==res.data.sender_id){
    
@@ -509,7 +510,8 @@ Object.entries(messages.data).forEach(ob => {
           time: res.data.created_at,
           image: this.image,
           align:res.data.align,
-          direction:res.data.direction
+          direction:res.data.direction,
+          from:this.receiver_number
         }
    
        ];
@@ -523,7 +525,8 @@ Object.entries(messages.data).forEach(ob => {
           time: res.data.created_at,
           image: this.image,
           align:res.data.align,
-          direction:res.data.direction
+          direction:res.data.direction,
+          from:this.receiver_number
         }
 
   )

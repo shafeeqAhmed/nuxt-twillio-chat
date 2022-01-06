@@ -70,12 +70,12 @@ export default {
      dob: {
         required,
       },
-      password: {
-        required,
-      },
-      password_confirmation: {
-        required,
-      },
+      // password: {
+      //   required,
+      // },
+      // password_confirmation: {
+      //   required,
+      // },
     },
   },
   created() {
@@ -109,7 +109,7 @@ export default {
         this.tryingToRegister = true;
         //     // Reset the regError if it existed.
         //     this.regError = null;
-        if (!this.$v.$invalid && !this.isMatchPassword) {
+        if (!this.$v.$invalid) {
           const payload = {
             reference: this.$route.query.id,
             first_name: this.user.first_name,
@@ -123,8 +123,8 @@ export default {
             instagram: this.user.instagram,
             twitter: this.user.twitter,
             ticktok: this.user.ticktok,
-            password: this.user.password,
-            password_confirmation: this.user.password_confirmation,
+            // password: this.user.password,
+            // password_confirmation: this.user.password_confirmation,
             terms: "on",
             baseDomain: "customer",
           };
@@ -446,62 +446,62 @@ export default {
               </div> -->
             </div>
 
-            <div class="form-group">
-              <label for="password">Password<span class="text-danger">*</span></label>
-              <div class="input-group input-group-merge">
-                <input
-                  type="password"
-                  v-model="user.password"
-                  id="password"
-                  class="form-control"
-                  :class="{
-                    'is-invalid': submitted && $v.user.password.$error,
-                  }"
-                  placeholder="Enter your password"
-                />
-                <div class="input-group-append" data-password="false">
-                  <div class="input-group-text">
-                    <span class="password-eye"></span>
-                  </div>
-                </div>
-                <div
-                  v-if="submitted && !$v.user.password.required"
-                  class="invalid-feedback"
-                >
-                  Password is required.
-                </div>
-              </div>
-              <span v-if="backendErrors.password" class="text-danger">
-                {{ backendErrors.password[0] }}
-              </span>
-            </div>
-            <div class="form-group">
-              <label for="password">Confirm Password</label>
-              <div class="input-group input-group-merge">
-                <input
-                  type="password"
-                  v-model="user.password_confirmation"
-                  id="password_confirmation"
-                  class="form-control"
-                  :class="{
-                    'is-invalid':
-                      submitted && $v.user.password_confirmation.$error,
-                  }"
-                  placeholder="Enter your password"
-                />
-                <div class="input-group-append" data-password="false">
-                  <div class="input-group-text">
-                    <span class="password-eye"></span>
-                  </div>
-                </div>
-                <div
-                  v-if="submitted && !$v.user.password_confirmation.required"
-                  class="invalid-feedback"
-                >
-                  Confirm Password is required.
-                </div>
-              </div>
-            </div>
+<!--            <div class="form-group">-->
+<!--              <label for="password">Password<span class="text-danger">*</span></label>-->
+<!--              <div class="input-group input-group-merge">-->
+<!--                <input-->
+<!--                  type="password"-->
+<!--                  v-model="user.password"-->
+<!--                  id="password"-->
+<!--                  class="form-control"-->
+<!--                  :class="{-->
+<!--                    'is-invalid': submitted && $v.user.password.$error,-->
+<!--                  }"-->
+<!--                  placeholder="Enter your password"-->
+<!--                />-->
+<!--                <div class="input-group-append" data-password="false">-->
+<!--                  <div class="input-group-text">-->
+<!--                    <span class="password-eye"></span>-->
+<!--                  </div>-->
+<!--                </div>-->
+<!--                <div-->
+<!--                  v-if="submitted && !$v.user.password.required"-->
+<!--                  class="invalid-feedback"-->
+<!--                >-->
+<!--                  Password is required.-->
+<!--                </div>-->
+<!--              </div>-->
+<!--              <span v-if="backendErrors.password" class="text-danger">-->
+<!--                {{ backendErrors.password[0] }}-->
+<!--              </span>-->
+<!--            </div>-->
+<!--            <div class="form-group">-->
+<!--              <label for="password">Confirm Password</label>-->
+<!--              <div class="input-group input-group-merge">-->
+<!--                <input-->
+<!--                  type="password"-->
+<!--                  v-model="user.password_confirmation"-->
+<!--                  id="password_confirmation"-->
+<!--                  class="form-control"-->
+<!--                  :class="{-->
+<!--                    'is-invalid':-->
+<!--                      submitted && $v.user.password_confirmation.$error,-->
+<!--                  }"-->
+<!--                  placeholder="Enter your password"-->
+<!--                />-->
+<!--                <div class="input-group-append" data-password="false">-->
+<!--                  <div class="input-group-text">-->
+<!--                    <span class="password-eye"></span>-->
+<!--                  </div>-->
+<!--                </div>-->
+<!--                <div-->
+<!--                  v-if="submitted && !$v.user.password_confirmation.required"-->
+<!--                  class="invalid-feedback"-->
+<!--                >-->
+<!--                  Confirm Password is required.-->
+<!--                </div>-->
+<!--              </div>-->
+<!--            </div>-->
             <div class="form-group">
               <div class="custom-control custom-checkbox">
                 <input

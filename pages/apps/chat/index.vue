@@ -47,13 +47,13 @@
               </div>
             </form>
             <!-- end search box -->
-           
+
             <h6 class="font-13 text-muted text-uppercase mb-2">Contacts</h6>
 
             <!-- users -->
             <div class="row">
               <div class="col">
-               
+
                 <simplebar data-simplebar style="max-height: 498px" v-if="chatData">
               
                    <a
@@ -127,7 +127,7 @@
       <!-- end chat users-->
 
       <!-- chat area -->
-    
+
       <div class="col-xl-9 col-lg-8">
         <div class="card">
           <div class="card-body py-2 px-3 border-bottom border-light">
@@ -184,21 +184,21 @@
               </div>
             </div>
           </div>
-          
+
           <div class="card-body">
-              
+
             <simplebar data-simplebar style="max-height: 460px">
-              
+
               <ul class="conversation-list chat-app-conversation">
                   <template v-if="chatMessages">
                 <li
-               
+
                   class="clearfix"
                   v-for="(data, index) in chatMessages"
                   :key="index"
                   :class="{ odd: data.align === 'right' }"
                 >
-                  
+
                   <div class="chat-avatar">
                   
                     <img v-if="data.image"
@@ -391,7 +391,7 @@ export default {
         receiver_id: this.receiver_id,
         message: this.form.message,
       };
-     
+
         if(this.receiver_id){
        this.$store
         .dispatch("chat/saveMessage", payload)
@@ -448,7 +448,7 @@ Object.entries(messages.data).forEach(ob => {
       } else {
         const message = this.form.message;
         const currentDate = new Date();
-    
+
       if(this.receiver_id){
          
       if(Object.keys(this.chatMessages).length==0){
@@ -468,7 +468,7 @@ Object.entries(messages.data).forEach(ob => {
           image: `${this.$auth.user.profile_photo_path}`,
         }
    ];
-    
+
 
 
         }else{
@@ -488,18 +488,18 @@ Object.entries(messages.data).forEach(ob => {
 
         } 
       }
-        
-   
-       
+
+
+
       }
       this.submitted = false;
       this.form = {};
     },
   },
-  
+
   mounted(){
     const newMessages=this.chatMessages;
-  
+
       this.getChatMessages()
     this.$echo.channel(`chat.${this.$auth.user.user_uuid}`).on("chat.event", (res) => {
 
@@ -524,7 +524,6 @@ Object.entries(messages.data).forEach(ob => {
           direction:res.data.direction,
           from:this.receiver_number
         }
-   
        ];
    }else{
   this.chatMessages.push(

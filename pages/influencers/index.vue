@@ -127,12 +127,22 @@ export default {
   computed: {},
 
   created() {
-    this.$store
-      .dispatch("influencer/getInfluencerDashboardInfo")
+   if(this.$auth.hasScope('influencer')) {
+     this.$store
+       .dispatch("influencer/getInfluencerDashboardInfo")
+       .then((response) => {
+         this.total_contacts = response.data.data.total_contacts;
+         this.send_message_count = response.data.data.user.send_message_count;
+         this.received_message_count = response.data.data.user.received_message_count;
+       })
+   }
+
+
+this.$store
+      .dispatch("getInfluencers")
       .then((response) => {
-        this.total_contacts = response.data.data.total_contacts;
-        this.send_message_count = response.data.data.user.send_message_count;
-        this.received_message_count = response.data.data.user.received_message_count;
+      this.users = response.data.data
+        console.log(response.data.data)
       })
 
   },

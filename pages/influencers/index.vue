@@ -77,22 +77,22 @@
                     <th>Total Contact Numbers</th>
                     <th>Total Send Messages</th>
                      <th>Total Receive Messages</th>
-                   
+
                   </tr>
                 </thead>
                 <tbody>
-                  <template v-if="users.list">
+                  <template >
                     <tr>
-                      <td>0</td>
-                      <td>0</td>
-                      <td>0</td>
+                      <td> {{ info.total_contacts }}</td>
+                      <td> {{ info.user.send_message_count }}</td>
+                      <td> {{ info.user.received_message_count }}</td>
                     </tr>
                   </template>
                 </tbody>
               </table>
             </div>
           </div>
-          
+
         </Portlet>
       </div>
     </div>
@@ -111,6 +111,7 @@ export default {
   data() {
     return {
       title: "Welcome !",
+      info: [],
       users: [],
       items: [
         {
@@ -125,16 +126,12 @@ export default {
 
   created() {
     this.$store
-      .dispatch("getInfluencers")
+      .dispatch("influencer/getInfluencerDashboardInfo")
       .then((response) => {
-        this.users = response.data.data;
+        this.info = response.data.data;
+        console.log(this.info)
       })
-      .catch((error) => {
-        this.backendErrors = error.response.data.errors;
-      })
-      .catch(() => {
-        this.isDisabled = false;
-      });
+
   },
 };
 </script>

@@ -80,8 +80,26 @@ export default {
   },
   created() {
     if(!this.$route.query.id){
-      this.$router.push({ path: "/account/login" });
+      this.returnLogin();
     }
+
+    this.$store
+      .dispatch("isValidReference",this.$route.query.id)
+      .then((response) => {
+       if(!response.data.data) {
+         const message = 'Your reference link is not valid please type message your respective user again'
+         this.$store.dispatch(
+           "notification/error",
+           message
+         );
+
+         this.returnLogin()
+       }
+      })
+      .catch((error) => {
+        this.returnLogin()
+      })
+
     this.$store
       .dispatch("getInfluencersDropdowns")
       .then((response) => {
@@ -95,6 +113,9 @@ export default {
       });
   },
   methods: {
+    returnLogin() {
+      this.$router.push({ path: "/account/login" })
+    },
     // Try to register the user in with the email, username
     // and password they provided.
     tryToRegisterIn() {

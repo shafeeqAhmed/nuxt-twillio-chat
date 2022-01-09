@@ -98,7 +98,7 @@ export const actions = {
     },
     getInfluencers({ commit }) {
         return new Promise((resolve, reject) => {
-          
+
         this.$axios
           .get(`get-influencers`)
           .then(response => {
@@ -146,10 +146,21 @@ export const actions = {
     },
 
 
-    createTwilioNumber({ commit },payload) {
-      return new Promise((resolve, reject) => {
+  createTwilioNumber({ commit },payload) {
+    return new Promise((resolve, reject) => {
       this.$axios
         .get(`buy-twillio-numbers/1/`+payload.country_id)
+        .then(response => {
+
+          resolve(response)
+        })
+        .catch(error => reject(error))
+    })
+  },
+  isValidReference({ commit },id) {
+    return new Promise((resolve, reject) => {
+      this.$axios
+        .get(`is-valid-reference/`+id)
         .then(response => {
 
           resolve(response)

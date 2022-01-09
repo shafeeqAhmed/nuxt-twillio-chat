@@ -499,6 +499,7 @@ export default {
       this.submitted = false;
       this.form = {};
     },
+
   },
 
   mounted() {
@@ -506,12 +507,6 @@ export default {
 
     this.getChatMessages()
     this.$echo.channel(`chat.${this.$auth.user.user_uuid}`).on("chat.event", (res) => {
-
-      console.log(this.receiver_id)
-      console.log(res.data.sender_id);
-
-      const originalObj = this.chatMessages
-
       if (this.receiver_id == res.data.sender_id) {
 
         if (Object.keys(this.chatMessages).length == 0) {

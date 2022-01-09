@@ -63,6 +63,7 @@
                     class="text-body"
                     v-for="(item, index) in chatData"
                     :key="index"
+                    v-if="item"
                     @click="chatUsername(item.id,item.fan.fname, '~/assets/images/users/default.png',item.local_number)"
                   >
                     <div class="media p-2">
@@ -543,16 +544,17 @@ export default {
     });
 
     this.$echo.channel(`user.${this.$auth.user.user_uuid}`).on("user.event", (record) => {
-      let data = {
-        created_at: "",
-        fan_club_uuid: "",
-        fan_id: 0,
-        id: 0,
-        local_number: "",
-        temp_id: "",
-        user: record.data
-      }
-      this.chatData.push(data);
+      this.getChatMessages()
+      // let data = {
+      //   created_at: "",
+      //   fan_club_uuid: "",
+      //   fan_id: 0,
+      //   id: 0,
+      //   local_number: "",
+      //   temp_id: "",
+      //   user: record.data
+      // }
+      // this.chatData.push(data);
     });
 
 

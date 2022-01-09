@@ -1,6 +1,6 @@
 <template>
   <div>
-    <PageHeader :title="title" :items="items" />
+    <PageHeader :title="title" :items="items"/>
 
     <div class="row">
       <!-- start chat users-->
@@ -8,21 +8,23 @@
         <div class="card">
           <div class="card-body">
             <div class="media mb-3">
-              <img  v-if="$auth.user.profile_photo_path != null" :src="$auth.user.profile_photo_path"
-                class="mr-2 rounded-circle"
-                height="42"
-                alt="Brandon Smith"
-              />
-               <img v-else src="~/assets/images/users/avatar-1.jpg"
-                class="mr-2 rounded-circle"
-                height="42"
-                alt="Brandon Smith"
-              />
+                <img  v-if="$auth.user.profile_photo_path != null" :src="$auth.user.profile_photo_path"
+                              class="mr-2 rounded-circle"
+                              height="42"
+                              alt="Brandon Smith"
+                />
+                <img v-else
+                     src="~/assets/images/users/avatar-1.jpg"
+                     class="mr-2 rounded-circle"
+                     height="42"
+                     alt="Brandon Smith"
+                />
               <div class="media-body">
                 <h5 class="mt-0 mb-0 font-15">
-                  <nuxt-link to="/contacts/profile" class="text-reset">{{
-                    this.$auth.user.name
-                  }}</nuxt-link>
+<!--                  <nuxt-link to="/contacts/profile" class="text-reset">-->
+                      {{ this.$auth.user.name }}
+
+<!--                  </nuxt-link>-->
                 </h5>
                 <p class="mt-1 mb-0 text-muted font-14">
                   <small class="mdi mdi-circle text-success"></small> Online
@@ -47,43 +49,42 @@
               </div>
             </form>
             <!-- end search box -->
-           
+
             <h6 class="font-13 text-muted text-uppercase mb-2">Contacts</h6>
 
             <!-- users -->
             <div class="row">
               <div class="col">
-               
+
                 <simplebar data-simplebar style="max-height: 498px" v-if="chatData">
-              
-                   <a
+
+                  <a
                     href="javascript:void(0);"
                     class="text-body"
                     v-for="(item, index) in chatData"
                     :key="index"
-                   @click="chatUsername(item.user.id,item.user.name, item.user.profile_photo_path,item.user.phone_no)"
-                  > 
-                 
+                    @click="chatUsername(item.id,item.fan.fname, '~/assets/images/users/default.png',item.local_number)"
+                  >
                     <div class="media p-2">
                       <div class="position-relative">
                          <span
-                          class="user-status online"
-                        ></span>
-                       <!--  <span
-                          class="user-status"
-                          :class="{
-                            online: item.status === 'online',
-                            busy: item.status === 'away',
-                            'do-not-disturb': item.status === 'do-not-disturb',
-                          }"
-                        ></span> -->
-                        <img v-if="item.user.profile_photo_path"
-                          :src="item.user.profile_photo_path"
-                          class="mr-2 rounded-circle"
-                          height="42"
-                          alt="user"
-                        />
-                         <img v-else
+                           class="user-status online"
+                         ></span>
+                        <!--                         <span-->
+                        <!--                          class="user-status"-->
+                        <!--                          :class="{-->
+                        <!--                            online: item.status === 'online',-->
+                        <!--                            busy: item.status === 'away',-->
+                        <!--                            'do-not-disturb': item.status === 'do-not-disturb',-->
+                        <!--                          }"-->
+                        <!--                        ></span> -->
+                        <!--                        <img v-if="item.fan.profile_photo_path"-->
+                        <!--                          :src="item.fan.profile_photo_path"-->
+                        <!--                          class="mr-2 rounded-circle"-->
+                        <!--                          height="42"-->
+                        <!--                          alt="user"-->
+                        <!--                        />-->
+                        <img
                           src="~/assets/images/users/default.png"
                           class="mr-2 rounded-circle"
                           height="42"
@@ -98,18 +99,17 @@
                               text-muted
                               font-weight-normal font-12
                             "
-                            >
-                             {{  formatDate(item.user.created_at) }}
-                            </span
                           >
-                         {{item.user.name}} 
+                            </span
+                            >
+                          {{ item.fan.fname }}
                         </h5>
-                        <p  class="mt-1 mb-0 text-muted font-14">
-                          <span class="w-75">  {{item.user.phone_no}} </span>
-                        </p> 
-                       <!--  <p v-if="item.message[0]" class="mt-1 mb-0 text-muted font-14">
-                          <span class="w-75">{{ item.message[0].message }}</span>
-                        </p> -->
+                        <p class="mt-1 mb-0 text-muted font-14">
+                          <span class="w-75">  {{ item.local_number }} </span>
+                        </p>
+                        <!--  <p v-if="item.message[0]" class="mt-1 mb-0 text-muted font-14">
+                           <span class="w-75">{{ item.message[0].message }}</span>
+                         </p> -->
                       </div>
                     </div>
                   </a>
@@ -127,147 +127,154 @@
       <!-- end chat users-->
 
       <!-- chat area -->
-    
+
       <div class="col-xl-9 col-lg-8">
         <div class="card">
           <div class="card-body py-2 px-3 border-bottom border-light">
-            <div class="media py-1">
-              <img v-if="image"
-                :src="image"
-                class="mr-2 rounded-circle"
-                height="36"
-                :alt="username"
-              />
-              <div class="media-body">
-                <h5 class="mt-0 mb-0 font-15">
-                  <nuxt-link to="/contacts/profile" class="text-reset">
-                    {{ username }}
-                  </nuxt-link>
-                </h5>
-                <p class="mt-1 mb-0 text-muted font-12" v-if="status">
-                  <small class="mdi mdi-circle text-success"></small> {{status}}
-                </p>
+            <div class="media p-2">
+              <div class="position-relative" v-if="username">
+                         <span
+                           class="user-status online"
+                         ></span>
+                <!--                         <span-->
+                <!--                          class="user-status"-->
+                <!--                          :class="{-->
+                <!--                            online: item.status === 'online',-->
+                <!--                            busy: item.status === 'away',-->
+                <!--                            'do-not-disturb': item.status === 'do-not-disturb',-->
+                <!--                          }"-->
+                <!--                        ></span> -->
+                <!--                        <img v-if="item.fan.profile_photo_path"-->
+                <!--                          :src="item.fan.profile_photo_path"-->
+                <!--                          class="mr-2 rounded-circle"-->
+                <!--                          height="42"-->
+                <!--                          alt="user"-->
+                <!--                        />-->
+                <img
+                  src="~/assets/images/users/default.png"
+                  class="mr-2 rounded-circle"
+                  height="42"
+                  alt="user"
+                />
               </div>
-              <div>
-                <a
-                  href="javascript: void(0);"
-                  class="text-reset font-19 py-1 px-2 d-inline-block"
-                  v-b-tooltip.hover
-                  title="Voice Call"
-                >
-                  <i class="fe-phone-call"></i>
-                </a>
-                <a
-                  href="javascript: void(0);"
-                  class="text-reset font-19 py-1 px-2 d-inline-block"
-                  v-b-tooltip.hover
-                  title="Video Call"
-                >
-                  <i class="fe-video"></i>
-                </a>
-                <a
-                  href="javascript: void(0);"
-                  class="text-reset font-19 py-1 px-2 d-inline-block"
-                  v-b-tooltip.hover
-                  title="Add Users"
-                >
-                  <i class="fe-user-plus"></i>
-                </a>
-                <a
-                  href="javascript: void(0);"
-                  class="text-reset font-19 py-1 px-2 d-inline-block"
-                  v-b-tooltip.hover
-                  title="Delete Chat"
-                >
-                  <i class="fe-trash-2"></i>
-                </a>
+              <div class="media-body">
+                <h5 class="mt-0 mb-0 font-14">
+                          <span
+                            class="
+                              float-right
+                              text-muted
+                              font-weight-normal font-12
+                            "
+                          >
+<!--                             {{  formatDate(item.user.created_at) }}-->
+                            </span
+                            >
+                  {{ username }}
+                </h5>
+                <p class="mt-1 mb-0 text-muted font-14">
+                  <span class="w-75">  {{ receiver_number }} </span>
+                </p>
+                <!--  <p v-if="item.message[0]" class="mt-1 mb-0 text-muted font-14">
+                   <span class="w-75">{{ item.message[0].message }}</span>
+                 </p> -->
               </div>
             </div>
+
           </div>
-          
+
           <div class="card-body">
-              
+
             <simplebar data-simplebar style="max-height: 460px">
-              
+
               <ul class="conversation-list chat-app-conversation">
-                  <template v-if="chatMessages">
-                <li
-               
-                  class="clearfix"
-                  v-for="(data, index) in chatMessages"
-                  :key="index"
-                  :class="{ odd: data.align === 'right' }"
-                >
-                  
-                  <div class="chat-avatar">
-                  
-                    <img v-if="data.image"
-                          :src="data.image"
-                         class="rounded" alt="James Z"
+                <template v-if="chatMessages">
+                  <li
+
+                    class="clearfix"
+                    v-for="(data, index) in chatMessages"
+                    :key="index"
+                    :class="{ odd: data.align === 'right' }"
+                  >
+
+                    <div class="chat-avatar">
+
+                      <span v-if="data.align === 'right'">
+
+                          <img v-if="$auth.user.profile_photo_path"
+                               :src="$auth.user.profile_photo_path"
+                               class="rounded" alt="James Z"
+                          />
+                        <img v-else
+                          src="~/assets/images/users/avatar-1.jpg"
+                             class="rounded" alt="James Z"
                         />
-                         <img v-else
-                          src="~/assets/images/users/default.png"
-                         class="rounded" alt="James Z"
+                      </span>
+                      <span v-else>
+                        <img
+                             src="~/assets/images/users/default.png"
+                             class="rounded" alt="James Z"
                         />
+                      </span>
 
 
-
-                    <i>{{  data.time  }}</i>
-                  </div>
-                  <div class="conversation-text">
-                    <div class="ctext-wrap">
-                      <i>{{ data.from }}</i>
-                      <p>{{ data.message }}</p>
                     </div>
-                    <div
-                      class="card mt-2 mb-1 shadow-none border text-left"
-                      v-if="data.file === true"
-                    >
-                      <div class="p-2">
-                        <div class="row align-items-center">
-                          <div class="col-auto">
-                            <div class="avatar-sm">
+                    <div class="conversation-text">
+                      <div class="ctext-wrap">
+                        <i >{{ data.from }}</i>
+                        <p v-html="data.message"></p>
+                      </div>
+                      <br/>
+                      <i>{{ data.time }}</i>
+
+                      <div
+                        class="card mt-2 mb-1 shadow-none border text-left"
+                        v-if="data.file === true"
+                      >
+                        <div class="p-2">
+                          <div class="row align-items-center">
+                            <div class="col-auto">
+                              <div class="avatar-sm">
                               <span class="avatar-title bg-primary rounded"
-                                >PDF</span
+                              >PDF</span
                               >
+                              </div>
                             </div>
-                          </div>
-                          <div class="col pl-0">
-                            <a
-                              href="javascript:void(0);"
-                              class="text-muted font-weight-medium"
+                            <div class="col pl-0">
+                              <a
+                                href="javascript:void(0);"
+                                class="text-muted font-weight-medium"
                               >minton-presentation.pdf</a
-                            >
-                            <p class="mb-0">2.3 MB</p>
-                          </div>
-                          <div class="col-auto">
-                            <!-- Button -->
-                            <a
-                              href="javascript:void(0);"
-                              class="btn btn-link btn-lg text-muted"
-                            >
-                              <i class="dripicons-download"></i>
-                            </a>
+                              >
+                              <p class="mb-0">2.3 MB</p>
+                            </div>
+                            <div class="col-auto">
+                              <!-- Button -->
+                              <a
+                                href="javascript:void(0);"
+                                class="btn btn-link btn-lg text-muted"
+                              >
+                                <i class="dripicons-download"></i>
+                              </a>
+                            </div>
                           </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                  <b-dropdown
-                    class="conversation-actions"
-                    toggle-class="btn-sm btn-link text-reset p-0"
-                    variant="black"
-                    right
-                  >
-                    <template v-slot:button-content>
-                      <i class="mdi mdi-dots-vertical font-18"></i>
-                    </template>
-                    <a class="dropdown-item" href="#">Copy Message</a>
-                    <a class="dropdown-item" href="#">Edit</a>
-                    <a class="dropdown-item" href="#">Delete</a>
-                  </b-dropdown>
-                </li>
-                  </template>
+<!--                    <b-dropdown-->
+<!--                      class="conversation-actions"-->
+<!--                      toggle-class="btn-sm btn-link text-reset p-0"-->
+<!--                      variant="black"-->
+<!--                      right-->
+<!--                    >-->
+<!--                      <template v-slot:button-content>-->
+<!--                        <i class="mdi mdi-dots-vertical font-18"></i>-->
+<!--                      </template>-->
+<!--                      <a class="dropdown-item" href="#">Copy Message</a>-->
+<!--                      <a class="dropdown-item" href="#">Edit</a>-->
+<!--                      <a class="dropdown-item" href="#">Delete</a>-->
+<!--                    </b-dropdown>-->
+                  </li>
+                </template>
               </ul>
             </simplebar>
             <div class="row">
@@ -292,7 +299,7 @@
                           class="invalid-feedback"
                         >
                           <span v-if="!$v.form.message.required"
-                            >Please enter your message</span
+                          >Please enter your message</span
                           >
                         </div>
                       </div>
@@ -331,7 +338,7 @@
 </template>
 
 <script>
-import { required } from "vuelidate/lib/validators";
+import {required} from "vuelidate/lib/validators";
 
 
 /**
@@ -347,7 +354,7 @@ export default {
     return {
       backendErrors: [],
       chatData: [],
-      chatMessages:[],
+      chatMessages: [],
       title: "Chat",
       items: [
         {
@@ -367,9 +374,9 @@ export default {
       },
       username: "",
       status: "",
-      image:'',
-      receiver_id:'',
-      receiver_number:''
+      image: '',
+      receiver_id: '',
+      receiver_number: ''
     };
   },
   validations: {
@@ -381,8 +388,8 @@ export default {
   },
   methods: {
 
-     formatDate(date) {
-      const options = { year: 'numeric', month: 'numeric', day: 'numeric' }
+    formatDate(date) {
+      const options = {year: 'numeric', month: 'numeric', day: 'numeric'}
       return new Date(date).toLocaleDateString('en', options)
     },
     send_messages() {
@@ -391,46 +398,45 @@ export default {
         receiver_id: this.receiver_id,
         message: this.form.message,
       };
-     
-        if(this.receiver_id){
-       this.$store
-        .dispatch("chat/saveMessage", payload)
-        .then((response) => {})
-        .catch((error) => {
-          this.backendErrors = error.response.data.errors;
-        })
-        .catch(() => {
-          this.isDisabled = false;
-        }); 
-        }  
+
+      if (this.receiver_id) {
+        this.$store
+          .dispatch("chat/saveMessage", payload)
+          .then((response) => {
+          })
+          .catch((error) => {
+            this.backendErrors = error.response.data.errors;
+          })
+          .catch(() => {
+            this.isDisabled = false;
+          });
+      }
     },
-   async  getChatMessages(){
-  
-    const chat_contacts =await  this.$axios.$get('/get_chat_contacts')
-    this.chatData=chat_contacts.data
-      
+    async getChatMessages() {
+
+      const chat_contacts = await this.$axios.$get('/get_chat_contacts')
+      this.chatData = chat_contacts.data
+
     },
     /**
      * Get the name of user
      */
-   async chatUsername(id,name, image,phone_no) {
-      this.receiver_id=id;
-     const messages =await  this.$axios.$get('/get_chat_users/'+id)
-   //  this.chatMessages= messages.data
+    async chatUsername(id, name, image, phone_no) {
+      this.receiver_id = id;
+      this.username = name;
+      this.status = 'online';
+      this.image = image;
+      this.receiver_number = phone_no;
 
-    let arr = []
-Object.entries(messages.data).forEach(ob => {
-      arr.push(ob[1]);
+      const messages = await this.$axios.$get('/get_chat_users/' + id)
+      //  this.chatMessages= messages.data
+
+      let arr = []
+      Object.entries(messages.data).forEach(ob => {
+        arr.push(ob[1]);
       });
-  
-
-  this.chatMessages= arr.slice().reverse()
-   
-       this.username = name;
-      this.status='online';
-      this.image=image;
-      this.receiver_number=phone_no;
-     
+      // this.chatMessages = arr.slice().reverse()
+      this.chatMessages = arr
     },
 
     /**
@@ -448,118 +454,111 @@ Object.entries(messages.data).forEach(ob => {
       } else {
         const message = this.form.message;
         const currentDate = new Date();
-    
-      if(this.receiver_id){
-         
-      if(Object.keys(this.chatMessages).length==0){
-     
-    
-    this.chatMessages=[ 
-    
-    {
-          align: "right",
-          name: `${this.$auth.user.name}`,
-          message,
-          direction:'outbound-api',
-          id:0,
-          to :this.receiver_number,
-          from :`${this.$auth.user.phone_no}`,
-          time: currentDate.getHours() + ":" + currentDate.getMinutes(),
-          image: `${this.$auth.user.profile_photo_path}`,
+
+        if (this.receiver_id) {
+
+          if (Object.keys(this.chatMessages).length == 0) {
+
+
+            this.chatMessages = [
+
+              {
+                align: "right",
+                name: `${this.$auth.user.name}`,
+                message,
+                direction: 'outbound-api',
+                id: 0,
+                to: this.receiver_number,
+                from: `${this.$auth.user.phone_no}`,
+                time: currentDate.getHours() + ":" + currentDate.getMinutes(),
+                image: `${this.$auth.user.profile_photo_path}`,
+              }
+            ];
+
+
+          } else {
+
+            this.chatMessages.push({
+              align: "right",
+              name: `${this.$auth.user.name}`,
+              message,
+              direction: 'outbound-api',
+              id: 0,
+              to: this.receiver_number,
+              from: `${this.$auth.user.phone_no}`,
+              time: currentDate.getHours() + ":" + currentDate.getMinutes(),
+              image: `${this.$auth.user.profile_photo_path}`,
+            });
+
+
+          }
         }
-   ];
-    
 
 
-        }else{
-        
-        this.chatMessages.push({
-          align: "right",
-          name: `${this.$auth.user.name}`,
-          message,
-          direction:'outbound-api',
-          id:0,
-          to :this.receiver_number,
-          from :`${this.$auth.user.phone_no}`,
-          time: currentDate.getHours() + ":" + currentDate.getMinutes(),
-          image: `${this.$auth.user.profile_photo_path}`,
-        }); 
-
-
-        } 
-      }
-        
-   
-       
       }
       this.submitted = false;
       this.form = {};
     },
   },
-  
-  mounted(){
-    const newMessages=this.chatMessages;
-  
-      this.getChatMessages()
+
+  mounted() {
+    const newMessages = this.chatMessages;
+
+    this.getChatMessages()
     this.$echo.channel(`chat.${this.$auth.user.user_uuid}`).on("chat.event", (res) => {
 
- console.log(this.receiver_id)
-  console.log(res.data.sender_id);
- 
-   const originalObj = this.chatMessages
+      console.log(this.receiver_id)
+      console.log(res.data.sender_id);
 
-  if(this.receiver_id==res.data.sender_id){
-   
-     if(Object.keys(this.chatMessages).length==0){
-     
-       this.chatMessages=[  
-    
-   {
-          align: "",
-          name: this.name,
-          message:res.data.message,
-          time: res.data.created_at,
-          image: this.image,
-          align:res.data.align,
-          direction:res.data.direction,
-          from:this.receiver_number
+      const originalObj = this.chatMessages
+
+      if (this.receiver_id == res.data.sender_id) {
+
+        if (Object.keys(this.chatMessages).length == 0) {
+
+          this.chatMessages = [
+
+            {
+              name: this.name,
+              message: res.data.message,
+              // time: res.data.created_at,
+              image: this.image,
+              align: res.data.align,
+              direction: res.data.direction,
+              from: this.receiver_number
+            }
+
+          ];
+        } else {
+          this.chatMessages.push(
+            {
+              name: this.name,
+              message: res.data.message,
+              // time: res.data.created_at,
+              image: this.image,
+              align: res.data.align,
+              direction: res.data.direction,
+              from: this.receiver_number
+            }
+          )
         }
-   
-       ];
-   }else{
-  this.chatMessages.push(
-
-{
-          align: "",
-          name: this.name,
-          message:res.data.message,
-          time: res.data.created_at,
-          image: this.image,
-          align:res.data.align,
-          direction:res.data.direction,
-          from:this.receiver_number
-        }
-
-  )
-   }  
-  } 
+      }
 
 
-});
-     
-this.$echo.channel(`user.${this.$auth.user.user_uuid}`).on("user.event", (record) => {
-let data={
-  created_at: "",
-fan_club_uuid: "",
-fan_id: 0,
-id: 0,
-local_number: "",
-temp_id: "",
-user:record.data
-}
-this.chatData.push(data);
-});
+    });
 
+    this.$echo.channel(`user.${this.$auth.user.user_uuid}`).on("user.event", (record) => {
+      let data = {
+        created_at: "",
+        fan_club_uuid: "",
+        fan_id: 0,
+        id: 0,
+        local_number: "",
+        temp_id: "",
+        user: record.data
+      }
+      this.chatData.push(data);
+    });
 
 
   },

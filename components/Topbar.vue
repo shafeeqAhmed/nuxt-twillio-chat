@@ -335,9 +335,6 @@ export default {
                     <span>{{ $t('navbar.dropdown.createnew.list.projects') }}</span>
                 </b-dropdown-item> -->
                 <b-dropdown-item >
-                  <NuxtLink to="/home"> <i class="fe-user mr-1"></i>
-                    <span>Create</span>
-                  </NuxtLink>
                   <NuxtLink to="/influencers/add"> <i class="fe-user mr-1"></i>
                     <span>Create</span>
                   </NuxtLink>

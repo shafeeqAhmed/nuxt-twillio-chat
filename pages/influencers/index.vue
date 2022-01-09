@@ -83,9 +83,9 @@
                 <tbody>
                   <template >
                     <tr>
-                      <td> {{ info.total_contacts }}</td>
-                      <td> {{ info.user.send_message_count }}</td>
-                      <td> {{ info.user.received_message_count }}</td>
+                      <td> {{ total_contacts }}</td>
+                      <td> {{ send_message_count }}</td>
+                      <td> {{ received_message_count }}</td>
                     </tr>
                   </template>
                 </tbody>
@@ -111,11 +111,13 @@ export default {
   data() {
     return {
       title: "Welcome !",
-      info: [],
+      total_contacts: 0,
+      send_message_count: 0,
+      received_message_count: 0,
       users: [],
       items: [
         {
-          text: "In Fluencer Listing",
+          text: "Influencer Listing",
           active: true,
         },
       ],
@@ -128,8 +130,9 @@ export default {
     this.$store
       .dispatch("influencer/getInfluencerDashboardInfo")
       .then((response) => {
-        this.info = response.data.data;
-        console.log(this.info)
+        this.total_contacts = response.data.data.total_contacts;
+        this.send_message_count = response.data.data.user.send_message_count;
+        this.received_message_count = response.data.data.user.received_message_count;
       })
 
   },

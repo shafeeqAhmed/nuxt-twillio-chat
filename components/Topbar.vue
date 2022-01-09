@@ -157,13 +157,18 @@ export default {
             </li>
 
 
-             <li class="dropdown d-none d-lg-inline-block">
-                <nuxt-link class="nav-link dropdown-toggle arrow-none waves-effect waves-light" aria-current="page" to="/apps/chat">
-                   <i class="ri-message-2-line"></i> <span>Chat</span>
-                </nuxt-link>
+          <li class="dropdown d-none d-lg-inline-block">
+            <nuxt-link class="nav-link dropdown-toggle arrow-none waves-effect waves-light" aria-current="page" to="/">
+              <i class="ri-home-2-line"></i> <span>Home</span>
+            </nuxt-link>
 
+          </li>
+          <li class="dropdown d-none d-lg-inline-block" v-if="$auth.hasScope('influencer')">
+            <nuxt-link class="nav-link dropdown-toggle arrow-none waves-effect waves-light" aria-current="page" to="/apps/chat">
+              <i class="ri-message-2-line"></i> <span>Chat</span>
+            </nuxt-link>
 
-            </li>
+          </li>
 
             <!-- <b-nav-item-dropdown variant="white" class="d-none d-lg-inline-block topbar-dropdown" toggle-class="nav-link" right menu-class="dropdown-lg p-0">
                 <template v-slot:button-content>
@@ -214,16 +219,16 @@ export default {
                 </div>
             </b-nav-item-dropdown> -->
 
-            <b-nav-item-dropdown variant="white" class="d-none d-lg-inline-block" right toggle-class="header-item">
-                <template v-slot:button-content>
-                    <img class :src="flag" alt="Header Language" height="16" />
-                    {{text}}
-                </template>
-                <b-dropdown-item class="notify-item" v-for="(entry, i) in languages" :key="`Lang${i}`" :value="entry" @click="setLanguage(entry.language, entry.title, entry.flag)" :link-class="{'active': entry.language === current_language}">
-                    <img :src="`${entry.flag}`" alt="user-image" class="mr-1" height="12" />
-                    <span class="align-middle">{{ entry.title }}</span>
-                </b-dropdown-item>
-            </b-nav-item-dropdown>
+<!--            <b-nav-item-dropdown variant="white" class="d-none d-lg-inline-block" right toggle-class="header-item">-->
+<!--                <template v-slot:button-content>-->
+<!--                    <img class :src="flag" alt="Header Language" height="16" />-->
+<!--                    {{text}}-->
+<!--                </template>-->
+<!--                <b-dropdown-item class="notify-item" v-for="(entry, i) in languages" :key="`Lang${i}`" :value="entry" @click="setLanguage(entry.language, entry.title, entry.flag)" :link-class="{'active': entry.language === current_language}">-->
+<!--                    <img :src="`${entry.flag}`" alt="user-image" class="mr-1" height="12" />-->
+<!--                    <span class="align-middle">{{ entry.title }}</span>-->
+<!--                </b-dropdown-item>-->
+<!--            </b-nav-item-dropdown>-->
 
 
             <b-nav-item-dropdown right class="notification-list topbar-dropdown" menu-class="profile-dropdown" toggle-class="p-0">
@@ -245,7 +250,7 @@ export default {
                     </h6>
                 </b-dropdown-header>
 
-                
+
                 <b-dropdown-item @click="$router.push(`/user/profile/${$auth.user.user_uuid}`)">
                     <i class="remixicon-settings-3-line"></i>
                     <span>My Account</span>
@@ -330,8 +335,12 @@ export default {
                     <span>{{ $t('navbar.dropdown.createnew.list.projects') }}</span>
                 </b-dropdown-item> -->
                 <b-dropdown-item >
+                  <NuxtLink to="/home"> <i class="fe-user mr-1"></i>
+                    <span>Create</span>
+                  </NuxtLink>
                   <NuxtLink to="/influencers/add"> <i class="fe-user mr-1"></i>
-                    <span>Create</span></NuxtLink>
+                    <span>Create</span>
+                  </NuxtLink>
 <!--                    <span>{{ $t('navbar.dropdown.createnew.list.users') }}</span></NuxtLink>-->
 
                 </b-dropdown-item>

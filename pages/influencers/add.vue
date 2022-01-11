@@ -105,15 +105,23 @@
               </div>
 
                <div class="form-group twilio_no " v-if="is_twilio_no">
-                  <a  role="button" href="#" :class="{ 'disabled' :!is_country}"  @click="generateTwilioNumber()">
-                    <label for="fname">Generate Twilio Number</label></a
-                  >
+                 <div class="button-list">
+                   <b-button   class="btn-soft-success" @click="generateTwilioNumber()" :class="{ 'disabled' :!is_country}">
+                     Generate Number
+                   </b-button>
+                 </div>
+<!--                  <a  role="button" href="#" :class="{ 'disabled' :!is_country}"  @click="generateTwilioNumber()">-->
+<!--                    <label for="fname">Generate Twilio Number</label></a-->
+<!--                  >-->
                 </div>
 
                 <div class="form-group twilio_no " v-if="is_twilio_no==0">
-                  <a  role="button" href="#" :class="{ 'disabled' :!is_country}"  @click="removeTwilioNumber()">
-                    <label for="fname">Remove Twilio Number</label></a
-                  >
+                  <b-button   class="btn-soft-danger" @click="removeTwilioNumber()" :class="{ 'disabled' :!is_country}">
+                    Remove Twilio Number
+                  </b-button>
+<!--                  <a  role="button" href="#" :class="{ 'disabled' :!is_country}"  @click="removeTwilioNumber()">-->
+<!--                    <label for="fname">Remove Twilio Number</label></a-->
+<!--                  >-->
                 </div>
 
               <div class="form-group">

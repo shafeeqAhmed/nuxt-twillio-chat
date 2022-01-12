@@ -318,24 +318,20 @@ export default {
       
       canadaStates: [
         {
-          id: "DC",
-          value: "Washington Zone",
+          id: "QC",
+          value: "KUUJJUAQ",
         },
         {
-          id: "NJ",
-          value: "Holmdel",
+          id: "MB",
+          value: "Winnipeg",
         },
          {
-          id: "LA",
-          value: "Kentwood",
+          id: "AB",
+          value: "Calgary",
         },
         {
-          id: "WA",
-          value: "CLARK",
-        },
-         {
-          id: "OH",
-          value: "West Union",
+          id: "BC",
+          value: "Princeton",
         },
       ],
 

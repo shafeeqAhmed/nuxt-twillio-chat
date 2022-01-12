@@ -64,7 +64,7 @@
                     v-for="(item, index) in chatData"
                     :key="index"
                     v-if="item"
-                    @click="chatUsername(item.id,item.fan.fname, '~/assets/images/users/default.png',item.local_number)"
+                    @click="chatUsername(item.id,'fan', '~/assets/images/users/default.png',item.local_number)"
                   >
                     <div class="media p-2">
                       <div class="position-relative">
@@ -103,7 +103,7 @@
                           >
                             </span
                             >
-                          {{ item.fan.fname }}
+                          fan
                         </h5>
                         <p class="mt-1 mb-0 text-muted font-14">
                           <span class="w-75">  {{ item.local_number }} </span>

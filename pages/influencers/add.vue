@@ -105,6 +105,56 @@
               </div>
 
 
+       
+              <div class="form-group" v-if="is_usa_state">
+                <label>
+                 US Regions
+            
+                </label>
+                <select
+                  class="form-control"
+                  v-model="state"
+                  
+                >
+                  <option value="">Select</option>
+                  <option
+                    v-for="country in usStates"
+                    :value="country.id"
+                    :key="country.id"
+
+                  >
+                    {{ country.value }}
+                  </option>
+                </select>
+               
+              </div>
+
+
+              
+              <div class="form-group" v-if="is_canada_state">
+                <label>
+                 Canada Regions
+            
+                </label>
+                <select
+                  class="form-control"
+                  v-model="state"
+                  
+                >
+                  <option value="">Select</option>
+                  <option
+                    v-for="country in canadaStates"
+                    :value="country.id"
+                    :key="country.id"
+
+                  >
+                    {{ country.value }}
+                  </option>
+                </select>
+               
+              </div>
+
+
               <div class="form-group twilio_no " v-if="!is_twilio_no">
                  <div class="button-list">
                    <b-button   class="btn-soft-success" @click="generateTwilioNumber()" :class="{ 'disabled' : !Number.isInteger(country_id)}">
@@ -240,12 +290,64 @@ export default {
           active: true,
         },
       ],
+
+      usStates: [
+        {
+          id: "DC",
+          value: "Washington Zone",
+        },
+        {
+          id: "NJ",
+          value: "Holmdel",
+        },
+         {
+          id: "LA",
+          value: "Kentwood",
+        },
+        {
+          id: "WA",
+          value: "CLARK",
+        },
+         {
+          id: "OH",
+          value: "West Union",
+        },
+      ],
+
+
+      
+      canadaStates: [
+        {
+          id: "DC",
+          value: "Washington Zone",
+        },
+        {
+          id: "NJ",
+          value: "Holmdel",
+        },
+         {
+          id: "LA",
+          value: "Kentwood",
+        },
+        {
+          id: "WA",
+          value: "CLARK",
+        },
+         {
+          id: "OH",
+          value: "West Union",
+        },
+      ],
+
       fname: "",
       lname: "",
       email: "",
       phone_no: "",
       password: "",
       country_id: "",
+      state: 0,
+      is_usa_state:0,
+      is_canada_state:0,
       backendErrors: {},
       submitted: false,
       countries: [],
@@ -291,13 +393,30 @@ export default {
      }else{
        this.is_country=false;
      }
+ 
+     if(this.country_id==231){
+          
+       this.is_usa_state=1;
+     }else{
+        this.is_usa_state=0;
+     }
+
+     if(this.country_id==38){
+          
+       this.is_canada_state=1;
+     }else{
+        this.is_canada_state=0;
+     }
+
+
     },
 
     generateTwilioNumber() {
 
       this.enableSpinner();
       const payload={
-        country_id:this.country_id
+        country_id:this.country_id,
+        state:this.state
       }
        this.$store
         .dispatch("createTwilioNumber",payload)
@@ -321,6 +440,9 @@ export default {
     this.phone_no = ''
     this.country_id = ''
     this.is_twilio_no = false
+     this.is_usa_state=0
+     this.is_canada_state=0
+
     },
     // Try to register the user in with the email, username
     // and password they provided.

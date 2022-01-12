@@ -73,7 +73,7 @@
 
 
               <div class="form-group">
-                <label for="phno">
+                <label>
                   Country
                   <span class="text-danger">*</span>
                 </label>
@@ -81,7 +81,7 @@
                  @click="changeCountry()"
                   class="form-control"
                   v-model="country_id"
-                  :class="{ 'is-invalid': submitted && $v.country_id.$error, 'disabled' :!is_twilio_no }"
+                  :class="{ 'is-invalid': submitted && $v.country_id.$error, 'disabled' :is_twilio_no }"
                 >
                   <option value="">Select</option>
                   <option
@@ -104,9 +104,10 @@
                 </span>
               </div>
 
-               <div class="form-group twilio_no " v-if="is_twilio_no">
+
+              <div class="form-group twilio_no " v-if="!is_twilio_no">
                  <div class="button-list">
-                   <b-button   class="btn-soft-success" @click="generateTwilioNumber()" :class="{ 'disabled' :!is_country}">
+                   <b-button   class="btn-soft-success" @click="generateTwilioNumber()" :class="{ 'disabled' : !Number.isInteger(country_id)}">
                      Generate Number
                    </b-button>
                  </div>
@@ -115,23 +116,21 @@
 <!--                  >-->
                 </div>
 
-                <div class="form-group twilio_no " v-if="is_twilio_no==0">
-                  <b-button   class="btn-soft-danger" @click="removeTwilioNumber()" :class="{ 'disabled' :!is_country}">
+
+                <div class="form-group twilio_no " v-if="is_twilio_no">
+                  <b-button   class="btn-soft-danger" @click="removeTwilioNumber()" >
                     Remove Twilio Number
                   </b-button>
 <!--                  <a  role="button" href="#" :class="{ 'disabled' :!is_country}"  @click="removeTwilioNumber()">-->
 <!--                    <label for="fname">Remove Twilio Number</label></a-->
 <!--                  >-->
                 </div>
-
               <div class="form-group">
                 <label for="fname">Phone Number</label>
                 <input
-                  :disabled="true"
-                  class="form-control disabled"
-                  v-model="phone_no"
+                  class="form-control"
                   type="text"
-                  id="phone_no"
+                  v-model="phone_no"
                   placeholder="Enter your Phone Number"
                   :class="{ 'is-invalid': submitted && $v.phone_no.$error }"
                 />
@@ -250,9 +249,9 @@ export default {
       backendErrors: {},
       submitted: false,
       countries: [],
-      is_twilio_no: 1,
+      is_twilio_no: false,
       role:'',
-      is_country:0
+      is_country:false
     };
   },
   validations: {
@@ -287,10 +286,10 @@ export default {
       this.$store.dispatch("spinner/clear", "");
     },
     changeCountry(){
-     if(this.country_id!=''){
-         this.is_country=1;
+     if(Number.isInteger(this.is_country)){
+         this.is_country=true;
      }else{
-       this.is_country=0;
+       this.is_country=false;
      }
     },
 
@@ -303,22 +302,25 @@ export default {
        this.$store
         .dispatch("createTwilioNumber",payload)
         .then((response) => {
-          this.phone_no = response.data.data.number;
-          this.is_twilio_no = 0;
-        this.disableSpinner()
+          if(response.data.status) {
+            this.phone_no = response.data.data.number;
+            this.is_twilio_no = true;
+          }
+          this.disableSpinner()
+
         })
         .catch((error) => {
           this.backendErrors = error.response.data.errors;
           this.disableSpinner()
+          alert('There is something going wrong please generate number again!')
+          this.removeTwilioNumber()
+
         })
-        .catch(() => {
-          this.isDisabled = false;
-        });
     },
     removeTwilioNumber() {
     this.phone_no = ''
     this.country_id = ''
-    this.is_twilio_no = 1
+    this.is_twilio_no = false
     },
     // Try to register the user in with the email, username
     // and password they provided.

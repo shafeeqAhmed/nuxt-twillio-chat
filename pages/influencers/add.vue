@@ -105,16 +105,16 @@
               </div>
 
 
-       
+
               <div class="form-group" v-if="is_usa_state">
                 <label>
                  US Regions
-            
+
                 </label>
                 <select
                   class="form-control"
                   v-model="state"
-                  
+
                 >
                   <option value="">Select</option>
                   <option
@@ -126,20 +126,20 @@
                     {{ country.value }}
                   </option>
                 </select>
-               
+
               </div>
 
 
-              
+
               <div class="form-group" v-if="is_canada_state">
                 <label>
                  Canada Regions
-            
+
                 </label>
                 <select
                   class="form-control"
                   v-model="state"
-                  
+
                 >
                   <option value="">Select</option>
                   <option
@@ -151,7 +151,7 @@
                     {{ country.value }}
                   </option>
                 </select>
-               
+
               </div>
 
 
@@ -293,46 +293,262 @@ export default {
 
       usStates: [
         {
-          id: "DC",
-          value: "Washington Zone",
+          value: "Alabama",
+          id: "AL"
         },
         {
-          id: "NJ",
-          value: "Holmdel",
-        },
-         {
-          id: "LA",
-          value: "Kentwood",
+          value: "Alaska",
+          id: "AK"
         },
         {
-          id: "WA",
-          value: "CLARK",
+          value: "Arizona",
+          id: "AZ"
         },
-         {
-          id: "OH",
-          value: "West Union",
+        {
+          value: "Arkansas",
+          id: "AR"
         },
+        {
+          value: "California",
+          id: "CA"
+        },
+        {
+          value: "Colorado",
+          id: "CO"
+        },
+        {
+          value: "Connecticut",
+          id: "CT"
+        },
+        {
+          value: "Delaware",
+          id: "DE"
+        },
+        {
+          value: "Florida",
+          id: "FL"
+        },
+        {
+          value: "Georgia",
+          id: "GA"
+        },
+        {
+          value: "Hawaii",
+          id: "HI"
+        },
+        {
+          value: "Idaho",
+          id: "ID"
+        },
+        {
+          value: "Illinois",
+          id: "IL"
+        },
+        {
+          value: "Indiana",
+          id: "IN"
+        },
+        {
+          value: "Iowa",
+          id: "IA"
+        },
+        {
+          value: "Kansas",
+          id: "KS"
+        },
+        {
+          value: "Kentucky",
+          id: "KY"
+        },
+        {
+          value: "Louisiana",
+          id: "LA"
+        },
+        {
+          value: "Maine",
+          id: "ME"
+        },
+        {
+          value: "Maryland",
+          id: "MD"
+        },
+        {
+          value: "Massachusetts",
+          id: "MA"
+        },
+        {
+          value: "Michigan",
+          id: "MI"
+        },
+        {
+          value: "Minnesota",
+          id: "MN"
+        },
+        {
+          value: "Mississippi",
+          id: "MS"
+        },
+        {
+          value: "Missouri",
+          id: "MO"
+        },
+        {
+          value: "Montana",
+          id: "MT"
+        },
+        {
+          value: "Nebraska",
+          id: "NE"
+        },
+        {
+          value: "Nevada",
+          id: "NV"
+        },
+        {
+          value: "New Hampshire",
+          id: "NH"
+        },
+        {
+          value: "New Jersey",
+          id: "NJ"
+        },
+        {
+          value: "New Mexico",
+          id: "NM"
+        },
+        {
+          value: "New York",
+          id: "NY"
+        },
+        {
+          value: "North Carolina",
+          id: "NC"
+        },
+        {
+          value: "North Dakota",
+          id: "ND"
+        },
+        {
+          value: "Ohio",
+          id: "OH"
+        },
+        {
+          value: "Oklahoma",
+          id: "OK"
+        },
+        {
+          value: "Oregon",
+          id: "OR"
+        },
+        {
+          value: "Pennsylvania",
+          id: "PA"
+        },
+        {
+          value: "Rhode Island",
+          id: "RI"
+        },
+        {
+          value: "South Carolina",
+          id: "SC"
+        },
+        {
+          value: "South Dakota",
+          id: "SD"
+        },
+        {
+          value: "Tennessee",
+          id: "TN"
+        },
+        {
+          value: "Texas",
+          id: "TX"
+        },
+        {
+          value: "Utah",
+          id: "UT"
+        },
+        {
+          value: "Vermont",
+          id: "VT"
+        },
+        {
+          value: "Virginia",
+          id: "VA"
+        },
+        {
+          value: "Washington",
+          id: "WA"
+        },
+        {
+          value: "West Virginia",
+          id: "WV"
+        },
+        {
+          value: "Wisconsin",
+          id: "WI"
+        },
+        {
+          value: "Wyoming",
+          id: "WY"
+        }
       ],
 
 
-      
+
       canadaStates: [
         {
-          id: "QC",
-          value: "KUUJJUAQ",
+          value: "Alberta",
+          id: "AB"
         },
         {
-          id: "MB",
-          value: "Winnipeg",
-        },
-         {
-          id: "AB",
-          value: "Calgary",
+          value: "British Columbia",
+          id: "BC"
         },
         {
-          id: "BC",
-          value: "Princeton",
+          value: "Manitoba",
+          id: "MB"
         },
+        {
+          value: "New Brunswick",
+          id: "NB"
+        },
+        {
+          value: "Newfoundland and Labrador",
+          id: "NL"
+        },
+        {
+          value: "Northwest Territories",
+          id: "NT"
+        },
+        {
+          value: "Nova Scotia",
+          id: "NS"
+        },
+        {
+          value: "Nunavut",
+          id: "NU"
+        },
+        {
+          value: "Ontario",
+          id: "ON"
+        },
+        {
+          value: "Prince Edward Island",
+          id: "PE"
+        },
+        {
+          value: "Quebec",
+          id: "QC"
+        },
+        {
+          value: "Saskatchewan",
+          id: "SK"
+        },
+        {
+          value: "Yukon Territory",
+          id: "YT"
+        }
       ],
 
       fname: "",
@@ -389,16 +605,16 @@ export default {
      }else{
        this.is_country=false;
      }
- 
+
      if(this.country_id==231){
-          
+
        this.is_usa_state=1;
      }else{
         this.is_usa_state=0;
      }
 
      if(this.country_id==38){
-          
+
        this.is_canada_state=1;
      }else{
         this.is_canada_state=0;

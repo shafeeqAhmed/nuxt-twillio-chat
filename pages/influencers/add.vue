@@ -106,7 +106,7 @@
 
 
 
-              <div class="form-group" v-if="is_usa_state">
+              <div class="form-group" v-if="country_id ===231">
                 <label>
                  US Regions
 
@@ -131,7 +131,7 @@
 
 
 
-              <div class="form-group" v-if="is_canada_state">
+              <div class="form-group" v-if="country_id ===38">
                 <label>
                  Canada Regions
 
@@ -606,19 +606,19 @@ export default {
        this.is_country=false;
      }
 
-     if(this.country_id==231){
-
-       this.is_usa_state=1;
-     }else{
-        this.is_usa_state=0;
-     }
-
-     if(this.country_id==38){
-
-       this.is_canada_state=1;
-     }else{
-        this.is_canada_state=0;
-     }
+     // if(this.country_id==231){
+     //
+     //   this.is_usa_state=1;
+     // }else{
+     //    this.is_usa_state=0;
+     // }
+     //
+     // if(this.country_id==38){
+     //
+     //   this.is_canada_state=1;
+     // }else{
+     //    this.is_canada_state=0;
+     // }
 
 
     },

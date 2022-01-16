@@ -64,7 +64,7 @@
                     v-for="(item, index) in chatData"
                     :key="index"
                     v-if="item"
-                    @click="chatUsername(item.id,'fan', '~/assets/images/users/default.png',item.local_number)"
+                    @click="chatUsername(item.id,item.fan.fname, '~/assets/images/users/default.png',item.local_number)"
                   >
                     <div class="media p-2">
                       <div class="position-relative">
@@ -103,7 +103,7 @@
                           >
                             </span
                             >
-                          fan
+                         {{item.fan.fname}}
                         </h5>
                         <p class="mt-1 mb-0 text-muted font-14">
                           <span class="w-75">  {{ item.local_number }} </span>
@@ -187,13 +187,14 @@
 
             <simplebar data-simplebar style="max-height: 460px">
 
-              <ul class="conversation-list chat-app-conversation">
+              <ul class="conversation-list chat-app-conversation" ref='test' >
                 <template v-if="chatMessages">
                   <li
 
                     class="clearfix"
                     v-for="(data, index) in chatMessages"
                     :key="index"
+                    :id="`m-${data.timestamp}`"
                     :class="{ odd: data.align === 'right' }"
                   >
 
@@ -478,6 +479,7 @@ export default {
 
 
           } else {
+            
 
             this.chatMessages.push({
               align: "right",
@@ -492,7 +494,11 @@ export default {
             });
 
 
+           
+
           }
+
+    
         }
 
 
@@ -509,7 +515,7 @@ export default {
     this.getChatMessages()
     this.$echo.channel(`chat.${this.$auth.user.user_uuid}`).on("chat.event", (res) => {
       if (this.receiver_id == res.data.sender_id) {
-
+       
         if (Object.keys(this.chatMessages).length == 0) {
 
           this.chatMessages = [
@@ -521,10 +527,24 @@ export default {
               image: this.image,
               align: res.data.align,
               direction: res.data.direction,
-              from: this.receiver_number
+              from: this.receiver_number,
+                 timestamp: res.data.timestamp
             }
 
           ];
+
+ this.$nextTick(function () {
+         let length = this.chatMessages.length;
+        
+           if (length > 0) {
+          let id = this.chatMessages[length - 1].timestamp;
+            let element = document.getElementById("m-" + id);
+           element.scrollIntoView({ behavior: "smooth", block: "end" });
+           }
+      })
+
+
+
         } else {
           this.chatMessages.push(
             {
@@ -534,10 +554,28 @@ export default {
               image: this.image,
               align: res.data.align,
               direction: res.data.direction,
-              from: this.receiver_number
+              from: this.receiver_number,
+               timestamp: res.data.timestamp
             }
           )
+
+    this.$nextTick(function () {
+         let length = this.chatMessages.length;
+        
+           if (length > 0) {
+          let id = this.chatMessages[length - 1].timestamp;
+            let element = document.getElementById("m-" + id);
+           element.scrollIntoView({ behavior: "smooth", block: "end" });
+           }
+      })
+
+
         }
+
+     
+
+
+
       }
 
 

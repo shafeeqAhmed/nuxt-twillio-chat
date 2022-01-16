@@ -7,6 +7,17 @@
           <div class="card-body">
             <!-- <h4 class="header-title m-t-0">Add Users Form</h4> -->
             <form action="#" @submit.prevent="updateUser">
+
+               <b-alert
+                :variant="notification.type" 
+                class="mt-3" 
+                v-if="notification.message" 
+                :show="notificationAutoCloseDuration" 
+                dismissible>
+                {{notification.message}}
+                </b-alert>
+
+
               <div class="form-group">
                 <label for="fname">First Name</label>
                 <input
@@ -149,6 +160,14 @@ export default {
       user: [],
     };
   },
+  computed: {
+        notification() {
+            return this.$store ? this.$store.state.notification : null;
+        },
+        notificationAutoCloseDuration() {
+            return this.$store && this.$store.state.notification ? 7 : 0;
+        },
+    },
   validations: {
 
     fname: {
@@ -184,6 +203,17 @@ export default {
             .dispatch("updateUser", payload)
             .then((response) => {
               this.$auth.$storage.setUniversal('user', response.data.data.user)
+                
+                this.$store.dispatch(
+                  "notification/success",
+                  "Profile has been updated Successfully!"
+                );
+                   var store=this.$store;
+            setTimeout(function(){
+               store.dispatch(
+                  "notification/clear"
+                );
+            }, 7000);
 
               // this.$router.push("/influencers");
             })

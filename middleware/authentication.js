@@ -4,6 +4,7 @@ export default function ({ route, redirect, $auth }) {
       && route.path !== '/account/register'
       && route.path !== '/account/reset' && route.path !== '/account/forgot-password'
       && route.path !== '/email/verify'
+      && route.path !== '/account/thanks'
       // && !route.query.hasOwnProperty('expires')
       // && !route.query.hasOwnProperty('signature')
 

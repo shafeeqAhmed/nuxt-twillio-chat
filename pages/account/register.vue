@@ -150,17 +150,29 @@ export default {
             baseDomain: "customer",
           };
 
-          this.$store
+
+             
+           this.$store
             .dispatch("register", payload)
             .then((response) => {
               if (response.data.status) {
-                this.$store.dispatch(
-                  "notification/success",
-                  "Signup Successfully! please Login Now"
+                
+                
+            this.$store.dispatch(
+                  "notification/clear"
                 );
-                this.$router.push("/account/login");
+
+           this.$store.dispatch(
+                  "notification/success",
+                  "Thank you for signing up."
+                );
+          
+          this.$router.push('/account/thanks')
+          
+
+
               } else {
-                alert(response.data.message)
+              
                 this.$store.dispatch(
                   "notification/error",
                   response.data.message
@@ -178,7 +190,7 @@ export default {
             })
             .catch(() => {
               this.isDisabled = false;
-            });
+            }); 
         }
       }
     },
@@ -211,7 +223,7 @@ export default {
             </p>
           </div>
 
-          <form action="#" @submit.prevent="tryToRegisterIn">
+          <form ref="register_form" action="#" @submit.prevent="tryToRegisterIn">
             <b-alert
               v-model="registerSuccess"
               class="mt-3"

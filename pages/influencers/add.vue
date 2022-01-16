@@ -297,10 +297,6 @@ export default {
           id: "AL"
         },
         {
-          value: "Alaska",
-          id: "AK"
-        },
-        {
           value: "Arizona",
           id: "AZ"
         },
@@ -403,10 +399,6 @@ export default {
         {
           value: "Nevada",
           id: "NV"
-        },
-        {
-          value: "New Hampshire",
-          id: "NH"
         },
         {
           value: "New Jersey",
@@ -542,10 +534,6 @@ export default {
           id: "QC"
         },
         {
-          value: "Saskatchewan",
-          id: "SK"
-        },
-        {
           value: "Yukon Territory",
           id: "YT"
         }
@@ -605,21 +593,6 @@ export default {
      }else{
        this.is_country=false;
      }
-
-     // if(this.country_id==231){
-     //
-     //   this.is_usa_state=1;
-     // }else{
-     //    this.is_usa_state=0;
-     // }
-     //
-     // if(this.country_id==38){
-     //
-     //   this.is_canada_state=1;
-     // }else{
-     //    this.is_canada_state=0;
-     // }
-
 
     },
 

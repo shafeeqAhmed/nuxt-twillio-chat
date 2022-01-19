@@ -1,6 +1,5 @@
 <script>
 import { required, email } from "vuelidate/lib/validators";
-
 /**
  * Register component
  */
@@ -21,7 +20,7 @@ export default {
         ticktok: "",
         password: "",
         phone_no: "",
-        password_confirmation: "",
+        password_confirmation: ""
       },
       countries: [],
       gender_list: ["Male", "Female", "Other"],
@@ -32,9 +31,34 @@ export default {
       registerSuccess: false,
       backendErrors: {},
       isDisabled: false,
+      address:'',
+      latitude:0,
+      longitude:0
     };
   },
   layout: "auth",
+
+  mounted(){
+ var defaultBounds = new google.maps.LatLngBounds(
+  new google.maps.LatLng(-33.8902, 151.1759),
+  new google.maps.LatLng(-33.8474, 151.2631));
+  var input = document.getElementById('address');
+  var options = {
+    bounds: defaultBounds,
+    types: ['establishment']};
+
+   var autocomplete = new google.maps.places.Autocomplete(input, options);
+    google.maps.event.addListener(autocomplete,"place_changed", function () {
+      var place = autocomplete.getPlace();
+      var latitude = place.geometry.location.lat();
+      var longitude = place.geometry.location.lng();
+      document.getElementById('latitute').value=latitude;
+      document.getElementById('longitude').value=longitude;
+ 
+    });
+
+
+  },
   computed: {
     notification() {
       return this.$store ? this.$store.state.notification : null;
@@ -83,7 +107,7 @@ export default {
       this.returnLogin();
     }
 
-    this.$store
+/*     this.$store
       .dispatch("isValidReference",this.$route.query.id)
       .then((response) => {
        if(!response.data.data) {
@@ -98,7 +122,7 @@ export default {
       })
       .catch((error) => {
         this.returnLogin()
-      })
+      }) */
 
     this.$store
       .dispatch("getInfluencersDropdowns")
@@ -119,7 +143,6 @@ export default {
     // Try to register the user in with the email, username
     // and password they provided.
     tryToRegisterIn() {
-      console.log(this.user)
       // return
       this.submitted = true;
       // stop here if form is invalid
@@ -148,10 +171,11 @@ export default {
             // password_confirmation: this.user.password_confirmation,
             terms: "on",
             baseDomain: "customer",
-          };
+            latitude: document.getElementById('latitute').value,
+            longitude:document.getElementById('longitude').value
+            };
 
-
-             
+              
            this.$store
             .dispatch("register", payload)
             .then((response) => {
@@ -190,7 +214,7 @@ export default {
             })
             .catch(() => {
               this.isDisabled = false;
-            }); 
+            });
         }
       }
     },
@@ -318,6 +342,8 @@ export default {
                 {{ backendErrors.email[0] }}
               </span>
             </div>
+
+
             <div class="form-group">
               <label for="country">
                 Country
@@ -348,6 +374,25 @@ export default {
                 {{ backendErrors.country_id[0] }}
               </span>
             </div>
+
+
+              <input id="latitute"  type="hidden" value=""/>
+              <input id="longitude" type="hidden" value=""/>
+
+
+              <div class="form-group">
+              <label for="emailaddress">
+                Address
+                <span class="text-danger">*</span>
+                </label>
+              <input
+                id="address"
+                class="form-control"
+                type="text"
+                placeholder="Enter your Address"
+                />
+            </div>
+
 
             <div class="form-group">
               <label for="fullname">City <span class="text-danger">*</span></label>
@@ -462,7 +507,7 @@ export default {
               </div> -->
             </div>
 
-<div class="form-group">
+          <div class="form-group">
               <label for="ticktok">TickTok</label>
               <input
                 class="form-control"

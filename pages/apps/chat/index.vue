@@ -155,6 +155,31 @@
                                   <h5>Female</h5>
                                   <div><span>{{ recipents.total_females  }} Members</span></div>
                                 </div>
+
+                                <br>
+                                 <div class="content-description">
+                                  <select v-model="age_type">
+                                  <option disabled value="">Please select one</option>
+                                  <option>Between</option>
+                                  <option>Under</option>
+                                  <option>Over</option>
+                                  <option>Excatly</option>
+                                  </select>
+                               </div>
+
+
+                                <br>
+                                 <div class="content-description">
+                                  <div class="position-relative" style="left:83%;">
+                              <button @click="applyAgeFilter()" class="btn btn-primary mt-2" >
+                                Apply Filter
+                              </button>
+
+                              </div>
+                               </div>
+
+ 
+
                               </div>
                             </div>
                           </b-card>
@@ -584,7 +609,8 @@ export default {
       status: "",
       image: '',
       receiver_id: '',
-      receiver_number: ''
+      receiver_number: '',
+      age_type:''
     };
   },
   validations: {
@@ -595,7 +621,10 @@ export default {
     },
   },
   methods: {
+    applyAgeFilter(){
+  
 
+    },
     formatDate(date) {
       const options = {year: 'numeric', month: 'numeric', day: 'numeric'}
       return new Date(date).toLocaleDateString('en', options)

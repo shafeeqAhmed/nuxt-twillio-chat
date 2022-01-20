@@ -33,7 +33,13 @@ export default {
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+    ],
+    script: [
+      {
+       src: 'https://maps.googleapis.com/maps/api/js?key=AIzaSyBqWEYAVLOFMwSEVfRqxP6CsEivmz785R4&libraries=places&callback=initAutocomplete'
+      }
     ]
+
   },
   /*
   ** Global CSS
@@ -107,8 +113,8 @@ export default {
     }
   },
   axios: {
-   baseURL: 'https://text-app.tkit.co.uk/api/api'
-      // baseURL: 'http://localhost/js/twillo-api/api'
+  // baseURL: 'https://text-app.tkit.co.uk/api/api'
+      baseURL: 'http://localhost/twillo-api/api'
     },
   auth: {
     redirect: {

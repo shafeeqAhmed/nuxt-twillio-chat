@@ -1,221 +1,299 @@
 <template>
-
   <div>
-    <PageHeader :title="title" :items="items"/>
+    <PageHeader :title="title" :items="items" />
 
- <div v-if="showModal">
-        <transition name="modal">
-          <div class="modal-mask">
-            <div class="modal-wrapper">
-              <div class="modal-dialog modal-xl" role="document">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <h4 class="modal-title text-center">New Message</h4>
-                    <button
-                      type="button"
-                      class="close"
-                      data-dismiss="modal"
-                      aria-label="Close"
+    <div v-if="showModal">
+      <transition name="modal">
+        <div class="modal-mask">
+          <div class="modal-wrapper">
+            <div class="modal-dialog modal-xl" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h4 class="modal-title text-center">New Message</h4>
+                  <button
+                    type="button"
+                    class="close"
+                    data-dismiss="modal"
+                    aria-label="Close"
+                  >
+                    <span aria-hidden="true" @click="showModal = false"
+                      >&times;</span
                     >
-                      <span aria-hidden="true" @click="showModal = false"
-                        >&times;</span
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <div class="members mb-3">
+                    <div class="plus-main">
+                      <div
+                        class="plus-div"
+                        v-b-toggle.collapse-1
+                        variant="primary"
                       >
-                    </button>
-                  </div>
-                  <div class="modal-body">
-                    <div class="members mb-3">
-                      <div class="plus-main">
-                        <div
-                          class="plus-div"
-                          v-b-toggle.collapse-1
-                          variant="primary"
-                        >
-                          <i class="fa fa-plus-circle" aria-hidden="true"></i>
-                        </div>
-                        <b-collapse id="collapse-1" class="mt-2">
-                          <b-card bg-variant="light">
-                            <div class="wrapper">
-                              <!-- Sidebar  -->
-                              <nav id="sidebar">
-                                <ul class="list-unstyled components">
-                                  <li>
-                                    <a href="#">
-                                      <span>
-                                        <i class="fa fa-user"></i>
-                                        Recipients (0)
-                                      </span>
-                                    </a>
-                                  </li>
-                                  <div class="m-2">Search</div>
-                                  <li>
-                                    <a href="#">
-                                      <span>
-                                        <i class="fa fa-user"></i>
-                                        Individuals
-                                      </span>
-                                    </a>
-                                  </li>
-                                  <li>
-                                    <a href="#">
-                                      <span>
-                                        <i class="fa fa-user"></i>
-                                        Communities
-                                      </span>
-                                    </a>
-                                  </li>
-                                  <div class="m-2">Demographics</div>
-                                  <li>
-                                    <a href="#">
-                                      <span>
-                                        <i class="fa fa-map-marker"></i>
-                                        Location
-                                      </span>
-                                    </a>
-                                  </li>
-                                  <li>
-                                    <a href="#">
-                                      <span>
-                                        <i class="fa fa-clock"></i>
-                                        Time Zone
-                                      </span>
-                                    </a>
-                                  </li>
-                                  <li>
-                                    <a href="#">
-                                      <span>
-                                        <i class="fa fa-user"></i>
-                                        Age
-                                      </span>
-                                    </a>
-                                  </li>
-                                  <li>
-                                    <a href="#">
-                                      <span>
-                                        <i class="fa fa-mercury"></i>
-                                        Gender Identity
-                                      </span>
-                                    </a>
-                                  </li>
-                                  <div class="m-2">Engagement</div>
-                                  <li>
-                                    <a href="#">
-                                      <span>
-                                        <i class="fa fa-calendar-alt"></i>
-                                        Join Date
-                                      </span>
-                                    </a>
-                                  </li>
-                                  <li>
-                                    <a href="#">
-                                      <span>
-                                        <i class="fa fa-user"></i>
-                                        Activity
-                                      </span>
-                                    </a>
-                                  </li>
-                                </ul>
-                              </nav>
+                        <i
+                          class="fa fa-plus-circle"
+                          aria-hidden="true"
+                          ref="age_popup_close"
+                        ></i>
+                      </div>
+                      <b-collapse id="collapse-1" class="mt-2">
+                        <b-card bg-variant="light">
+                          <div class="wrapper">
+                            <!-- Sidebar  -->
+                            <nav id="sidebar">
+                              <ul class="list-unstyled components">
+                                <li>
+                                  <a href="#">
+                                    <span>
+                                      <i class="fa fa-user"></i>
+                                      Recipients (0)
+                                    </span>
+                                  </a>
+                                </li>
+                                <div class="m-2">Search</div>
+                                <li>
+                                  <a href="#">
+                                    <span>
+                                      <i class="fa fa-user"></i>
+                                      Individuals
+                                    </span>
+                                  </a>
+                                </li>
+                                <li>
+                                  <a href="#">
+                                    <span>
+                                      <i class="fa fa-user"></i>
+                                      Communities
+                                    </span>
+                                  </a>
+                                </li>
+                                <div class="m-2">Demographics</div>
+                                <li>
+                                  <a href="#">
+                                    <span>
+                                      <i class="fa fa-map-marker"></i>
+                                      Location
+                                    </span>
+                                  </a>
+                                </li>
+                                <li>
+                                  <a href="#">
+                                    <span>
+                                      <i class="fa fa-clock"></i>
+                                      Time Zone
+                                    </span>
+                                  </a>
+                                </li>
+                                <li>
+                                  <a href="#">
+                                    <span>
+                                      <i class="fa fa-user"></i>
+                                      Age
+                                    </span>
+                                  </a>
+                                </li>
+                                <li>
+                                  <a href="#">
+                                    <span>
+                                      <i class="fa fa-mercury"></i>
+                                      Gender Identity
+                                    </span>
+                                  </a>
+                                </li>
+                                <div class="m-2">Engagement</div>
+                                <li>
+                                  <a href="#">
+                                    <span>
+                                      <i class="fa fa-calendar-alt"></i>
+                                      Join Date
+                                    </span>
+                                  </a>
+                                </li>
+                                <li>
+                                  <a href="#">
+                                    <span>
+                                      <i class="fa fa-user"></i>
+                                      Activity
+                                    </span>
+                                  </a>
+                                </li>
+                              </ul>
+                            </nav>
 
-                              <!-- Page Content  -->
-                              <div id="content">
-                                <p>Activity</p>
-                                <div class="content-description">
-                                  <h5>Top 5% Active</h5>
-                                  <div><span>Members</span></div>
+                            <!-- Page Content  -->
+                            <div id="content">
+                              <p>Activity</p>
+                              <div class="content-description">
+                                <h5>Top 5% Active</h5>
+                                <div><span>Members</span></div>
+                              </div>
+                              <div class="content-description">
+                                <h5>Top 10% Active</h5>
+                                <div><span>Members</span></div>
+                              </div>
+                              <div class="content-description">
+                                <h5>Top 25% Active</h5>
+                                <div><span>Members</span></div>
+                              </div>
+                              <div class="content-description">
+                                <h5>Everyone</h5>
+                                <div>
+                                  <span
+                                    >{{ recipents.total_fans }} Members</span
+                                  >
                                 </div>
-                                <div class="content-description">
-                                  <h5>Top 10% Active</h5>
-                                  <div><span>Members</span></div>
-                                </div>
-                                <div class="content-description">
-                                  <h5>Top 25% Active</h5>
-                                  <div><span>Members</span></div>
-                                </div>
-                                <div class="content-description">
-                                  <h5>Everyone</h5>
-                                  <div><span>{{ recipents.total_fans  }} Members</span></div>
-                                </div>
+                              </div>
 
-                                <p>Suggested Ages</p>
-                                <div class="content-description">
-                                  <h5>18+</h5>
-                                  <div><span>{{ recipents.eighteen_plus  }} Members</span></div>
+                              <p>Suggested Ages</p>
+                              <div class="content-description">
+                                <h5>
+                                  <span
+                                    v-on:click="
+                                      ageFilterColor('eighteen_above')
+                                    "
+                                    v-bind:class="{
+                                      'text-primary': colors.eighteen_above,
+                                    }"
+                                  >
+                                    18+</span
+                                  >
+                                </h5>
+                                <div>
+                                  <span
+                                    >{{ recipents.eighteen_plus }} Members</span
+                                  >
                                 </div>
-                                <div class="content-description">
-                                  <h5>21+</h5>
-                                  <div><span>{{ recipents.twenty_one_plus  }} Members</span></div>
+                              </div>
+                              <div class="content-description">
+                                <h5>
+                                  <span
+                                    v-on:click="
+                                      ageFilterColor('twenty_one_above')
+                                    "
+                                    v-bind:class="{
+                                      'text-primary': colors.twenty_one_above,
+                                    }"
+                                  >
+                                    21+</span
+                                  >
+                                </h5>
+                                <div>
+                                  <span
+                                    >{{
+                                      recipents.twenty_one_plus
+                                    }}
+                                    Members</span
+                                  >
                                 </div>
+                              </div>
 
-                                <p>Gender</p>
-                                <div class="content-description">
-                                  <h5>Male</h5>
-                                  <div><span>{{ recipents.total_males  }} Members</span></div>
+                              <p>Gender</p>
+                              <div class="content-description">
+                                <h5>Male</h5>
+                                <div>
+                                  <span
+                                    >{{ recipents.total_males }} Members</span
+                                  >
                                 </div>
-                                <div class="content-description">
-                                  <h5>Female</h5>
-                                  <div><span>{{ recipents.total_females  }} Members</span></div>
+                              </div>
+                              <div class="content-description">
+                                <h5>Female</h5>
+                                <div>
+                                  <span
+                                    >{{ recipents.total_females }} Members</span
+                                  >
                                 </div>
+                              </div>
 
-                                <br>
-                                 <div class="content-description">
-                                  <select v-model="age_type">
-                                  <option disabled value="">Please select one</option>
+                              <br />
+
+                              <div class="content-description">
+                                <select v-model="ageFilter.age_type">
+                                  <option disabled value="">
+                                    Please select one
+                                  </option>
                                   <option>Between</option>
                                   <option>Under</option>
                                   <option>Over</option>
                                   <option>Excatly</option>
-                                  </select>
-                               </div>
-
-
-                                <br>
-                                 <div class="content-description">
-                                  <div class="position-relative" style="left:83%;">
-                              <button @click="applyAgeFilter()" class="btn btn-primary mt-2" >
-                                Apply Filter
-                              </button>
-
+                                </select>
                               </div>
-                               </div>
 
- 
-
+                              <br />
+                              <div class="content-description">
+                                <div
+                                  class="position-relative"
+                                  style="left: 83%"
+                                >
+                                  <button
+                                    @click="applyAgeFilter()"
+                                    class="btn btn-primary mt-2"
+                                  >
+                                    Apply Filter
+                                  </button>
+                                </div>
                               </div>
                             </div>
-                          </b-card>
-                        </b-collapse>
-                      </div>
-                      <h5>To: 24 Members</h5>
+                          </div>
+                        </b-card>
+                      </b-collapse>
                     </div>
-                    <div class="excluding mb-3">
-                      <h5>Excluding:</h5>
+                   
+           
+                    <h5  v-if="ageFilter.age_type=='Between' "  >To: Members between 18+ and 21+ </h5>
+
+                    <div  v-if="ageFilter.age_type=='Under'">          
+                    <h5 v-if="colors.eighteen_above" >To: Members Under 18</h5>
+                    <h5 v-else>To: Members Under 21</h5>
                     </div>
-                    <div class="message-box mb-3">
-                      <textarea
-                        name
-                        id
-                        cols="30"
-                        rows="10"
-                        class="form-control"
-                        placeholder="Enter Your Message"
-                      ></textarea>
-                      <span class="icons">
-                        <i class="fa fa-images" aria-hidden="true"></i>
-                        <i class="fa fa-smile ml-1" aria-hidden="true"></i>
-                        <i class="fa fa-file ml-1" aria-hidden="true"></i>
-                      </span>
+
+
+                    
+                    <div  v-if="ageFilter.age_type=='Over'">          
+                    <h5 v-if="colors.eighteen_above" >To: Members Over 18</h5>
+                    <h5 v-else>To: Members Over 21</h5>
                     </div>
-                    <div class="d-flex justify-content-between">
-                      <button class="btn btn-light">Schedule</button>
-                      <button class="btn btn-primary">Send</button>
+
+
+
+                     <div  v-if="ageFilter.age_type=='Excatly'">          
+                    <h5 v-if="colors.eighteen_above" >To: Members Excatly 18</h5>
+                    <h5 v-else>To: Members Excatly 21</h5>
                     </div>
+
+                    
+                    
+                    </div>
+                  <div class="excluding mb-3">
+                    <h5>Excluding:</h5>
+                  </div>
+                  <div class="message-box mb-3">
+                    
+                    <textarea
+                      name='custom_message'
+                      id='custom_message'
+                      cols="30"
+                      rows="10"
+                      class="form-control"
+                      placeholder="Enter Your Message"
+                      v-model="form.custom_message"
+                    ></textarea>
+                    <span class="icons">
+                      <i class="fa fa-images" aria-hidden="true"></i>
+                      <i class="fa fa-smile ml-1" aria-hidden="true"></i>
+                      <i class="fa fa-file ml-1" aria-hidden="true"></i>
+                    </span>
+                  </div>
+                  <div class="d-flex justify-content-between">
+                    <button class="btn btn-light">Schedule</button>
+                    <button class="btn btn-primary" @click="sendCustomMessage">Send</button>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-        </transition>
-      </div>
+        </div>
+      </transition>
+    </div>
     <div class="row">
       <!-- start chat users-->
 
@@ -223,23 +301,26 @@
         <div class="card">
           <div class="card-body">
             <div class="media mb-3">
-                <img  v-if="$auth.user.profile_photo_path != null" :src="$auth.user.profile_photo_path"
-                              class="mr-2 rounded-circle"
-                              height="42"
-                              alt="Brandon Smith"
-                />
-                <img v-else
-                     src="~/assets/images/users/avatar-1.jpg"
-                     class="mr-2 rounded-circle"
-                     height="42"
-                     alt="Brandon Smith"
-                />
+              <img
+                v-if="$auth.user.profile_photo_path != null"
+                :src="$auth.user.profile_photo_path"
+                class="mr-2 rounded-circle"
+                height="42"
+                alt="Brandon Smith"
+              />
+              <img
+                v-else
+                src="~/assets/images/users/avatar-1.jpg"
+                class="mr-2 rounded-circle"
+                height="42"
+                alt="Brandon Smith"
+              />
               <div class="media-body">
                 <h5 class="mt-0 mb-0 font-15">
-<!--                  <nuxt-link to="/contacts/profile" class="text-reset">-->
-                      {{ this.$auth.user.name }}
+                  <!--                  <nuxt-link to="/contacts/profile" class="text-reset">-->
+                  {{ this.$auth.user.name }}
 
-<!--                  </nuxt-link>-->
+                  <!--                  </nuxt-link>-->
                 </h5>
                 <p class="mt-1 mb-0 text-muted font-14">
                   <small class="mdi mdi-circle text-success"></small> Online
@@ -270,22 +351,29 @@
             <!-- users -->
             <div class="row">
               <div class="col">
-
-                <simplebar data-simplebar style="max-height: 498px" v-if="chatData">
-
+                <simplebar
+                  data-simplebar
+                  style="max-height: 498px"
+                  v-if="chatData"
+                >
                   <a
                     href="javascript:void(0);"
                     class="text-body"
                     v-for="(item, index) in chatData"
                     :key="index"
                     v-if="item"
-                    @click="chatUsername(item.id,item.fan.fname, '~/assets/images/users/default.png',item.local_number)"
+                    @click="
+                      chatUsername(
+                        item.id,
+                        item.fan.fname,
+                        '~/assets/images/users/default.png',
+                        item.local_number
+                      )
+                    "
                   >
                     <div class="media p-2">
                       <div class="position-relative">
-                         <span
-                           class="user-status online"
-                         ></span>
+                        <span class="user-status online"></span>
                         <!--                         <span-->
                         <!--                          class="user-status"-->
                         <!--                          :class="{-->
@@ -316,12 +404,11 @@
                               font-weight-normal font-12
                             "
                           >
-                            </span
-                            >
-                         {{item.fan.fname}}
+                          </span>
+                          {{ item.fan.fname }}
                         </h5>
                         <p class="mt-1 mb-0 text-muted font-14">
-                          <span class="w-75">  {{ item.local_number }} </span>
+                          <span class="w-75"> {{ item.local_number }} </span>
                         </p>
                         <!--  <p v-if="item.message[0]" class="mt-1 mb-0 text-muted font-14">
                            <span class="w-75">{{ item.message[0].message }}</span>
@@ -345,23 +432,25 @@
       <!-- chat area -->
 
       <div class="col-xl-9 col-lg-8">
-
-
         <div class="card">
           <div class="card-body py-2 px-3 border-bottom border-light">
             <div class="media p-2">
-              
-              <div class="position-relative" style="left:83%;">
-              <button @click="showModal = true" class="btn btn-primary mt-2" >
-                New Message
-              </button>
-
+               <b-alert
+                :variant="notification.type" 
+                class="mt-3" 
+                v-if="notification.message" 
+                :show="notificationAutoCloseDuration" 
+                dismissible>
+                {{notification.message}}
+                </b-alert>
+              <div class="position-relative" style="left: 83%">
+                <button @click="showModal = true" class="btn btn-primary mt-2">
+                  New Message
+                </button>
               </div>
 
               <div class="position-relative" v-if="username">
-                         <span
-                           class="user-status online"
-                         ></span>
+                <span class="user-status online"></span>
                 <!--                         <span-->
                 <!--                          class="user-status"-->
                 <!--                          :class="{-->
@@ -383,78 +472,66 @@
                   alt="user"
                 />
               </div>
-              
-        
-
 
               <div class="media-body">
                 <h5 class="mt-0 mb-0 font-14">
-                          <span
-                            class="
-                              float-right
-                              text-muted
-                              font-weight-normal font-12
-                            "
-                          >
-<!--                             {{  formatDate(item.user.created_at) }}-->
-                            </span
-                            >
+                  <span
+                    class="float-right text-muted font-weight-normal font-12"
+                  >
+                    <!--                             {{  formatDate(item.user.created_at) }}-->
+                  </span>
                   {{ username }}
                 </h5>
                 <p class="mt-1 mb-0 text-muted font-14">
-                  <span class="w-75">  {{ receiver_number }} </span>
+                  <span class="w-75"> {{ receiver_number }} </span>
                 </p>
                 <!--  <p v-if="item.message[0]" class="mt-1 mb-0 text-muted font-14">
                    <span class="w-75">{{ item.message[0].message }}</span>
                  </p> -->
               </div>
             </div>
-
           </div>
 
           <div class="card-body">
-
             <simplebar data-simplebar style="max-height: 460px">
-
-              <ul class="conversation-list chat-app-conversation" ref='test' >
+              <ul class="conversation-list chat-app-conversation" ref="test">
                 <template v-if="chatMessages">
                   <li
-
                     class="clearfix"
                     v-for="(data, index) in chatMessages"
                     :key="index"
                     :id="`m-${data.timestamp}`"
                     :class="{ odd: data.align === 'right' }"
                   >
-
                     <div class="chat-avatar">
-
                       <span v-if="data.align === 'right'">
-
-                          <img v-if="$auth.user.profile_photo_path"
-                               :src="$auth.user.profile_photo_path"
-                               class="rounded" alt="James Z"
-                          />
-                        <img v-else
+                        <img
+                          v-if="$auth.user.profile_photo_path"
+                          :src="$auth.user.profile_photo_path"
+                          class="rounded"
+                          alt="James Z"
+                        />
+                        <img
+                          v-else
                           src="~/assets/images/users/avatar-1.jpg"
-                             class="rounded" alt="James Z"
+                          class="rounded"
+                          alt="James Z"
                         />
                       </span>
                       <span v-else>
                         <img
-                             src="~/assets/images/users/default.png"
-                             class="rounded" alt="James Z"
+                          src="~/assets/images/users/default.png"
+                          class="rounded"
+                          alt="James Z"
                         />
                       </span>
-
-
                     </div>
                     <div class="conversation-text">
                       <div class="ctext-wrap">
-                        <i >{{ data.from }}</i>
+                        <i>{{ data.from }}</i>
                         <p v-html="data.message"></p>
                       </div>
-                      <br/>
+                      <br />
                       <i>{{ data.time }}</i>
 
                       <div
@@ -465,16 +542,16 @@
                           <div class="row align-items-center">
                             <div class="col-auto">
                               <div class="avatar-sm">
-                              <span class="avatar-title bg-primary rounded"
-                              >PDF</span
-                              >
+                                <span class="avatar-title bg-primary rounded"
+                                  >PDF</span
+                                >
                               </div>
                             </div>
                             <div class="col pl-0">
                               <a
                                 href="javascript:void(0);"
                                 class="text-muted font-weight-medium"
-                              >minton-presentation.pdf</a
+                                >minton-presentation.pdf</a
                               >
                               <p class="mb-0">2.3 MB</p>
                             </div>
@@ -491,19 +568,19 @@
                         </div>
                       </div>
                     </div>
-<!--                    <b-dropdown-->
-<!--                      class="conversation-actions"-->
-<!--                      toggle-class="btn-sm btn-link text-reset p-0"-->
-<!--                      variant="black"-->
-<!--                      right-->
-<!--                    >-->
-<!--                      <template v-slot:button-content>-->
-<!--                        <i class="mdi mdi-dots-vertical font-18"></i>-->
-<!--                      </template>-->
-<!--                      <a class="dropdown-item" href="#">Copy Message</a>-->
-<!--                      <a class="dropdown-item" href="#">Edit</a>-->
-<!--                      <a class="dropdown-item" href="#">Delete</a>-->
-<!--                    </b-dropdown>-->
+                    <!--                    <b-dropdown-->
+                    <!--                      class="conversation-actions"-->
+                    <!--                      toggle-class="btn-sm btn-link text-reset p-0"-->
+                    <!--                      variant="black"-->
+                    <!--                      right-->
+                    <!--                    >-->
+                    <!--                      <template v-slot:button-content>-->
+                    <!--                        <i class="mdi mdi-dots-vertical font-18"></i>-->
+                    <!--                      </template>-->
+                    <!--                      <a class="dropdown-item" href="#">Copy Message</a>-->
+                    <!--                      <a class="dropdown-item" href="#">Edit</a>-->
+                    <!--                      <a class="dropdown-item" href="#">Delete</a>-->
+                    <!--                    </b-dropdown>-->
                   </li>
                 </template>
               </ul>
@@ -530,7 +607,7 @@
                           class="invalid-feedback"
                         >
                           <span v-if="!$v.form.message.required"
-                          >Please enter your message</span
+                            >Please enter your message</span
                           >
                         </div>
                       </div>
@@ -569,8 +646,7 @@
 </template>
 
 <script>
-import {required} from "vuelidate/lib/validators";
-
+import { required } from "vuelidate/lib/validators";
 
 /**
  * Chat comoponent
@@ -583,12 +659,16 @@ export default {
   },
   data() {
     return {
-       showModal: false,
+      showModal: false,
       backendErrors: [],
       chatData: [],
       chatMessages: [],
-      recipents:[],
+      recipents: [],
       title: "Chat",
+      colors: {
+        eighteen_above: false,
+        twenty_one_above: false,
+      },
       items: [
         {
           text: "Minton",
@@ -604,13 +684,17 @@ export default {
       submitted: false,
       form: {
         message: "",
+        custom_message:''
       },
       username: "",
       status: "",
-      image: '',
-      receiver_id: '',
-      receiver_number: '',
-      age_type:''
+      image: "",
+      receiver_id: "",
+      receiver_number: "",
+
+      ageFilter: {
+        age_type: "",
+      },
     };
   },
   validations: {
@@ -619,15 +703,54 @@ export default {
         required,
       },
     },
-  },
+  },computed: {
+        notification() {
+            return this.$store ? this.$store.state.notification : null;
+        },
+        notificationAutoCloseDuration() {
+            return this.$store && this.$store.state.notification ? 7 : 0;
+        },
+    },
   methods: {
-    applyAgeFilter(){
-  
+    sendCustomMessage(){
+    let  payload={
+        type:this.ageFilter.age_type,
+         eighteen_above:this.colors.eighteen_above,
+         twenty_one_above:this.colors.twenty_one_above,
+         message:this.form.custom_message
+      }
+       this.showModal=false;
+        this.$store.dispatch(
+                  "notification/success",
+                  "Message has been send Successfully!"
+                );
+      this.$store
+          .dispatch("chat/sendMessageToContents", payload)
+          .then((response) => {
+
+          
+          })
+          .catch((error) => {
+            this.backendErrors = error.response.data.errors;
+          })
+          .catch(() => {
+            this.isDisabled = false;
+          });
 
     },
+    ageFilterColor(type) {
+      if (type == "eighteen_above") {
+        this.colors.eighteen_above = !this.colors.eighteen_above;
+      } else if (type == "twenty_one_above") {
+        this.colors.twenty_one_above = !this.colors.twenty_one_above;
+      }
+    },
+    applyAgeFilter() {
+      this.$refs.age_popup_close.click();
+    },
     formatDate(date) {
-      const options = {year: 'numeric', month: 'numeric', day: 'numeric'}
-      return new Date(date).toLocaleDateString('en', options)
+      const options = { year: "numeric", month: "numeric", day: "numeric" };
+      return new Date(date).toLocaleDateString("en", options);
     },
     send_messages() {
       const payload = {
@@ -639,8 +762,7 @@ export default {
       if (this.receiver_id) {
         this.$store
           .dispatch("chat/saveMessage", payload)
-          .then((response) => {
-          })
+          .then((response) => {})
           .catch((error) => {
             this.backendErrors = error.response.data.errors;
           })
@@ -650,37 +772,34 @@ export default {
       }
     },
     async getChatMessages() {
-
-      const chat_contacts = await this.$axios.$get('/get_chat_contacts')
-      this.chatData = chat_contacts.data
+      const chat_contacts = await this.$axios.$get("/get_chat_contacts");
+      this.chatData = chat_contacts.data;
     },
 
-    async getRecipents(){
-
-   const recipents = await this.$axios.$get('/recipent_count')
-      this.recipents = recipents.data
-  
+    async getRecipents() {
+      const recipents = await this.$axios.$get("/recipent_count");
+      this.recipents = recipents.data;
     },
-    
+
     /**
      * Get the name of user
      */
     async chatUsername(id, name, image, phone_no) {
       this.receiver_id = id;
       this.username = name;
-      this.status = 'online';
+      this.status = "online";
       this.image = image;
       this.receiver_number = phone_no;
 
-      const messages = await this.$axios.$get('/get_chat_users/' + id)
+      const messages = await this.$axios.$get("/get_chat_users/" + id);
       //  this.chatMessages= messages.data
 
-      let arr = []
-      Object.entries(messages.data).forEach(ob => {
+      let arr = [];
+      Object.entries(messages.data).forEach((ob) => {
         arr.push(ob[1]);
       });
       // this.chatMessages = arr.slice().reverse()
-      this.chatMessages = arr
+      this.chatMessages = arr;
     },
 
     /**
@@ -700,73 +819,76 @@ export default {
         const currentDate = new Date();
 
         if (this.receiver_id) {
-
           if (Object.keys(this.chatMessages).length == 0) {
-
-
             this.chatMessages = [
-
               {
                 align: "right",
                 name: `${this.$auth.user.name}`,
                 message,
-                direction: 'outbound-api',
+                direction: "outbound-api",
                 id: 0,
                 to: this.receiver_number,
                 from: `${this.$auth.user.phone_no}`,
                 time: currentDate.getHours() + ":" + currentDate.getMinutes(),
                 image: `${this.$auth.user.profile_photo_path}`,
-              }
+              },
             ];
-
-
           } else {
-            
-
             this.chatMessages.push({
               align: "right",
               name: `${this.$auth.user.name}`,
               message,
-              direction: 'outbound-api',
+              direction: "outbound-api",
               id: 0,
               to: this.receiver_number,
               from: `${this.$auth.user.phone_no}`,
               time: currentDate.getHours() + ":" + currentDate.getMinutes(),
               image: `${this.$auth.user.profile_photo_path}`,
             });
-
-
-           
-
           }
-
-    
         }
-
-
       }
       this.submitted = false;
       this.form = {};
     },
-
   },
 
   mounted() {
     const newMessages = this.chatMessages;
 
-    this.getChatMessages()
+    this.getChatMessages();
 
-     this.getRecipents();
+    this.getRecipents();
 
+    this.$echo
+      .channel(`chat.${this.$auth.user.user_uuid}`)
+      .on("chat.event", (res) => {
+        if (this.receiver_id == res.data.sender_id) {
+          if (Object.keys(this.chatMessages).length == 0) {
+            this.chatMessages = [
+              {
+                name: this.name,
+                message: res.data.message,
+                // time: res.data.created_at,
+                image: this.image,
+                align: res.data.align,
+                direction: res.data.direction,
+                from: this.receiver_number,
+                timestamp: res.data.timestamp,
+              },
+            ];
 
-    this.$echo.channel(`chat.${this.$auth.user.user_uuid}`).on("chat.event", (res) => {
-      if (this.receiver_id == res.data.sender_id) {
-       
-        if (Object.keys(this.chatMessages).length == 0) {
+            this.$nextTick(function () {
+              let length = this.chatMessages.length;
 
-          this.chatMessages = [
-
-            {
+              if (length > 0) {
+                let id = this.chatMessages[length - 1].timestamp;
+                let element = document.getElementById("m-" + id);
+                element.scrollIntoView({ behavior: "smooth", block: "end" });
+              }
+            });
+          } else {
+            this.chatMessages.push({
               name: this.name,
               message: res.data.message,
               // time: res.data.created_at,
@@ -774,74 +896,37 @@ export default {
               align: res.data.align,
               direction: res.data.direction,
               from: this.receiver_number,
-                 timestamp: res.data.timestamp
-            }
+              timestamp: res.data.timestamp,
+            });
 
-          ];
+            this.$nextTick(function () {
+              let length = this.chatMessages.length;
 
- this.$nextTick(function () {
-         let length = this.chatMessages.length;
-        
-           if (length > 0) {
-          let id = this.chatMessages[length - 1].timestamp;
-            let element = document.getElementById("m-" + id);
-           element.scrollIntoView({ behavior: "smooth", block: "end" });
-           }
-      })
-
-
-
-        } else {
-          this.chatMessages.push(
-            {
-              name: this.name,
-              message: res.data.message,
-              // time: res.data.created_at,
-              image: this.image,
-              align: res.data.align,
-              direction: res.data.direction,
-              from: this.receiver_number,
-               timestamp: res.data.timestamp
-            }
-          )
-
-    this.$nextTick(function () {
-         let length = this.chatMessages.length;
-        
-           if (length > 0) {
-          let id = this.chatMessages[length - 1].timestamp;
-            let element = document.getElementById("m-" + id);
-           element.scrollIntoView({ behavior: "smooth", block: "end" });
-           }
-      })
-
-
+              if (length > 0) {
+                let id = this.chatMessages[length - 1].timestamp;
+                let element = document.getElementById("m-" + id);
+                element.scrollIntoView({ behavior: "smooth", block: "end" });
+              }
+            });
+          }
         }
+      });
 
-     
-
-
-
-      }
-
-
-    });
-
-    this.$echo.channel(`user.${this.$auth.user.user_uuid}`).on("user.event", (record) => {
-      this.getChatMessages()
-      // let data = {
-      //   created_at: "",
-      //   fan_club_uuid: "",
-      //   fan_id: 0,
-      //   id: 0,
-      //   local_number: "",
-      //   temp_id: "",
-      //   user: record.data
-      // }
-      // this.chatData.push(data);
-    });
-
-
+    this.$echo
+      .channel(`user.${this.$auth.user.user_uuid}`)
+      .on("user.event", (record) => {
+        this.getChatMessages();
+        // let data = {
+        //   created_at: "",
+        //   fan_club_uuid: "",
+        //   fan_id: 0,
+        //   id: 0,
+        //   local_number: "",
+        //   temp_id: "",
+        //   user: record.data
+        // }
+        // this.chatData.push(data);
+      });
   },
   middleware: "router-auth",
 };

@@ -19,7 +19,18 @@ export const actions = {
     },
  
 
-
+    sendMessageToContents({ commit },payload) {
+     
+    return new Promise((resolve, reject) => {
+      this.$axios
+        .post(`send_message_to_contacts`, payload)
+        .then(response => {
+  
+          resolve(response)
+        })
+        .catch(error => reject(error))
+    }) 
+  },
     
 }
 

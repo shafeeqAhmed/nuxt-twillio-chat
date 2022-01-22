@@ -84,7 +84,7 @@
                                   </a>
                                 </li>
                                 <li>
-                                  <a href="#" >
+                                  <a href="#" @click="menuList('age')" >
                                     <span>
                                       <i class="fa fa-user"></i>
                                       Age
@@ -146,16 +146,8 @@
                               <p>Suggested Ages</p>
                               <div class="content-description">
                                 <h5>
-                                  <span
-                                    v-on:click="
-                                      ageFilterColor('eighteen_above')
-                                    "
-                                    v-bind:class="{
-                                      'text-primary': colors.eighteen_above,
-                                    }"
-                                  >
-                                    18+</span
-                                  >
+                                  <span>
+                                    18+</span>
                                 </h5>
                                 <div>
                                   <span
@@ -165,14 +157,7 @@
                               </div>
                               <div class="content-description">
                                 <h5>
-                                  <span
-                                    v-on:click="
-                                      ageFilterColor('twenty_one_above')
-                                    "
-                                    v-bind:class="{
-                                      'text-primary': colors.twenty_one_above,
-                                    }"
-                                  >
+                                  <span>
                                     21+</span
                                   >
                                 </h5>
@@ -204,38 +189,51 @@
                                 </div>
                               </div>
 
-                              <br />
-
-                              <div class="content-description">
-                                <select v-model="ageFilter.age_type">
-                                  <option disabled value="">
-                                    Please select one
-                                  </option>
-                                  <option>Between</option>
-                                  <option>Under</option>
-                                  <option>Over</option>
-                                  <option>Excatly</option>
-                                </select>
-                              </div>
-
-                              <br />
-                              <div class="content-description">
-                                <div
-                                  class="position-relative"
-                                  style="left: 83%"
-                                >
-                                  <button
-                                    @click="applyAgeFilter()"
-                                    class="btn btn-primary mt-2"
-                                  >
-                                    Apply Filter
-                                  </button>
-                                </div>
-                              </div>
                             </div>
 
                       
                       <joinDate v-if="menuItems.joinDateModel" @closeModel="applyAgeFilter" ></joinDate>
+
+
+                       <div id="content" v-if="menuItems.ageModel">
+                                <h4>Age</h4>
+                                <p>Suggested Ages</p>
+                                <div class="content-description mt-3 mb-3">
+                                  <h5><span
+                                    v-on:click="
+                                      ageFilterColor('eighteen_above')
+                                    "
+                                    v-bind:class="{
+                                      'text-primary': colors.eighteen_above,
+                                    }"
+                                  >
+                                    18+</span
+                                  ></h5>
+                                  <div><span>{{ recipents.eighteen_plus }} Members</span></div>
+                                </div>
+                                <div class="content-description mt-3 mb-3">
+                                  <h5> <span
+                                    v-on:click="
+                                      ageFilterColor('twenty_one_above')
+                                    "
+                                    v-bind:class="{
+                                      'text-primary': colors.twenty_one_above,
+                                    }"
+                                  >
+                                    21+</span
+                                  ></h5>
+                                  <div><span>{{
+                                      recipents.twenty_one_plus
+                                    }} Members</span></div>
+                                </div>
+                                <div>
+                                  <h5>Custom Age</h5>
+                                  <div class="d-flex">
+                                    <b-form-select :options="ageOptions" v-model="ageFilter.age_type" class="w-50 mr-2"></b-form-select>
+                                    <button class="btn btn-primary"  @click="applyAgeFilter()">Apply</button>
+                                  </div>
+                                </div>
+                              </div> 
 
 
                           </div>
@@ -676,8 +674,15 @@ export default {
       
       menuItems:{
         joinDateModel:false,
-        recipentModel:true
+        recipentModel:true,
+        ageModel:false
       },
+      ageOptions: [
+          { value: 'Between', text: 'Between' },
+          { value: 'Under', text: 'Under' },
+          { value: 'Over', text: 'Over' },
+          { value: 'Excatly', text: 'Excatly' },
+        ],
       backendErrors: [],
       chatData: [],
       chatMessages: [],
@@ -740,13 +745,20 @@ export default {
       if(type=='join_date'){
         this.menuItems.joinDateModel=true
         this.menuItems.recipentModel=false
+        this.menuItems.ageModel=false
         this.filter_type='join_date';
       }
 
     else  if(type=='recipents'){
-         this.menuItems.joinDateModel=false
         this.menuItems.recipentModel=true
+        this.menuItems.joinDateModel=false
+        this.menuItems.ageModel=false
         this.filter_type='recipents';
+      }else if (type=='age'){
+         this.menuItems.recipentModel=false
+        this.menuItems.joinDateModel=false
+        this.menuItems.ageModel=true
+        this.filter_type='age';
       }
     
     },

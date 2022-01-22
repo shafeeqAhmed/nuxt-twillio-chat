@@ -42,7 +42,7 @@
                             <nav id="sidebar">
                               <ul class="list-unstyled components">
                                 <li>
-                                  <a href="#">
+                                  <a href="#"  @click="menuList('recipents')">
                                     <span>
                                       <i class="fa fa-user"></i>
                                       Recipients (0)
@@ -84,7 +84,7 @@
                                   </a>
                                 </li>
                                 <li>
-                                  <a href="#">
+                                  <a href="#" >
                                     <span>
                                       <i class="fa fa-user"></i>
                                       Age
@@ -101,7 +101,7 @@
                                 </li>
                                 <div class="m-2">Engagement</div>
                                 <li>
-                                  <a href="#">
+                                  <a href="#" @click="menuList('join_date')">
                                     <span>
                                       <i class="fa fa-calendar-alt"></i>
                                       Join Date
@@ -120,7 +120,7 @@
                             </nav>
 
                             <!-- Page Content  -->
-                            <div id="content">
+                            <div id="content" v-if="menuItems.recipentModel">
                               <p>Activity</p>
                               <div class="content-description">
                                 <h5>Top 5% Active</h5>
@@ -233,6 +233,11 @@
                                 </div>
                               </div>
                             </div>
+
+                      
+                      <joinDate v-if="menuItems.joinDateModel" @closeModel="applyAgeFilter" ></joinDate>
+
+
                           </div>
                         </b-card>
                       </b-collapse>
@@ -260,7 +265,6 @@
                     <h5 v-else>To: Members Excatly 21</h5>
                     </div>
 
-                    
                     
                     </div>
                   <div class="excluding mb-3">
@@ -435,7 +439,9 @@
         <div class="card">
           <div class="card-body py-2 px-3 border-bottom border-light">
             <div class="media p-2">
-               <b-alert
+
+                <div class="position-relative" >
+                 <b-alert
                 :variant="notification.type" 
                 class="mt-3" 
                 v-if="notification.message" 
@@ -443,11 +449,15 @@
                 dismissible>
                 {{notification.message}}
                 </b-alert>
+                </div>
+            
               <div class="position-relative" style="left: 83%">
                 <button @click="showModal = true" class="btn btn-primary mt-2">
                   New Message
                 </button>
               </div>
+
+              
 
               <div class="position-relative" v-if="username">
                 <span class="user-status online"></span>
@@ -647,7 +657,7 @@
 
 <script>
 import { required } from "vuelidate/lib/validators";
-
+import joinDate from '~/components/widgets/chat/join_date'; 
 /**
  * Chat comoponent
  */
@@ -657,9 +667,17 @@ export default {
       title: `${this.title} | Minton - Nuxtjs Responsive Admin Dashboard Template`,
     };
   },
+  components: {
+        joinDate: joinDate,
+    },
   data() {
     return {
       showModal: false,
+      
+      menuItems:{
+        joinDateModel:false,
+        recipentModel:true
+      },
       backendErrors: [],
       chatData: [],
       chatMessages: [],
@@ -668,6 +686,11 @@ export default {
       colors: {
         eighteen_above: false,
         twenty_one_above: false,
+        
+         last24hours: false,
+        last7days: false,
+        last30days: false,
+
       },
       items: [
         {
@@ -691,7 +714,7 @@ export default {
       image: "",
       receiver_id: "",
       receiver_number: "",
-
+      filter_type:'recipents',
       ageFilter: {
         age_type: "",
       },
@@ -712,14 +735,48 @@ export default {
         },
     },
   methods: {
+    menuList(type){
+
+      if(type=='join_date'){
+        this.menuItems.joinDateModel=true
+        this.menuItems.recipentModel=false
+        this.filter_type='join_date';
+      }
+
+    else  if(type=='recipents'){
+         this.menuItems.joinDateModel=false
+        this.menuItems.recipentModel=true
+        this.filter_type='recipents';
+      }
+    
+    },
     sendCustomMessage(){
-    let  payload={
+  
+      let filterRecord=this.$store.state.chat;
+      
+     let  payload={};
+     if(this.filter_type=='recipents'){
+           payload={
         type:this.ageFilter.age_type,
          eighteen_above:this.colors.eighteen_above,
          twenty_one_above:this.colors.twenty_one_above,
-         message:this.form.custom_message
+         message:this.form.custom_message,
+        filter_type :this.filter_type
       }
-       this.showModal=false;
+  
+     }else if(this.filter_type=='join_date'){
+         payload={
+        type:filterRecord.data.value,
+         last24hours:filterRecord.data.last24hours,
+         last7days:filterRecord.data.last7days,
+          last30days:filterRecord.data.last30days,
+         message:this.form.custom_message,
+        filter_type :this.filter_type
+      }
+      
+     }
+   
+        this.showModal=false;
         this.$store.dispatch(
                   "notification/success",
                   "Message has been send Successfully!"
@@ -735,7 +792,7 @@ export default {
           })
           .catch(() => {
             this.isDisabled = false;
-          });
+          }); 
 
     },
     ageFilterColor(type) {
@@ -747,6 +804,7 @@ export default {
     },
     applyAgeFilter() {
       this.$refs.age_popup_close.click();
+       
     },
     formatDate(date) {
       const options = { year: "numeric", month: "numeric", day: "numeric" };

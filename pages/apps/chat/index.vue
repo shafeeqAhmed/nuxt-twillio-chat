@@ -1,8 +1,10 @@
 <template>
   <div>
     <PageHeader :title="title" :items="items" />
-
+   
+               
     <div v-if="showModal">
+      
       <transition name="modal">
         <div class="modal-mask">
           <div class="modal-wrapper">
@@ -21,6 +23,7 @@
                     >
                   </button>
                 </div>
+              
                 <div class="modal-body">
                   <div class="members mb-3">
                     <div class="plus-main">
@@ -35,6 +38,7 @@
                           ref="age_popup_close"
                         ></i>
                       </div>
+                      
                       <b-collapse id="collapse-1" class="mt-2">
                         <b-card bg-variant="light">
                           <div class="wrapper">
@@ -119,6 +123,7 @@
                               </ul>
                             </nav>
 
+                 
                             <!-- Page Content  -->
                             <div id="content" v-if="menuItems.recipentModel">
                               <p>Activity</p>
@@ -193,7 +198,31 @@
 
                       
                       <joinDate v-if="menuItems.joinDateModel" @closeModel="applyAgeFilter" ></joinDate>
-                      <Location v-if="menuItems.locationModel" @closeModel="applyAgeFilter"></Location>
+
+                             
+                    <div id="content" v-if="menuItems.locationModel">
+                    <h4>Location</h4>
+                  
+       
+                  <b-input-group>
+                        <b-input-group-prepend>
+                        <span class="input-group-text"><i class="fa fa-search"></i></span>
+                        </b-input-group-prepend>
+                        <b-form-input class="LoginInput" id='address' size="lg" placeholder="Type the name of a country,city or state">
+                        </b-form-input>
+                        
+                    </b-input-group> 
+                    
+
+                    <div class="content-description mt-3 mb-3">
+                        <h5>Los Angeles, CA</h5>
+                        <div><span>City 34 Members</span></div>
+                    </div>
+                    <div class="content-description mt-3 mb-3">
+                        <h5>New York, NY</h5>
+                        <div><span>City 34 Members</span></div>
+                    </div>
+                    </div> 
 
 
                        <div id="content" v-if="menuItems.ageModel">
@@ -299,6 +328,9 @@
         </div>
       </transition>
     </div>
+
+
+    
     <div class="row">
       <!-- start chat users-->
 
@@ -659,7 +691,6 @@
 <script>
 import { required } from "vuelidate/lib/validators";
 import joinDate from '~/components/widgets/chat/join_date'; 
-import Location from '~/components/widgets/chat/location'; 
 
 /**
  * Chat comoponent
@@ -671,8 +702,7 @@ export default {
     };
   },
   components: {
-        joinDate: joinDate,
-        Location:Location
+        joinDate: joinDate
     },
   data() {
     return {
@@ -939,6 +969,24 @@ export default {
   },
 
   mounted() {
+ var defaultBounds = new google.maps.LatLngBounds(
+  new google.maps.LatLng(-33.8902, 151.1759),
+  new google.maps.LatLng(-33.8474, 151.2631));
+  var input = document.getElementById('address');
+  var options = {
+    bounds: defaultBounds,
+    types: ['establishment']};
+ 
+        
+   var autocomplete = new google.maps.places.Autocomplete(input, options);
+   console.log(autocomplete);
+    google.maps.event.addListener(autocomplete,"place_changed", function () {
+      var place = autocomplete.getPlace();
+      console.log(place);
+
+ 
+    });
+
     const newMessages = this.chatMessages;
 
     this.getChatMessages();

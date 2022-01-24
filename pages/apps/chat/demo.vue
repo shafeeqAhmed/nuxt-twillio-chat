@@ -209,7 +209,7 @@
 
                               <!-- Location -->
 
-                              <!-- <div id="content">
+                               <div id="content">
                                 <h4>Location</h4>
                                 <b-input-group>
                                   <b-input-group-prepend>
@@ -226,7 +226,7 @@
                                   <h5>New York, NY</h5>
                                   <div><span>City 34 Members</span></div>
                                 </div>
-                              </div> -->
+                              </div> 
                             </div>
                           </b-card>
                         </b-collapse>

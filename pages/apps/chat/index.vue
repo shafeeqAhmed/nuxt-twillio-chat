@@ -68,7 +68,7 @@
                                 </li>
                                 <div class="m-2">Demographics</div>
                                 <li>
-                                  <a href="#">
+                                  <a href="#" @click="menuList('location')"> 
                                     <span>
                                       <i class="fa fa-map-marker"></i>
                                       Location
@@ -193,6 +193,7 @@
 
                       
                       <joinDate v-if="menuItems.joinDateModel" @closeModel="applyAgeFilter" ></joinDate>
+                      <Location v-if="menuItems.locationModel" @closeModel="applyAgeFilter"></Location>
 
 
                        <div id="content" v-if="menuItems.ageModel">
@@ -243,6 +244,8 @@
                    
            
                     <h5  v-if="ageFilter.age_type=='Between' "  >To: Members between 18+ and 21+ </h5>
+
+                    
 
                     <div  v-if="ageFilter.age_type=='Under'">          
                     <h5 v-if="colors.eighteen_above" >To: Members Under 18</h5>
@@ -656,6 +659,8 @@
 <script>
 import { required } from "vuelidate/lib/validators";
 import joinDate from '~/components/widgets/chat/join_date'; 
+import Location from '~/components/widgets/chat/location'; 
+
 /**
  * Chat comoponent
  */
@@ -667,15 +672,16 @@ export default {
   },
   components: {
         joinDate: joinDate,
+        Location:Location
     },
   data() {
     return {
       showModal: false,
-      
       menuItems:{
         joinDateModel:false,
         recipentModel:true,
-        ageModel:false
+        ageModel:false,
+        locationModel:false
       },
       ageOptions: [
           { value: 'Between', text: 'Between' },
@@ -746,6 +752,7 @@ export default {
         this.menuItems.joinDateModel=true
         this.menuItems.recipentModel=false
         this.menuItems.ageModel=false
+        this.menuItems.locationModel=false
         this.filter_type='join_date';
       }
 
@@ -753,12 +760,20 @@ export default {
         this.menuItems.recipentModel=true
         this.menuItems.joinDateModel=false
         this.menuItems.ageModel=false
+         this.menuItems.locationModel=false
         this.filter_type='recipents';
       }else if (type=='age'){
          this.menuItems.recipentModel=false
         this.menuItems.joinDateModel=false
         this.menuItems.ageModel=true
+         this.menuItems.locationModel=false
         this.filter_type='age';
+      }else if (type=='location'){
+         this.menuItems.recipentModel=false
+        this.menuItems.joinDateModel=false
+        this.menuItems.ageModel=false
+         this.menuItems.locationModel=true
+        this.filter_type='location';
       }
     
     },

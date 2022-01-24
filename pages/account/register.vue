@@ -107,7 +107,7 @@ export default {
       this.returnLogin();
     }
 
-/*     this.$store
+     this.$store
       .dispatch("isValidReference",this.$route.query.id)
       .then((response) => {
        if(!response.data.data) {
@@ -122,7 +122,7 @@ export default {
       })
       .catch((error) => {
         this.returnLogin()
-      }) */
+      }) 
 
     this.$store
       .dispatch("getInfluencersDropdowns")
@@ -193,8 +193,6 @@ export default {
           
           this.$router.push('/account/thanks')
           
-
-
               } else {
               
                 this.$store.dispatch(

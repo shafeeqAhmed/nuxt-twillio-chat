@@ -300,6 +300,8 @@
                   <div class="excluding mb-3">
                     <h5>Excluding:</h5>
                   </div>
+
+                  {{form.custom_message}}
                   <div class="message-box mb-3">
                     
                     <textarea
@@ -811,29 +813,31 @@ export default {
   
       let filterRecord=this.$store.state.chat;
       
-     let  payload={};
-     if(this.filter_type=='recipents'){
-           payload={
+      let  payload;
+    
+     if(this.filter_type=='age'){
+         payload={
         type:this.ageFilter.age_type,
          eighteen_above:this.colors.eighteen_above,
          twenty_one_above:this.colors.twenty_one_above,
          message:this.form.custom_message,
         filter_type :this.filter_type
-      }
+      };
   
      }else if(this.filter_type=='join_date'){
-         payload={
+           payload={
         type:filterRecord.data.value,
          last24hours:filterRecord.data.last24hours,
          last7days:filterRecord.data.last7days,
           last30days:filterRecord.data.last30days,
          message:this.form.custom_message,
         filter_type :this.filter_type
-      }
-      
+      };
+        
      }
+
    
-        this.showModal=false;
+   this.showModal=false;
         this.$store.dispatch(
                   "notification/success",
                   "Message has been send Successfully!"

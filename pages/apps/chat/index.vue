@@ -1,10 +1,8 @@
 <template>
   <div>
     <PageHeader :title="title" :items="items" />
-   
-               
+
     <div v-if="showModal">
-      
       <transition name="modal">
         <div class="modal-mask">
           <div class="modal-wrapper">
@@ -14,7 +12,7 @@
                   <h4 class="modal-title text-center">New Message</h4>
                   <button
                     type="button"
-                    class="close"
+                    class="close tyb"
                     data-dismiss="modal"
                     aria-label="Close"
                   >
@@ -23,7 +21,7 @@
                     >
                   </button>
                 </div>
-              
+
                 <div class="modal-body">
                   <div class="members mb-3">
                     <div class="plus-main">
@@ -38,7 +36,7 @@
                           ref="age_popup_close"
                         ></i>
                       </div>
-                      
+
                       <b-collapse id="collapse-1" class="mt-2">
                         <b-card bg-variant="light">
                           <div class="wrapper">
@@ -46,7 +44,7 @@
                             <nav id="sidebar">
                               <ul class="list-unstyled components">
                                 <li>
-                                  <a href="#"  @click="menuList('recipents')">
+                                  <a href="#" @click="menuList('recipents')">
                                     <span>
                                       <i class="fa fa-user"></i>
                                       Recipients (0)
@@ -72,7 +70,7 @@
                                 </li>
                                 <div class="m-2">Demographics</div>
                                 <li>
-                                  <a href="#" @click="menuList('location')"> 
+                                  <a href="#" @click="menuList('location')">
                                     <span>
                                       <i class="fa fa-map-marker"></i>
                                       Location
@@ -88,7 +86,7 @@
                                   </a>
                                 </li>
                                 <li>
-                                  <a href="#" @click="menuList('age')" >
+                                  <a href="#" @click="menuList('age')">
                                     <span>
                                       <i class="fa fa-user"></i>
                                       Age
@@ -123,7 +121,6 @@
                               </ul>
                             </nav>
 
-                 
                             <!-- Page Content  -->
                             <div id="content" v-if="menuItems.recipentModel">
                               <p>Activity</p>
@@ -151,8 +148,7 @@
                               <p>Suggested Ages</p>
                               <div class="content-description">
                                 <h5>
-                                  <span>
-                                    18+</span>
+                                  <span> 18+</span>
                                 </h5>
                                 <div>
                                   <span
@@ -162,9 +158,7 @@
                               </div>
                               <div class="content-description">
                                 <h5>
-                                  <span>
-                                    21+</span
-                                  >
+                                  <span> 21+</span>
                                 </h5>
                                 <div>
                                   <span
@@ -193,43 +187,48 @@
                                   >
                                 </div>
                               </div>
-
                             </div>
 
-                      
-                      <joinDate v-if="menuItems.joinDateModel" @closeModel="applyAgeFilter" ></joinDate>
+                            <joinDate
+                              v-if="menuItems.joinDateModel"
+                              @closeModel="applyAgeFilter"
+                            ></joinDate>
 
-                             
-                    <div id="content" v-if="menuItems.locationModel">
-                    <h4>Location</h4>
-                  
-       
-                  <b-input-group>
-                        <b-input-group-prepend>
-                        <span class="input-group-text"><i class="fa fa-search"></i></span>
-                        </b-input-group-prepend>
-                        <b-form-input class="LoginInput" id='address' size="lg" placeholder="Type the name of a country,city or state">
-                        </b-form-input>
-                        
-                    </b-input-group> 
-                    
+                            <div id="content" v-if="menuItems.locationModel">
+                              <h4>Location</h4>
 
-                    <div class="content-description mt-3 mb-3">
-                        <h5>Los Angeles, CA</h5>
-                        <div><span>City 34 Members</span></div>
-                    </div>
-                    <div class="content-description mt-3 mb-3">
-                        <h5>New York, NY</h5>
-                        <div><span>City 34 Members</span></div>
-                    </div>
-                    </div> 
+                              <b-input-group>
+                                <b-input-group-prepend>
+                                  <span class="input-group-text"
+                                    ><i class="fa fa-search"></i
+                                  ></span>
+                                </b-input-group-prepend>
+                                <b-form-input
+                                  class="LoginInput"
+                                  id="addressLine"
+                                  ref="tyb"
+                                  size="lg"
+                                  placeholder="Type the name of a country,city or state"
+                                >
+                                </b-form-input>
+                              </b-input-group>
 
+                              <div class="content-description mt-3 mb-3">
+                                <h5>Los Angeles, CA</h5>
+                                <div><span>City 34 Members</span></div>
+                              </div>
+                              <div class="content-description mt-3 mb-3">
+                                <h5>New York, NY</h5>
+                                <div><span>City 34 Members</span></div>
+                              </div>
+                            </div>
 
-                       <div id="content" v-if="menuItems.ageModel">
-                                <h4>Age</h4>
-                                <p>Suggested Ages</p>
-                                <div class="content-description mt-3 mb-3">
-                                  <h5><span
+                            <div id="content" v-if="menuItems.ageModel">
+                              <h4>Age</h4>
+                              <p>Suggested Ages</p>
+                              <div class="content-description mt-3 mb-3">
+                                <h5>
+                                  <span
                                     v-on:click="
                                       ageFilterColor('eighteen_above')
                                     "
@@ -238,11 +237,17 @@
                                     }"
                                   >
                                     18+</span
-                                  ></h5>
-                                  <div><span>{{ recipents.eighteen_plus }} Members</span></div>
+                                  >
+                                </h5>
+                                <div>
+                                  <span
+                                    >{{ recipents.eighteen_plus }} Members</span
+                                  >
                                 </div>
-                                <div class="content-description mt-3 mb-3">
-                                  <h5> <span
+                              </div>
+                              <div class="content-description mt-3 mb-3">
+                                <h5>
+                                  <span
                                     v-on:click="
                                       ageFilterColor('twenty_one_above')
                                     "
@@ -251,62 +256,68 @@
                                     }"
                                   >
                                     21+</span
-                                  ></h5>
-                                  <div><span>{{
-                                      recipents.twenty_one_plus
-                                    }} Members</span></div>
-                                </div>
+                                  >
+                                </h5>
                                 <div>
-                                  <h5>Custom Age</h5>
-                                  <div class="d-flex">
-                                    <b-form-select :options="ageOptions" v-model="ageFilter.age_type" class="w-50 mr-2"></b-form-select>
-                                    <button class="btn btn-primary"  @click="applyAgeFilter()">Apply</button>
-                                  </div>
+                                  <span
+                                    >{{
+                                      recipents.twenty_one_plus
+                                    }}
+                                    Members</span
+                                  >
                                 </div>
-                              </div> 
-
-
+                              </div>
+                              <div>
+                                <h5>Custom Age</h5>
+                                <div class="d-flex">
+                                  <b-form-select
+                                    :options="ageOptions"
+                                    v-model="ageFilter.age_type"
+                                    class="w-50 mr-2"
+                                  ></b-form-select>
+                                  <button
+                                    class="btn btn-primary"
+                                    @click="applyAgeFilter()"
+                                  >
+                                    Apply
+                                  </button>
+                                </div>
+                              </div>
+                            </div>
                           </div>
                         </b-card>
                       </b-collapse>
                     </div>
-                   
-           
-                    <h5  v-if="ageFilter.age_type=='Between' "  >To: Members between 18+ and 21+ </h5>
 
-                    
+                    <h5 v-if="ageFilter.age_type == 'Between'">
+                      To: Members between 18+ and 21+
+                    </h5>
 
-                    <div  v-if="ageFilter.age_type=='Under'">          
-                    <h5 v-if="colors.eighteen_above" >To: Members Under 18</h5>
-                    <h5 v-else>To: Members Under 21</h5>
+                    <div v-if="ageFilter.age_type == 'Under'">
+                      <h5 v-if="colors.eighteen_above">To: Members Under 18</h5>
+                      <h5 v-else>To: Members Under 21</h5>
                     </div>
 
-
-                    
-                    <div  v-if="ageFilter.age_type=='Over'">          
-                    <h5 v-if="colors.eighteen_above" >To: Members Over 18</h5>
-                    <h5 v-else>To: Members Over 21</h5>
+                    <div v-if="ageFilter.age_type == 'Over'">
+                      <h5 v-if="colors.eighteen_above">To: Members Over 18</h5>
+                      <h5 v-else>To: Members Over 21</h5>
                     </div>
 
-
-
-                     <div  v-if="ageFilter.age_type=='Excatly'">          
-                    <h5 v-if="colors.eighteen_above" >To: Members Excatly 18</h5>
-                    <h5 v-else>To: Members Excatly 21</h5>
+                    <div v-if="ageFilter.age_type == 'Excatly'">
+                      <h5 v-if="colors.eighteen_above">
+                        To: Members Excatly 18
+                      </h5>
+                      <h5 v-else>To: Members Excatly 21</h5>
                     </div>
-
-                    
-                    </div>
+                  </div>
                   <div class="excluding mb-3">
                     <h5>Excluding:</h5>
                   </div>
 
-                  {{form.custom_message}}
                   <div class="message-box mb-3">
-                    
                     <textarea
-                      name='custom_message'
-                      id='custom_message'
+                      name="custom_message"
+                      id="custom_message"
                       cols="30"
                       rows="10"
                       class="form-control"
@@ -321,7 +332,9 @@
                   </div>
                   <div class="d-flex justify-content-between">
                     <button class="btn btn-light">Schedule</button>
-                    <button class="btn btn-primary" @click="sendCustomMessage">Send</button>
+                    <button class="btn btn-primary" @click="sendCustomMessage">
+                      Send
+                    </button>
                   </div>
                 </div>
               </div>
@@ -331,8 +344,6 @@
       </transition>
     </div>
 
-
-    
     <div class="row">
       <!-- start chat users-->
 
@@ -474,25 +485,23 @@
         <div class="card">
           <div class="card-body py-2 px-3 border-bottom border-light">
             <div class="media p-2">
-
-                <div class="position-relative" >
-                 <b-alert
-                :variant="notification.type" 
-                class="mt-3" 
-                v-if="notification.message" 
-                :show="notificationAutoCloseDuration" 
-                dismissible>
-                {{notification.message}}
+              <div class="position-relative">
+                <b-alert
+                  :variant="notification.type"
+                  class="mt-3"
+                  v-if="notification.message"
+                  :show="notificationAutoCloseDuration"
+                  dismissible
+                >
+                  {{ notification.message }}
                 </b-alert>
-                </div>
-            
+              </div>
+
               <div class="position-relative" style="left: 83%">
                 <button @click="showModal = true" class="btn btn-primary mt-2">
                   New Message
                 </button>
               </div>
-
-              
 
               <div class="position-relative" v-if="username">
                 <span class="user-status online"></span>
@@ -692,7 +701,7 @@
 
 <script>
 import { required } from "vuelidate/lib/validators";
-import joinDate from '~/components/widgets/chat/join_date'; 
+import joinDate from "~/components/widgets/chat/join_date";
 
 /**
  * Chat comoponent
@@ -704,23 +713,23 @@ export default {
     };
   },
   components: {
-        joinDate: joinDate
-    },
+    joinDate: joinDate,
+  },
   data() {
     return {
       showModal: false,
-      menuItems:{
-        joinDateModel:false,
-        recipentModel:true,
-        ageModel:false,
-        locationModel:false
+      menuItems: {
+        joinDateModel: false,
+        recipentModel: true,
+        ageModel: false,
+        locationModel: false,
       },
       ageOptions: [
-          { value: 'Between', text: 'Between' },
-          { value: 'Under', text: 'Under' },
-          { value: 'Over', text: 'Over' },
-          { value: 'Excatly', text: 'Excatly' },
-        ],
+        { value: "Between", text: "Between" },
+        { value: "Under", text: "Under" },
+        { value: "Over", text: "Over" },
+        { value: "Excatly", text: "Excatly" },
+      ],
       backendErrors: [],
       chatData: [],
       chatMessages: [],
@@ -729,11 +738,10 @@ export default {
       colors: {
         eighteen_above: false,
         twenty_one_above: false,
-        
-         last24hours: false,
+
+        last24hours: false,
         last7days: false,
         last30days: false,
-
       },
       items: [
         {
@@ -750,14 +758,14 @@ export default {
       submitted: false,
       form: {
         message: "",
-        custom_message:''
+        custom_message: "",
       },
       username: "",
       status: "",
       image: "",
       receiver_id: "",
       receiver_number: "",
-      filter_type:'recipents',
+      filter_type: "recipents",
       ageFilter: {
         age_type: "",
       },
@@ -769,92 +777,106 @@ export default {
         required,
       },
     },
-  },computed: {
-        notification() {
-            return this.$store ? this.$store.state.notification : null;
-        },
-        notificationAutoCloseDuration() {
-            return this.$store && this.$store.state.notification ? 7 : 0;
-        },
+  },
+  computed: {
+    notification() {
+      return this.$store ? this.$store.state.notification : null;
     },
+    notificationAutoCloseDuration() {
+      return this.$store && this.$store.state.notification ? 7 : 0;
+    },
+  },
   methods: {
-    menuList(type){
+    menuList(type) {
+      if (type == "join_date") {
+        this.menuItems.joinDateModel = true;
+        this.menuItems.recipentModel = false;
+        this.menuItems.ageModel = false;
+        this.menuItems.locationModel = false;
+        this.filter_type = "join_date";
+      } else if (type == "recipents") {
+        this.menuItems.recipentModel = true;
+        this.menuItems.joinDateModel = false;
+        this.menuItems.ageModel = false;
+        this.menuItems.locationModel = false;
+        this.filter_type = "recipents";
+      } else if (type == "age") {
+        this.menuItems.recipentModel = false;
+        this.menuItems.joinDateModel = false;
+        this.menuItems.ageModel = true;
+        this.menuItems.locationModel = false;
+        this.filter_type = "age";
+      } else if (type == "location") {
+        this.menuItems.recipentModel = false;
+        this.menuItems.joinDateModel = false;
+        this.menuItems.ageModel = false;
+        this.menuItems.locationModel = true;
+        this.filter_type = "location";
 
-      if(type=='join_date'){
-        this.menuItems.joinDateModel=true
-        this.menuItems.recipentModel=false
-        this.menuItems.ageModel=false
-        this.menuItems.locationModel=false
-        this.filter_type='join_date';
-      }
+        var defaultBounds = new google.maps.LatLngBounds(
+          new google.maps.LatLng(-33.8902, 151.1759),
+          new google.maps.LatLng(-33.8474, 151.2631)
+        );
+        setTimeout(() => {
+          var input = document.getElementById("addressLine");
+        console.log("iinp", input);
+        var options = {
+          bounds: defaultBounds,
+          types: ["establishment"],
+        };
 
-    else  if(type=='recipents'){
-        this.menuItems.recipentModel=true
-        this.menuItems.joinDateModel=false
-        this.menuItems.ageModel=false
-         this.menuItems.locationModel=false
-        this.filter_type='recipents';
-      }else if (type=='age'){
-         this.menuItems.recipentModel=false
-        this.menuItems.joinDateModel=false
-        this.menuItems.ageModel=true
-         this.menuItems.locationModel=false
-        this.filter_type='age';
-      }else if (type=='location'){
-         this.menuItems.recipentModel=false
-        this.menuItems.joinDateModel=false
-        this.menuItems.ageModel=false
-         this.menuItems.locationModel=true
-        this.filter_type='location';
+        var autocomplete = new google.maps.places.Autocomplete(input, options);
+        console.log("autocomplete");
+        google.maps.event.addListener(
+          autocomplete,
+          "place_changed",
+          function () {
+            var place = autocomplete.getPlace();
+            console.log("place");
+          }
+        );
+        }, 3000);
+       
       }
-    
     },
-    sendCustomMessage(){
-  
-      let filterRecord=this.$store.state.chat;
-      
-      let  payload;
-    
-     if(this.filter_type=='age'){
-         payload={
-        type:this.ageFilter.age_type,
-         eighteen_above:this.colors.eighteen_above,
-         twenty_one_above:this.colors.twenty_one_above,
-         message:this.form.custom_message,
-        filter_type :this.filter_type
-      };
-  
-     }else if(this.filter_type=='join_date'){
-           payload={
-        type:filterRecord.data.value,
-         last24hours:filterRecord.data.last24hours,
-         last7days:filterRecord.data.last7days,
-          last30days:filterRecord.data.last30days,
-         message:this.form.custom_message,
-        filter_type :this.filter_type
-      };
-        
-     }
+    sendCustomMessage() {
+      let filterRecord = this.$store.state.chat;
 
-   
-   this.showModal=false;
-        this.$store.dispatch(
-                  "notification/success",
-                  "Message has been send Successfully!"
-                );
+      let payload;
+
+      if (this.filter_type == "age") {
+        payload = {
+          type: this.ageFilter.age_type,
+          eighteen_above: this.colors.eighteen_above,
+          twenty_one_above: this.colors.twenty_one_above,
+          message: this.form.custom_message,
+          filter_type: this.filter_type,
+        };
+      } else if (this.filter_type == "join_date") {
+        payload = {
+          type: filterRecord.data.value,
+          last24hours: filterRecord.data.last24hours,
+          last7days: filterRecord.data.last7days,
+          last30days: filterRecord.data.last30days,
+          message: this.form.custom_message,
+          filter_type: this.filter_type,
+        };
+      }
+
+      this.showModal = false;
+      this.$store.dispatch(
+        "notification/success",
+        "Message has been send Successfully!"
+      );
       this.$store
-          .dispatch("chat/sendMessageToContents", payload)
-          .then((response) => {
-
-          
-          })
-          .catch((error) => {
-            this.backendErrors = error.response.data.errors;
-          })
-          .catch(() => {
-            this.isDisabled = false;
-          }); 
-
+        .dispatch("chat/sendMessageToContents", payload)
+        .then((response) => {})
+        .catch((error) => {
+          this.backendErrors = error.response.data.errors;
+        })
+        .catch(() => {
+          this.isDisabled = false;
+        });
     },
     ageFilterColor(type) {
       if (type == "eighteen_above") {
@@ -865,7 +887,6 @@ export default {
     },
     applyAgeFilter() {
       this.$refs.age_popup_close.click();
-       
     },
     formatDate(date) {
       const options = { year: "numeric", month: "numeric", day: "numeric" };
@@ -973,23 +994,6 @@ export default {
   },
 
   mounted() {
- var defaultBounds = new google.maps.LatLngBounds(
-  new google.maps.LatLng(-33.8902, 151.1759),
-  new google.maps.LatLng(-33.8474, 151.2631));
-  var input = document.getElementById('address');
-  var options = {
-    bounds: defaultBounds,
-    types: ['establishment']};
- 
-        
-   var autocomplete = new google.maps.places.Autocomplete(input, options);
-   console.log(autocomplete);
-    google.maps.event.addListener(autocomplete,"place_changed", function () {
-      var place = autocomplete.getPlace();
-      console.log(place);
-
- 
-    });
 
     const newMessages = this.chatMessages;
 

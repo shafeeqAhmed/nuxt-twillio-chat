@@ -46,7 +46,7 @@
                                 <li>
                                   <a href="#" @click="menuList('recipents')">
                                     <span>
-                                      <i class="fa fa-user"></i>
+                                      <i class="fa fa-user mr-1"></i>
                                       Recipients (0)
                                     </span>
                                   </a>
@@ -55,7 +55,7 @@
                                 <li>
                                   <a href="#" @click="menuList('location')">
                                     <span>
-                                      <i class="fa fa-map-marker"></i>
+                                      <i class="fa fa-map-marker mr-1"></i>
                                       Location
                                     </span>
                                   </a>
@@ -64,7 +64,7 @@
                                 <li>
                                   <a href="#" @click="menuList('age')">
                                     <span>
-                                      <i class="fa fa-user"></i>
+                                      <i class="fa fa-user mr-1"></i>
                                       Age
                                     </span>
                                   </a>
@@ -73,7 +73,7 @@
                                 <li>
                                   <a href="#" @click="menuList('join_date')">
                                     <span>
-                                      <i class="fa fa-calendar-alt"></i>
+                                      <i class="fa fa-calendar-alt mr-1"></i>
                                       Join Date
                                     </span>
                                   </a>
@@ -148,6 +148,9 @@
                                 >
                                 </b-form-input>
                               </b-input-group>
+                              <div class="map-container mt-2">
+
+                              </div>
                             </div>
 
                             <div id="content" v-if="menuItems.ageModel">
@@ -195,12 +198,14 @@
                               </div>
                               <div>
                                 <h5>Custom Age</h5>
-                                <div class="d-flex">
+                                <div>
                                   <b-form-select
                                     :options="ageOptions"
                                     v-model="ageFilter.age_type"
-                                    class="w-50 mr-2"
+                                    class="w-50 mb-1"
                                   ></b-form-select>
+                                  <b-form-input placeholder="Enter your name" class="w-50 mb-1"></b-form-input>
+                                  <b-form-input placeholder="Enter your lname" class="w-50 mb-1"></b-form-input>
                                   <button
                                     class="btn btn-primary"
                                     @click="applyAgeFilter()"
@@ -424,7 +429,7 @@
               </div>
 
               <div class="position-relative" style="left: 83%">
-                <button @click="showModal = true" class="btn btn-primary mt-2">
+                <button @click="showModal = true" class="btn btn-primary mt-2 new-message">
                   New Message
                 </button>
               </div>
@@ -1082,9 +1087,16 @@ a:focus {
   margin: 40px 0;
 }
 .content-description {
-  border-bottom: 1px solid lightgray;
+  border-bottom: 1px solid#5C6777;
 }
-
+.content-description h5:hover {
+  cursor: pointer;
+  font-weight: 600;
+}
+.map-container{
+  height: 450px;
+  border: 1px solid #fff;
+}
 /* ---------------------------------------------------
     SIDEBAR STYLE
 ----------------------------------------------------- */
@@ -1146,8 +1158,8 @@ a:focus {
 }
 
 #sidebar ul li a:hover {
-  color: #4a5c6d;
-  background: #e0fbff;
+  color: #fff;
+  background: #3bafda;
 }
 
 #sidebar ul li.active > a,

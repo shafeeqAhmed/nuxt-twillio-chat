@@ -148,6 +148,18 @@
                                 >
                                 </b-form-input>
                               </b-input-group>
+                              <div class="content-description mt-3 mb-3">
+                             <div id="map_container"><div id="locationmap"></div></div>
+                              </div>
+
+                              <div class="content-description mt-3 mb-3">
+                                <h5>Los Angeles, CA</h5>
+                                <div><span>City 34 Members</span></div>
+                              </div>
+                              <div class="content-description mt-3 mb-3">
+                                <h5>New York, NY</h5>
+                                <div><span>City 34 Members</span></div>
+                              </div>
                             </div>
 
                             <div id="content" v-if="menuItems.ageModel">
@@ -628,7 +640,6 @@
 <script>
 import { required } from "vuelidate/lib/validators";
 import joinDate from "~/components/widgets/chat/join_date";
-
 /**
  * Chat comoponent
  */
@@ -743,26 +754,58 @@ export default {
           new google.maps.LatLng(-33.8902, 151.1759),
           new google.maps.LatLng(-33.8474, 151.2631)
         );
+
+          
+
         setTimeout(() => {
           var input = document.getElementById("addressLine");
-        console.log("iinp", input);
-        var options = {
-          bounds: defaultBounds,
-          types: ["establishment"],
-        };
+const map = new google.maps.Map(
+            document.getElementById("locationmap"),
+            {
+              zoom: 8,
+              center: { lat: -33.8902, lng: 151.1759 },
+              mapTypeId: "terrain",
+            }
+          )
+        
 
-        var autocomplete = new google.maps.places.Autocomplete(input, options);
-        console.log("autocomplete");
-        google.maps.event.addListener(
-          autocomplete,
-          "place_changed",
-          function () {
-            var place = autocomplete.getPlace();
-            console.log("place");
-          }
-        );
+          var options = {
+            bounds: defaultBounds,
+            types: ["establishment"],
+          };
+
+          var autocomplete = new google.maps.places.Autocomplete(
+            input,
+            options
+          );
+          google.maps.event.addListener(
+            autocomplete,
+            "place_changed",
+            function () {
+              var place = autocomplete.getPlace();
+              var latitude = place.geometry.location.lat();
+              var longitude = place.geometry.location.lng();
+              const map = new google.maps.Map(
+            document.getElementById("locationmap"),
+            {
+              zoom: 8,
+              center: { lat: latitude, lng: longitude },
+              mapTypeId: "terrain",
+            }
+          );
+              const cityCircle = new google.maps.Circle({
+                strokeColor: "#FF0000",
+                strokeOpacity: 0.8,
+                strokeWeight: 2,
+                fillColor: "#FF0000",
+                fillOpacity: 0.35,
+                map,
+                center: { lat: latitude, lng: longitude },
+                radius: Math.sqrt(603502) * 100,
+              });
+            }
+          );
         }, 3000);
-
       }
     },
     sendCustomMessage() {
@@ -921,6 +964,7 @@ export default {
 
   mounted() {
 
+    
     const newMessages = this.chatMessages;
 
     this.getChatMessages();

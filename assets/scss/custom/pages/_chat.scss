@@ -1,7 +1,14 @@
 // 
 // chat.scss
 //
-
+#map_container {
+  width: 100% !important;
+  height: 350px !important;
+}
+#locationmap {
+  width: 100%;
+  height: 100%;
+}
 .chat-app-conversation {
   .conversation-text {
     font-size: $font-size-base;

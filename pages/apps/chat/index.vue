@@ -51,24 +51,7 @@
                                     </span>
                                   </a>
                                 </li>
-                                <div class="m-2">Search</div>
-                                <li>
-                                  <a href="#">
-                                    <span>
-                                      <i class="fa fa-user"></i>
-                                      Individuals
-                                    </span>
-                                  </a>
-                                </li>
-                                <li>
-                                  <a href="#">
-                                    <span>
-                                      <i class="fa fa-user"></i>
-                                      Communities
-                                    </span>
-                                  </a>
-                                </li>
-                                <div class="m-2">Demographics</div>
+
                                 <li>
                                   <a href="#" @click="menuList('location')">
                                     <span>
@@ -77,14 +60,7 @@
                                     </span>
                                   </a>
                                 </li>
-                                <li>
-                                  <a href="#">
-                                    <span>
-                                      <i class="fa fa-clock"></i>
-                                      Time Zone
-                                    </span>
-                                  </a>
-                                </li>
+
                                 <li>
                                   <a href="#" @click="menuList('age')">
                                     <span>
@@ -93,15 +69,7 @@
                                     </span>
                                   </a>
                                 </li>
-                                <li>
-                                  <a href="#">
-                                    <span>
-                                      <i class="fa fa-mercury"></i>
-                                      Gender Identity
-                                    </span>
-                                  </a>
-                                </li>
-                                <div class="m-2">Engagement</div>
+
                                 <li>
                                   <a href="#" @click="menuList('join_date')">
                                     <span>
@@ -110,14 +78,7 @@
                                     </span>
                                   </a>
                                 </li>
-                                <li>
-                                  <a href="#">
-                                    <span>
-                                      <i class="fa fa-user"></i>
-                                      Activity
-                                    </span>
-                                  </a>
-                                </li>
+
                               </ul>
                             </nav>
 
@@ -141,31 +102,6 @@
                                 <div>
                                   <span
                                     >{{ recipents.total_fans }} Members</span
-                                  >
-                                </div>
-                              </div>
-
-                              <p>Suggested Ages</p>
-                              <div class="content-description">
-                                <h5>
-                                  <span> 18+</span>
-                                </h5>
-                                <div>
-                                  <span
-                                    >{{ recipents.eighteen_plus }} Members</span
-                                  >
-                                </div>
-                              </div>
-                              <div class="content-description">
-                                <h5>
-                                  <span> 21+</span>
-                                </h5>
-                                <div>
-                                  <span
-                                    >{{
-                                      recipents.twenty_one_plus
-                                    }}
-                                    Members</span
                                   >
                                 </div>
                               </div>
@@ -212,20 +148,10 @@
                                 >
                                 </b-form-input>
                               </b-input-group>
-
-                              <div class="content-description mt-3 mb-3">
-                                <h5>Los Angeles, CA</h5>
-                                <div><span>City 34 Members</span></div>
-                              </div>
-                              <div class="content-description mt-3 mb-3">
-                                <h5>New York, NY</h5>
-                                <div><span>City 34 Members</span></div>
-                              </div>
                             </div>
 
                             <div id="content" v-if="menuItems.ageModel">
                               <h4>Age</h4>
-                              <p>Suggested Ages</p>
                               <div class="content-description mt-3 mb-3">
                                 <h5>
                                   <span
@@ -836,7 +762,7 @@ export default {
           }
         );
         }, 3000);
-       
+
       }
     },
     sendCustomMessage() {
@@ -1120,11 +1046,22 @@ export default {
   top: 15px;
 }
 
+.card {
+  margin-top: 30px;
+  position: absolute;
+  top: 20px;
+  left: 0px;
+  z-index: 10;
+  padding: 0px !important;
+}
+.card-body {
+  padding: 0px !important;
+}
 .modal-body {
   position: relative;
 }
 
-/************ Card Style *******************/
+/*********** Card Style ******************/
 
 a,
 a:hover,
@@ -1156,7 +1093,15 @@ a:focus {
   margin: 40px 0;
 }
 .content-description {
-  border-bottom: 1px solid lightgray;
+  border-bottom: 1px solid #5C6777;
+}
+.content-description h5:hover {
+  cursor: pointer;
+  font-weight: 600;
+}
+.map-container{
+  height: 450px;
+  border: 1px solid #fff;
 }
 
 /* ---------------------------------------------------
@@ -1191,7 +1136,7 @@ a:focus {
   min-width: 250px;
   max-width: 250px;
   background: #f3f4f6;
-  color: #4a5c6d;
+  color: #4E5963;
   transition: all 0.3s;
 }
 
@@ -1217,11 +1162,12 @@ a:focus {
   padding: 10px;
   font-size: 1.1em;
   display: block;
+  font-weight: 600;
 }
 
 #sidebar ul li a:hover {
-  color: #4a5c6d;
-  background: #e0fbff;
+  color: #fff;
+  background: #3bafda;
 }
 
 #sidebar ul li.active > a,

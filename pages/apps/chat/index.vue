@@ -151,15 +151,6 @@
                               <div class="content-description mt-3 mb-3">
                              <div id="map_container"><div id="locationmap"></div></div>
                               </div>
-
-                              <div class="content-description mt-3 mb-3">
-                                <h5>Los Angeles, CA</h5>
-                                <div><span>City 34 Members</span></div>
-                              </div>
-                              <div class="content-description mt-3 mb-3">
-                                <h5>New York, NY</h5>
-                                <div><span>City 34 Members</span></div>
-                              </div>
                             </div>
 
                             <div id="content" v-if="menuItems.ageModel">
@@ -197,12 +188,12 @@
                                   >
                                 </h5>
                                 <div>
-                                  <span
-                                    >{{
+                                  <span>
+                                    {{
                                       recipents.twenty_one_plus
                                     }}
-                                    Members</span
-                                  >
+                                    Members
+                                  </span>
                                 </div>
                               </div>
                               <div>
@@ -755,7 +746,7 @@ export default {
           new google.maps.LatLng(-33.8474, 151.2631)
         );
 
-          
+
 
         setTimeout(() => {
           var input = document.getElementById("addressLine");
@@ -767,7 +758,7 @@ const map = new google.maps.Map(
               mapTypeId: "terrain",
             }
           )
-        
+
 
           var options = {
             bounds: defaultBounds,
@@ -964,7 +955,7 @@ const map = new google.maps.Map(
 
   mounted() {
 
-    
+
     const newMessages = this.chatMessages;
 
     this.getChatMessages();

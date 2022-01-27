@@ -1046,22 +1046,11 @@ export default {
   top: 15px;
 }
 
-.card {
-  margin-top: 30px;
-  position: absolute;
-  top: 20px;
-  left: 0px;
-  z-index: 10;
-  padding: 0px !important;
-}
-.card-body {
-  padding: 0px !important;
-}
 .modal-body {
   position: relative;
 }
 
-/*********** Card Style ******************/
+/************ Card Style *******************/
 
 a,
 a:hover,
@@ -1093,15 +1082,7 @@ a:focus {
   margin: 40px 0;
 }
 .content-description {
-  border-bottom: 1px solid #5C6777;
-}
-.content-description h5:hover {
-  cursor: pointer;
-  font-weight: 600;
-}
-.map-container{
-  height: 450px;
-  border: 1px solid #fff;
+  border-bottom: 1px solid lightgray;
 }
 
 /* ---------------------------------------------------
@@ -1136,7 +1117,7 @@ a:focus {
   min-width: 250px;
   max-width: 250px;
   background: #f3f4f6;
-  color: #4E5963;
+  color: #4a5c6d;
   transition: all 0.3s;
 }
 
@@ -1162,12 +1143,11 @@ a:focus {
   padding: 10px;
   font-size: 1.1em;
   display: block;
-  font-weight: 600;
 }
 
 #sidebar ul li a:hover {
-  color: #fff;
-  background: #3bafda;
+  color: #4a5c6d;
+  background: #e0fbff;
 }
 
 #sidebar ul li.active > a,

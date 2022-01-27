@@ -133,6 +133,24 @@
                             <div id="content" v-if="menuItems.locationModel">
                               <h4>Location</h4>
 
+
+                                
+                              <b-input-group>
+
+                                <b-form-input
+                                  class="LoginInput"
+                                  id="radius"
+                                    v-model="radius"
+                                  size="lg"
+                                  type="number"
+                                  placeholder="Type Radius in KM to draw circle in map"
+                                >
+                                </b-form-input>
+
+                                <br><br>
+                                
+                              </b-input-group>
+
                               <b-input-group>
                                 <b-input-group-prepend>
                                   <span class="input-group-text"
@@ -147,7 +165,9 @@
                                   placeholder="Type the name of a country,city or state"
                                 >
                                 </b-form-input>
+                                
                               </b-input-group>
+                               
                               <div class="content-description mt-3 mb-3">
                              <div id="map_container"><div id="locationmap"></div></div>
                               </div>
@@ -702,6 +722,7 @@ export default {
       image: "",
       receiver_id: "",
       receiver_number: "",
+      radius:'',
       filter_type: "recipents",
       ageFilter: {
         age_type: "",
@@ -755,7 +776,8 @@ export default {
           new google.maps.LatLng(-33.8474, 151.2631)
         );
 
-          
+           
+              
 
         setTimeout(() => {
           var input = document.getElementById("addressLine");
@@ -788,12 +810,14 @@ const map = new google.maps.Map(
               const map = new google.maps.Map(
             document.getElementById("locationmap"),
             {
-              zoom: 8,
+              zoom: 11,
               center: { lat: latitude, lng: longitude },
               mapTypeId: "terrain",
             }
           );
-              const cityCircle = new google.maps.Circle({
+                  console.log( document.getElementById("radius").value);
+              if( document.getElementById("radius").value!='undefined '){
+                 const cityCircle = new google.maps.Circle({
                 strokeColor: "#FF0000",
                 strokeOpacity: 0.8,
                 strokeWeight: 2,
@@ -801,8 +825,13 @@ const map = new google.maps.Map(
                 fillOpacity: 0.35,
                 map,
                 center: { lat: latitude, lng: longitude },
-                radius: Math.sqrt(603502) * 100,
+                radius: Math.sqrt( document.getElementById("radius").value*1000) * 100,
               });
+              }
+             
+
+
+
             }
           );
         }, 3000);

@@ -32,10 +32,10 @@
     <div>
         <h5>Custom</h5>
       
-        <div class="d-flex">
-        <span class="mr-2">is</span>
-        
-        <b-form-select :options="options" v-model="search_type" @change="updateRange" class="w-50 mr-2"></b-form-select>
+        <div>
+        <b-form-select :options="options" v-model="search_type" @change="updateRange" class="w-50 mb-1"></b-form-select>
+        <b-form-input placeholder="Enter your name" class="w-50 mb-1"></b-form-input>
+        <b-form-input placeholder="Enter your lname" class="w-50 mb-1"></b-form-input>
         <button class="btn btn-primary"  @click="$emit('closeModel')"  >Apply</button>
         </div>
     </div>

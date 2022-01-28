@@ -83,7 +83,7 @@
                             </nav>
 
                             <!-- Page Content  -->
-                            <div id="content" v-if="menuItems.recipentModel">
+                            <div  v-if="menuItems.recipentModel">
                               <p>Activity</p>
                               <div class="content-description">
                                 <h5>Top 5% Active</h5>
@@ -130,11 +130,11 @@
                               @closeModel="applyAgeFilter"
                             ></joinDate>
 
-                            <div id="content" v-if="menuItems.locationModel">
+                            <div  v-if="menuItems.locationModel">
                               <h4>Location</h4>
 
 
-                                
+
                               <b-input-group>
 
                                 <b-form-input
@@ -148,7 +148,7 @@
                                 </b-form-input>
 
                                 <br><br>
-                                
+
                               </b-input-group>
 
                               <b-input-group>
@@ -165,15 +165,15 @@
                                   placeholder="Type the name of a country,city or state"
                                 >
                                 </b-form-input>
-                                
+
                               </b-input-group>
-                               
+
                               <div class="content-description mt-3 mb-3">
                              <div id="map_container"><div id="locationmap"></div></div>
                               </div>
                             </div>
 
-                            <div id="content" v-if="menuItems.ageModel">
+                            <div  v-if="menuItems.ageModel">
                               <h4>Age</h4>
                               <div class="content-description mt-3 mb-3">
                                 <h5>
@@ -209,9 +209,7 @@
                                 </h5>
                                 <div>
                                   <span>
-                                    {{
-                                      recipents.twenty_one_plus
-                                    }}
+                                    {{ recipents.twenty_one_plus }}
                                     Members
                                   </span>
                                 </div>
@@ -817,7 +815,7 @@ const map = new google.maps.Map(
                 radius: Math.sqrt( document.getElementById("radius").value*1000) * 100,
               });
               }
-             
+
 
 
 

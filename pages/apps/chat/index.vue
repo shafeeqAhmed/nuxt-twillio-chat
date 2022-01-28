@@ -83,156 +83,183 @@
                             </nav>
 
                             <!-- Page Content  -->
-                            <div  v-if="menuItems.recipentModel">
-                              <p>Activity</p>
-                              <div class="content-description">
-                                <h5>Top 5% Active</h5>
-                                <div><span>Members</span></div>
-                              </div>
-                              <div class="content-description">
-                                <h5>Top 10% Active</h5>
-                                <div><span>Members</span></div>
-                              </div>
-                              <div class="content-description">
-                                <h5>Top 25% Active</h5>
-                                <div><span>Members</span></div>
-                              </div>
-                              <div class="content-description">
-                                <h5>Everyone</h5>
-                                <div>
-                                  <span
-                                    >{{ recipents.total_fans }} Members</span
-                                  >
-                                </div>
-                              </div>
+<!--                            <div id="content"  v-if="menuItems.recipentModel">-->
+<!--                              <p>Activity</p>-->
+<!--                              <div class="content-description">-->
+<!--                                <h5>Top 5% Active</h5>-->
+<!--                                <div><span>Members</span></div>-->
+<!--                              </div>-->
+<!--                              <div class="content-description">-->
+<!--                                <h5>Top 10% Active</h5>-->
+<!--                                <div><span>Members</span></div>-->
+<!--                              </div>-->
+<!--                              <div class="content-description">-->
+<!--                                <h5>Top 25% Active</h5>-->
+<!--                                <div><span>Members</span></div>-->
+<!--                              </div>-->
+<!--                              <div class="content-description">-->
+<!--                                <h5>Everyone</h5>-->
+<!--                                <div>-->
+<!--                                  <span-->
+<!--                                    >{{ recipents.total_fans }} Members</span-->
+<!--                                  >-->
+<!--                                </div>-->
+<!--                              </div>-->
 
-                              <p>Gender</p>
-                              <div class="content-description">
-                                <h5>Male</h5>
-                                <div>
-                                  <span
-                                    >{{ recipents.total_males }} Members</span
-                                  >
-                                </div>
-                              </div>
-                              <div class="content-description">
-                                <h5>Female</h5>
-                                <div>
-                                  <span
-                                    >{{ recipents.total_females }} Members</span
-                                  >
-                                </div>
-                              </div>
-                            </div>
+<!--                              <p>Gender</p>-->
+<!--                              <div class="content-description">-->
+<!--                                <h5>Male</h5>-->
+<!--                                <div>-->
+<!--                                  <span-->
+<!--                                    >{{ recipents.total_males }} Members</span-->
+<!--                                  >-->
+<!--                                </div>-->
+<!--                              </div>-->
+<!--                              <div class="content-description">-->
+<!--                                <h5>Female</h5>-->
+<!--                                <div>-->
+<!--                                  <span-->
+<!--                                    >{{ recipents.total_females }} Members</span-->
+<!--                                  >-->
+<!--                                </div>-->
+<!--                              </div>-->
+<!--                            </div>-->
 
-                            <joinDate
-                              v-if="menuItems.joinDateModel"
-                              @closeModel="applyAgeFilter"
-                            ></joinDate>
+                            <join-date v-if="menuItems.joinDateModel" @closeModel="applyAgeFilter"/>
+                            <age-tab v-if="menuItems.ageModel"/>
+                            <location-tab v-if="menuItems.locationModel"/>
+                            <reception-tab v-if="menuItems.recipentModel"/>
 
-                            <div  v-if="menuItems.locationModel">
-                              <h4>Location</h4>
+<!--                            <div id="content"    v-if="menuItems.locationModel">-->
+<!--                              <h4>Location</h4>-->
+<!--                              <div class="row">-->
+<!--                                <div class="col-8">-->
+<!--                                  <b-input-group>-->
+<!--                                    <b-input-group-prepend>-->
+<!--                                      <span class="input-group-text"><i class="fa fa-search"></i></span>-->
+<!--                                    </b-input-group-prepend>-->
+<!--                                    <b-form-input-->
+<!--                                      class="LoginInput"-->
+<!--                                      id="addressLine"-->
+<!--                                      ref="tyb"-->
+<!--                                      size="lg"-->
+<!--                                      placeholder="Type the name of a country,city or state"-->
+<!--                                    >-->
+<!--                                    </b-form-input>-->
+<!--                                  </b-input-group>-->
+<!--                                </div>-->
+<!--                                <div class="col-2">-->
+<!--                                  <b-input-group>-->
+<!--                                    <b-form-input placeholder="Miles" size="lg" class="w-50 mb-1"></b-form-input>-->
+<!--                                  </b-input-group>-->
+<!--                                </div>-->
+<!--                                <div class="col-2">-->
+<!--                                  <b-input-group>-->
+<!--                                    <button class="btn btn-primary">-->
+<!--                                      Apply-->
+<!--                                    </button>-->
+<!--                                  </b-input-group>-->
+<!--                                </div>-->
+<!--                              </div>-->
+<!--&lt;!&ndash;                              <b-input-group>&ndash;&gt;-->
+
+<!--&lt;!&ndash;                                <b-form-input&ndash;&gt;-->
+<!--&lt;!&ndash;                                  class="LoginInput"&ndash;&gt;-->
+<!--&lt;!&ndash;                                  id="radius"&ndash;&gt;-->
+<!--&lt;!&ndash;                                    v-model="radius"&ndash;&gt;-->
+<!--&lt;!&ndash;                                  size="lg"&ndash;&gt;-->
+<!--&lt;!&ndash;                                  type="number"&ndash;&gt;-->
+<!--&lt;!&ndash;                                  placeholder="Type Radius in KM to draw circle in map"&ndash;&gt;-->
+<!--&lt;!&ndash;                                >&ndash;&gt;-->
+<!--&lt;!&ndash;                                </b-form-input>&ndash;&gt;-->
 
 
+<!--&lt;!&ndash;                              </b-input-group>&ndash;&gt;-->
 
-                              <b-input-group>
+<!--&lt;!&ndash;                              <b-input-group>&ndash;&gt;-->
+<!--&lt;!&ndash;                                <b-input-group-prepend>&ndash;&gt;-->
+<!--&lt;!&ndash;                                  <span class="input-group-text"&ndash;&gt;-->
+<!--&lt;!&ndash;                                    ><i class="fa fa-search"></i&ndash;&gt;-->
+<!--&lt;!&ndash;                                  ></span>&ndash;&gt;-->
+<!--&lt;!&ndash;                                </b-input-group-prepend>&ndash;&gt;-->
+<!--&lt;!&ndash;                                <b-form-input&ndash;&gt;-->
+<!--&lt;!&ndash;                                  class="LoginInput"&ndash;&gt;-->
+<!--&lt;!&ndash;                                  id="addressLine"&ndash;&gt;-->
+<!--&lt;!&ndash;                                  ref="tyb"&ndash;&gt;-->
+<!--&lt;!&ndash;                                  size="lg"&ndash;&gt;-->
+<!--&lt;!&ndash;                                  placeholder="Type the name of a country,city or state"&ndash;&gt;-->
+<!--&lt;!&ndash;                                >&ndash;&gt;-->
+<!--&lt;!&ndash;                                </b-form-input>&ndash;&gt;-->
 
-                                <b-form-input
-                                  class="LoginInput"
-                                  id="radius"
-                                    v-model="radius"
-                                  size="lg"
-                                  type="number"
-                                  placeholder="Type Radius in KM to draw circle in map"
-                                >
-                                </b-form-input>
+<!--&lt;!&ndash;                              </b-input-group>&ndash;&gt;-->
 
-                                <br><br>
+<!--                              <div class="content-description mt-3 mb-3">-->
+<!--                                 <div id="map_container">-->
+<!--                                   <div id="locationmap"></div>-->
+<!--                                 </div>-->
+<!--                              </div>-->
+<!--                            </div>-->
 
-                              </b-input-group>
-
-                              <b-input-group>
-                                <b-input-group-prepend>
-                                  <span class="input-group-text"
-                                    ><i class="fa fa-search"></i
-                                  ></span>
-                                </b-input-group-prepend>
-                                <b-form-input
-                                  class="LoginInput"
-                                  id="addressLine"
-                                  ref="tyb"
-                                  size="lg"
-                                  placeholder="Type the name of a country,city or state"
-                                >
-                                </b-form-input>
-
-                              </b-input-group>
-
-                              <div class="content-description mt-3 mb-3">
-                             <div id="map_container"><div id="locationmap"></div></div>
-                              </div>
-                            </div>
-
-                            <div  v-if="menuItems.ageModel">
-                              <h4>Age</h4>
-                              <div class="content-description mt-3 mb-3">
-                                <h5>
-                                  <span
-                                    v-on:click="
-                                      ageFilterColor('eighteen_above')
-                                    "
-                                    v-bind:class="{
-                                      'text-primary': colors.eighteen_above,
-                                    }"
-                                  >
-                                    18+</span
-                                  >
-                                </h5>
-                                <div>
-                                  <span
-                                    >{{ recipents.eighteen_plus }} Members</span
-                                  >
-                                </div>
-                              </div>
-                              <div class="content-description mt-3 mb-3">
-                                <h5>
-                                  <span
-                                    v-on:click="
-                                      ageFilterColor('twenty_one_above')
-                                    "
-                                    v-bind:class="{
-                                      'text-primary': colors.twenty_one_above,
-                                    }"
-                                  >
-                                    21+</span
-                                  >
-                                </h5>
-                                <div>
-                                  <span>
-                                    {{ recipents.twenty_one_plus }}
-                                    Members
-                                  </span>
-                                </div>
-                              </div>
-                              <div>
-                                <h5>Custom Age</h5>
-                                <div>
-                                  <b-form-select
-                                    :options="ageOptions"
-                                    v-model="ageFilter.age_type"
-                                    class="w-50 mb-1"
-                                  ></b-form-select>
-                                  <b-form-input placeholder="Enter your name" class="w-50 mb-1"></b-form-input>
-                                  <b-form-input placeholder="Enter your lname" class="w-50 mb-1"></b-form-input>
-                                  <button
-                                    class="btn btn-primary"
-                                    @click="applyAgeFilter()"
-                                  >
-                                    Apply
-                                  </button>
-                                </div>
-                              </div>
-                            </div>
+<!--                            <div id="content"    v-if="menuItems.ageModel">-->
+<!--                              <h4>Age</h4>-->
+<!--                              <div class="content-description mt-3 mb-3">-->
+<!--                                <h5>-->
+<!--                                  <span-->
+<!--                                    v-on:click="-->
+<!--                                      ageFilterColor('eighteen_above')-->
+<!--                                    "-->
+<!--                                    v-bind:class="{-->
+<!--                                      'text-primary': colors.eighteen_above,-->
+<!--                                    }"-->
+<!--                                  >-->
+<!--                                    18+</span-->
+<!--                                  >-->
+<!--                                </h5>-->
+<!--                                <div>-->
+<!--                                  <span-->
+<!--                                    >{{ recipents.eighteen_plus }} Members</span-->
+<!--                                  >-->
+<!--                                </div>-->
+<!--                              </div>-->
+<!--                              <div class="content-description mt-3 mb-3">-->
+<!--                                <h5>-->
+<!--                                  <span-->
+<!--                                    v-on:click="-->
+<!--                                      ageFilterColor('twenty_one_above')-->
+<!--                                    "-->
+<!--                                    v-bind:class="{-->
+<!--                                      'text-primary': colors.twenty_one_above,-->
+<!--                                    }"-->
+<!--                                  >-->
+<!--                                    21+</span-->
+<!--                                  >-->
+<!--                                </h5>-->
+<!--                                <div>-->
+<!--                                  <span>-->
+<!--                                    {{ recipents.twenty_one_plus }}-->
+<!--                                    Members-->
+<!--                                  </span>-->
+<!--                                </div>-->
+<!--                              </div>-->
+<!--                              <div>-->
+<!--                                <h5>Custom Age</h5>-->
+<!--                                <div>-->
+<!--                                  <b-form-select-->
+<!--                                    :options="ageOptions"-->
+<!--                                    v-model="ageFilter.age_type"-->
+<!--                                    class="w-50 mb-1"-->
+<!--                                  ></b-form-select>-->
+<!--                                  <b-form-input placeholder="Enter your name" class="w-50 mb-1"></b-form-input>-->
+<!--                                  <b-form-input placeholder="Enter your lname" class="w-50 mb-1"></b-form-input>-->
+<!--                                  <button-->
+<!--                                    class="btn btn-primary"-->
+<!--                                    @click="applyAgeFilter()"-->
+<!--                                  >-->
+<!--                                    Apply-->
+<!--                                  </button>-->
+<!--                                </div>-->
+<!--                              </div>-->
+<!--                            </div>-->
                           </div>
                         </b-card>
                       </b-collapse>
@@ -651,17 +678,23 @@
 <script>
 import { required } from "vuelidate/lib/validators";
 import joinDate from "~/components/widgets/chat/join_date";
+import AgeTab from "~/components/widgets/chat/age";
+import LocationTab from "~/components/widgets/chat/location";
+import ReceptionTab from "~/components/widgets/chat/reception";
 /**
  * Chat comoponent
  */
 export default {
   head() {
     return {
-      title: `${this.title} | Minton - Nuxtjs Responsive Admin Dashboard Template`,
+      title: `${this.title} | Twilio Chat`,
     };
   },
   components: {
-    joinDate: joinDate,
+    joinDate,
+    AgeTab,
+    LocationTab,
+    ReceptionTab,
   },
   data() {
     return {
@@ -762,68 +795,67 @@ export default {
         this.menuItems.locationModel = true;
         this.filter_type = "location";
 
-        var defaultBounds = new google.maps.LatLngBounds(
-          new google.maps.LatLng(-33.8902, 151.1759),
-          new google.maps.LatLng(-33.8474, 151.2631)
-        );
-
-
-        setTimeout(() => {
-          var input = document.getElementById("addressLine");
-const map = new google.maps.Map(
-            document.getElementById("locationmap"),
-            {
-              zoom: 8,
-              center: { lat: -33.8902, lng: 151.1759 },
-              mapTypeId: "terrain",
-            }
-          )
-
-
-          var options = {
-            bounds: defaultBounds,
-            types: ["establishment"],
-          };
-
-          var autocomplete = new google.maps.places.Autocomplete(
-            input,
-            options
-          );
-          google.maps.event.addListener(
-            autocomplete,
-            "place_changed",
-            function () {
-              var place = autocomplete.getPlace();
-              var latitude = place.geometry.location.lat();
-              var longitude = place.geometry.location.lng();
-              const map = new google.maps.Map(
-            document.getElementById("locationmap"),
-            {
-              zoom: 11,
-              center: { lat: latitude, lng: longitude },
-              mapTypeId: "terrain",
-            }
-          );
-                  console.log( document.getElementById("radius").value);
-              if( document.getElementById("radius").value!='undefined '){
-                 const cityCircle = new google.maps.Circle({
-                strokeColor: "#FF0000",
-                strokeOpacity: 0.8,
-                strokeWeight: 2,
-                fillColor: "#FF0000",
-                fillOpacity: 0.35,
-                map,
-                center: { lat: latitude, lng: longitude },
-                radius: Math.sqrt( document.getElementById("radius").value*1000) * 100,
-              });
-              }
-
-
-
-
-            }
-          );
-        }, 3000);
+//         var defaultBounds = new google.maps.LatLngBounds(
+//           new google.maps.LatLng(-33.8902, 151.1759),
+//           new google.maps.LatLng(-33.8474, 151.2631)
+//         );
+//
+//
+//         setTimeout(() => {
+//           var input = document.getElementById("addressLine");
+// const map = new google.maps.Map(
+//             document.getElementById("locationmap"),
+//             {
+//               zoom: 8,
+//               center: { lat: -33.8902, lng: 151.1759 },
+//               mapTypeId: "terrain",
+//             }
+//           )
+//
+//
+//           var options = {
+//             bounds: defaultBounds,
+//             types: ["establishment"],
+//           };
+//
+//           var autocomplete = new google.maps.places.Autocomplete(
+//             input,
+//             options
+//           );
+//           google.maps.event.addListener(
+//             autocomplete,
+//             "place_changed",
+//             function () {
+//               var place = autocomplete.getPlace();
+//               var latitude = place.geometry.location.lat();
+//               var longitude = place.geometry.location.lng();
+//               const map = new google.maps.Map(
+//             document.getElementById("locationmap"),
+//             {
+//               zoom: 11,
+//               center: { lat: latitude, lng: longitude },
+//               mapTypeId: "terrain",
+//             }
+//           );
+//               if( document.getElementById("radius").value!='undefined '){
+//                  const cityCircle = new google.maps.Circle({
+//                 strokeColor: "#FF0000",
+//                 strokeOpacity: 0.8,
+//                 strokeWeight: 2,
+//                 fillColor: "#FF0000",
+//                 fillOpacity: 0.35,
+//                 map,
+//                 center: { lat: latitude, lng: longitude },
+//                 radius: Math.sqrt( document.getElementById("radius").value*1000) * 100,
+//               });
+//               }
+//
+//
+//
+//
+//             }
+//           );
+//         }, 3000);
       }
     },
     sendCustomMessage() {

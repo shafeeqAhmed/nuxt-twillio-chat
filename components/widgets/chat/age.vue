@@ -1,74 +1,58 @@
 <template>
   <div id="content">
     <h4>Age</h4>
-    <div class="content-description mt-3 mb-3">
-      <hr role="separator" aria-orientation="horizontal" class="dropdown-divider">
-      <h5>
+    <div class="content-description mt-3 mb-3" :class="{'alert alert-danger':  age == '18+'}">
+      <a href="#" class="close" v-if="age == '18+'" @click="updateAgeFilter('')" data-dismiss="alert" aria-label="close">&times;</a>
+      <h5 @click="updateAgeFilter('18+')" >
         <span>18+</span>
       </h5>
-      <hr role="separator" aria-orientation="horizontal" class="dropdown-divider">
+      <div>
+          <span>
+            {{$store.getters['chat/getCount']('eighteen_plus')}} Members
+          </span>
+      </div>
     </div>
-    <div class="content-description mt-3 mb-3">
-      <h5>
+    <div class="content-description mt-3 mb-3" :class="{'alert alert-danger':  age == '21+'}">
+      <a href="#" class="close" v-if="age == '21+'" @click="updateAgeFilter('')" data-dismiss="alert" aria-label="close">&times;</a>
+
+      <h5 @click="updateAgeFilter('21+')" >
         <span>21+</span>
       </h5>
-      <hr role="separator" aria-orientation="horizontal" class="dropdown-divider">
+      <div>
+          <span>
+            {{$store.getters['chat/getCount']('twenty_one_plus')}} Members
+          </span>
+      </div>
     </div>
-<!--    <div class="content-description mt-3 mb-3">-->
-<!--      <h5>-->
-<!--                                  <span-->
-<!--                                    v-on:click="-->
-<!--                                      ageFilterColor('eighteen_above')-->
-<!--                                    "-->
-<!--                                    v-bind:class="{-->
-<!--                                      'text-primary': colors.eighteen_above,-->
-<!--                                    }"-->
-<!--                                  >-->
-<!--                                    18+</span-->
-<!--                                  >-->
-<!--      </h5>-->
-<!--      <div>-->
-<!--                                  <span-->
-<!--                                  >{{ recipents.eighteen_plus }} Members</span-->
-<!--                                  >-->
-<!--      </div>-->
-<!--    </div>-->
-<!--    <div class="content-description mt-3 mb-3">-->
-<!--      <h5>-->
-<!--                                  <span-->
-<!--                                    v-on:click="-->
-<!--                                      ageFilterColor('twenty_one_above')-->
-<!--                                    "-->
-<!--                                    v-bind:class="{-->
-<!--                                      'text-primary': colors.twenty_one_above,-->
-<!--                                    }"-->
-<!--                                  >-->
-<!--                                    21+</span-->
-<!--                                  >-->
-<!--      </h5>-->
-<!--      <div>-->
-<!--                                  <span>-->
-<!--                                    {{ recipents.twenty_one_plus }}-->
-<!--                                    Members-->
-<!--                                  </span>-->
-<!--      </div>-->
-<!--    </div>-->
     <div>
       <h5>Custom Age</h5>
       <div>
         <hr role="separator" aria-orientation="horizontal" class="dropdown-divider">
         <b-form-select
           :options="ageOptions"
-          v-model="ageFilter.age_type"
+          v-model="customFilterType"
+          @change="updateAgeFilter('')"
           class="w-50 mb-1"
         ></b-form-select>
-        <b-form-input placeholder="Enter Age" class="w-50 mb-1"></b-form-input>
-        <b-form-input v-if="ageFilter.age_type  == 'Between'" placeholder="Enter end Age" class="w-50 mb-1"></b-form-input>
-        <button
-          class="btn btn-primary" >
-          Apply
-        </button>
+
+        <div v-if="customFilterType  != ''">
+          <b-form-input min="1" v-model="customStartAge"  type="number" placeholder="Enter Age" class="w-50 mb-1"></b-form-input>
+          <b-form-input min="1" v-model="customEndAge" type="number" v-if="customFilterType  == 'Between'" placeholder="Enter end Age" class="w-50 mb-1"></b-form-input>
+        </div>
+
       </div>
+    </div>
+    <div class="row mt-3">
+      <button
+        @click="applyFilter()"
+        class="btn btn-primary ml-2">
+        Apply
+      </button>
+      <button
+        @click="$emit('closeModel')"
+        class="btn btn-secondary ml-2">
+        Cancel
+      </button>
     </div>
   </div>
 </template>
@@ -87,16 +71,47 @@ export default {
         { value: "Over", text: "Over" },
         { value: "Exactly", text: "Exactly" },
       ],
-      ageFilter: {
-        age_type: "",
-      },
+      age:'',
+      customFilterType:'',
+      customStartAge:'',
+      customEndAge:'',
     };
   },
 
-  mounted() {
-
-  },
+methods:{
+    updateAgeFilter(age){
+      this.age = age
+    },
+  applyFilter() {
+    if(!this.age && !this.customStartAge) {
+      alert('please select filter first')
+    }else {
+      let data= {
+        key:'age',
+        val: {
+          age: this.age,
+          customStartAge: this.customStartAge,
+          customEndAge: this.customEndAge,
+          customFilterType: this.customFilterType,
+        }
+      }
+      this.$store.commit('chat/filterData',data)
+    }
+  }
+}
 
 
 };
 </script>
+<style scoped>
+.content-description {
+  border-bottom: 1px solid#5C6777;
+}
+.content-description h5:hover {
+  cursor: pointer;
+  font-weight: 600;
+}
+.close {
+  color: red;
+}
+</style>

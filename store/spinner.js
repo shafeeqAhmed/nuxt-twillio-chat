@@ -28,15 +28,11 @@ export const actions = {
     clear({ commit },type) {
         commit('clear',type);
     }
-    
+
 };
 
 export const getters={
-
      getSpinner: (state)=>(type)=>{
          return state.find(list=> list.type===type).loading
      }
-
-     
-
 }

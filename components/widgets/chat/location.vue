@@ -37,24 +37,24 @@
         </b-input-group>
       </div>
     </div>
-<!--    <button-->
-<!--      class="btn btn-primary" >-->
-<!--      Apply-->
-<!--    </button>-->
-<!--    <b-input-group>-->
-<!--      <b-form-input-->
-<!--        style="width: 100px"-->
-<!--        id="radius"-->
-<!--        v-model="radius"-->
-<!--        size="lg"-->
-<!--        type="number"-->
-<!--        placeholder="Type Radius in KM to draw circle in map"-->
-<!--      >-->
-<!--      </b-form-input>-->
-<!--    </b-input-group>-->
-
     <div class="content-description mt-3 mb-3">
       <div id="map_container"><div id="locationmap"></div></div>
+      <input type="hidden" id="place">
+      <input type="hidden" id="lat">
+      <input type="hidden" id="lng">
+    </div>
+
+    <div class="row mt-3">
+      <button
+        @click="applyFilter()"
+        class="btn btn-primary ml-2">
+        Apply
+      </button>
+      <button
+        @click="$emit('closeModel')"
+        class="btn btn-secondary ml-2">
+        Cancel
+      </button>
     </div>
   </div>
 </template>
@@ -67,7 +67,7 @@ export default {
   name: "LocationTab",
   data() {
     return {
-      radius: 50,
+      radius: 10,
       backendErrors: {},
       isDisabled: false,
       place:'',
@@ -107,14 +107,21 @@ export default {
         autocomplete,
         "place_changed",
         function () {
-          this.place = autocomplete.getPlace();
-          this.latitude = this.place.geometry.location.lat();
-          this.longitude = this.place.geometry.location.lng();
+          var place = autocomplete.getPlace();
+          var latitude = place.geometry.location.lat();
+          var longitude = place.geometry.location.lng();
+
+
+          document.getElementById('place').value = place
+          document.getElementById('lat').value = latitude
+          document.getElementById('lng').value = longitude
+
+
           const map = new google.maps.Map(
             document.getElementById("locationmap"),
             {
               zoom: 11,
-              center: { lat: this.latitude, lng: this.longitude },
+              center: { lat: latitude, lng: longitude },
               mapTypeId: "terrain",
             }
           );
@@ -127,7 +134,7 @@ export default {
               fillColor: "#FF0000",
               fillOpacity: 0.35,
               map,
-              center: { lat: this.latitude, lng: this.longitude },
+              center: { lat: latitude, lng: longitude },
               radius: Math.sqrt( radius*1000) * 100,
             });
           }
@@ -137,49 +144,56 @@ export default {
   },
   methods: {
     loadMap() {
-      var input = document.getElementById("addressLine");
-      var options = {
-        types: ["establishment"],
-      };
+      var lat = document.getElementById('lat').value
+      var  lng = document.getElementById('lng').value
 
-      var autocomplete = new google.maps.places.Autocomplete(
-        input,
-        options
-      );
-      google.maps.event.addListener(
-        autocomplete,
-        "place_changed",
-        function () {
-          this.place = autocomplete.getPlace();
-          this.latitude = this.place.geometry.location.lat();
-          this.longitude = this.place.geometry.location.lng();
-          const map = new google.maps.Map(
-            document.getElementById("locationmap"),
-            {
-              zoom: 11,
-              center: { lat: this.latitude, lng: this.longitude },
-              mapTypeId: "terrain",
-            }
-          );
-          let radius = document.getElementById("radius").value
-          console.log('radius')
-          console.log(radius)
-          if(radius != 'undefined '){
-            const cityCircle = new google.maps.Circle({
-              strokeColor: "#FF0000",
-              strokeOpacity: 0.8,
-              strokeWeight: 2,
-              fillColor: "#FF0000",
-              fillOpacity: 0.35,
-              map,
-              center: { lat: this.latitude, lng: this.longitude },
-              radius: Math.sqrt( radius*1000) * 100,
-            });
-          }
+
+      const map = new google.maps.Map(
+        document.getElementById("locationmap"),
+        {
+          zoom: 11,
+          center: { lat: parseFloat(lat), lng: parseFloat(lng) },
+          mapTypeId: "terrain",
         }
       );
+      let radius = document.getElementById("radius").value
+
+      if(radius != 'undefined '){
+        const cityCircle = new google.maps.Circle({
+          strokeColor: "#FF0000",
+          strokeOpacity: 0.8,
+          strokeWeight: 2,
+          fillColor: "#FF0000",
+          fillOpacity: 0.35,
+          map,
+          center:{ lat: parseFloat(lat), lng: parseFloat(lng) },
+          radius: Math.sqrt( radius*1000) * 100,
+        });
+      }
+    },
+    applyFilter() {
+      let address = document.getElementById('addressLine').value
+      let lat = document.getElementById('lat').value
+      let lng = document.getElementById('lng').value
+      let radius = document.getElementById("radius").value
+      if(lat && lng) {
+        let data= {
+          key:'location',
+          val: {
+            address,
+            lat,
+            lng,
+            radius
+          }
+        }
+        this.$store.commit('chat/filterData',data)
+      }else {
+        alert('please select location first')
+      }
     }
-  }
+
+
+    }
 
 
 };

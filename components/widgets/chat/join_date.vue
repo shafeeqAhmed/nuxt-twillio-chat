@@ -1,43 +1,57 @@
 <template>
-     <div id="content">
+  <div id="content">
     <h4>Join Date</h4>
     <p>Suggested dates</p>
-    <div class="content-description mt-3 mb-3">
-        <div><span @click="
-        durationFilterColor('last24hours')
-        "
-        :class="{
-            'text-primary': colors.last24hours,
-        }">Joined: Last 24 hours</span></div>
-        <div><span >joined {{recipents.last24hours}} Members</span></div>
+
+    <div class="content-description" :class="{'alert alert-danger':  date == 'last24hours'}">
+      <a href="#" class="close" v-if="date == 'last24hours'" @click="updateDate('')" data-dismiss="alert" aria-label="close">&times;</a>
+
+      <h5 @click="updateDate('last24hours')" >
+        Joined: Last 24 hours
+      </h5>
+      <div>
+        <span >joined {{ recipents.last24hours }} Members</span>
+      </div>
     </div>
-    <div class="content-description mt-3 mb-3">
-        <div><span @click="
-        durationFilterColor('last7days')
-        "
-        :class="{
-            'text-primary': colors.last7days,
-        }">Joined: Last 7 days</span></div>
-        <div><span>joined {{recipents.last7days}} Members</span></div>
+
+    <div class="content-description"  :class="{'alert alert-danger':  date == 'last7days'}">
+      <a href="#" class="close" v-if="date == 'last7days'" @click="updateDate('')" data-dismiss="alert" aria-label="close">&times;</a>
+
+      <h5 @click="updateDate('last7days')" >
+        Joined: Last 7 days
+      </h5>
+      <div>
+        <span >joined {{ recipents.last7days }} Members</span>
+      </div>
     </div>
-    <div class="content-description mt-3 mb-3">
-        <span @click="
-        durationFilterColor('last30days')
-        "
-        :class="{
-            'text-primary': colors.last30days,
-        }">Joined : Last 30 Days</span>
-        <div><span>joined {{recipents.last30days}} Members</span></div>
-    </div>
-    <div>
-        <h5>Custom</h5>
-      
+
+<div class="content-description"  :class="{'alert alert-danger':  date == 'last30days'}">
+  <a href="#" class="close" v-if="date == 'last30days'" @click="updateDate('')" data-dismiss="alert" aria-label="close">&times;</a>
+
+  <h5 @click="updateDate('last30days')" >
+        Joined: Last 30 days
+      </h5>
+      <div>
+        <span >joined {{ recipents.last30days }} Members</span>
+      </div>
+</div>
         <div>
-        <b-form-select :options="options" v-model="search_type" @change="updateRange" class="w-50 mb-1"></b-form-select>
-        <b-form-input placeholder="Enter your name" class="w-50 mb-1"></b-form-input>
-        <b-form-input placeholder="Enter your lname" class="w-50 mb-1"></b-form-input>
-        <button class="btn btn-primary"  @click="$emit('closeModel')"  >Apply</button>
+            <h5>Custom</h5>
+            <b-form-select :options="options" v-model="search_type" @change="updateDate('')" class="w-50 mb-1"></b-form-select>
+            <b-form-input type="date" v-model="customStartDate" placeholder="date" class="w-50 mb-1"></b-form-input>
+            <b-form-input type="date" v-model="customEndDate"  v-if="search_type  == 'Between'" placeholder="end date" class="w-50 mb-1"></b-form-input>
         </div>
+    <div class="row mt-3">
+      <button
+        @click="applyFilter"
+        class="btn btn-primary ml-2">
+        Apply
+      </button>
+      <button
+        @click="$emit('closeModel')"
+        class="btn btn-secondary ml-2">
+        Cancel
+      </button>
     </div>
     </div>
 </template>
@@ -49,65 +63,54 @@ export default {
         recipents:[],
         options: [
           { value: null, text: 'Please select an option' },
-          { value: 'before', text: 'before' },
-          { value: 'after', text: 'after' },
-          { value: 'on', text: 'on' },
+          { value: 'Between', text: 'Between' },
+          { value: 'Before', text: 'Before' },
+          { value: 'After', text: 'After' },
+          { value: 'On', text: 'On' },
         ],
         colors: {
         last24hours: false,
         last7days: false,
         last30days: false,
-      }, 
-      search_type: ""
+      },
+      search_type: "",
+      date:'',
+      customStartDate: '',
+      customEndDate: '',
 
     };
   },
   methods: {
+    updateDate(date) {
+      this.date = date
+    },
+    applyFilter() {
+
+      if(!this.date && !this.customStartDate) {
+        return;
+      }else {
+
+        if(this.customStartDate && this.customEndDate) {
+          if(this.customEndDate <= this.customStartDate) {
+            alert('End Date must be greater or equal to start date')
+            return;
+          }
+        }
+        let data= {
+          key:'joinDate',
+          val: {
+            search_type: this.search_type,
+            date: this.date,
+            customStartDate: this.customStartDate,
+            customEndDate: this.customEndDate,
+          }
+        }
+        this.$store.commit('chat/filterData',data)
+      }
+    },
     async getRecipents() {
       const recipents = await this.$axios.$get("/duration_filter");
       this.recipents = recipents.data;
-    },
-    updateRange(){
-    this.$store.commit('chat/filterType', 'join_date');
-     let payload={
-       last24hours: this.colors.last24hours,
-        last7days: this.colors.last7days,
-        last30days:  this.colors.last30days,
-        value:this.search_type
-     };
-
-     this.$store.commit('chat/filterData',payload);
-    },
-    durationFilterColor(type) {
-     
-     this.$store.commit('chat/filterType', 'join_date');
-
-    
-      if (type == "last24hours") {
-        this.colors.last24hours = true;
-        this.colors.last7days = false;
-        this.colors.last30days = false;
-    
-
-      } else if (type == "last7days") {
-        this.colors.last7days = true;
-           this.colors.last24hours = false;
-           this.colors.last30days = false;
-
-      }else if (type == "last30days") {
-        this.colors.last30days = true;
-        this.colors.last24hours = false;
-        this.colors.last7days = false;
-      }
-
-      let payload={
-       last24hours: this.colors.last24hours,
-        last7days: this.colors.last7days,
-        last30days:  this.colors.last30days,
-        value:this.search_type
-     };
-
-     this.$store.commit('chat/filterData',payload);
     },
   },
 
@@ -115,6 +118,18 @@ export default {
     this.getRecipents();
   }
 }
- 
+
 
 </script>
+<style scoped>
+.content-description {
+  border-bottom: 1px solid#5C6777;
+}
+.content-description h5:hover {
+  cursor: pointer;
+  font-weight: 600;
+}
+.close{
+  color: red;
+}
+</style>

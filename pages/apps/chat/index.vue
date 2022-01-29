@@ -16,9 +16,7 @@
                     data-dismiss="modal"
                     aria-label="Close"
                   >
-                    <span aria-hidden="true" @click="showModal = false"
-                      >&times;</span
-                    >
+                    <span aria-hidden="true" @click="showModal = false">&times;</span>
                   </button>
                 </div>
 
@@ -47,7 +45,7 @@
                                   <a href="#" @click="menuList('recipents')">
                                     <span>
                                       <i class="fa fa-user mr-1"></i>
-                                      Recipients (0)
+                                      Recipients
                                     </span>
                                   </a>
                                 </li>
@@ -82,213 +80,42 @@
                               </ul>
                             </nav>
 
-                            <!-- Page Content  -->
-<!--                            <div id="content"  v-if="menuItems.recipentModel">-->
-<!--                              <p>Activity</p>-->
-<!--                              <div class="content-description">-->
-<!--                                <h5>Top 5% Active</h5>-->
-<!--                                <div><span>Members</span></div>-->
-<!--                              </div>-->
-<!--                              <div class="content-description">-->
-<!--                                <h5>Top 10% Active</h5>-->
-<!--                                <div><span>Members</span></div>-->
-<!--                              </div>-->
-<!--                              <div class="content-description">-->
-<!--                                <h5>Top 25% Active</h5>-->
-<!--                                <div><span>Members</span></div>-->
-<!--                              </div>-->
-<!--                              <div class="content-description">-->
-<!--                                <h5>Everyone</h5>-->
-<!--                                <div>-->
-<!--                                  <span-->
-<!--                                    >{{ recipents.total_fans }} Members</span-->
-<!--                                  >-->
-<!--                                </div>-->
-<!--                              </div>-->
-
-<!--                              <p>Gender</p>-->
-<!--                              <div class="content-description">-->
-<!--                                <h5>Male</h5>-->
-<!--                                <div>-->
-<!--                                  <span-->
-<!--                                    >{{ recipents.total_males }} Members</span-->
-<!--                                  >-->
-<!--                                </div>-->
-<!--                              </div>-->
-<!--                              <div class="content-description">-->
-<!--                                <h5>Female</h5>-->
-<!--                                <div>-->
-<!--                                  <span-->
-<!--                                    >{{ recipents.total_females }} Members</span-->
-<!--                                  >-->
-<!--                                </div>-->
-<!--                              </div>-->
-<!--                            </div>-->
-
-                            <join-date v-if="menuItems.joinDateModel" @closeModel="applyAgeFilter"/>
-                            <age-tab v-if="menuItems.ageModel"/>
-                            <location-tab v-if="menuItems.locationModel"/>
-                            <reception-tab v-if="menuItems.recipentModel"/>
-
-<!--                            <div id="content"    v-if="menuItems.locationModel">-->
-<!--                              <h4>Location</h4>-->
-<!--                              <div class="row">-->
-<!--                                <div class="col-8">-->
-<!--                                  <b-input-group>-->
-<!--                                    <b-input-group-prepend>-->
-<!--                                      <span class="input-group-text"><i class="fa fa-search"></i></span>-->
-<!--                                    </b-input-group-prepend>-->
-<!--                                    <b-form-input-->
-<!--                                      class="LoginInput"-->
-<!--                                      id="addressLine"-->
-<!--                                      ref="tyb"-->
-<!--                                      size="lg"-->
-<!--                                      placeholder="Type the name of a country,city or state"-->
-<!--                                    >-->
-<!--                                    </b-form-input>-->
-<!--                                  </b-input-group>-->
-<!--                                </div>-->
-<!--                                <div class="col-2">-->
-<!--                                  <b-input-group>-->
-<!--                                    <b-form-input placeholder="Miles" size="lg" class="w-50 mb-1"></b-form-input>-->
-<!--                                  </b-input-group>-->
-<!--                                </div>-->
-<!--                                <div class="col-2">-->
-<!--                                  <b-input-group>-->
-<!--                                    <button class="btn btn-primary">-->
-<!--                                      Apply-->
-<!--                                    </button>-->
-<!--                                  </b-input-group>-->
-<!--                                </div>-->
-<!--                              </div>-->
-<!--&lt;!&ndash;                              <b-input-group>&ndash;&gt;-->
-
-<!--&lt;!&ndash;                                <b-form-input&ndash;&gt;-->
-<!--&lt;!&ndash;                                  class="LoginInput"&ndash;&gt;-->
-<!--&lt;!&ndash;                                  id="radius"&ndash;&gt;-->
-<!--&lt;!&ndash;                                    v-model="radius"&ndash;&gt;-->
-<!--&lt;!&ndash;                                  size="lg"&ndash;&gt;-->
-<!--&lt;!&ndash;                                  type="number"&ndash;&gt;-->
-<!--&lt;!&ndash;                                  placeholder="Type Radius in KM to draw circle in map"&ndash;&gt;-->
-<!--&lt;!&ndash;                                >&ndash;&gt;-->
-<!--&lt;!&ndash;                                </b-form-input>&ndash;&gt;-->
 
 
-<!--&lt;!&ndash;                              </b-input-group>&ndash;&gt;-->
+                            <join-date v-if="menuItems.joinDateModel" @closeModel="closeMenueList"/>
+                            <age-tab v-if="menuItems.ageModel"  @closeModel="closeMenueList"/>
+                            <location-tab v-if="menuItems.locationModel"  @closeModel="closeMenueList"/>
+                            <reception-tab v-if="menuItems.recipentModel"  @closeModel="closeMenueList"/>
 
-<!--&lt;!&ndash;                              <b-input-group>&ndash;&gt;-->
-<!--&lt;!&ndash;                                <b-input-group-prepend>&ndash;&gt;-->
-<!--&lt;!&ndash;                                  <span class="input-group-text"&ndash;&gt;-->
-<!--&lt;!&ndash;                                    ><i class="fa fa-search"></i&ndash;&gt;-->
-<!--&lt;!&ndash;                                  ></span>&ndash;&gt;-->
-<!--&lt;!&ndash;                                </b-input-group-prepend>&ndash;&gt;-->
-<!--&lt;!&ndash;                                <b-form-input&ndash;&gt;-->
-<!--&lt;!&ndash;                                  class="LoginInput"&ndash;&gt;-->
-<!--&lt;!&ndash;                                  id="addressLine"&ndash;&gt;-->
-<!--&lt;!&ndash;                                  ref="tyb"&ndash;&gt;-->
-<!--&lt;!&ndash;                                  size="lg"&ndash;&gt;-->
-<!--&lt;!&ndash;                                  placeholder="Type the name of a country,city or state"&ndash;&gt;-->
-<!--&lt;!&ndash;                                >&ndash;&gt;-->
-<!--&lt;!&ndash;                                </b-form-input>&ndash;&gt;-->
-
-<!--&lt;!&ndash;                              </b-input-group>&ndash;&gt;-->
-
-<!--                              <div class="content-description mt-3 mb-3">-->
-<!--                                 <div id="map_container">-->
-<!--                                   <div id="locationmap"></div>-->
-<!--                                 </div>-->
-<!--                              </div>-->
-<!--                            </div>-->
-
-<!--                            <div id="content"    v-if="menuItems.ageModel">-->
-<!--                              <h4>Age</h4>-->
-<!--                              <div class="content-description mt-3 mb-3">-->
-<!--                                <h5>-->
-<!--                                  <span-->
-<!--                                    v-on:click="-->
-<!--                                      ageFilterColor('eighteen_above')-->
-<!--                                    "-->
-<!--                                    v-bind:class="{-->
-<!--                                      'text-primary': colors.eighteen_above,-->
-<!--                                    }"-->
-<!--                                  >-->
-<!--                                    18+</span-->
-<!--                                  >-->
-<!--                                </h5>-->
-<!--                                <div>-->
-<!--                                  <span-->
-<!--                                    >{{ recipents.eighteen_plus }} Members</span-->
-<!--                                  >-->
-<!--                                </div>-->
-<!--                              </div>-->
-<!--                              <div class="content-description mt-3 mb-3">-->
-<!--                                <h5>-->
-<!--                                  <span-->
-<!--                                    v-on:click="-->
-<!--                                      ageFilterColor('twenty_one_above')-->
-<!--                                    "-->
-<!--                                    v-bind:class="{-->
-<!--                                      'text-primary': colors.twenty_one_above,-->
-<!--                                    }"-->
-<!--                                  >-->
-<!--                                    21+</span-->
-<!--                                  >-->
-<!--                                </h5>-->
-<!--                                <div>-->
-<!--                                  <span>-->
-<!--                                    {{ recipents.twenty_one_plus }}-->
-<!--                                    Members-->
-<!--                                  </span>-->
-<!--                                </div>-->
-<!--                              </div>-->
-<!--                              <div>-->
-<!--                                <h5>Custom Age</h5>-->
-<!--                                <div>-->
-<!--                                  <b-form-select-->
-<!--                                    :options="ageOptions"-->
-<!--                                    v-model="ageFilter.age_type"-->
-<!--                                    class="w-50 mb-1"-->
-<!--                                  ></b-form-select>-->
-<!--                                  <b-form-input placeholder="Enter your name" class="w-50 mb-1"></b-form-input>-->
-<!--                                  <b-form-input placeholder="Enter your lname" class="w-50 mb-1"></b-form-input>-->
-<!--                                  <button-->
-<!--                                    class="btn btn-primary"-->
-<!--                                    @click="applyAgeFilter()"-->
-<!--                                  >-->
-<!--                                    Apply-->
-<!--                                  </button>-->
-<!--                                </div>-->
-<!--                              </div>-->
-<!--                            </div>-->
                           </div>
                         </b-card>
                       </b-collapse>
                     </div>
+                    <button class="btn btn-xs btn-primary" v-if="activityBadge()"> {{ activityBadge()}}</button>
+                    <button class="btn btn-xs btn-primary" v-if="genderBadge()"> {{ genderBadge()}}</button>
+                    <button class="btn btn-xs btn-primary" v-if="ageBadge()"> {{ ageBadge()}}</button>
+                    <button class="btn btn-xs btn-primary" v-if="joinDateBadge()"> {{ joinDateBadge()}}</button>
 
-                    <h5 v-if="ageFilter.age_type == 'Between'">
-                      To: Members between 18+ and 21+
-                    </h5>
+<!--                    <div v-if="ageFilter.age_type == 'Under'">-->
+<!--                      <h5 v-if="colors.eighteen_above">To: Members Under 18</h5>-->
+<!--                      <h5 v-else>To: Members Under 21</h5>-->
+<!--                    </div>-->
 
-                    <div v-if="ageFilter.age_type == 'Under'">
-                      <h5 v-if="colors.eighteen_above">To: Members Under 18</h5>
-                      <h5 v-else>To: Members Under 21</h5>
-                    </div>
+<!--                    <div v-if="ageFilter.age_type == 'Over'">-->
+<!--                      <h5 v-if="colors.eighteen_above">To: Members Over 18</h5>-->
+<!--                      <h5 v-else>To: Members Over 21</h5>-->
+<!--                    </div>-->
 
-                    <div v-if="ageFilter.age_type == 'Over'">
-                      <h5 v-if="colors.eighteen_above">To: Members Over 18</h5>
-                      <h5 v-else>To: Members Over 21</h5>
-                    </div>
-
-                    <div v-if="ageFilter.age_type == 'Excatly'">
-                      <h5 v-if="colors.eighteen_above">
-                        To: Members Excatly 18
-                      </h5>
-                      <h5 v-else>To: Members Excatly 21</h5>
-                    </div>
+<!--                    <div v-if="ageFilter.age_type == 'Excatly'">-->
+<!--                      <h5 v-if="colors.eighteen_above">-->
+<!--                        To: Members Excatly 18-->
+<!--                      </h5>-->
+<!--                      <h5 v-else>To: Members Excatly 21</h5>-->
+<!--                    </div>-->
                   </div>
-                  <div class="excluding mb-3">
-                    <h5>Excluding:</h5>
-                  </div>
+<!--                  <div class="excluding mb-3">-->
+<!--                    <h5>Excluding:</h5>-->
+<!--                  </div>-->
 
                   <div class="message-box mb-3">
                     <textarea
@@ -300,11 +127,6 @@
                       placeholder="Enter Your Message"
                       v-model="form.custom_message"
                     ></textarea>
-                    <span class="icons">
-                      <i class="fa fa-images" aria-hidden="true"></i>
-                      <i class="fa fa-smile ml-1" aria-hidden="true"></i>
-                      <i class="fa fa-file ml-1" aria-hidden="true"></i>
-                    </span>
                   </div>
                   <div class="d-flex justify-content-between">
                     <button class="btn btn-light">Schedule</button>
@@ -761,6 +583,7 @@ export default {
     },
   },
   computed: {
+
     notification() {
       return this.$store ? this.$store.state.notification : null;
     },
@@ -769,93 +592,76 @@ export default {
     },
   },
   methods: {
+    activityBadge() {
+      let activity =  this.$store.state.chat.data['activity']
+      if(Object.keys(activity).length > 0) {
+        let activityVal = activity['activity']
+        if(activityVal == 'all') {
+          return activityVal
+        }else {
+          return activityVal+ ' %'
+        }
+
+      }
+      return false;
+    },
+    genderBadge() {
+      let activity =  this.$store.state.chat.data['activity']
+      if(Object.keys(activity).length > 0) {
+        return activity.gender
+      }
+      return false;
+    },
+    ageBadge() {
+      let record =  this.$store.state.chat.data['age']
+      if(Object.keys(record).length > 0) {
+        if(record.customFilterType == 'Between') {
+          return ' Between '+record['customStartAge'] + ' Year To ' + record['customEndAge'] +' Year'
+        } else if(record.customFilterType == '')  {
+          return record['age'] + ' Year'
+        } else {
+          return record.customFilterType + ' ' + record['customEndAge'] + ' Year'
+        }
+      }
+      return false;
+    },
+    joinDateBadge() {
+      let record =  this.$store.state.chat.data['joinDate']
+      if(Object.keys(record).length > 0) {
+        if(record.search_type == 'Between') {
+          return ' Between '+record['customStartDate'] + ' To ' + record['customEndDate'] +''
+        } else if(record.search_type == '')  {
+          return record['date']
+        } else {
+          return record.search_type + ' ' + record['customStartDate']
+        }
+      }
+      return false;
+    },
+    closeMenueList() {
+      // this.updateMenuBit(false,false,false,false,'')
+      this.$refs.age_popup_close.click();
+    },
+    updateMenuBit(reception,location,age,joinDate,filterType) {
+      this.menuItems.recipentModel = reception;
+      this.menuItems.locationModel = location;
+      this.menuItems.ageModel = age;
+      this.menuItems.joinDateModel = joinDate;
+
+      this.filter_type = filterType;
+    },
     menuList(type) {
       if (type == "join_date") {
-        this.menuItems.joinDateModel = true;
-        this.menuItems.recipentModel = false;
-        this.menuItems.ageModel = false;
-        this.menuItems.locationModel = false;
-        this.filter_type = "join_date";
+        this.updateMenuBit(false,false,false,true,type)
       } else if (type == "recipents") {
-        this.menuItems.recipentModel = true;
-        this.menuItems.joinDateModel = false;
-        this.menuItems.ageModel = false;
-        this.menuItems.locationModel = false;
-        this.filter_type = "recipents";
+        this.updateMenuBit(true,false,false,false,type)
       } else if (type == "age") {
-        this.menuItems.recipentModel = false;
-        this.menuItems.joinDateModel = false;
-        this.menuItems.ageModel = true;
-        this.menuItems.locationModel = false;
-        this.filter_type = "age";
+        this.updateMenuBit(false,false,true,false,type)
       } else if (type == "location") {
-        this.menuItems.recipentModel = false;
-        this.menuItems.joinDateModel = false;
-        this.menuItems.ageModel = false;
-        this.menuItems.locationModel = true;
-        this.filter_type = "location";
+        this.updateMenuBit(false,true,false,false,type)
+      } else {
+        this.updateMenuBit(false,false,false,false,type)
 
-//         var defaultBounds = new google.maps.LatLngBounds(
-//           new google.maps.LatLng(-33.8902, 151.1759),
-//           new google.maps.LatLng(-33.8474, 151.2631)
-//         );
-//
-//
-//         setTimeout(() => {
-//           var input = document.getElementById("addressLine");
-// const map = new google.maps.Map(
-//             document.getElementById("locationmap"),
-//             {
-//               zoom: 8,
-//               center: { lat: -33.8902, lng: 151.1759 },
-//               mapTypeId: "terrain",
-//             }
-//           )
-//
-//
-//           var options = {
-//             bounds: defaultBounds,
-//             types: ["establishment"],
-//           };
-//
-//           var autocomplete = new google.maps.places.Autocomplete(
-//             input,
-//             options
-//           );
-//           google.maps.event.addListener(
-//             autocomplete,
-//             "place_changed",
-//             function () {
-//               var place = autocomplete.getPlace();
-//               var latitude = place.geometry.location.lat();
-//               var longitude = place.geometry.location.lng();
-//               const map = new google.maps.Map(
-//             document.getElementById("locationmap"),
-//             {
-//               zoom: 11,
-//               center: { lat: latitude, lng: longitude },
-//               mapTypeId: "terrain",
-//             }
-//           );
-//               if( document.getElementById("radius").value!='undefined '){
-//                  const cityCircle = new google.maps.Circle({
-//                 strokeColor: "#FF0000",
-//                 strokeOpacity: 0.8,
-//                 strokeWeight: 2,
-//                 fillColor: "#FF0000",
-//                 fillOpacity: 0.35,
-//                 map,
-//                 center: { lat: latitude, lng: longitude },
-//                 radius: Math.sqrt( document.getElementById("radius").value*1000) * 100,
-//               });
-//               }
-//
-//
-//
-//
-//             }
-//           );
-//         }, 3000);
       }
     },
     sendCustomMessage() {
@@ -937,7 +743,7 @@ export default {
 
     async getRecipents() {
       const recipents = await this.$axios.$get("/recipent_count");
-      this.recipents = recipents.data;
+      this.$store.commit('chat/memberCount',recipents.data)
     },
 
     /**

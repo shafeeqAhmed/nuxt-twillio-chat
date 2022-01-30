@@ -32,7 +32,7 @@
       <div class="col-2">
         <b-input-group>
           <button class="btn btn-primary" @click="loadMap()">
-            Apply
+            update
           </button>
         </b-input-group>
       </div>
@@ -77,70 +77,82 @@ export default {
   },
 
   mounted(){
-    var defaultBounds = new google.maps.LatLngBounds(
-      new google.maps.LatLng(-33.8902, 151.1759),
-      new google.maps.LatLng(-33.8474, 151.2631)
-    );
-    setTimeout(() => {
-      var input = document.getElementById("addressLine");
-
-      const map = new google.maps.Map(
-        document.getElementById("locationmap"),
-        {
-          zoom: 8,
-          center: { lat: -33.8902, lng: 151.1759 },
-          mapTypeId: "terrain",
-        }
-      )
-
-
-      var options = {
-        // bounds: defaultBounds,
-        types: ["establishment"],
-      };
-
-      var autocomplete = new google.maps.places.Autocomplete(
-        input,
-        options
+      var defaultBounds = new google.maps.LatLngBounds(
+        new google.maps.LatLng(-33.8902, 151.1759),
+        new google.maps.LatLng(-33.8474, 151.2631)
       );
-      google.maps.event.addListener(
-        autocomplete,
-        "place_changed",
-        function () {
-          var place = autocomplete.getPlace();
-          var latitude = place.geometry.location.lat();
-          var longitude = place.geometry.location.lng();
+      setTimeout(() => {
+        var input = document.getElementById("addressLine");
 
-
-          document.getElementById('place').value = place
-          document.getElementById('lat').value = latitude
-          document.getElementById('lng').value = longitude
-
-
-          const map = new google.maps.Map(
-            document.getElementById("locationmap"),
-            {
-              zoom: 11,
-              center: { lat: latitude, lng: longitude },
-              mapTypeId: "terrain",
-            }
-          );
-          let radius = document.getElementById("radius").value
-          if(radius != 'undefined '){
-            const cityCircle = new google.maps.Circle({
-              strokeColor: "#FF0000",
-              strokeOpacity: 0.8,
-              strokeWeight: 2,
-              fillColor: "#FF0000",
-              fillOpacity: 0.35,
-              map,
-              center: { lat: latitude, lng: longitude },
-              radius: Math.sqrt( radius*1000) * 100,
-            });
+        const map = new google.maps.Map(
+          document.getElementById("locationmap"),
+          {
+            zoom: 8,
+            center: { lat: -33.8902, lng: 151.1759 },
+            mapTypeId: "terrain",
           }
-        }
-      );
-    }, 3000);
+        )
+
+
+        var options = {
+          // bounds: defaultBounds,
+          types: ["establishment"],
+        };
+
+        var autocomplete = new google.maps.places.Autocomplete(
+          input,
+          options
+        );
+        google.maps.event.addListener(
+          autocomplete,
+          "place_changed",
+          function () {
+            var place = autocomplete.getPlace();
+            var latitude = place.geometry.location.lat();
+            var longitude = place.geometry.location.lng();
+
+
+            document.getElementById('place').value = place
+            document.getElementById('lat').value = latitude
+            document.getElementById('lng').value = longitude
+
+
+            const map = new google.maps.Map(
+              document.getElementById("locationmap"),
+              {
+                zoom: 11,
+                center: { lat: latitude, lng: longitude },
+                mapTypeId: "terrain",
+              }
+            );
+            let radius = document.getElementById("radius").value
+            if(radius != 'undefined '){
+              const cityCircle = new google.maps.Circle({
+                strokeColor: "#FF0000",
+                strokeOpacity: 0.8,
+                strokeWeight: 2,
+                fillColor: "#FF0000",
+                fillOpacity: 0.35,
+                map,
+                center: { lat: latitude, lng: longitude },
+                radius: Math.sqrt( radius*1000) * 100,
+              });
+            }
+          }
+        );
+      }, 1000);
+
+    let location =  this.$store.state.chat.data['location']
+    setTimeout(() => {
+      if(Object.keys(location).length > 0) {
+        document.getElementById('addressLine').value = location['address']
+        document.getElementById('lat').value = location['lat']
+        document.getElementById('lng').value = location['lng']
+        document.getElementById("radius").value = location['radius']
+        this.loadMap()
+      }
+    },1500)
+
   },
   methods: {
     loadMap() {
@@ -187,6 +199,7 @@ export default {
           }
         }
         this.$store.commit('chat/filterData',data)
+        this.$emit('closeModel')
       }else {
         alert('please select location first')
       }

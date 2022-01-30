@@ -95,6 +95,8 @@
                     <button class="btn btn-xs btn-primary" v-if="genderBadge()"> {{ genderBadge()}}</button>
                     <button class="btn btn-xs btn-primary" v-if="ageBadge()"> {{ ageBadge()}}</button>
                     <button class="btn btn-xs btn-primary" v-if="joinDateBadge()"> {{ joinDateBadge()}}</button>
+                    <button class="btn btn-xs btn-primary" v-if="locationBadge('address')"> {{ locationBadge('address')}}</button>
+                    <button class="btn btn-xs btn-primary" v-if="locationBadge('radius')"> {{ locationBadge('radius')}}</button>
 
 <!--                    <div v-if="ageFilter.age_type == 'Under'">-->
 <!--                      <h5 v-if="colors.eighteen_above">To: Members Under 18</h5>-->
@@ -638,6 +640,19 @@ export default {
       }
       return false;
     },
+    locationBadge(type) {
+      let record =  this.$store.state.chat.data['location']
+      if(Object.keys(record).length > 0) {
+        if(type == 'address') {
+          return record['address']
+        }else if(type == 'radius'){
+          return record['radius']+' KM Radius'
+        }
+      }
+      return false;
+    },
+
+
     closeMenueList() {
       // this.updateMenuBit(false,false,false,false,'')
       this.$refs.age_popup_close.click();
@@ -665,28 +680,9 @@ export default {
       }
     },
     sendCustomMessage() {
-      let filterRecord = this.$store.state.chat;
+      let filterRecord = this.$store.state.chat.data;
+      filterRecord.message = this.form.custom_message
 
-      let payload;
-
-      if (this.filter_type == "age") {
-        payload = {
-          type: this.ageFilter.age_type,
-          eighteen_above: this.colors.eighteen_above,
-          twenty_one_above: this.colors.twenty_one_above,
-          message: this.form.custom_message,
-          filter_type: this.filter_type,
-        };
-      } else if (this.filter_type == "join_date") {
-        payload = {
-          type: filterRecord.data.value,
-          last24hours: filterRecord.data.last24hours,
-          last7days: filterRecord.data.last7days,
-          last30days: filterRecord.data.last30days,
-          message: this.form.custom_message,
-          filter_type: this.filter_type,
-        };
-      }
 
       this.showModal = false;
       this.$store.dispatch(
@@ -694,7 +690,7 @@ export default {
         "Message has been send Successfully!"
       );
       this.$store
-        .dispatch("chat/sendMessageToContents", payload)
+        .dispatch("chat/sendMessageToContents", filterRecord)
         .then((response) => {})
         .catch((error) => {
           this.backendErrors = error.response.data.errors;

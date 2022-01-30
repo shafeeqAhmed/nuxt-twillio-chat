@@ -81,6 +81,11 @@ export default {
     };
   },
   mounted(){
+    let activity =  this.$store.state.chat.data['activity']
+    if(Object.keys(activity).length > 0) {
+      this.activity = activity['activity']
+      this.gender = activity['gender']
+    }
   },
   methods: {
     updateActivity(activityType) {
@@ -102,6 +107,7 @@ export default {
          }
        }
        this.$store.commit('chat/filterData',data)
+       this.$emit('closeModel')
      }
     }
   }

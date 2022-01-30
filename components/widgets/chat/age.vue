@@ -77,10 +77,23 @@ export default {
       customEndAge:'',
     };
   },
-
+  mounted(){
+    let age =  this.$store.state.chat.data['age']
+    if(Object.keys(age).length > 0) {
+      this.age = age['age']
+      this.customFilterType = age['customFilterType']
+      this.customStartAge = age['customStartAge']
+      this.customEndAge = age['customEndAge']
+    }
+  },
 methods:{
     updateAgeFilter(age){
       this.age = age
+      if(this.age != '') {
+        this.customFilterType=''
+        this.customStartAge=''
+        this.customEndAge=''
+      }
     },
   applyFilter() {
     if(!this.age && !this.customStartAge) {
@@ -96,6 +109,7 @@ methods:{
         }
       }
       this.$store.commit('chat/filterData',data)
+      this.$emit('closeModel')
     }
   }
 }

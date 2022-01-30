@@ -38,8 +38,10 @@
         <div>
             <h5>Custom</h5>
             <b-form-select :options="options" v-model="search_type" @change="updateDate('')" class="w-50 mb-1"></b-form-select>
-            <b-form-input type="date" v-model="customStartDate" placeholder="date" class="w-50 mb-1"></b-form-input>
-            <b-form-input type="date" v-model="customEndDate"  v-if="search_type  == 'Between'" placeholder="end date" class="w-50 mb-1"></b-form-input>
+            <div v-if="search_type != ''">
+              <b-form-input type="date" v-model="customStartDate" placeholder="date" class="w-50 mb-1"></b-form-input>
+              <b-form-input type="date" v-model="customEndDate"  v-if="search_type  == 'Between'" placeholder="end date" class="w-50 mb-1"></b-form-input>
+            </div>
         </div>
     <div class="row mt-3">
       <button
@@ -83,6 +85,11 @@ export default {
   methods: {
     updateDate(date) {
       this.date = date
+      if(this.date != '') {
+          this.search_type= ""
+          this.customStartDate= ''
+          this.customEndDate= ''
+      }
     },
     applyFilter() {
 
@@ -106,6 +113,7 @@ export default {
           }
         }
         this.$store.commit('chat/filterData',data)
+        this.$emit('closeModel')
       }
     },
     async getRecipents() {
@@ -116,6 +124,14 @@ export default {
 
   mounted() {
     this.getRecipents();
+    let joinDate =  this.$store.state.chat.data['joinDate']
+    if(Object.keys(joinDate).length > 0) {
+      this.search_type = joinDate['search_type']
+      this.date = joinDate['date']
+      this.customStartDate = joinDate['customStartDate']
+      this.customEndDate = joinDate['customEndDate']
+
+    }
   }
 }
 

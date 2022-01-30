@@ -18,6 +18,12 @@ export const mutations = {
   filterData(state, data) {
     state.data[data.key] = data.val;
   },
+  resetFilterData(state) {
+    state.data.activity = {}
+    state.data.location = {}
+    state.data.age = {}
+    state.data.joinDate = {}
+  },
   memberCount(state, counts) {
     state.counts = counts;
   },

@@ -131,7 +131,6 @@
                     ></textarea>
                   </div>
                   <div class="d-flex justify-content-between">
-                    <button class="btn btn-light">Schedule</button>
                     <button class="btn btn-primary" @click="sendCustomMessage">
                       Send
                     </button>
@@ -224,20 +223,6 @@
                     <div class="media p-2">
                       <div class="position-relative">
                         <span class="user-status online"></span>
-                        <!--                         <span-->
-                        <!--                          class="user-status"-->
-                        <!--                          :class="{-->
-                        <!--                            online: item.status === 'online',-->
-                        <!--                            busy: item.status === 'away',-->
-                        <!--                            'do-not-disturb': item.status === 'do-not-disturb',-->
-                        <!--                          }"-->
-                        <!--                        ></span> -->
-                        <!--                        <img v-if="item.fan.profile_photo_path"-->
-                        <!--                          :src="item.fan.profile_photo_path"-->
-                        <!--                          class="mr-2 rounded-circle"-->
-                        <!--                          height="42"-->
-                        <!--                          alt="user"-->
-                        <!--                        />-->
                         <img
                           src="~/assets/images/users/default.png"
                           class="mr-2 rounded-circle"
@@ -283,69 +268,84 @@
 
       <div class="col-xl-9 col-lg-8">
         <div class="card">
-          <div class="card-body py-2 px-3 border-bottom border-light">
-            <div class="media p-2">
-              <div class="position-relative">
-                <b-alert
-                  :variant="notification.type"
-                  class="mt-3"
-                  v-if="notification.message"
-                  :show="notificationAutoCloseDuration"
-                  dismissible
-                >
-                  {{ notification.message }}
-                </b-alert>
-              </div>
+          <div class="row">
+            <div class="col-11">
+              <div class="card-body py-2 px-3 border-bottom border-light">
+                <div class="media p-2">
+                  <div class="position-relative">
+                    <b-alert
+                      :variant="notification.type"
+                      class="mt-3"
+                      v-if="notification.message"
+                      :show="notificationAutoCloseDuration"
+                      dismissible
+                    >
+                      {{ notification.message }}
+                    </b-alert>
+                  </div>
 
-              <div class="position-relative" style="left: 83%">
-                <button @click="showModal = true" class="btn btn-primary mt-2 new-message">
-                  New Message
-                </button>
-              </div>
 
-              <div class="position-relative" v-if="username">
-                <span class="user-status online"></span>
-                <!--                         <span-->
-                <!--                          class="user-status"-->
-                <!--                          :class="{-->
-                <!--                            online: item.status === 'online',-->
-                <!--                            busy: item.status === 'away',-->
-                <!--                            'do-not-disturb': item.status === 'do-not-disturb',-->
-                <!--                          }"-->
-                <!--                        ></span> -->
-                <!--                        <img v-if="item.fan.profile_photo_path"-->
-                <!--                          :src="item.fan.profile_photo_path"-->
-                <!--                          class="mr-2 rounded-circle"-->
-                <!--                          height="42"-->
-                <!--                          alt="user"-->
-                <!--                        />-->
-                <img
-                  src="~/assets/images/users/default.png"
-                  class="mr-2 rounded-circle"
-                  height="42"
-                  alt="user"
-                />
-              </div>
 
-              <div class="media-body">
-                <h5 class="mt-0 mb-0 font-14">
+
+                  <div class="position-relative" v-if="username">
+                    <span class="user-status online"></span>
+                    <!--                         <span-->
+                    <!--                          class="user-status"-->
+                    <!--                          :class="{-->
+                    <!--                            online: item.status === 'online',-->
+                    <!--                            busy: item.status === 'away',-->
+                    <!--                            'do-not-disturb': item.status === 'do-not-disturb',-->
+                    <!--                          }"-->
+                    <!--                        ></span> -->
+                    <!--                        <img v-if="item.fan.profile_photo_path"-->
+                    <!--                          :src="item.fan.profile_photo_path"-->
+                    <!--                          class="mr-2 rounded-circle"-->
+                    <!--                          height="42"-->
+                    <!--                          alt="user"-->
+                    <!--                        />-->
+                    <img
+                      src="~/assets/images/users/default.png"
+                      class="mr-2 rounded-circle"
+                      height="42"
+                      alt="user"
+                    />
+                  </div>
+
+                  <div class="media-body">
+                    <h5 class="mt-0 mb-0 font-14">
                   <span
                     class="float-right text-muted font-weight-normal font-12"
                   >
                     <!--                             {{  formatDate(item.user.created_at) }}-->
                   </span>
-                  {{ username }}
-                </h5>
-                <p class="mt-1 mb-0 text-muted font-14">
-                  <span class="w-75"> {{ receiver_number }} </span>
-                </p>
-                <!--  <p v-if="item.message[0]" class="mt-1 mb-0 text-muted font-14">
-                   <span class="w-75">{{ item.message[0].message }}</span>
-                 </p> -->
+                      {{ username }}
+                    </h5>
+                    <p class="mt-1 mb-0 text-muted font-14">
+                      <span class="w-75"> {{ receiver_number }} </span>
+                    </p>
+                    <!--  <p v-if="item.message[0]" class="mt-1 mb-0 text-muted font-14">
+                       <span class="w-75">{{ item.message[0].message }}</span>
+                     </p> -->
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-1">
+              <div class="float-right">
+                <div
+                  class="plus-div"
+                  variant="primary"
+                >
+                  <i
+                    class="fa fa-plus-circle btn"
+                    aria-hidden="true"
+                    @click="showModal = true"
+                  ></i>
+                </div>
+
               </div>
             </div>
           </div>
-
           <div class="card-body">
             <simplebar data-simplebar style="max-height: 460px">
               <ul class="conversation-list chat-app-conversation" ref="test">
@@ -682,16 +682,23 @@ export default {
     sendCustomMessage() {
       let filterRecord = this.$store.state.chat.data;
       filterRecord.message = this.form.custom_message
-
-
-      this.showModal = false;
-      this.$store.dispatch(
-        "notification/success",
-        "Message has been send Successfully!"
-      );
+      if(filterRecord.message == '') {
+        alert('Empty Message is not allowed')
+        return
+      }
       this.$store
         .dispatch("chat/sendMessageToContents", filterRecord)
-        .then((response) => {})
+        .then((response) => {
+          if(response.data.status) {
+            this.showModal = false;
+            this.$store.dispatch(
+              "notification/success",
+              response.data.message
+            );
+            this.$store.commit('chat/resetFilterData')
+          }
+
+        })
         .catch((error) => {
           this.backendErrors = error.response.data.errors;
         })

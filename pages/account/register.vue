@@ -54,7 +54,7 @@ export default {
       var longitude = place.geometry.location.lng();
       document.getElementById('latitute').value=latitude;
       document.getElementById('longitude').value=longitude;
- 
+
     });
 
 
@@ -122,7 +122,7 @@ export default {
       })
       .catch((error) => {
         this.returnLogin()
-      }) 
+      })
 
     this.$store
       .dispatch("getInfluencersDropdowns")
@@ -175,13 +175,13 @@ export default {
             longitude:document.getElementById('longitude').value
             };
 
-              
+
            this.$store
             .dispatch("register", payload)
             .then((response) => {
               if (response.data.status) {
-                
-                
+
+
             this.$store.dispatch(
                   "notification/clear"
                 );
@@ -190,11 +190,11 @@ export default {
                   "notification/success",
                   "Thank you for signing up."
                 );
-          
+
           this.$router.push('/account/thanks')
-          
+
               } else {
-              
+
                 this.$store.dispatch(
                   "notification/error",
                   response.data.message

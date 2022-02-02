@@ -698,10 +698,7 @@ export default {
             this.$store.commit('chat/resetFilterData')
           }
           if(response.data.status == false) {
-            this.$store.dispatch(
-              "notification/error",
-              response.data.message
-            );
+            alert(response.data.message)
           }
 
         })

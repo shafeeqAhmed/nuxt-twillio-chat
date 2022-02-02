@@ -1,13 +1,13 @@
 export default {
-  loading: "~/components/loading.vue",
+  loading: "./components/Loading.vue",
   router: {
     extendRoutes(routes) {
       routes.push({
         path: "/",
-        component: "~/pages/dashboard/sales/index.vue"
+        component: "~/pages/influencers/index.vue"
       });
     },
-    // middleware: ['authentication']
+    middleware: ['authentication']
 
   },
   /*
@@ -19,7 +19,7 @@ export default {
   ** Nuxt target
   ** See https://nuxtjs.org/api/configuration-target
   */
-  target: 'server',
+  target: 'static',
   /*
   ** Headers of the page
   ** See https://nuxtjs.org/api/configuration-head
@@ -33,7 +33,13 @@ export default {
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+    ],
+    script: [
+      {
+       src: 'https://maps.googleapis.com/maps/api/js?key=AIzaSyBqWEYAVLOFMwSEVfRqxP6CsEivmz785R4&libraries=places&callback=initAutocomplete'
+      }
     ]
+
   },
   /*
   ** Global CSS
@@ -57,7 +63,10 @@ export default {
     "~/plugins/quill-editor.js",
     "~/plugins/chartist.js",
     "~/plugins/vue-googlemap.js",
-    "~/plugins/string-filter"
+    "~/plugins/string-filter",
+    "~/plugins/persistedstate.js",
+    '~/plugins/axios',
+    '~/plugins/filter.js'
   ],
   /*
   ** Auto import components
@@ -68,6 +77,14 @@ export default {
   ** Nuxt.js dev-modules
   */
   buildModules: [
+    [
+      '@nuxtjs/laravel-echo', {
+        broadcaster: 'pusher',
+        key: '7d65294556a4568cae7f',
+        cluster: 'mt1',
+        forceTLS: true
+      }
+    ]
   ],
   /*
   ** Nuxt.js modules
@@ -78,6 +95,7 @@ export default {
     'nuxt-i18n',
     '@nuxtjs/axios',
     '@nuxtjs/auth-next'
+    //'@nuxtjs/laravel-echo',
   ],
 
   i18n: {
@@ -95,14 +113,22 @@ export default {
     }
   },
   axios: {
-            baseURL: 'http://localhost/chat-app/backend/api'
+  baseURL: 'https://text-app.tkit.co.uk/twillo-api/api'
+      // baseURL: 'http://localhost/twillo-api/api'
     },
   auth: {
+    redirect: {
+      login: '/account/login',
+      logout: '/',
+      callback: '/account/login',
+      home: '/'
+    },
     strategies: {
       local: {
         token: {
           property: 'data.accessToken',
           required: true,
+          global: true,
           maxAge: 43200,
           type: 'Bearer',
           name: 'Authorization'

@@ -1,6 +1,6 @@
 import { userService } from '../helpers/fakebackend/user.service';
 
-const user = JSON.parse(localStorage.getItem('user'));
+const user = JSON.parse(localStorage.getItem('test'));
 
 export const state = () => {
     return user

@@ -49,7 +49,7 @@
       <h5  @click="updateGender('female')">Female</h5>
       <div>
            <span>
-              {{$store.getters['chat/getCount']('total_males')}} Members
+              {{$store.getters['chat/getCount']('total_females')}} Members
            </span>
       </div>
     </div>

@@ -599,9 +599,9 @@ export default {
       if(Object.keys(activity).length > 0) {
         let activityVal = activity['activity']
         if(activityVal == 'all') {
-          return activityVal
+          return activityVal+ " Users"
         }else {
-          return activityVal+ ' %'
+          return "Top "+activityVal+ ' %'+ " Users"
         }
 
       }

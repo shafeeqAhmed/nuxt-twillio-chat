@@ -6,20 +6,32 @@
       <h5  @click="updateActivity('5')">
         Top 5% Active
       </h5>
-      <div><span>Members</span></div>
+      <div>
+        <span>
+          {{$store.getters['chat/getCount']('top_5_percentage')}} Members
+        </span>
+      </div>
     </div>
 
     <div class="content-description" :class="{'alert alert-danger':  activity == '10'}">
       <a href="#" class="close" v-if="activity == '10'" @click="updateActivity('')" data-dismiss="alert" aria-label="close">&times;</a>
 
       <h5  @click="updateActivity('10')">Top 10% Active</h5>
-      <div><span>Members</span></div>
+      <div>
+        <span>
+          {{$store.getters['chat/getCount']('top_10_percentage')}} Members
+        </span>
+      </div>
     </div>
     <div class="content-description"  :class="{'alert alert-danger':  activity == '25'}">
       <a href="#" class="close" v-if="activity == '25'" @click="updateActivity('')" data-dismiss="alert" aria-label="close">&times;</a>
 
       <h5  @click="updateActivity('25')">Top 25% Active</h5>
-      <div><span>Members</span></div>
+      <div>
+        <span>
+          {{$store.getters['chat/getCount']('top_25_percentage')}} Members
+        </span>
+      </div>
     </div>
     <div class="content-description"   :class="{'alert alert-danger':  activity == 'all'}">
       <a href="#" class="close" v-if="activity == 'all'" @click="updateActivity('')" data-dismiss="alert" aria-label="close">&times;</a>

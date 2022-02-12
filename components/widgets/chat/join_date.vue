@@ -113,6 +113,7 @@ export default {
           }
         }
         this.$store.commit('chat/filterData',data)
+        this.$store.dispatch('chat/getFilterCountFromApi')
         this.$emit('closeModel')
       }
     },

@@ -12,13 +12,15 @@ export const state = () =>({
 
 
 export const mutations = {
+  updateFilterSelectedMemberCount(state,val) {
+      state.filterSelectedMemberCount = val
+  },
   filterType(state, type) {
     state.type = type;
   },
 
   filterData(state, data) {
     state.data[data.key] = data.val;
-    // state.data[data.key] = {};
   },
   resetFilterData(state) {
     state.data.activity = {}
@@ -49,9 +51,6 @@ export const mutations = {
 };
 
 export const actions = {
-  // This is automatically run in `src/state/store.js` when the app
-  // starts, along with any other actions named `init` in other modules.
-  // eslint-disable-next-line no-unused-vars
 
   saveFilterType({ commit }, { type }) {
     commit("filterType", type);
@@ -92,6 +91,11 @@ export const actions = {
 
   removeSearchFilter({ commit },payload) {
     commit('removeFilter',payload)
+  },
+  getFilterCountFromApi({commit,state}) {
+    this.$axios.$post("/get-filter-member-count", state.data).then(response => {
+      commit('updateFilterSelectedMemberCount',response.data.counts)
+    })
   },
 
 }

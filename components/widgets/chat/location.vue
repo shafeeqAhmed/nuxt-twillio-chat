@@ -8,6 +8,7 @@
             <span class="input-group-text"><i class="fa fa-search"></i></span>
           </b-input-group-prepend>
           <b-form-input
+            autocomplete="off"
             class="LoginInput"
             id="addressLine"
             ref="tyb"
@@ -100,7 +101,9 @@ export default {
 
         var options = {
           // bounds: defaultBounds,
-          types: ["establishment"],
+          // types: ["establishment"],
+          types: ['(cities)'],
+
         };
 
         var autocomplete = new google.maps.places.Autocomplete(
@@ -201,6 +204,7 @@ export default {
           }
         }
         this.$store.commit('chat/filterData',data)
+        this.$store.dispatch('chat/getFilterCountFromApi')
         this.$emit('closeModel')
       }else {
         alert('please select location first')

@@ -21,7 +21,7 @@
                 </div>
 
                 <div class="modal-body">
-                  <div class="members mb-3">
+                  <div class="members">
                     <div class="plus-main">
                       <div
                         class="plus-div"
@@ -35,63 +35,8 @@
                         ></i>
                       </div>
 
-                      <b-collapse id="collapse-1" class="mt-2">
-                        <b-card bg-variant="light">
-                          <div class="wrapper">
-                            <!-- Sidebar  -->
-                            <nav id="sidebar">
-                              <ul class="list-unstyled components">
-                                <li>
-                                  <a href="#" @click="menuList('recipents')">
-                                    <span>
-                                      <i class="fa fa-user mr-1"></i>
-                                      Recipients
-                                    </span>
-                                  </a>
-                                </li>
-
-                                <li>
-                                  <a href="#" @click="menuList('location')">
-                                    <span>
-                                      <i class="fa fa-map-marker mr-1"></i>
-                                      Location
-                                    </span>
-                                  </a>
-                                </li>
-
-                                <li>
-                                  <a href="#" @click="menuList('age')">
-                                    <span>
-                                      <i class="fa fa-user mr-1"></i>
-                                      Age
-                                    </span>
-                                  </a>
-                                </li>
-
-                                <li>
-                                  <a href="#" @click="menuList('join_date')">
-                                    <span>
-                                      <i class="fa fa-calendar-alt mr-1"></i>
-                                      Join Date
-                                    </span>
-                                  </a>
-                                </li>
-
-                              </ul>
-                            </nav>
-
-
-
-                            <join-date v-if="menuItems.joinDateModel" @closeModel="closeMenueList"/>
-                            <age-tab v-if="menuItems.ageModel"  @closeModel="closeMenueList"/>
-                            <location-tab v-if="menuItems.locationModel"  @closeModel="closeMenueList"/>
-                            <reception-tab v-if="menuItems.recipentModel"  @closeModel="closeMenueList"/>
-
-                          </div>
-                        </b-card>
-                      </b-collapse>
                     </div>
-
+                    To : <countTo :end-val="filterSelectedMemberCount" :duration="1000"></countTo> Members
                     <b-button class="btn-soft-secondary m-1" v-if="activityBadge">{{ activityBadge}}
                       <span @click="removeFilter({type: 'activity',value: 'activity' })"   class="btn-label-right "><i class="mdi mdi-close-circle-outline"></i></span>
                     </b-button>
@@ -116,7 +61,63 @@
                       <span class="btn-label-right" @click="removeFilter({type: 'joinDate',value: 'date' })"><i class="mdi mdi-close-circle-outline"></i></span>
                     </b-button>
                   </div>
-                  <div class="message-box mb-3">
+
+                  <b-collapse id="collapse-1" class="">
+                    <b-card bg-variant="light">
+                      <div class="wrapper">
+                        <!-- Sidebar  -->
+                        <nav id="sidebar">
+                          <ul class="list-unstyled components">
+                            <li>
+                              <a href="#" @click="menuList('recipents')">
+                                    <span>
+                                      <i class="fa fa-user mr-1"></i>
+                                      Recipients
+                                    </span>
+                              </a>
+                            </li>
+
+                            <li>
+                              <a href="#" @click="menuList('location')">
+                                    <span>
+                                      <i class="fa fa-map-marker mr-1"></i>
+                                      Location
+                                    </span>
+                              </a>
+                            </li>
+
+                            <li>
+                              <a href="#" @click="menuList('age')">
+                                    <span>
+                                      <i class="fa fa-user mr-1"></i>
+                                      Age
+                                    </span>
+                              </a>
+                            </li>
+
+                            <li>
+                              <a href="#" @click="menuList('join_date')">
+                                    <span>
+                                      <i class="fa fa-calendar-alt mr-1"></i>
+                                      Join Date
+                                    </span>
+                              </a>
+                            </li>
+
+                          </ul>
+                        </nav>
+
+
+
+                        <join-date v-if="menuItems.joinDateModel" @closeModel="closeMenueList"/>
+                        <age-tab v-if="menuItems.ageModel"  @closeModel="closeMenueList"/>
+                        <location-tab v-if="menuItems.locationModel"  @closeModel="closeMenueList"/>
+                        <reception-tab v-if="menuItems.recipentModel"  @closeModel="closeMenueList"/>
+                      </div>
+                    </b-card>
+                  </b-collapse>
+
+                  <div class="message-box mt-3">
                     <textarea
                       name="custom_message"
                       id="custom_message"
@@ -128,7 +129,7 @@
                     ></textarea>
                   </div>
                   <div class="d-flex justify-content-between">
-                    <button class="btn btn-primary" @click="sendCustomMessage">
+                    <button class="btn btn-primary mt-2" @click="sendCustomMessage">
                       Send
                     </button>
                   </div>
@@ -502,6 +503,7 @@ import joinDate from "~/components/widgets/chat/join_date";
 import AgeTab from "~/components/widgets/chat/age";
 import LocationTab from "~/components/widgets/chat/location";
 import ReceptionTab from "~/components/widgets/chat/reception";
+import countTo from 'vue-count-to'
 
 /**
  * Chat comoponent
@@ -517,6 +519,7 @@ export default {
     AgeTab,
     LocationTab,
     ReceptionTab,
+    countTo,
   },
   data() {
     return {
@@ -584,6 +587,9 @@ export default {
   },
   computed: {
 
+    filterSelectedMemberCount() {
+      return this.$store.state.chat.filterSelectedMemberCount;
+    },
     notification() {
       return this.$store ? this.$store.state.notification : null;
     },
@@ -657,6 +663,7 @@ export default {
   methods: {
     removeFilter(payload) {
       this.$store.dispatch('chat/removeSearchFilter',payload)
+      this.$store.dispatch('chat/getFilterCountFromApi')
     },
     closeMenueList() {
       // this.updateMenuBit(false,false,false,false,'')
@@ -929,7 +936,7 @@ export default {
 .members {
   border: 1px solid #4f5d6b;
   border-radius: 4px;
-  min-height: 90px;
+  min-height: 60px;
   padding: 15px;
   position: relative;
 }

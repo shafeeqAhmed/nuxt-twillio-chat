@@ -91,34 +91,31 @@
                         </b-card>
                       </b-collapse>
                     </div>
-                    <button class="btn btn-xs btn-primary" v-if="activityBadge()"> {{ activityBadge()}}</button>
-                    <button class="btn btn-xs btn-primary" v-if="genderBadge()"> {{ genderBadge()}}</button>
-                    <button class="btn btn-xs btn-primary" v-if="ageBadge()"> {{ ageBadge()}}</button>
-                    <button class="btn btn-xs btn-primary" v-if="joinDateBadge()"> {{ joinDateBadge()}}</button>
-                    <button class="btn btn-xs btn-primary" v-if="locationBadge('address')"> {{ locationBadge('address')}}</button>
-                    <button class="btn btn-xs btn-primary" v-if="locationBadge('radius')"> {{ locationBadge('radius')}}</button>
 
-<!--                    <div v-if="ageFilter.age_type == 'Under'">-->
-<!--                      <h5 v-if="colors.eighteen_above">To: Members Under 18</h5>-->
-<!--                      <h5 v-else>To: Members Under 21</h5>-->
-<!--                    </div>-->
+                    <b-button class="btn-soft-secondary m-1" v-if="activityBadge">{{ activityBadge}}
+                      <span @click="removeFilter({type: 'activity',value: 'activity' })"   class="btn-label-right "><i class="mdi mdi-close-circle-outline"></i></span>
+                    </b-button>
+                     <b-button class="btn-soft-secondary m-1" v-if="genderBadge">{{ genderBadge}}
+                      <span @click="removeFilter({type: 'activity',value: 'gender' })"   class="btn-label-right "><i class="mdi mdi-close-circle-outline"></i></span>
+                    </b-button>
+                    <b-button class=" btn-soft-secondary m-1" v-if="ageBadge">
+                      {{ ageBadge}}
+                      <span class="btn-label-right" @click="removeFilter({type: 'age',value: 'age' })"><i class="mdi mdi-close-circle-outline"></i></span>
+                    </b-button>
 
-<!--                    <div v-if="ageFilter.age_type == 'Over'">-->
-<!--                      <h5 v-if="colors.eighteen_above">To: Members Over 18</h5>-->
-<!--                      <h5 v-else>To: Members Over 21</h5>-->
-<!--                    </div>-->
-
-<!--                    <div v-if="ageFilter.age_type == 'Excatly'">-->
-<!--                      <h5 v-if="colors.eighteen_above">-->
-<!--                        To: Members Excatly 18-->
-<!--                      </h5>-->
-<!--                      <h5 v-else>To: Members Excatly 21</h5>-->
-<!--                    </div>-->
+                    <b-button class=" btn-soft-secondary m-1" v-if="locationAddressBadge">
+                      {{ locationAddressBadge}}
+                      <span class="btn-label-right"  @click="removeFilter({type: 'location',value: 'address' })"><i class="mdi mdi-close-circle-outline"></i></span>
+                    </b-button>
+                    <b-button class=" btn-soft-secondary m-1" v-if="locationRadiusBadge">
+                      {{ locationRadiusBadge }}
+                      <span class="btn-label-right" @click="removeFilter({type: 'location',value: 'radius' })"><i class="mdi mdi-close-circle-outline"></i></span>
+                    </b-button>
+                    <b-button class=" btn-soft-secondary m-1" v-if="joinDateBadge">
+                      {{ joinDateBadge}}
+                      <span class="btn-label-right" @click="removeFilter({type: 'joinDate',value: 'date' })"><i class="mdi mdi-close-circle-outline"></i></span>
+                    </b-button>
                   </div>
-<!--                  <div class="excluding mb-3">-->
-<!--                    <h5>Excluding:</h5>-->
-<!--                  </div>-->
-
                   <div class="message-box mb-3">
                     <textarea
                       name="custom_message"
@@ -505,6 +502,7 @@ import joinDate from "~/components/widgets/chat/join_date";
 import AgeTab from "~/components/widgets/chat/age";
 import LocationTab from "~/components/widgets/chat/location";
 import ReceptionTab from "~/components/widgets/chat/reception";
+
 /**
  * Chat comoponent
  */
@@ -592,11 +590,9 @@ export default {
     notificationAutoCloseDuration() {
       return this.$store && this.$store.state.notification ? 7 : 0;
     },
-  },
-  methods: {
     activityBadge() {
       let activity =  this.$store.state.chat.data['activity']
-      if(Object.keys(activity).length > 0) {
+      if(Object.keys(activity).length > 0 && activity?.activity !== '') {
         let activityVal = activity['activity']
         if(activityVal == 'all') {
           return activityVal+ " Users"
@@ -609,14 +605,14 @@ export default {
     },
     genderBadge() {
       let activity =  this.$store.state.chat.data['activity']
-      if(Object.keys(activity).length > 0) {
+      if(Object.keys(activity).length > 0 && activity['gender'] != '') {
         return activity.gender
       }
       return false;
     },
     ageBadge() {
       let record =  this.$store.state.chat.data['age']
-      if(Object.keys(record).length > 0) {
+      if(Object.keys(record).length > 0 && (record['age'] !== '' || record['customFilterType'] !== '')) {
         if(record.customFilterType == 'Between') {
           return ' Between '+record['customStartAge'] + ' Year To ' + record['customEndAge'] +' Year'
         } else if(record.customFilterType == '')  {
@@ -629,7 +625,7 @@ export default {
     },
     joinDateBadge() {
       let record =  this.$store.state.chat.data['joinDate']
-      if(Object.keys(record).length > 0) {
+      if(Object.keys(record).length > 0 ) {
         if(record.search_type == 'Between') {
           return ' Between '+record['customStartDate'] + ' To ' + record['customEndDate'] +''
         } else if(record.search_type == '')  {
@@ -640,19 +636,28 @@ export default {
       }
       return false;
     },
-    locationBadge(type) {
+    locationAddressBadge() {
       let record =  this.$store.state.chat.data['location']
-      if(Object.keys(record).length > 0) {
-        if(type == 'address') {
-          return record['address']
-        }else if(type == 'radius'){
-          return record['radius']+' KM Radius'
-        }
+      if(Object.keys(record).length > 0 && (record['address'] !=='' )) {
+        return record['address']
+      }
+      return false;
+    },
+    locationRadiusBadge(type) {
+      let record =  this.$store.state.chat.data['location']
+      if(Object.keys(record).length > 0 &&  record['radius'] !=='') {
+        return record['radius']+' KM Radius'
       }
       return false;
     },
 
 
+
+  },
+  methods: {
+    removeFilter(payload) {
+      this.$store.dispatch('chat/removeSearchFilter',payload)
+    },
     closeMenueList() {
       // this.updateMenuBit(false,false,false,false,'')
       this.$refs.age_popup_close.click();

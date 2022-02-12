@@ -86,7 +86,7 @@ export default {
       this.customEndAge = age['customEndAge']
     }
   },
-methods:{
+  methods:{
     updateAgeFilter(age){
       this.age = age
       if(this.age != '') {
@@ -112,7 +112,20 @@ methods:{
       this.$emit('closeModel')
     }
   }
-}
+},
+  watch: {
+    '$store.state.chat.data.age.age': {
+      handler(newVal) {
+       this.age = newVal
+      }
+    },
+    '$store.state.chat.data.age.customFilterType': {
+      handler(newVal) {
+       this.customFilterType = newVal
+      }
+    }
+  },
+
 
 
 };

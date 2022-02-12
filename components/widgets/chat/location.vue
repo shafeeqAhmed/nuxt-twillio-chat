@@ -77,6 +77,10 @@ export default {
   },
 
   mounted(){
+    this.initMap()
+  },
+  methods: {
+    initMap() {
       var defaultBounds = new google.maps.LatLngBounds(
         new google.maps.LatLng(-33.8902, 151.1759),
         new google.maps.LatLng(-33.8474, 151.2631)
@@ -142,19 +146,17 @@ export default {
         );
       }, 1000);
 
-    let location =  this.$store.state.chat.data['location']
-    setTimeout(() => {
-      if(Object.keys(location).length > 0) {
-        document.getElementById('addressLine').value = location['address']
-        document.getElementById('lat').value = location['lat']
-        document.getElementById('lng').value = location['lng']
-        document.getElementById("radius").value = location['radius']
-        this.loadMap()
-      }
-    },1500)
-
-  },
-  methods: {
+      let location =  this.$store.state.chat.data['location']
+      setTimeout(() => {
+        if(Object.keys(location).length > 0) {
+          document.getElementById('addressLine').value = location['address']
+          document.getElementById('lat').value = location['lat']
+          document.getElementById('lng').value = location['lng']
+          document.getElementById("radius").value = location['radius']
+          this.loadMap()
+        }
+      },1500)
+    },
     loadMap() {
       var lat = document.getElementById('lat').value
       var  lng = document.getElementById('lng').value
@@ -206,8 +208,26 @@ export default {
     }
 
 
-    }
+    },
+  watch: {
+    '$store.state.chat.data.location.address': {
+      handler(newVal) {
+        if(newVal == '' || newVal == undefined) {
+          document.getElementById('addressLine').value = ''
+          document.getElementById('lat').value = ''
+          document.getElementById('lng').value = ''
+          document.getElementById("radius").value = ''
+          this.initMap()
+        }
 
+      }
+    },
+    '$store.state.chat.data.location.radius': {
+      handler(newVal) {
+        document.getElementById("radius").value = newVal
+      }
+    }
+  },
 
 };
 </script>

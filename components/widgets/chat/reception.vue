@@ -92,6 +92,19 @@ export default {
       gender:'',
     };
   },
+
+  watch: {
+    '$store.state.chat.data.activity.gender': {
+      handler(newVal) {
+        this.gender = newVal
+      }
+    },
+    '$store.state.chat.data.activity.activity': {
+      handler(newVal) {
+        this.activity = newVal
+      }
+    }
+  },
   mounted(){
     let activity =  this.$store.state.chat.data['activity']
     if(Object.keys(activity).length > 0) {

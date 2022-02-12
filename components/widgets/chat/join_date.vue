@@ -121,7 +121,6 @@ export default {
       this.recipents = recipents.data;
     },
   },
-
   mounted() {
     this.getRecipents();
     let joinDate =  this.$store.state.chat.data['joinDate']
@@ -132,7 +131,20 @@ export default {
       this.customEndDate = joinDate['customEndDate']
 
     }
-  }
+  },
+  watch: {
+    '$store.state.chat.data.joinDate.date': {
+      handler(newVal) {
+        this.date = newVal
+      }
+    },
+    '$store.state.chat.data.age.search_type': {
+      handler(newVal) {
+        this.search_type = newVal
+      }
+    }
+  },
+
 }
 
 

@@ -94,6 +94,14 @@
                                     </span>
                               </a>
                             </li>
+                            <li>
+                              <a href="#" @click="menuList('gender')">
+                                    <span>
+                                      <i class="fa fa-user mr-1"></i>
+                                      Gender
+                                    </span>
+                              </a>
+                            </li>
 
                             <li>
                               <a href="#" @click="menuList('join_date')">
@@ -109,6 +117,7 @@
 
 
 
+                        <gender-tab v-if="menuItems.genderModal" @closeModel="closeMenueList"/>
                         <join-date v-if="menuItems.joinDateModel" @closeModel="closeMenueList"/>
                         <age-tab v-if="menuItems.ageModel"  @closeModel="closeMenueList"/>
                         <location-tab v-if="menuItems.locationModel"  @closeModel="closeMenueList"/>
@@ -499,6 +508,7 @@
 
 <script>
 import { required } from "vuelidate/lib/validators";
+import genderTab from "~/components/widgets/chat/gender";
 import joinDate from "~/components/widgets/chat/join_date";
 import AgeTab from "~/components/widgets/chat/age";
 import LocationTab from "~/components/widgets/chat/location";
@@ -520,6 +530,7 @@ export default {
     LocationTab,
     ReceptionTab,
     countTo,
+    genderTab,
   },
   data() {
     return {
@@ -669,25 +680,28 @@ export default {
       // this.updateMenuBit(false,false,false,false,'')
       this.$refs.age_popup_close.click();
     },
-    updateMenuBit(reception,location,age,joinDate,filterType) {
+    updateMenuBit(filterType,reception,location,age,joinDate,gender) {
       this.menuItems.recipentModel = reception;
       this.menuItems.locationModel = location;
       this.menuItems.ageModel = age;
       this.menuItems.joinDateModel = joinDate;
+      this.menuItems.genderModal = gender;
 
       this.filter_type = filterType;
     },
     menuList(type) {
       if (type == "join_date") {
-        this.updateMenuBit(false,false,false,true,type)
+        this.updateMenuBit(type,false,false,false,true,false)
       } else if (type == "recipents") {
-        this.updateMenuBit(true,false,false,false,type)
+        this.updateMenuBit(type,true,false,false,false,false)
       } else if (type == "age") {
-        this.updateMenuBit(false,false,true,false,type)
+        this.updateMenuBit(type, false,false,true,false,false)
+      } else if (type == "gender") {
+        this.updateMenuBit(type,false,false,false,false,true)
       } else if (type == "location") {
-        this.updateMenuBit(false,true,false,false,type)
+        this.updateMenuBit(type,false,true,false,false,false)
       } else {
-        this.updateMenuBit(false,false,false,false,type)
+        this.updateMenuBit(type,false,false,false,false,false)
 
       }
     },

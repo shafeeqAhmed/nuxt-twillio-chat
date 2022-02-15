@@ -44,28 +44,7 @@
       </div>
     </div>
 
-    <p>Gender</p>
-    <div class="content-description" :class="{'alert alert-danger':  gender == 'male'}">
-      <a href="#" class="close" v-if="gender == 'male'" @click="updateGender('')" data-dismiss="alert" aria-label="close">&times;</a>
-
-      <h5  @click="updateGender('male')">Male</h5>
-      <div>
-          <span>
-          {{$store.getters['chat/getCount']('total_males')}} Members
-          </span>
-      </div>
-    </div>
-    <div class="content-description"  :class="{'alert alert-danger':  gender == 'female'}">
-      <a href="#" class="close" v-if="gender == 'female'" @click="updateGender('')" data-dismiss="alert" aria-label="close">&times;</a>
-
-      <h5  @click="updateGender('female')">Female</h5>
-      <div>
-           <span>
-              {{$store.getters['chat/getCount']('total_females')}} Members
-           </span>
-      </div>
-    </div>
-    <div class="row mt-3">
+     <div class="row mt-3">
       <button
         @click="applyFilter()"
         class="btn btn-primary ml-2">
@@ -89,16 +68,10 @@ export default {
   data() {
     return {
       activity:'',
-      gender:'',
     };
   },
 
   watch: {
-    '$store.state.chat.data.activity.gender': {
-      handler(newVal) {
-        this.gender = newVal
-      }
-    },
     '$store.state.chat.data.activity.activity': {
       handler(newVal) {
         this.activity = newVal
@@ -109,7 +82,6 @@ export default {
     let activity =  this.$store.state.chat.data['activity']
     if(Object.keys(activity).length > 0) {
       this.activity = activity['activity']
-      this.gender = activity['gender']
     }
   },
   methods: {
@@ -117,8 +89,12 @@ export default {
       this.activity = activityType
 
     },
-    updateGender(genderType) {
-      this.gender = genderType
+    getStoreGender() {
+      let activity =  this.$store.state.chat.data['activity']
+      if(Object.keys(activity).length > 0 && activity['gender'] != '') {
+        return activity.gender
+      }
+      return '';
     },
     applyFilter() {
      if(!this.activity && !this.gender) {
@@ -128,7 +104,7 @@ export default {
          key:'activity',
          val: {
            activity: this.activity,
-           gender: this.gender
+           gender: this.getStoreGender()
          }
        }
        this.$store.commit('chat/filterData',data)

@@ -624,7 +624,7 @@ export default {
         } else if(record.customFilterType == '')  {
           return record['age'] + ' Year'
         } else {
-          return record.customFilterType + ' ' + record['customEndAge'] + ' Year'
+          return record.customFilterType + ' ' + record['customStartAge'] + ' Year'
         }
       }
       return false;

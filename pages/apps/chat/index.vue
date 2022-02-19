@@ -138,6 +138,12 @@
                     ></textarea>
                   </div>
                   <div class="d-flex justify-content-between">
+                    <input 
+                      type="datetime-local" 
+                      class="mt-2" 
+                      name="schedule_date"
+                      v-model="form.schedule_date"
+                      />
                     <button class="btn btn-primary mt-2" @click="sendCustomMessage">
                       Send
                     </button>
@@ -576,6 +582,7 @@ export default {
       form: {
         message: "",
         custom_message: "",
+        schedule_date: ""
       },
       username: "",
       status: "",
@@ -708,6 +715,7 @@ export default {
     sendCustomMessage() {
       let filterRecord = this.$store.state.chat.data;
       filterRecord.message = this.form.custom_message
+      filterRecord.schedule_date = this.form.schedule_date
       if(filterRecord.message == '') {
         alert('Empty Message is not allowed')
         return

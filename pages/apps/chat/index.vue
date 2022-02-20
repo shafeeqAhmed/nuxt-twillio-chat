@@ -137,15 +137,28 @@
                       v-model="form.custom_message"
                     ></textarea>
                   </div>
-                  <div class="d-flex justify-content-between">
-                    <input 
-                      type="datetime-local" 
-                      class="mt-2" 
+                  <div class="d-flex">
+                    <input
+                      v-if="isScheduled"
+                      type="datetime-local"
+                      class="mt-2"
                       name="schedule_date"
                       v-model="form.schedule_date"
                       />
-                    <button class="btn btn-primary mt-2" @click="sendCustomMessage">
-                      Send
+                    <button
+                      @click="updateScheduled(true)"
+                      v-if="!isScheduled"
+                      class="btn btn-primary mt-2 ml-1">
+                      Scheduled
+                    </button>
+                    <button
+                      @click="updateScheduled(false)"
+                      v-if="isScheduled"
+                      class="btn btn-danger mt-2 ml-1">
+                      Remove Scheduled
+                    </button>
+                    <button class="ml-auto btn btn-primary mt-2" @click="sendCustomMessage">
+                      {{ isScheduled ? 'Send Scheduled Message' : 'Send' }}
                     </button>
                   </div>
                 </div>
@@ -540,6 +553,7 @@ export default {
   },
   data() {
     return {
+      isScheduled:false,
       showModal: false,
       menuItems: {
         joinDateModel: false,
@@ -679,6 +693,12 @@ export default {
 
   },
   methods: {
+    updateScheduled(type) {
+      if(!type) {
+        this.form.schedule_date = ''
+      }
+      this.isScheduled = type
+    },
     removeFilter(payload) {
       this.$store.dispatch('chat/removeSearchFilter',payload)
       this.$store.dispatch('chat/getFilterCountFromApi')
@@ -715,6 +735,10 @@ export default {
     sendCustomMessage() {
       let filterRecord = this.$store.state.chat.data;
       filterRecord.message = this.form.custom_message
+      if(this.isScheduled && this.form.schedule_date == '') {
+        alert('For Scheduled message you should select Scheduled data time')
+        return
+      }
       filterRecord.schedule_date = this.form.schedule_date
       if(filterRecord.message == '') {
         alert('Empty Message is not allowed')

@@ -736,12 +736,12 @@ export default {
       let filterRecord = this.$store.state.chat.data;
       filterRecord.message = this.form.custom_message
       if(this.isScheduled && this.form.schedule_date == '') {
-        alert('For Scheduled message you should select Scheduled data time')
+        this.$swal.fire('For Scheduled message you should select Scheduled data time')
         return
       }
       filterRecord.schedule_date = this.form.schedule_date
       if(filterRecord.message == '') {
-        alert('Empty Message is not allowed')
+        this.$swal.fire('Empty Message is not allowed')
         return
       }
       this.$store
@@ -749,14 +749,15 @@ export default {
         .then((response) => {
           if(response.data.status) {
             this.showModal = false;
-            this.$store.dispatch(
-              "notification/success",
-              response.data.message
-            );
+            // this.$store.dispatch(
+            //   "notification/success",
+            //   response.data.message
+            // );
+            this.$swal.fire(response.data.message);
             this.$store.commit('chat/resetFilterData')
           }
           if(response.data.status == false) {
-            alert(response.data.message)
+            this.$swal.fire(response.data.message)
           }
 
         })
@@ -881,7 +882,13 @@ export default {
       this.form = {};
     },
   },
-
+  watch: {
+    showModal(newVal,oldVal) {
+      if(!newVal) {
+        this.updateScheduled(false)
+      }
+    }
+  },
   mounted() {
 
 

@@ -736,12 +736,12 @@ export default {
       let filterRecord = this.$store.state.chat.data;
       filterRecord.message = this.form.custom_message
       if(this.isScheduled && this.form.schedule_date == '') {
-        this.$swal.fire('For Scheduled message you should select Scheduled data time')
+        alert('For Scheduled message you should select Scheduled data time')
         return
       }
       filterRecord.schedule_date = this.form.schedule_date
       if(filterRecord.message == '') {
-        this.$swal.fire('Empty Message is not allowed')
+        alert('Empty Message is not allowed')
         return
       }
       this.$store

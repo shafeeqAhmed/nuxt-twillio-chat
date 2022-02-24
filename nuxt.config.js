@@ -1,3 +1,4 @@
+import 'nuxt-sweetalert2'
 export default {
   loading: "./components/Loading.vue",
   router: {
@@ -94,6 +95,7 @@ export default {
     'bootstrap-vue/nuxt',
     'nuxt-i18n',
     '@nuxtjs/axios',
+    'nuxt-sweetalert2',
     '@nuxtjs/auth-next'
     //'@nuxtjs/laravel-echo',
   ],

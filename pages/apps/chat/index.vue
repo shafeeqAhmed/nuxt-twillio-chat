@@ -374,7 +374,7 @@
           </div>
           <div class="card-body">
             <simplebar data-simplebar style="max-height: 460px">
-              <ul class="conversation-list chat-app-conversation" ref="test">
+              <ul class="conversation-list chat-app-conversation" id="scroll-el">
                 <template v-if="chatMessages">
                   <li
                     class="clearfix"
@@ -408,7 +408,10 @@
                     </div>
                     <div class="conversation-text">
                       <div class="ctext-wrap">
-                        <i>{{ data.from }}</i>
+                        <i>
+                          <span v-if="data.is_link" class="badge badge-pill badge-primary float-left mr-1" v-html="data.total_visits"></span>
+                          {{ data.from }}
+                        </i>
                         <p v-html="data.message"></p>
                       </div>
                       <br />
@@ -533,6 +536,7 @@ import AgeTab from "~/components/widgets/chat/age";
 import LocationTab from "~/components/widgets/chat/location";
 import ReceptionTab from "~/components/widgets/chat/reception";
 import countTo from 'vue-count-to'
+import SimpleBar from 'simplebar-vue';
 
 /**
  * Chat comoponent
@@ -693,6 +697,17 @@ export default {
 
   },
   methods: {
+    scrollDown() {
+      this.$nextTick(function () {
+        let length = this.chatMessages.length;
+
+        if (length > 0) {
+          let id = this.chatMessages[length - 1].timestamp;
+          let element = document.getElementById("m-" + id);
+          element.scrollIntoView({ behavior: "smooth", block: "end" });
+        }
+      });
+    },
     updateScheduled(type) {
       if(!type) {
         this.form.schedule_date = ''
@@ -748,18 +763,19 @@ export default {
         .dispatch("chat/sendMessageToContents", filterRecord)
         .then((response) => {
           if(response.data.status) {
+            if(this.isScheduled) {
+              this.$swal.fire('Your message has been scheduled at '+this.form.schedule_date+ ' Successfully!')
+            } else {
+              this.$swal.fire(response.data.message);
+            }
             this.showModal = false;
-            // this.$store.dispatch(
-            //   "notification/success",
-            //   response.data.message
-            // );
-            this.$swal.fire(response.data.message);
-            this.$store.commit('chat/resetFilterData')
-          }
-          if(response.data.status == false) {
-            this.$swal.fire(response.data.message)
+            this.resetModal()
           }
 
+          if(response.data.status == false) {
+            alert(response.data.message)
+            return
+          }
         })
         .catch((error) => {
           this.backendErrors = error.response.data.errors;
@@ -782,6 +798,11 @@ export default {
       const options = { year: "numeric", month: "numeric", day: "numeric" };
       return new Date(date).toLocaleDateString("en", options);
     },
+    resetModal() {
+      this.custom_message = ''
+      this.$store.commit('chat/resetFilterData')
+      this.$store.dispatch('chat/getFilterCountFromApi')
+    },
     send_messages() {
       const payload = {
         receiver_number: this.receiver_number,
@@ -792,7 +813,17 @@ export default {
       if (this.receiver_id) {
         this.$store
           .dispatch("chat/saveMessage", payload)
-          .then((response) => {})
+          .then((response) => {
+//             this.$nextTick(function () {
+//               let length = this.chatMessages.length;
+// // alert('thisss rimsha')
+//               if (length > 0) {
+//                 let id = this.chatMessages[length - 1].timestamp;
+//                 let element = document.getElementById("m-" + id);
+//                 element.scrollIntoView({ behavior: "smooth", block: "end" });
+//               }
+//             });
+          })
           .catch((error) => {
             this.backendErrors = error.response.data.errors;
           })
@@ -822,7 +853,6 @@ export default {
       this.receiver_number = phone_no;
 
       const messages = await this.$axios.$get("/get_chat_users/" + id);
-      //  this.chatMessages= messages.data
 
       let arr = [];
       Object.entries(messages.data).forEach((ob) => {
@@ -830,6 +860,7 @@ export default {
       });
       // this.chatMessages = arr.slice().reverse()
       this.chatMessages = arr;
+
     },
 
     /**
@@ -891,7 +922,6 @@ export default {
   },
   mounted() {
 
-
     const newMessages = this.chatMessages;
 
     this.getChatMessages();
@@ -916,15 +946,7 @@ export default {
               },
             ];
 
-            this.$nextTick(function () {
-              let length = this.chatMessages.length;
-
-              if (length > 0) {
-                let id = this.chatMessages[length - 1].timestamp;
-                let element = document.getElementById("m-" + id);
-                element.scrollIntoView({ behavior: "smooth", block: "end" });
-              }
-            });
+           this.scrollDown()
           } else {
             this.chatMessages.push({
               name: this.name,
@@ -937,15 +959,7 @@ export default {
               timestamp: res.data.timestamp,
             });
 
-            this.$nextTick(function () {
-              let length = this.chatMessages.length;
-
-              if (length > 0) {
-                let id = this.chatMessages[length - 1].timestamp;
-                let element = document.getElementById("m-" + id);
-                element.scrollIntoView({ behavior: "smooth", block: "end" });
-              }
-            });
+            this.scrollDown()
           }
         }
       });

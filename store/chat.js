@@ -27,6 +27,7 @@ export const mutations = {
     state.data.location = {}
     state.data.age = {}
     state.data.joinDate = {}
+    state.filterSelectedMemberCount = 0
   },
   memberCount(state, counts) {
     state.counts = counts;

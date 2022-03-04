@@ -230,6 +230,7 @@
                   data-simplebar
                   style="max-height: 498px"
                   v-if="chatData"
+
                 >
                   <a
                     href="javascript:void(0);"
@@ -373,8 +374,8 @@
             </div>
           </div>
           <div class="card-body">
-            <simplebar data-simplebar style="max-height: 460px">
-              <ul class="conversation-list chat-app-conversation" id="scroll-el">
+            <simplebar data-simplebar style="max-height: 460px" id="messageChatContainer">
+              <ul class="conversation-list chat-app-conversation">
                 <template v-if="chatMessages">
                   <li
                     class="clearfix"
@@ -536,7 +537,6 @@ import AgeTab from "~/components/widgets/chat/age";
 import LocationTab from "~/components/widgets/chat/location";
 import ReceptionTab from "~/components/widgets/chat/reception";
 import countTo from 'vue-count-to'
-import SimpleBar from 'simplebar-vue';
 
 /**
  * Chat comoponent
@@ -697,17 +697,6 @@ export default {
 
   },
   methods: {
-    scrollDown() {
-      this.$nextTick(function () {
-        let length = this.chatMessages.length;
-
-        if (length > 0) {
-          let id = this.chatMessages[length - 1].timestamp;
-          let element = document.getElementById("m-" + id);
-          element.scrollIntoView({ behavior: "smooth", block: "end" });
-        }
-      });
-    },
     updateScheduled(type) {
       if(!type) {
         this.form.schedule_date = ''
@@ -814,15 +803,6 @@ export default {
         this.$store
           .dispatch("chat/saveMessage", payload)
           .then((response) => {
-//             this.$nextTick(function () {
-//               let length = this.chatMessages.length;
-// // alert('thisss rimsha')
-//               if (length > 0) {
-//                 let id = this.chatMessages[length - 1].timestamp;
-//                 let element = document.getElementById("m-" + id);
-//                 element.scrollIntoView({ behavior: "smooth", block: "end" });
-//               }
-//             });
           })
           .catch((error) => {
             this.backendErrors = error.response.data.errors;
@@ -918,6 +898,18 @@ export default {
       if(!newVal) {
         this.updateScheduled(false)
       }
+    },
+    chatMessages(newVal,oldVal) {
+      this.$nextTick(function () {
+        let container = document.querySelector('#messageChatContainer .simplebar-content-wrapper');
+        if(oldVal.length === 0) {
+          container.scrollTo({ top: container.scrollHeight, behavior: "auto" });
+        } else {
+          container.scrollTo({ top: container.scrollHeight, behavior: "smooth" });
+        }
+
+
+      });
     }
   },
   mounted() {
@@ -946,7 +938,6 @@ export default {
               },
             ];
 
-           this.scrollDown()
           } else {
             this.chatMessages.push({
               name: this.name,
@@ -958,8 +949,6 @@ export default {
               from: this.receiver_number,
               timestamp: res.data.timestamp,
             });
-
-            this.scrollDown()
           }
         }
       });

@@ -8,13 +8,13 @@ import {
 export default {
     head() {
         return {
-            title: `${this.title} | Minton - Nuxtjs Responsive Admin Dashboard Template`
+            title: `${this.title}`
         }
     },
     data() {
         return {
             tableData: tableData,
-            title: 'Advanced Table',
+            title: 'Users',
             items: [{
                     text: 'Minton',
                     href: '/',

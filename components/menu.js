@@ -14,7 +14,21 @@ export const menuItems = [
         id: 3,
         label: 'Create',
         link: '/influencers/add'
-      }
+      },
+    ]
+  },
+  {
+    id: 1,
+    label: 'Stats',
+    icon: 'ri-profile',
+    isMenuCollapsed: true,
+    subItems: [
+      {
+        id: 2,
+        label: 'Stats',
+        link: '/admin/stats'
+      },
+
     ]
   },
 //     {

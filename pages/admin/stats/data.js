@@ -283,7 +283,7 @@ const gradientLineChart = {
         }]
     },
     series: [{
-        name: 'Likes',
+        name: 'Join',
         data: [4, 3, 10, 9, 29, 19, 22, 9, 12, 7, 19, 5, 13, 9, 17, 2, 7, 5]
     }],
 };

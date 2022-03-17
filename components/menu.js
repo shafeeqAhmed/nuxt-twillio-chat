@@ -18,13 +18,13 @@ export const menuItems = [
     ]
   },
   {
-    id: 1,
+    id: 2,
     label: 'Stats',
     icon: 'ri-profile',
     isMenuCollapsed: true,
     subItems: [
       {
-        id: 2,
+        id: 1,
         label: 'Stats',
         link: '/admin/stats'
       },

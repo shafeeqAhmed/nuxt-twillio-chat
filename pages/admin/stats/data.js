@@ -1073,7 +1073,243 @@ const strokedCircularGuage = {
     },
     series: [67],
 };
+
+const ageGroupBand = {
+  series: [],
+  chartOptions: {
+    labels: [],
+    colors: ['#4fc6e1', '#26c6da', '#80deea', '#00b19d', '#dee2e6'],
+    legend: {
+      show: true,
+      position: 'bottom',
+      horizontalAlign: 'center',
+      verticalAlign: 'middle',
+      floating: false,
+      fontSize: '14px',
+      offsetX: 0,
+      offsetY: -10
+    },
+    dataLabels: {
+      enabled: false
+    },
+    responsive: [{
+      breakpoint: 600,
+      options: {
+        chart: {
+          height: 240
+        },
+        legend: {
+          show: false
+        },
+      }
+    }]
+  }
+};
+const genderGroupBand = {
+  chartOptions: {
+    chart: {
+      dropShadow: {
+        enabled: true,
+        color: '#111',
+        top: -1,
+        left: 3,
+        blur: 3,
+        opacity: 0.2
+      }
+    },
+    stroke: {
+      show: true,
+      width: 2,
+    },
+    colors: ['#3bafda', '#26c6da', '#80deea', '#00b19d', '#d1dee4'],
+    labels: [],
+    dataLabels: {
+      dropShadow: {
+        blur: 3,
+        opacity: 0.8
+      },
+      enabled: false
+    },
+    fill: {
+      type: 'pattern',
+      opacity: 1,
+      pattern: {
+        enabled: true,
+        style: ['verticalLines', 'squares', 'horizontalLines', 'circles', 'slantedLines'],
+      },
+    },
+    states: {
+      hover: {
+        enabled: false
+      }
+    },
+    legend: {
+      show: true,
+      position: 'bottom',
+      horizontalAlign: 'center',
+      verticalAlign: 'middle',
+      floating: false,
+      fontSize: '14px',
+      offsetX: 0,
+      offsetY: -10
+    },
+    responsive: [{
+      breakpoint: 600,
+      options: {
+        chart: {
+          height: 240
+        },
+        legend: {
+          show: false
+        },
+      }
+    }]
+  },
+  series: [],
+};
+const topCity = {
+  chartOptions: {
+    chart: {
+      toolbar: {
+        show: false
+      }
+    },
+    plotOptions: {
+      bar: {
+        horizontal: true,
+      }
+    },
+    dataLabels: {
+      enabled: false
+    },
+    colors: ['#1abc9c'],
+    xaxis: {
+      categories: [],
+    },
+    states: {
+      hover: {
+        filter: 'none'
+      }
+    },
+    grid: {
+      borderColor: '#f1f3fa'
+    }
+  },
+  series: [{
+    data: []
+  }],
+};
+const topCountry = {
+  chartOptions: {
+    chart: {
+      toolbar: {
+        show: false
+      }
+    },
+    plotOptions: {
+      bar: {
+        horizontal: true,
+      }
+    },
+    dataLabels: {
+      enabled: false
+    },
+    colors: ['#1abc9c'],
+    xaxis: {
+      categories: [],
+    },
+    states: {
+      hover: {
+        filter: 'none'
+      }
+    },
+    grid: {
+      borderColor: '#f1f3fa'
+    }
+  },
+  series: [{
+    data: []
+  }],
+};
+const monthlyRegistration = {
+  chartOptions: {
+    chart: {
+      shadow: {
+        enabled: false,
+        color: '#bbb',
+        top: 3,
+        left: 2,
+        blur: 3,
+        opacity: 1
+      },
+    },
+    stroke: {
+      width: 5,
+      curve: 'smooth'
+    },
+    xaxis: {
+      type: 'datetime',
+      categories: ['1/11/2000', '2/11/2000', '3/11/2000', '4/11/2000', '5/11/2000', '6/11/2000', '7/11/2000', '8/11/2000', '9/11/2000', '10/11/2000', '11/11/2000', '12/11/2000', '1/11/2001', '2/11/2001', '3/11/2001', '4/11/2001', '5/11/2001', '6/11/2001'],
+    },
+    title: {
+      text: 'Social Media',
+      align: 'left',
+      style: {
+        fontSize: '14px',
+        color: '#666'
+      }
+    },
+    fill: {
+      type: 'gradient',
+      gradient: {
+        shade: 'dark',
+        gradientToColors: ['#f1556c'],
+        shadeIntensity: 1,
+        type: 'horizontal',
+        opacityFrom: 1,
+        opacityTo: 1,
+        stops: [0, 100, 100, 100]
+      },
+    },
+    markers: {
+      size: 4,
+      opacity: 0.9,
+      colors: ['#56c2d6'],
+      strokeColor: '#fff',
+      strokeWidth: 2,
+      style: 'inverted', // full, hollow, inverted
+      hover: {
+        size: 7,
+      }
+    },
+    yaxis: {
+      min: -10,
+      max: 40,
+      title: {
+        text: 'Engagement',
+      },
+    },
+    responsive: [{
+      breakpoint: 600,
+      options: {
+        chart: {
+          toolbar: {
+            show: false
+          }
+        },
+        legend: {
+          show: false
+        },
+      }
+    }]
+  },
+  series: [{
+    name: 'Join',
+    data: []
+  }],
+};
+
 export {
     sparklineSalesChart, sparklineExpensesChart, sparklineProfitsChart, linewithDataChart, gradientLineChart, stackedAreaChart, basicColumChart, basicBarChart, nagativeValueBarChart, lineColumAreaChart, multipleYAxisChart, simpleBubbleChart, scatterChart, simplePieChart, gradientDonutChart, patternedDonutChart,
-    basicRadialBarChart, multipleRadialBars, strokedCircularGuage
+    basicRadialBarChart, multipleRadialBars, strokedCircularGuage,ageGroupBand,genderGroupBand,topCity,topCountry,monthlyRegistration
 };

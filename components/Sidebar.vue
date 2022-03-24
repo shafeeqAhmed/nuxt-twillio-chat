@@ -3,7 +3,7 @@ import {
     mapState
 } from "vuex";
 import {
-    menuItems
+    menuItems,influencerMenuItems
 } from "./menu";
 
 /**
@@ -13,6 +13,7 @@ export default {
     data() {
         return {
             menuItems: menuItems,
+            influencerMenuItems: influencerMenuItems
         };
     },
     props: {
@@ -288,7 +289,7 @@ export default {
             <p class="text-reset">Admin Head</p>
         </div>
 
-        <!--- Sidemenu -->
+        <!--- admin Sidemenu -->
         <div id="sidebar-menu" v-if="$auth.hasScope('admin')">
             <!-- Left Menu Start -->
             <ul class="list-unstyled" id="side-menu">
@@ -330,11 +331,59 @@ export default {
                         </div>
                     </li>
 
-                    
+
                 </template>
             </ul>
         </div>
-        <!-- End Sidebar -->
+        <!-- End admin Sidebar -->
+
+        <!--- admin Sidemenu -->
+        <div id="sidebar-menu" v-if="$auth.hasScope('influencer')">
+            <!-- Left Menu Start -->
+            <ul class="list-unstyled" id="side-menu">
+                <template v-for="item in influencerMenuItems">
+                    <li class="menu-title" v-if="item.isTitle" :key="item.id">{{ $t(item.label) }}</li>
+                    <li v-if="!item.isTitle && !item.isLayout" :key="item.id">
+                        <a v-if="hasItems(item)" href="javascript:void(0);" @click="item.isMenuCollapsed = !item.isMenuCollapsed" :class="{
+                                    'has-arrow': !item.badge,
+                                    'has-dropdown': item.badge
+                                    }">
+                            <i :class="`${item.icon}`" v-if="item.icon"></i>
+                            <span>{{ $t(item.label) }}</span>
+                            <span class="menu-arrow" v-if="!item.badge"></span>
+                            <span :class="`badge badge-pill badge-${item.badge.variant} float-right`" v-if="item.badge">{{ $t(item.badge.text) }}</span>
+                        </a>
+
+                        <nuxt-link :to="item.link" v-if="!hasItems(item)" class="side-nav-link-ref">
+                            <i :class="`${item.icon}`" v-if="item.icon"></i>
+                            <span>{{ $t(item.label) }}</span>
+                            <span :class=" `badge badge-pill badge-${item.badge.variant} float-right`" v-if="item.badge">{{ $t(item.badge.text) }}</span>
+                        </nuxt-link>
+                        <div class="collapse" :class="{'show': item.isMenuCollapsed}" id="sidebarTasks">
+                            <ul v-if="hasItems(item)" class="sub-menu nav-second-level" aria-expanded="false">
+                                <li v-for="(subitem, index) of item.subItems" :key="index">
+                                    <nuxt-link :to="subitem.link" v-if="!hasItems(subitem)" class="side-nav-link-ref">{{ $t(subitem.label) }}</nuxt-link>
+                                    <a v-if="hasItems(subitem)" class="side-nav-link-a-ref has-arrow" @click="subitem.isMenuCollapsed = !subitem.isMenuCollapsed" href="javascript:void(0);">{{ $t(subitem.label) }}
+                                        <span class="menu-arrow"></span>
+                                    </a>
+
+                                    <div class="collapse" :class="{'show': subitem.isMenuCollapsed}">
+                                        <ul v-if="hasItems(subitem)" class="sub-menu" aria-expanded="false">
+                                            <li v-for="(subSubitem, index) of subitem.subItems" :key="index">
+                                                <nuxt-link :to="subSubitem.link" class="side-nav-link-ref">{{ $t(subSubitem.label) }}</nuxt-link>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+
+
+                </template>
+            </ul>
+        </div>
+        <!-- End admin Sidebar -->
 
         <div class="clearfix"></div>
     </simplebar>

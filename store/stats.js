@@ -27,9 +27,7 @@ export const mutations = {
       state.topCountry.series[0].data =payload.series
   },
   SET_MONTHLY_REGISTRATION(state,payload) {
-    console.log('000000000000000000000000')
-    console.log(payload)
-      // state.monthlyRegistration.chartOptions.xaxis.categories = payload.labels
+      state.monthlyRegistration.chartOptions.xaxis.categories = payload.labels
       state.monthlyRegistration.series[0].data =payload.series
   }
 };

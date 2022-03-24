@@ -497,9 +497,9 @@
                       </div>
                       <div class="col-sm-auto">
                         <div class="btn-group">
-                          <a href="#" class="btn btn-light">
+                          <!-- <a href="#" class="btn btn-light">
                             <i class="fe-paperclip"></i>
-                          </a>
+                          </a> -->
                           <button
                             type="submit"
                             @click="send_messages()"

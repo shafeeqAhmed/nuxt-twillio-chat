@@ -68,25 +68,25 @@ export default {
     },
     data() {
         return {
-            sparklineSalesChart: sparklineSalesChart,
-            sparklineExpensesChart: sparklineExpensesChart,
-            sparklineProfitsChart: sparklineProfitsChart,
-            linewithDataChart: linewithDataChart,
-            gradientLineChart: gradientLineChart,
-            stackedAreaChart: stackedAreaChart,
-            basicColumChart: basicColumChart,
-            basicBarChart: basicBarChart,
-            nagativeValueBarChart: nagativeValueBarChart,
-            lineColumAreaChart: lineColumAreaChart,
-            multipleYAxisChart: multipleYAxisChart,
-            simpleBubbleChart: simpleBubbleChart,
-            scatterChart: scatterChart,
-            simplePieChart: simplePieChart,
-            gradientDonutChart: gradientDonutChart,
-            patternedDonutChart: patternedDonutChart,
-            basicRadialBarChart: basicRadialBarChart,
-            multipleRadialBars: multipleRadialBars,
-            strokedCircularGuage: strokedCircularGuage,
+            // sparklineSalesChart: sparklineSalesChart,
+            // sparklineExpensesChart: sparklineExpensesChart,
+            // sparklineProfitsChart: sparklineProfitsChart,
+            // linewithDataChart: linewithDataChart,
+            // gradientLineChart: gradientLineChart,
+            // stackedAreaChart: stackedAreaChart,
+            // basicColumChart: basicColumChart,
+            // basicBarChart: basicBarChart,
+            // nagativeValueBarChart: nagativeValueBarChart,
+            // lineColumAreaChart: lineColumAreaChart,
+            // multipleYAxisChart: multipleYAxisChart,
+            // simpleBubbleChart: simpleBubbleChart,
+            // scatterChart: scatterChart,
+            // simplePieChart: simplePieChart,
+            // gradientDonutChart: gradientDonutChart,
+            // patternedDonutChart: patternedDonutChart,
+            // basicRadialBarChart: basicRadialBarChart,
+            // multipleRadialBars: multipleRadialBars,
+            // strokedCircularGuage: strokedCircularGuage,
             title: "Stats",
             items: [{
                     text: "Minton",
@@ -110,6 +110,9 @@ export default {
         };
     },
     methods: {
+      test() {
+        alert('this is the alert')
+      }
       // async getAgeGroupStats() {
       //    let { data: { ageGroup } } = await this.$axios.$get('age-group-stats')
       //    this.ageGroupBand.series = Object.values(ageGroup)
@@ -142,11 +145,12 @@ export default {
 
     <div class="row">
         <div class="col-xl-6">
-          <button class="btn btn-success" @click="$fetch">Fetch</button>
+<!--          <button class="btn btn-success" @click="$fetch">Fetch</button>-->
             <!-- Simple Pie Chart -->
             <Portlet :headertitle="'Age Bands'">
                 <div class="card-body pt-0">
-                    <apexchart class="apex-charts" height="320" type="pie" :series="ageGroupBand.series" :options="ageGroupBand.chartOptions"></apexchart>
+
+                    <apexchart class="apex-charts"  height="320" type="pie" v-if="ageGroupBand.series.length > 0" :series="ageGroupBand.series" :options="ageGroupBand.chartOptions"></apexchart>
                 </div>
             </Portlet>
         </div>
@@ -154,7 +158,7 @@ export default {
             <!-- Patterned Donut Chart -->
             <Portlet :headertitle="'Gender Bands'">
                 <div class="card-body pt-0">
-                    <apexchart class="apex-charts" height="320" type="donut" :series="genderGroupBand.series" :options="genderGroupBand.chartOptions"></apexchart>
+                    <apexchart class="apex-charts" height="320" type="donut" v-if="genderGroupBand.series.length > 0"  :series="genderGroupBand.series" :options="genderGroupBand.chartOptions"></apexchart>
                 </div>
             </Portlet>
         </div>
@@ -164,7 +168,7 @@ export default {
       <Portlet :headertitle="'Top City'">
         <div class="card-body pt-0">
           <!-- Basic Bar Chart -->
-          <apexchart class="apex-charts" height="380" type="bar" :series="topCity.series" :options="topCity.chartOptions"></apexchart>
+          <apexchart class="apex-charts" height="380" type="bar" v-if="topCity.series[0].data.length > 0"  :series="topCity.series" :options="topCity.chartOptions"></apexchart>
         </div>
       </Portlet>
     </div>
@@ -172,7 +176,7 @@ export default {
       <Portlet :headertitle="'Top Country'">
         <div class="card-body pt-0">
           <!-- Basic Bar Chart -->
-          <apexchart class="apex-charts" height="380" type="bar" :series="topCountry.series" :options="topCountry.chartOptions"></apexchart>
+          <apexchart class="apex-charts" height="380" type="bar"  v-if="topCountry.series[0].data.length"  :series="topCountry.series" :options="topCountry.chartOptions"></apexchart>
         </div>
       </Portlet>
     </div>
@@ -182,7 +186,7 @@ export default {
       <Portlet :headertitle="'Gradient Line Chart'">
         <div class="card-body pt-0">
           <!-- Gradient Line Chart -->
-          <apexchart class="apex-charts" height="380" type="line" :series="monthlyRegistration.series" :options="monthlyRegistration.chartOptions"></apexchart>
+          <apexchart class="apex-charts" height="380" type="line"  v-if="monthlyRegistration.series[0].data.length" :series="monthlyRegistration.series" :options="monthlyRegistration.chartOptions"></apexchart>
         </div>
       </Portlet>
     </div>

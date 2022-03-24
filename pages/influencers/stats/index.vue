@@ -6,6 +6,8 @@ import averageClickRate from './averageClickRate.vue'
 import averageResponseRate from './averageResponseRate.vue'
 import fanReach from './fanReach.vue'
 import noOfText from './noOfText.vue'
+import noOfContact from './noOfContact.vue'
+import topActiveContact from './topActiveContact.vue'
 
 
 import {
@@ -35,7 +37,9 @@ export default {
         averageClickRate,
         averageResponseRate,
         fanReach,
-        noOfText
+        noOfText,
+        noOfContact,
+        topActiveContact
     },
     data() {
         return {
@@ -143,6 +147,8 @@ export default {
     <average-click-rate />
     <fan-reach />
     <no-of-text />
+    <no-of-contact />
+    <top-active-contact />
 
 </div>
 </template>

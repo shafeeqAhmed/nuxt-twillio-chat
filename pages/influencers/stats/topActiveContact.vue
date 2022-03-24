@@ -11,53 +11,13 @@ export default {
             duration: '',
             start: '',
             end:'',
-            options: [
-              {
-                name:'A Week Ago',
-                value: 'week'
-              },
-              {
-                name:'A Month Ago',
-                value: 'month'
-              },
-              {
-                name:'A Year Ago',
-                value: 'year'
-              }
-            ],
-            typeOPtion: [
-              {
-                name: 'Date Range',
-                value: 'range'
-              },
-              {
-                name: 'Duration',
-                value: 'duration'
-              }
 
-            ],
-            type: ''
         };
     },
     methods: {
        async getData() {
-         if(this.type == '') {
-            if(this.start ==  '' ||  this.end == '') {
 
-           alert('start and end date is missing')
-
-            }
-           return true
-         }
-         var url = ''
-         if(this.type == 'range') {
-           url = `/no-of-text?start=${this.start}&end=${this.end}`
-         } else {
-           url = `/no-of-text?duration=${this.duration}`
-
-         }
-          const { data: {messageCount} } = await this.$axios.$get(url);
-          this.mapData = messageCount
+          const data = await this.$axios.$get('/no-of-text');
       },
 
     },
@@ -78,13 +38,6 @@ export default {
                     <div class="text-center" dir="ltr">
                         <div class="row">
 
-                                <!-- <div class="form-group m-2">
-                                   <select  class="form-control" v-model="durationType">
-                                     <option :selected="true" value = "range"> Date Range </option>
-                                     <option  value = "duration"> Duration </option>
-                                   </select>
-                                </div> -->
-                                <!-- <b-form-group class="col-md-2" > -->
                             <div class="form-group m-2">
                                 <select  class="form-control" v-model="type">
                                     <option value="">Selection Date Type</option>
@@ -115,8 +68,31 @@ export default {
                                         <button class="btn btn-info" @click="getData">Search</button>
                                 </div>
                         </div>
-                        <knob-control v-model="mapData" :min="-mapData" :max="mapData" class="mt-3" :size="150" primary-color="#3ac9d6" secondary-color="#eeeeee" text-color="#3ac9d6"></knob-control>
-                        <h6 class="text-muted mt-2">Number of Text</h6>
+
+
+
+                          <div class="card-body pt-0">
+            <div class="table-responsive mb-0">
+              <table class="table table-hover table-centered mb-0">
+                <thead>
+                  <tr>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Phone Number</th>
+                    <th>Email</th>
+                    <th>Country</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <template >
+
+                  </template>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
                     </div>
                     <!-- end .text-center -->
                 </div>

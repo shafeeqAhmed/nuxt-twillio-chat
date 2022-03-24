@@ -22,7 +22,7 @@ export default {
       const {
         data: { topActiveContact },
       } = await this.$axios.$get(
-        `/top-in-active-contact?start=${this.start}&end=${this.end}`
+        `/top-active-contact?start=${this.start}&end=${this.end}`
       );
       this.mapData = topActiveContact;
     },
@@ -45,7 +45,7 @@ export default {
                 <div class="table-responsive mb-0">
                   <div class="row">
                     <div class="col-md-4 form-inline">
-                      <h3>Top 10 Active user</h3>
+                      <h3>Top 10 InActive user</h3>
                     </div>
 
                     <div

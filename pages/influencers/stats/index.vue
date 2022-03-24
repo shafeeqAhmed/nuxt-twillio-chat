@@ -8,6 +8,7 @@ import fanReach from './fanReach.vue'
 import noOfText from './noOfText.vue'
 import noOfContact from './noOfContact.vue'
 import topActiveContact from './topActiveContact.vue'
+import topInActiveContact from './topInActiveContact.vue'
 
 
 import {
@@ -39,7 +40,8 @@ export default {
         fanReach,
         noOfText,
         noOfContact,
-        topActiveContact
+        topActiveContact,
+        topInActiveContact
     },
     data() {
         return {
@@ -149,6 +151,7 @@ export default {
     <no-of-text />
     <no-of-contact />
     <top-active-contact />
+    <top-in-active-contact />
 
 </div>
 </template>

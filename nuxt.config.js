@@ -6,6 +6,7 @@ export default {
       routes.push({
         path: "/",
         component: "~/pages/influencers/index.vue"
+
       });
     },
     middleware: ['authentication']

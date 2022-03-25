@@ -41,7 +41,7 @@ export default {
             <div class="text-center" dir="ltr">
               <div class="row">
                 <div class="col-md-4 form-inline">
-                  <h4>Average Click Response Percentage</h4>
+                  <h4>Response Rate</h4>
                 </div>
 
                 <div class="col-md-8 form-inline d-flex justify-content-end">
@@ -67,11 +67,11 @@ export default {
                 :max="mapData"
                 class="mt-3"
                 :size="150"
-                primary-color="#3ac9d6"
+                :animate-value="false"
                 secondary-color="#eeeeee"
-                text-color="#3ac9d6"
+                text-color="#fff"
               ></knob-control>
-              <h6 class="text-muted mt-2">Average Click Response Percentage</h6>
+              <h6 class="text-muted mt-2">Average Response Percentage</h6>
             </div>
             <!-- end .text-center -->
           </div>

@@ -113,7 +113,9 @@ export default {
                       ></countTo>
                     </span>
                   </h3>
-                  <p class="text-muted mb-1 text-truncate">Total Contact</p>
+                  <p class="text-muted mb-1 text-truncate">
+                    Total Send Message
+                  </p>
                 </div>
               </div>
             </div>
@@ -144,7 +146,9 @@ export default {
                       ></countTo>
                     </span>
                   </h3>
-                  <p class="text-muted mb-1 text-truncate">Total Contact</p>
+                  <p class="text-muted mb-1 text-truncate">
+                    Total Received Message
+                  </p>
                 </div>
               </div>
             </div>

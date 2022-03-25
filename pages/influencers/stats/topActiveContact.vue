@@ -22,7 +22,7 @@ export default {
       const {
         data: { topActiveContact },
       } = await this.$axios.$get(
-        `/top-in-active-contact?start=${this.start}&end=${this.end}`
+        `/top-active-contact?start=${this.start}&end=${this.end}`
       );
       this.mapData = topActiveContact;
     },

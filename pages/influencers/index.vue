@@ -42,17 +42,16 @@
                       </td>
                       <td>
                         <ul class="list-inline table-action m-0">
-                         <a
-                              @click="
-                                $router.push(`/influencers/${user.user_uuid}`)
-                              "
-                              class="action-icon px-1"
-                              ><i class="mdi mdi-square-edit-outline"></i
-                            ></a>
-
+                          <a
+                            @click="
+                              $router.push(`/influencers/${user.user_uuid}`)
+                            "
+                            class="action-icon px-1"
+                            ><i class="mdi mdi-square-edit-outline"></i
+                          ></a>
                         </ul>
                       </td>
-                     <!--  <td>
+                      <!--  <td>
                         <a
                               @click="
                                 $router.push(`/influencers/stats/${user.user_uuid}`)
@@ -68,31 +67,9 @@
           </div>
         </Portlet>
         <Portlet v-else>
-          <h1>This Dashboard for Influencer</h1>
-    <div class="card-body pt-0">
-            <div class="table-responsive mb-0">
-              <table class="table table-hover table-centered mb-0">
-                <thead>
-                  <tr>
-                    <th>Total Contact Numbers</th>
-                    <th>Total Send Messages</th>
-                     <th>Total Receive Messages</th>
-
-                  </tr>
-                </thead>
-                <tbody>
-                  <template >
-                    <tr>
-                      <td> {{ total_contacts }}</td>
-                      <td> {{ send_message_count }}</td>
-                      <td> {{ received_message_count }}</td>
-                    </tr>
-                  </template>
-                </tbody>
-              </table>
-            </div>
+          <div class="text-center">
+            <h1 class="m-4">This Dashboard for Influencer</h1>
           </div>
-
         </Portlet>
       </div>
     </div>
@@ -127,24 +104,21 @@ export default {
   computed: {},
 
   created() {
-   if(this.$auth.hasScope('influencer')) {
-     this.$store
-       .dispatch("influencer/getInfluencerDashboardInfo")
-       .then((response) => {
-         this.total_contacts = response.data.data.total_contacts;
-         this.send_message_count = response.data.data.user.send_message_count;
-         this.received_message_count = response.data.data.user.received_message_count;
-       })
-   }
+    if (this.$auth.hasScope("influencer")) {
+      this.$store
+        .dispatch("influencer/getInfluencerDashboardInfo")
+        .then((response) => {
+          this.total_contacts = response.data.data.total_contacts;
+          this.send_message_count = response.data.data.user.send_message_count;
+          this.received_message_count =
+            response.data.data.user.received_message_count;
+        });
+    }
 
-
-this.$store
-      .dispatch("getInfluencers")
-      .then((response) => {
-      this.users = response.data.data
-        console.log(response.data.data)
-      })
-
+    this.$store.dispatch("getInfluencers").then((response) => {
+      this.users = response.data.data;
+      console.log(response.data.data);
+    });
   },
 };
 </script>

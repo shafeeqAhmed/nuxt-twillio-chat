@@ -1,15 +1,65 @@
 <script>
-import KnobControl from "vue-knob-control";
 
 export default {
   components: {
-    KnobControl,
+        apexchart: () => import("vue-apexcharts"),
   },
   data() {
     return {
-      mapData: 0,
       start: "",
       end: "",
+      series: 0,
+      mapData: {
+        chartOptions: {
+          plotOptions: {
+            radialBar: {
+              startAngle: -135,
+              endAngle: 135,
+              dataLabels: {
+                name: {
+                  fontSize: "16px",
+                  color: undefined,
+                  offsetY: 120,
+                },
+                value: {
+                  offsetY: 76,
+                  fontSize: "22px",
+                  color: undefined,
+                  formatter(val) {
+                    return val + "%";
+                  },
+                },
+              },
+            },
+          },
+          fill: {
+            gradient: {
+              enabled: true,
+              shade: "dark",
+              shadeIntensity: 0.15,
+              inverseColors: false,
+              opacityFrom: 1,
+              opacityTo: 1,
+              stops: [0, 50, 65, 91],
+            },
+          },
+          stroke: {
+            dashArray: 4,
+          },
+          colors: ["#1abc9c"],
+          labels: ["Average Response Percentage"],
+          responsive: [
+            {
+              breakpoint: 380,
+              options: {
+                chart: {
+                  height: 280,
+                },
+              },
+            },
+          ],
+        },
+      },
     };
   },
   methods: {
@@ -23,7 +73,7 @@ export default {
       } = await this.$axios.$get(
         `/average-response-rate?start=${this.start}&end=${this.end}`
       );
-      this.mapData = averageResponseRate;
+      this.series = averageResponseRate;
     },
   },
   middleware: "router-auth",
@@ -61,7 +111,8 @@ export default {
                 </div>
               </div>
 
-              <knob-control
+              <!-- <knob-control
+                :readonly="true"
                 v-model="mapData"
                 :min="-mapData"
                 :max="mapData"
@@ -70,8 +121,16 @@ export default {
                 :animate-value="false"
                 secondary-color="#eeeeee"
                 text-color="#fff"
-              ></knob-control>
-              <h6 class="text-muted mt-2">Average Response Percentage</h6>
+              ></knob-control> -->
+                  </div>
+              <apexchart
+                id="t12"
+                class="apex-charts"
+                height="350"
+                type="radialBar"
+                :series="[series]"
+                :options="mapData.chartOptions"
+              ></apexchart>
             </div>
             <!-- end .text-center -->
           </div>

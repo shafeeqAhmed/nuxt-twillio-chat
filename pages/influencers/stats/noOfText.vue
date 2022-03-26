@@ -1,13 +1,10 @@
 <script>
-import KnobControl from "vue-knob-control";
-
 export default {
   components: {
-    KnobControl,
+    apexchart: () => import("vue-apexcharts"),
   },
   data() {
     return {
-      mapData: 0,
       duration: "",
       start: "",
       end: "",
@@ -36,6 +33,58 @@ export default {
         },
       ],
       type: "",
+      series: 0,
+      mapData: {
+        chartOptions: {
+          plotOptions: {
+            radialBar: {
+              startAngle: -135,
+              endAngle: 135,
+              dataLabels: {
+                name: {
+                  fontSize: "16px",
+                  color: undefined,
+                  offsetY: 120,
+                },
+                value: {
+                  offsetY: 76,
+                  fontSize: "22px",
+                  color: undefined,
+                  formatter(val) {
+                    return val + "%";
+                  },
+                },
+              },
+            },
+          },
+          fill: {
+            gradient: {
+              enabled: true,
+              shade: "dark",
+              shadeIntensity: 0.15,
+              inverseColors: false,
+              opacityFrom: 1,
+              opacityTo: 1,
+              stops: [0, 50, 65, 91],
+            },
+          },
+          stroke: {
+            dashArray: 4,
+          },
+          colors: ["#f672a7"],
+          labels: ["Number of Text"],
+          responsive: [
+            {
+              breakpoint: 380,
+              options: {
+                chart: {
+                  height: 280,
+                },
+              },
+            },
+          ],
+        },
+      },
     };
   },
   methods: {
@@ -55,7 +104,7 @@ export default {
       const {
         data: { messageCount },
       } = await this.$axios.$get(url);
-      this.mapData = messageCount;
+      this.series = messageCount;
     },
   },
 
@@ -90,7 +139,7 @@ export default {
                       <option value="">Select duration</option>
                       <option
                         v-for="(list, key) in options"
-                        :key="`${key}` - no - of - text"
+                        :key="key"
                         :value="list.value"
                       >
                         {{ list.name }}
@@ -112,17 +161,14 @@ export default {
                   </div>
                 </div>
               </div>
-              <knob-control
-                v-model="mapData"
-                :min="-mapData"
-                :max="mapData"
-                class="mt-3"
-                :size="150"
-                primary-color="#4bd396"
-                secondary-color="#eeeeee"
-                text-color="#4bd396"
-              ></knob-control>
-              <h6 class="text-muted mt-2">Number of Text</h6>
+              <apexchart
+                id="t12"
+                class="apex-charts"
+                height="350"
+                type="radialBar"
+                :series="[series]"
+                :options="mapData.chartOptions"
+              ></apexchart>
             </div>
             <!-- end .text-center -->
           </div>

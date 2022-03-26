@@ -1,15 +1,64 @@
 <script>
-import KnobControl from "vue-knob-control";
-
 export default {
   components: {
-    KnobControl,
+    apexchart: () => import("vue-apexcharts"),
   },
   data() {
     return {
-      mapData: 0,
       start: "",
       end: "",
+      series: 0,
+      mapData: {
+        chartOptions: {
+          plotOptions: {
+            radialBar: {
+              startAngle: -135,
+              endAngle: 135,
+              dataLabels: {
+                name: {
+                  fontSize: "16px",
+                  color: undefined,
+                  offsetY: 120,
+                },
+                value: {
+                  offsetY: 76,
+                  fontSize: "22px",
+                  color: undefined,
+                  formatter(val) {
+                    return val + "%";
+                  },
+                },
+              },
+            },
+          },
+          fill: {
+            gradient: {
+              enabled: true,
+              shade: "dark",
+              shadeIntensity: 0.15,
+              inverseColors: false,
+              opacityFrom: 1,
+              opacityTo: 1,
+              stops: [0, 50, 65, 91],
+            },
+          },
+          stroke: {
+            dashArray: 4,
+          },
+          colors: ["#db3700"],
+          labels: ["Fan Reach"],
+          responsive: [
+            {
+              breakpoint: 380,
+              options: {
+                chart: {
+                  height: 280,
+                },
+              },
+            },
+          ],
+        },
+      },
     };
   },
   methods: {
@@ -23,7 +72,7 @@ export default {
       } = await this.$axios.$get(
         `/fan-reach?start=${this.start}&end=${this.end}`
       );
-      this.mapData = fanReached;
+      this.series = fanReached;
     },
   },
   middleware: "router-auth",
@@ -61,28 +110,14 @@ export default {
                 </div>
               </div>
 
-              <!-- <div class="row">
-                                <div class="form-group m-2">
-                                    <input type="date" v-model="start" class="form-control" >
-                                </div>
-                                <div class="form-group m-2">
-                                    <input type="date" v-model="end" class="form-control">
-                                </div>
-                                <div class="form-group m-2">
-                                    <button class="btn btn-info" @click="getData">Search</button>
-                                </div>
-                        </div> -->
-              <knob-control
-                v-model="mapData"
-                :min="-mapData"
-                :max="mapData"
-                class="mt-3"
-                :size="150"
-                primary-color="#3ac9d6"
-                secondary-color="#eeeeee"
-                text-color="#3ac9d6"
-              ></knob-control>
-              <h6 class="text-muted mt-2">Fan Reach</h6>
+              <apexchart
+                id="t12"
+                class="apex-charts"
+                height="350"
+                type="radialBar"
+                :series="[series]"
+                :options="mapData.chartOptions"
+              ></apexchart>
             </div>
             <!-- end .text-center -->
           </div>

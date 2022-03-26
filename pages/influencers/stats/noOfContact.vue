@@ -1,16 +1,24 @@
 <script>
-import KnobControl from "vue-knob-control";
-
 export default {
   components: {
-    KnobControl,
+    apexchart: () => import("vue-apexcharts"),
   },
   data() {
     return {
-      mapData: 0,
       duration: "",
       start: "",
       end: "",
+      typeOPtion: [
+        {
+          name: "Date Range",
+          value: "range",
+        },
+        {
+          name: "Duration",
+          value: "duration",
+        },
+      ],
+      type: "",
       options: [
         {
           name: "A Week Ago",
@@ -25,17 +33,58 @@ export default {
           value: "year",
         },
       ],
-      typeOPtion: [
-        {
-          name: "Date Range",
-          value: "range",
+      series: 0,
+      mapData: {
+        chartOptions: {
+          plotOptions: {
+            radialBar: {
+              startAngle: -135,
+              endAngle: 135,
+              dataLabels: {
+                name: {
+                  fontSize: "16px",
+                  color: undefined,
+                  offsetY: 120,
+                },
+                value: {
+                  offsetY: 76,
+                  fontSize: "22px",
+                  color: undefined,
+                  formatter(val) {
+                    return val + "%";
+                  },
+                },
+              },
+            },
+          },
+          fill: {
+            gradient: {
+              enabled: true,
+              shade: "dark",
+              shadeIntensity: 0.15,
+              inverseColors: false,
+              opacityFrom: 1,
+              opacityTo: 1,
+              stops: [0, 50, 65, 91],
+            },
+          },
+          stroke: {
+            dashArray: 4,
+          },
+          colors: ["#f672a7"],
+          labels: ["Number of Contacts"],
+          responsive: [
+            {
+              breakpoint: 380,
+              options: {
+                chart: {
+                  height: 280,
+                },
+              },
+            },
+          ],
         },
-        {
-          name: "Duration",
-          value: "duration",
-        },
-      ],
-      type: "",
+      },
     };
   },
   methods: {
@@ -55,7 +104,7 @@ export default {
       const {
         data: { contactCount },
       } = await this.$axios.$get(url);
-      this.mapData = contactCount;
+      this.series = contactCount;
     },
   },
 
@@ -90,7 +139,7 @@ export default {
                       <option value="">Select duration</option>
                       <option
                         v-for="(list, key) in options"
-                        :key="`${key}` - no - of - text"
+                        :key="key"
                         :value="list.value"
                       >
                         {{ list.name }}
@@ -112,17 +161,15 @@ export default {
                   </div>
                 </div>
               </div>
-              <knob-control
-                v-model="mapData"
-                :min="-mapData"
-                :max="mapData"
-                class="mt-3"
-                :size="150"
-                primary-color="#f5707a"
-                secondary-color="#eeeeee"
-                text-color="#f5707a"
-              ></knob-control>
-              <h6 class="text-muted mt-2">Number of Contacts</h6>
+
+              <apexchart
+                id="t12"
+                class="apex-charts"
+                height="350"
+                type="radialBar"
+                :series="[series]"
+                :options="mapData.chartOptions"
+              ></apexchart>
             </div>
             <!-- end .text-center -->
           </div>

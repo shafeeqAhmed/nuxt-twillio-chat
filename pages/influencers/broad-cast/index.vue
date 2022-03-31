@@ -55,6 +55,10 @@ export default {
           sortable: true,
         },
         {
+          key: "totalFan",
+          sortable: true,
+        },
+        {
           key: "click_rate_percentate",
           sortable: true,
         },

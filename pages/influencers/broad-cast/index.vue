@@ -55,7 +55,8 @@ export default {
           sortable: true,
         },
         {
-          key: "totalFan",
+          label: "Total Fan",
+          key: "total_deliver_messages_count",
           sortable: true,
         },
         {
@@ -109,7 +110,8 @@ export default {
       this.currentPage = 1;
     },
     messageModal(is_visited, item) {
-      if (item.click_rate.length == 0) {
+      console.log(item);
+      if (!item.total_message_link_count) {
         alert(
           "you can send follow up message only those Messages which contain Link"
         );

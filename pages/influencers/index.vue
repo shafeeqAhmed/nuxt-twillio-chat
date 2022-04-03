@@ -1,6 +1,16 @@
 <template>
   <div>
-    <PageHeader :title="title" :items="items" />
+    <PageHeader
+      v-if="$auth.hasScope('admin')"
+      :title="title"
+      :items="adminItems"
+    />
+    <PageHeader
+      v-if="$auth.hasScope('influencer')"
+      :title="title"
+      :items="influencerItems"
+    />
+
     <!-- end row -->
     <div class="row">
       <!-- Table -->
@@ -92,9 +102,15 @@ export default {
       send_message_count: 0,
       received_message_count: 0,
       users: [],
-      items: [
+      adminItems: [
         {
           text: "Influencer Listing",
+          active: true,
+        },
+      ],
+      influencerItems: [
+        {
+          text: "Dashboard",
           active: true,
         },
       ],

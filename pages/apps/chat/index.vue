@@ -16,7 +16,9 @@
                     data-dismiss="modal"
                     aria-label="Close"
                   >
-                    <span aria-hidden="true" @click="showModal = false">&times;</span>
+                    <span aria-hidden="true" @click="showModal = false"
+                      >&times;</span
+                    >
                   </button>
                 </div>
 
@@ -34,31 +36,82 @@
                           ref="age_popup_close"
                         ></i>
                       </div>
-
                     </div>
-                    To : <countTo :end-val="filterSelectedMemberCount" :duration="1000"></countTo> Members
-                    <b-button class="btn-soft-secondary m-1" v-if="activityBadge">{{ activityBadge}}
-                      <span @click="removeFilter({type: 'activity',value: 'activity' })"   class="btn-label-right "><i class="mdi mdi-close-circle-outline"></i></span>
+                    To :
+                    <countTo
+                      :end-val="filterSelectedMemberCount"
+                      :duration="1000"
+                    ></countTo>
+                    Members
+                    <b-button
+                      class="btn-soft-secondary m-1"
+                      v-if="activityBadge"
+                      >{{ activityBadge }}
+                      <span
+                        @click="
+                          removeFilter({ type: 'activity', value: 'activity' })
+                        "
+                        class="btn-label-right"
+                        ><i class="mdi mdi-close-circle-outline"></i
+                      ></span>
                     </b-button>
-                     <b-button class="btn-soft-secondary m-1" v-if="genderBadge">{{ genderBadge}}
-                      <span @click="removeFilter({type: 'activity',value: 'gender' })"   class="btn-label-right "><i class="mdi mdi-close-circle-outline"></i></span>
+                    <b-button class="btn-soft-secondary m-1" v-if="genderBadge"
+                      >{{ genderBadge }}
+                      <span
+                        @click="
+                          removeFilter({ type: 'activity', value: 'gender' })
+                        "
+                        class="btn-label-right"
+                        ><i class="mdi mdi-close-circle-outline"></i
+                      ></span>
                     </b-button>
-                    <b-button class=" btn-soft-secondary m-1" v-if="ageBadge">
-                      {{ ageBadge}}
-                      <span class="btn-label-right" @click="removeFilter({type: 'age',value: 'age' })"><i class="mdi mdi-close-circle-outline"></i></span>
+                    <b-button class="btn-soft-secondary m-1" v-if="ageBadge">
+                      {{ ageBadge }}
+                      <span
+                        class="btn-label-right"
+                        @click="removeFilter({ type: 'age', value: 'age' })"
+                        ><i class="mdi mdi-close-circle-outline"></i
+                      ></span>
                     </b-button>
 
-                    <b-button class=" btn-soft-secondary m-1" v-if="locationAddressBadge">
-                      {{ locationAddressBadge}}
-                      <span class="btn-label-right"  @click="removeFilter({type: 'location',value: 'address' })"><i class="mdi mdi-close-circle-outline"></i></span>
+                    <b-button
+                      class="btn-soft-secondary m-1"
+                      v-if="locationAddressBadge"
+                    >
+                      {{ locationAddressBadge }}
+                      <span
+                        class="btn-label-right"
+                        @click="
+                          removeFilter({ type: 'location', value: 'address' })
+                        "
+                        ><i class="mdi mdi-close-circle-outline"></i
+                      ></span>
                     </b-button>
-                    <b-button class=" btn-soft-secondary m-1" v-if="locationRadiusBadge">
+                    <b-button
+                      class="btn-soft-secondary m-1"
+                      v-if="locationRadiusBadge"
+                    >
                       {{ locationRadiusBadge }}
-                      <span class="btn-label-right" @click="removeFilter({type: 'location',value: 'radius' })"><i class="mdi mdi-close-circle-outline"></i></span>
+                      <span
+                        class="btn-label-right"
+                        @click="
+                          removeFilter({ type: 'location', value: 'radius' })
+                        "
+                        ><i class="mdi mdi-close-circle-outline"></i
+                      ></span>
                     </b-button>
-                    <b-button class=" btn-soft-secondary m-1" v-if="joinDateBadge">
-                      {{ joinDateBadge}}
-                      <span class="btn-label-right" @click="removeFilter({type: 'joinDate',value: 'date' })"><i class="mdi mdi-close-circle-outline"></i></span>
+                    <b-button
+                      class="btn-soft-secondary m-1"
+                      v-if="joinDateBadge"
+                    >
+                      {{ joinDateBadge }}
+                      <span
+                        class="btn-label-right"
+                        @click="
+                          removeFilter({ type: 'joinDate', value: 'date' })
+                        "
+                        ><i class="mdi mdi-close-circle-outline"></i
+                      ></span>
                     </b-button>
                   </div>
 
@@ -70,58 +123,70 @@
                           <ul class="list-unstyled components">
                             <li>
                               <a href="#" @click="menuList('recipents')">
-                                    <span>
-                                      <i class="fa fa-user mr-1"></i>
-                                      Recipients
-                                    </span>
+                                <span>
+                                  <i class="fa fa-user mr-1"></i>
+                                  Recipients
+                                </span>
                               </a>
                             </li>
 
                             <li>
                               <a href="#" @click="menuList('location')">
-                                    <span>
-                                      <i class="fa fa-map-marker mr-1"></i>
-                                      Location
-                                    </span>
+                                <span>
+                                  <i class="fa fa-map-marker mr-1"></i>
+                                  Location
+                                </span>
                               </a>
                             </li>
 
                             <li>
                               <a href="#" @click="menuList('age')">
-                                    <span>
-                                      <i class="fa fa-user mr-1"></i>
-                                      Age
-                                    </span>
+                                <span>
+                                  <i class="fa fa-user mr-1"></i>
+                                  Age
+                                </span>
                               </a>
                             </li>
                             <li>
                               <a href="#" @click="menuList('gender')">
-                                    <span>
-                                      <i class="fa fa-user mr-1"></i>
-                                      Gender
-                                    </span>
+                                <span>
+                                  <i class="fa fa-user mr-1"></i>
+                                  Gender
+                                </span>
                               </a>
                             </li>
 
                             <li>
                               <a href="#" @click="menuList('join_date')">
-                                    <span>
-                                      <i class="fa fa-calendar-alt mr-1"></i>
-                                      Join Date
-                                    </span>
+                                <span>
+                                  <i class="fa fa-calendar-alt mr-1"></i>
+                                  Join Date
+                                </span>
                               </a>
                             </li>
-
                           </ul>
                         </nav>
 
-
-
-                        <gender-tab v-if="menuItems.genderModal" @closeModel="closeMenueList"/>
-                        <join-date v-if="menuItems.joinDateModel" @closeModel="closeMenueList"/>
-                        <age-tab v-if="menuItems.ageModel"  @closeModel="closeMenueList"/>
-                        <location-tab v-if="menuItems.locationModel"  @closeModel="closeMenueList"/>
-                        <reception-tab v-if="menuItems.recipentModel"  @closeModel="closeMenueList"/>
+                        <gender-tab
+                          v-if="menuItems.genderModal"
+                          @closeModel="closeMenueList"
+                        />
+                        <join-date
+                          v-if="menuItems.joinDateModel"
+                          @closeModel="closeMenueList"
+                        />
+                        <age-tab
+                          v-if="menuItems.ageModel"
+                          @closeModel="closeMenueList"
+                        />
+                        <location-tab
+                          v-if="menuItems.locationModel"
+                          @closeModel="closeMenueList"
+                        />
+                        <reception-tab
+                          v-if="menuItems.recipentModel"
+                          @closeModel="closeMenueList"
+                        />
                       </div>
                     </b-card>
                   </b-collapse>
@@ -144,21 +209,26 @@
                       class="mt-2"
                       name="schedule_date"
                       v-model="form.schedule_date"
-                      />
+                    />
                     <button
                       @click="updateScheduled(true)"
                       v-if="!isScheduled"
-                      class="btn btn-primary mt-2 ml-1">
+                      class="btn btn-primary mt-2 ml-1"
+                    >
                       Scheduled
                     </button>
                     <button
                       @click="updateScheduled(false)"
                       v-if="isScheduled"
-                      class="btn btn-danger mt-2 ml-1">
+                      class="btn btn-danger mt-2 ml-1"
+                    >
                       Remove Scheduled
                     </button>
-                    <button class="ml-auto btn btn-primary mt-2" @click="sendCustomMessage">
-                      {{ isScheduled ? 'Send Scheduled Message' : 'Send' }}
+                    <button
+                      class="ml-auto btn btn-primary mt-2"
+                      @click="sendCustomMessage"
+                    >
+                      {{ isScheduled ? "Send Scheduled Message" : "Send" }}
                     </button>
                   </div>
                 </div>
@@ -176,7 +246,7 @@
         <div class="card">
           <div class="card-body">
             <div class="media mb-3">
-              <img
+              <!-- <img
                 v-if="$auth.user.profile_photo_path != null"
                 :src="$auth.user.profile_photo_path"
                 class="mr-2 rounded-circle"
@@ -189,7 +259,7 @@
                 class="mr-2 rounded-circle"
                 height="42"
                 alt="Brandon Smith"
-              />
+              /> -->
               <div class="media-body">
                 <h5 class="mt-0 mb-0 font-15">
                   <!--                  <nuxt-link to="/contacts/profile" class="text-reset">-->
@@ -198,7 +268,10 @@
                   <!--                  </nuxt-link>-->
                 </h5>
                 <p class="mt-1 mb-0 text-muted font-14">
-                  <small class="mdi mdi-circle text-success"></small> Online
+                  <small class="mdi mdi-circle text-success"></small>
+                  <span class="btn p-0 copy-phone" @click="copy">
+                    {{ $auth.user.phone_no }}
+                  </span>
                 </p>
               </div>
               <div>
@@ -214,7 +287,8 @@
                 <input
                   type="text"
                   class="form-control form-control-light"
-                  placeholder="People, groups & messages..."
+                  placeholder="search Contacts..."
+                  @input="debounceSearch"
                 />
                 <span class="mdi mdi-magnify"></span>
               </div>
@@ -230,18 +304,16 @@
                   data-simplebar
                   style="max-height: 498px"
                   v-if="chatData"
-
                 >
                   <a
                     href="javascript:void(0);"
                     class="text-body"
                     v-for="(item, index) in chatData"
                     :key="index"
-                    v-if="item"
                     @click="
                       chatUsername(
                         item.id,
-                        item.fan.fname,
+                        item.fname,
                         '~/assets/images/users/default.png',
                         item.local_number
                       )
@@ -249,28 +321,28 @@
                   >
                     <div class="media p-2">
                       <div class="position-relative">
-                        <span class="user-status online"></span>
-                        <img
+                        <!-- <span class="user-status online"></span> -->
+                        <!-- <img
                           src="~/assets/images/users/default.png"
                           class="mr-2 rounded-circle"
                           height="42"
                           alt="user"
-                        />
+                        /> -->
                       </div>
                       <div class="media-body">
                         <h5 class="mt-0 mb-0 font-14">
                           <span
-                            class="
-                              float-right
-                              text-muted
-                              font-weight-normal font-12
-                            "
+                            class="float-right text-muted font-weight-normal font-12"
                           >
                           </span>
-                          {{ item.fan.fname }}
+                          {{ item.fname }}
                         </h5>
                         <p class="mt-1 mb-0 text-muted font-14">
-                          <span class="w-75"> {{ item.local_number }} </span>
+                          <span class="w-75"> {{ item.age }} </span>,
+                          <span class="w-75"> {{ item.city }} </span>
+                          <span class="w-75" v-if="item.country != ''"
+                            >{{ ", " + item.country }}
+                          </span>
                         </p>
                         <!--  <p v-if="item.message[0]" class="mt-1 mb-0 text-muted font-14">
                            <span class="w-75">{{ item.message[0].message }}</span>
@@ -311,9 +383,6 @@
                     </b-alert>
                   </div>
 
-
-
-
                   <div class="position-relative" v-if="username">
                     <span class="user-status online"></span>
                     <!--                         <span-->
@@ -340,11 +409,11 @@
 
                   <div class="media-body">
                     <h5 class="mt-0 mb-0 font-14">
-                  <span
-                    class="float-right text-muted font-weight-normal font-12"
-                  >
-                    <!--                             {{  formatDate(item.user.created_at) }}-->
-                  </span>
+                      <span
+                        class="float-right text-muted font-weight-normal font-12"
+                      >
+                        <!--                             {{  formatDate(item.user.created_at) }}-->
+                      </span>
                       {{ username }}
                     </h5>
                     <p class="mt-1 mb-0 text-muted font-14">
@@ -359,22 +428,23 @@
             </div>
             <div class="col-1">
               <div class="float-right">
-                <div
-                  class="plus-div"
-                  variant="primary"
-                >
-                  <i
-                    class="fa fa-plus-circle btn"
-                    aria-hidden="true"
+                <div class="plus-div" variant="primary">
+                  <button
+                    class="btn btn-outline-secondary btn-xs mt-1 mr-3"
                     @click="showModal = true"
-                  ></i>
+                  >
+                    Broadcast
+                  </button>
                 </div>
-
               </div>
             </div>
           </div>
           <div class="card-body">
-            <simplebar data-simplebar style="max-height: 460px" id="messageChatContainer">
+            <simplebar
+              data-simplebar
+              style="max-height: 460px"
+              id="messageChatContainer"
+            >
               <ul class="conversation-list chat-app-conversation">
                 <template v-if="chatMessages">
                   <li
@@ -410,7 +480,11 @@
                     <div class="conversation-text">
                       <div class="ctext-wrap">
                         <i>
-                          <span v-if="data.is_link" class="badge badge-pill badge-primary float-left mr-1" v-html="data.total_visits"></span>
+                          <span
+                            v-if="data.is_link"
+                            class="badge badge-pill badge-primary float-left mr-1"
+                            v-html="data.total_visits"
+                          ></span>
                           {{ data.from }}
                         </i>
                         <p v-html="data.message"></p>
@@ -484,7 +558,7 @@
                           type="text"
                           v-model="form.message"
                           class="form-control border-0"
-                          placeholder="Enter your text"
+                          placeholder="Send Message"
                         />
                         <div
                           v-if="submitted && $v.form.message.$error"
@@ -536,7 +610,7 @@ import joinDate from "~/components/widgets/chat/join_date";
 import AgeTab from "~/components/widgets/chat/age";
 import LocationTab from "~/components/widgets/chat/location";
 import ReceptionTab from "~/components/widgets/chat/reception";
-import countTo from 'vue-count-to'
+import countTo from "vue-count-to";
 
 /**
  * Chat comoponent
@@ -557,7 +631,9 @@ export default {
   },
   data() {
     return {
-      isScheduled:false,
+      debounce: null,
+      searchText: "",
+      isScheduled: false,
       showModal: false,
       menuItems: {
         joinDateModel: false,
@@ -572,6 +648,7 @@ export default {
         { value: "Excatly", text: "Excatly" },
       ],
       backendErrors: [],
+      chatDataForSearch: [],
       chatData: [],
       chatMessages: [],
       recipents: [],
@@ -586,13 +663,7 @@ export default {
       },
       items: [
         {
-          text: "Minton",
-        },
-        {
-          text: "Apps",
-        },
-        {
-          text: "Chat",
+          text: "",
           active: true,
         },
       ],
@@ -600,14 +671,14 @@ export default {
       form: {
         message: "",
         custom_message: "",
-        schedule_date: ""
+        schedule_date: "",
       },
       username: "",
       status: "",
       image: "",
       receiver_id: "",
       receiver_number: "",
-      radius:'',
+      radius: "",
       filter_type: "recipents",
       ageFilter: {
         age_type: "",
@@ -622,7 +693,6 @@ export default {
     },
   },
   computed: {
-
     filterSelectedMemberCount() {
       return this.$store.state.chat.filterSelectedMemberCount;
     },
@@ -633,85 +703,109 @@ export default {
       return this.$store && this.$store.state.notification ? 7 : 0;
     },
     activityBadge() {
-      let activity =  this.$store.state.chat.data['activity']
-      if(Object.keys(activity).length > 0 && activity?.activity !== '') {
-        let activityVal = activity['activity']
-        if(activityVal == 'all') {
-          return activityVal+ " Users"
-        }else {
-          return "Top "+activityVal+ ' %'+ " Users"
+      let activity = this.$store.state.chat.data["activity"];
+      if (Object.keys(activity).length > 0 && activity?.activity !== "") {
+        let activityVal = activity["activity"];
+        if (activityVal == "all") {
+          return activityVal + " Users";
+        } else {
+          return "Top " + activityVal + " %" + " Users";
         }
-
       }
       return false;
     },
     genderBadge() {
-      let activity =  this.$store.state.chat.data['activity']
-      if(Object.keys(activity).length > 0 && activity['gender'] != '') {
-        return activity.gender
+      let activity = this.$store.state.chat.data["activity"];
+      if (Object.keys(activity).length > 0 && activity["gender"] != "") {
+        return activity.gender;
       }
       return false;
     },
     ageBadge() {
-      let record =  this.$store.state.chat.data['age']
-      if(Object.keys(record).length > 0 && (record['age'] !== '' || record['customFilterType'] !== '')) {
-        if(record.customFilterType == 'Between') {
-          return ' Between '+record['customStartAge'] + ' Year To ' + record['customEndAge'] +' Year'
-        } else if(record.customFilterType == '')  {
-          return record['age'] + ' Year'
+      let record = this.$store.state.chat.data["age"];
+      if (
+        Object.keys(record).length > 0 &&
+        (record["age"] !== "" || record["customFilterType"] !== "")
+      ) {
+        if (record.customFilterType == "Between") {
+          return (
+            " Between " +
+            record["customStartAge"] +
+            " Year To " +
+            record["customEndAge"] +
+            " Year"
+          );
+        } else if (record.customFilterType == "") {
+          return record["age"] + " Year";
         } else {
-          return record.customFilterType + ' ' + record['customStartAge'] + ' Year'
+          return (
+            record.customFilterType + " " + record["customStartAge"] + " Year"
+          );
         }
       }
       return false;
     },
     joinDateBadge() {
-      let record =  this.$store.state.chat.data['joinDate']
-      if(Object.keys(record).length > 0 ) {
-        if(record.search_type == 'Between') {
-          return ' Between '+record['customStartDate'] + ' To ' + record['customEndDate'] +''
-        } else if(record.search_type == '')  {
-          return record['date']
+      let record = this.$store.state.chat.data["joinDate"];
+      if (Object.keys(record).length > 0) {
+        if (record.search_type == "Between") {
+          return (
+            " Between " +
+            record["customStartDate"] +
+            " To " +
+            record["customEndDate"] +
+            ""
+          );
+        } else if (record.search_type == "") {
+          return record["date"];
         } else {
-          return record.search_type + ' ' + record['customStartDate']
+          return record.search_type + " " + record["customStartDate"];
         }
       }
       return false;
     },
     locationAddressBadge() {
-      let record =  this.$store.state.chat.data['location']
-      if(Object.keys(record).length > 0 && (record['address'] !=='' )) {
-        return record['address']
+      let record = this.$store.state.chat.data["location"];
+      if (Object.keys(record).length > 0 && record["address"] !== "") {
+        return record["address"];
       }
       return false;
     },
     locationRadiusBadge(type) {
-      let record =  this.$store.state.chat.data['location']
-      if(Object.keys(record).length > 0 &&  record['radius'] !=='') {
-        return record['radius']+' KM Radius'
+      let record = this.$store.state.chat.data["location"];
+      if (Object.keys(record).length > 0 && record["radius"] !== "") {
+        return record["radius"] + " KM Radius";
       }
       return false;
     },
-
-
-
   },
   methods: {
+    debounceSearch(event) {
+      clearTimeout(this.debounce);
+      this.debounce = setTimeout(() => {
+        this.getChatMessages(event.target.value);
+      }, 600);
+    },
+
+    copy() {
+      navigator.clipboard.writeText(this.$auth.user.phone_no);
+      alert(this.$auth.user.phone_no + " phone number added into clipboard");
+    },
     updateScheduled(type) {
-      if(!type) {
-        this.form.schedule_date = ''
+      if (!type) {
+        this.form.schedule_date = "";
       }
-      this.isScheduled = type
+      this.isScheduled = type;
     },
     removeFilter(payload) {
-      this.$store.dispatch('chat/removeSearchFilter',payload)
-      this.$store.dispatch('chat/getFilterCountFromApi')
+      this.$store.dispatch("chat/removeSearchFilter", payload);
+      this.$store.dispatch("chat/getFilterCountFromApi");
     },
     closeMenueList() {
       // this.updateMenuBit(false,false,false,false,'')
       this.$refs.age_popup_close.click();
     },
-    updateMenuBit(filterType,reception,location,age,joinDate,gender) {
+    updateMenuBit(filterType, reception, location, age, joinDate, gender) {
       this.menuItems.recipentModel = reception;
       this.menuItems.locationModel = location;
       this.menuItems.ageModel = age;
@@ -722,48 +816,51 @@ export default {
     },
     menuList(type) {
       if (type == "join_date") {
-        this.updateMenuBit(type,false,false,false,true,false)
+        this.updateMenuBit(type, false, false, false, true, false);
       } else if (type == "recipents") {
-        this.updateMenuBit(type,true,false,false,false,false)
+        this.updateMenuBit(type, true, false, false, false, false);
       } else if (type == "age") {
-        this.updateMenuBit(type, false,false,true,false,false)
+        this.updateMenuBit(type, false, false, true, false, false);
       } else if (type == "gender") {
-        this.updateMenuBit(type,false,false,false,false,true)
+        this.updateMenuBit(type, false, false, false, false, true);
       } else if (type == "location") {
-        this.updateMenuBit(type,false,true,false,false,false)
+        this.updateMenuBit(type, false, true, false, false, false);
       } else {
-        this.updateMenuBit(type,false,false,false,false,false)
-
+        this.updateMenuBit(type, false, false, false, false, false);
       }
     },
     sendCustomMessage() {
       let filterRecord = this.$store.state.chat.data;
-      filterRecord.message = this.form.custom_message
-      if(this.isScheduled && this.form.schedule_date == '') {
-        alert('For Scheduled message you should select Scheduled data time')
-        return
+      filterRecord.message = this.form.custom_message;
+      if (this.isScheduled && this.form.schedule_date == "") {
+        alert("For Scheduled message you should select Scheduled data time");
+        return;
       }
-      filterRecord.schedule_date = this.form.schedule_date
-      if(filterRecord.message == '') {
-        alert('Empty Message is not allowed')
-        return
+      filterRecord.schedule_date = this.form.schedule_date;
+      if (filterRecord.message == "") {
+        alert("Empty Message is not allowed");
+        return;
       }
       this.$store
         .dispatch("chat/sendMessageToContents", filterRecord)
         .then((response) => {
-          if(response.data.status) {
-            if(this.isScheduled) {
-              this.$swal.fire('Your message has been scheduled at '+this.form.schedule_date+ ' Successfully!')
+          if (response.data.status) {
+            if (this.isScheduled) {
+              this.$swal.fire(
+                "Your message has been scheduled at " +
+                  this.form.schedule_date +
+                  " Successfully!"
+              );
             } else {
               this.$swal.fire(response.data.message);
             }
             this.showModal = false;
-            this.resetModal()
+            this.resetModal();
           }
 
-          if(response.data.status == false) {
-            alert(response.data.message)
-            return
+          if (response.data.status == false) {
+            alert(response.data.message);
+            return;
           }
         })
         .catch((error) => {
@@ -788,9 +885,9 @@ export default {
       return new Date(date).toLocaleDateString("en", options);
     },
     resetModal() {
-      this.custom_message = ''
-      this.$store.commit('chat/resetFilterData')
-      this.$store.dispatch('chat/getFilterCountFromApi')
+      this.custom_message = "";
+      this.$store.commit("chat/resetFilterData");
+      this.$store.dispatch("chat/getFilterCountFromApi");
     },
     send_messages() {
       const payload = {
@@ -802,8 +899,7 @@ export default {
       if (this.receiver_id) {
         this.$store
           .dispatch("chat/saveMessage", payload)
-          .then((response) => {
-          })
+          .then((response) => {})
           .catch((error) => {
             this.backendErrors = error.response.data.errors;
           })
@@ -812,14 +908,15 @@ export default {
           });
       }
     },
-    async getChatMessages() {
-      const chat_contacts = await this.$axios.$get("/get_chat_contacts");
+    async getChatMessages(search = "") {
+      const url = "/get_chat_contacts?search=" + search;
+      const chat_contacts = await this.$axios.$get(url);
       this.chatData = chat_contacts.data;
     },
 
     async getRecipents() {
       const recipents = await this.$axios.$get("/recipent_count");
-      this.$store.commit('chat/memberCount',recipents.data)
+      this.$store.commit("chat/memberCount", recipents.data);
     },
 
     /**
@@ -840,7 +937,6 @@ export default {
       });
       // this.chatMessages = arr.slice().reverse()
       this.chatMessages = arr;
-
     },
 
     /**
@@ -894,26 +990,28 @@ export default {
     },
   },
   watch: {
-    showModal(newVal,oldVal) {
-      if(!newVal) {
-        this.updateScheduled(false)
+    showModal(newVal, oldVal) {
+      if (!newVal) {
+        this.updateScheduled(false);
       }
     },
-    chatMessages(newVal,oldVal) {
+    chatMessages(newVal, oldVal) {
       this.$nextTick(function () {
-        let container = document.querySelector('#messageChatContainer .simplebar-content-wrapper');
-        if(oldVal.length === 0) {
+        let container = document.querySelector(
+          "#messageChatContainer .simplebar-content-wrapper"
+        );
+        if (oldVal.length === 0) {
           container.scrollTo({ top: container.scrollHeight, behavior: "auto" });
         } else {
-          container.scrollTo({ top: container.scrollHeight, behavior: "smooth" });
+          container.scrollTo({
+            top: container.scrollHeight,
+            behavior: "smooth",
+          });
         }
-
-
       });
-    }
+    },
   },
   mounted() {
-
     const newMessages = this.chatMessages;
 
     this.getChatMessages();
@@ -937,7 +1035,6 @@ export default {
                 timestamp: res.data.timestamp,
               },
             ];
-
           } else {
             this.chatMessages.push({
               name: this.name,
@@ -985,6 +1082,11 @@ export default {
   transition: opacity 0.3s ease;
 }
 
+.copy-phone:active {
+  color: gray;
+  font-weight: 900;
+  transition: all 0.5s;
+}
 .modal-wrapper {
   display: table-cell;
   vertical-align: top;
@@ -1062,7 +1164,7 @@ a:focus {
   cursor: pointer;
   font-weight: 600;
 }
-.map-container{
+.map-container {
   height: 450px;
   border: 1px solid #fff;
 }

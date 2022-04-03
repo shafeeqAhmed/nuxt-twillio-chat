@@ -46,10 +46,10 @@ export default {
       totalContact: 0,
       totalSendMessage: 0,
       totalReceivedCount: 0,
-      title: "Stats",
+      title: "Statistics",
       items: [
         {
-          text: "Stats",
+          text: "",
           active: true,
         },
       ],
@@ -83,7 +83,7 @@ export default {
                       ></countTo>
                     </span>
                   </h3>
-                  <p class="text-muted mb-1 text-truncate">Total Contact</p>
+                  <p class="text-muted mb-1 text-truncate">Total Contacts</p>
                 </div>
               </div>
             </div>
@@ -114,7 +114,7 @@ export default {
                     </span>
                   </h3>
                   <p class="text-muted mb-1 text-truncate">
-                    Total Send Message
+                    Total Sent Messages
                   </p>
                 </div>
               </div>
@@ -147,7 +147,7 @@ export default {
                     </span>
                   </h3>
                   <p class="text-muted mb-1 text-truncate">
-                    Total Received Message
+                    Total Received Messages
                   </p>
                 </div>
               </div>

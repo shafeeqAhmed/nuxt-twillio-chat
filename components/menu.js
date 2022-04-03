@@ -17,7 +17,7 @@ export const menuItems = [
       },
        {
         id: 4,
-        label: 'Stats',
+        label: 'Statistics-',
         link: '/admin/stats'
       },
     ]
@@ -703,13 +703,18 @@ export const influencerMenuItems = [
     subItems: [
       {
         id: 2,
-        label: 'Broadcast',
-        link: '/influencers/broad-cast'
+        label: 'Sent',
+        link: '/influencers/sent'
       },
        {
         id: 3,
-        label: 'Stats',
-        link: '/influencers/stats'
+        label: 'Statistics',
+        link: '/influencers/statistics'
+      },
+      {
+        id: 4,
+        label: 'Graph Stats',
+        link: '/influencers/statistics/graph'
       },
 
     ]

@@ -30,14 +30,10 @@ export default {
       newMessage: "",
       showModal: false,
       tableData: [],
-      title: "BroadCast Messages",
+      title: "Sent Messages",
       items: [
         {
-          text: "Home",
-          href: "/",
-        },
-        {
-          text: "BroadCast Message",
+          text: "",
           active: true,
         },
       ],

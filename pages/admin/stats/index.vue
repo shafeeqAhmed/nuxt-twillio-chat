@@ -85,18 +85,14 @@ export default {
       // basicRadialBarChart: basicRadialBarChart,
       // multipleRadialBars: multipleRadialBars,
       // strokedCircularGuage: strokedCircularGuage,
-      title: "Stats",
+      title: "Statistics",
       items: [
         {
-          text: "Minton",
-          href: "/",
+          text: "Dashboard",
+          to: "/",
         },
         {
-          text: "Charts",
-          href: "/",
-        },
-        {
-          text: "Apexcharts",
+          text: "Statistics",
           active: true,
         },
       ],

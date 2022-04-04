@@ -195,6 +195,88 @@ export default {
             <i class="ri-message-2-line"></i> <span>Inbox</span>
           </nuxt-link>
         </li>
+        <li
+          class="dropdown d-none d-lg-inline-block"
+          v-if="$auth.hasScope('influencer')"
+        >
+          <nuxt-link
+            class="nav-link dropdown-toggle arrow-none waves-effect waves-light"
+            aria-current="page"
+            to="/influencers/sent"
+          >
+            <i class="ri-message-2-line"></i> <span>Sent Broadcast</span>
+          </nuxt-link>
+        </li>
+        <li
+          class="dropdown d-none d-lg-inline-block"
+          v-if="$auth.hasScope('influencer')"
+        >
+          <nuxt-link
+            class="nav-link dropdown-toggle arrow-none waves-effect waves-light"
+            aria-current="page"
+            to="/influencers/statistics"
+          >
+            <i class="ri-dashboard-line"></i> <span>Statics</span>
+          </nuxt-link>
+        </li>
+        <li
+          class="dropdown d-none d-lg-inline-block"
+          v-if="$auth.hasScope('influencer')"
+        >
+          <nuxt-link
+            class="nav-link dropdown-toggle arrow-none waves-effect waves-light"
+            aria-current="page"
+            to="/influencers/statistics/graph"
+          >
+            <i class="ri-dashboard-line"></i> <span>Insight</span>
+          </nuxt-link>
+        </li>
+
+        <!-- admin menus -->
+        <li
+          class="dropdown d-none d-lg-inline-block"
+          v-if="$auth.hasScope('admin')"
+        >
+          <nuxt-link
+            class="nav-link dropdown-toggle arrow-none waves-effect waves-light"
+            aria-current="page"
+            to="/influencers/add"
+          >
+            <i class="ri-file-add-line"></i> <span>Create Influencer</span>
+          </nuxt-link>
+        </li>
+        <li
+          class="dropdown d-none d-lg-inline-block"
+          v-if="$auth.hasScope('admin')"
+        >
+          <nuxt-link
+            class="nav-link dropdown-toggle arrow-none waves-effect waves-light"
+            aria-current="page"
+            to="/admin/stats"
+          >
+            <i class="ri-file-add-line"></i> <span>Statistics</span>
+          </nuxt-link>
+        </li>
+
+        <!-- {
+    id: 1,
+    label: 'Incluencers',
+    icon: 'ri-book-line',
+    link: '/'
+  },
+  {
+    id: 2,
+    label: 'Create Influencer',
+    icon: 'ri-file-add-line',
+    link: '/influencers/add'
+  },
+
+  {
+    id: 3,
+    label: 'Statistics',
+    icon: 'ri-dashboard-line',
+    link: '/admin/stats'
+  }, -->
 
         <!-- <b-nav-item-dropdown variant="white" class="d-none d-lg-inline-block topbar-dropdown" toggle-class="nav-link" right menu-class="dropdown-lg p-0">
                 <template v-slot:button-content>

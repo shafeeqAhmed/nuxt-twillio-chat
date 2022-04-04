@@ -158,8 +158,15 @@ export default {
       </div>
       <!-- end col -->
     </div>
-    <average-response-rate />
-    <average-click-rate />
+    <div class="row">
+      <div class="col-6">
+        <average-response-rate />
+      </div>
+      <div class="col-6">
+        <average-click-rate />
+      </div>
+    </div>
+
     <fan-reach />
     <no-of-text />
     <no-of-contact />

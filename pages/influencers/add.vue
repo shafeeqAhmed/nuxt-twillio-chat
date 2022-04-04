@@ -71,24 +71,25 @@
                 </span>
               </div>
 
-
               <div class="form-group">
                 <label>
                   Country
                   <span class="text-danger">*</span>
                 </label>
                 <select
-                 @click="changeCountry()"
+                  @click="changeCountry()"
                   class="form-control"
                   v-model="country_id"
-                  :class="{ 'is-invalid': submitted && $v.country_id.$error, 'disabled' :is_twilio_no }"
+                  :class="{
+                    'is-invalid': submitted && $v.country_id.$error,
+                    disabled: is_twilio_no,
+                  }"
                 >
                   <option value="">Select</option>
                   <option
                     v-for="country in countries"
                     :value="country.id"
                     :key="country.id"
-
                   >
                     {{ country.country_name }}
                   </option>
@@ -104,77 +105,57 @@
                 </span>
               </div>
 
-
-
-              <div class="form-group" v-if="country_id ===231">
-                <label>
-                 US Regions
-
-                </label>
-                <select
-                  class="form-control"
-                  v-model="state"
-
-                >
+              <div class="form-group" v-if="country_id === 231">
+                <label> US Regions </label>
+                <select class="form-control" v-model="state">
                   <option value="">Select</option>
                   <option
                     v-for="country in usStates"
                     :value="country.id"
                     :key="country.id"
-
                   >
                     {{ country.value }}
                   </option>
                 </select>
-
               </div>
 
-
-
-              <div class="form-group" v-if="country_id ===38">
-                <label>
-                 Canada Regions
-
-                </label>
-                <select
-                  class="form-control"
-                  v-model="state"
-
-                >
+              <div class="form-group" v-if="country_id === 38">
+                <label> Canada Regions </label>
+                <select class="form-control" v-model="state">
                   <option value="">Select</option>
                   <option
                     v-for="country in canadaStates"
                     :value="country.id"
                     :key="country.id"
-
                   >
                     {{ country.value }}
                   </option>
                 </select>
-
               </div>
 
-
-              <div class="form-group twilio_no " v-if="!is_twilio_no">
-                 <div class="button-list">
-                   <b-button   class="btn-soft-success" @click="generateTwilioNumber()" :class="{ 'disabled' : !Number.isInteger(country_id)}">
-                     Generate Number
-                   </b-button>
-                 </div>
-<!--                  <a  role="button" href="#" :class="{ 'disabled' :!is_country}"  @click="generateTwilioNumber()">-->
-<!--                    <label for="fname">Generate Twilio Number</label></a-->
-<!--                  >-->
-                </div>
-
-
-                <div class="form-group twilio_no " v-if="is_twilio_no">
-                  <b-button   class="btn-soft-danger" @click="removeTwilioNumber()" >
-                    Remove Twilio Number
+              <div class="form-group twilio_no" v-if="!is_twilio_no">
+                <div class="button-list">
+                  <b-button
+                    class="btn-soft-success"
+                    @click="generateTwilioNumber()"
+                    :class="{ disabled: !Number.isInteger(country_id) }"
+                  >
+                    Generate Number
                   </b-button>
-<!--                  <a  role="button" href="#" :class="{ 'disabled' :!is_country}"  @click="removeTwilioNumber()">-->
-<!--                    <label for="fname">Remove Twilio Number</label></a-->
-<!--                  >-->
                 </div>
+                <!--                  <a  role="button" href="#" :class="{ 'disabled' :!is_country}"  @click="generateTwilioNumber()">-->
+                <!--                    <label for="fname">Generate Twilio Number</label></a-->
+                <!--                  >-->
+              </div>
+
+              <div class="form-group twilio_no" v-if="is_twilio_no">
+                <b-button class="btn-soft-danger" @click="removeTwilioNumber()">
+                  Remove Twilio Number
+                </b-button>
+                <!--                  <a  role="button" href="#" :class="{ 'disabled' :!is_country}"  @click="removeTwilioNumber()">-->
+                <!--                    <label for="fname">Remove Twilio Number</label></a-->
+                <!--                  >-->
+              </div>
               <div class="form-group">
                 <label for="fname">Phone Number</label>
                 <input
@@ -194,7 +175,6 @@
                   {{ backendErrors.phone_no[0] }}
                 </span>
               </div>
-
 
               <div class="form-group">
                 <label for="fname">password</label>
@@ -217,7 +197,6 @@
                 </span>
               </div>
 
-
               <div class="form-group">
                 <label for="role">
                   Role
@@ -229,8 +208,8 @@
                   :class="{ 'is-invalid': submitted && $v.role.$error }"
                 >
                   <option value="">Select</option>
-                  <option value="admin" >Admin </option>
-                   <option value="influencer" >Influencer</option>
+                  <option value="admin">Admin</option>
+                  <option value="influencer">Influencer</option>
                 </select>
                 <div
                   v-if="submitted && !$v.role.required"
@@ -238,9 +217,7 @@
                 >
                   Role is required.
                 </div>
-
               </div>
-
 
               <div class="form-group text-right m-b-0">
                 <button class="btn btn-primary" type="submit">Submit</button>
@@ -256,13 +233,8 @@
       <!-- end col -->
     </div>
     <!-- end row -->
-
-
   </div>
-
-
 </template>
-
 
 <script>
 /**
@@ -282,7 +254,7 @@ export default {
       title: "Add Influencer",
       items: [
         {
-          text: "In Fluencers",
+          text: "Dashboard",
           to: "/",
         },
         {
@@ -294,249 +266,247 @@ export default {
       usStates: [
         {
           value: "Alabama",
-          id: "AL"
+          id: "AL",
         },
         {
           value: "Arizona",
-          id: "AZ"
+          id: "AZ",
         },
         {
           value: "Arkansas",
-          id: "AR"
+          id: "AR",
         },
         {
           value: "California",
-          id: "CA"
+          id: "CA",
         },
         {
           value: "Colorado",
-          id: "CO"
+          id: "CO",
         },
         {
           value: "Connecticut",
-          id: "CT"
+          id: "CT",
         },
         {
           value: "Delaware",
-          id: "DE"
+          id: "DE",
         },
         {
           value: "Florida",
-          id: "FL"
+          id: "FL",
         },
         {
           value: "Georgia",
-          id: "GA"
+          id: "GA",
         },
         {
           value: "Hawaii",
-          id: "HI"
+          id: "HI",
         },
         {
           value: "Idaho",
-          id: "ID"
+          id: "ID",
         },
         {
           value: "Illinois",
-          id: "IL"
+          id: "IL",
         },
         {
           value: "Indiana",
-          id: "IN"
+          id: "IN",
         },
         {
           value: "Iowa",
-          id: "IA"
+          id: "IA",
         },
         {
           value: "Kansas",
-          id: "KS"
+          id: "KS",
         },
         {
           value: "Kentucky",
-          id: "KY"
+          id: "KY",
         },
         {
           value: "Louisiana",
-          id: "LA"
+          id: "LA",
         },
         {
           value: "Maine",
-          id: "ME"
+          id: "ME",
         },
         {
           value: "Maryland",
-          id: "MD"
+          id: "MD",
         },
         {
           value: "Massachusetts",
-          id: "MA"
+          id: "MA",
         },
         {
           value: "Michigan",
-          id: "MI"
+          id: "MI",
         },
         {
           value: "Minnesota",
-          id: "MN"
+          id: "MN",
         },
         {
           value: "Mississippi",
-          id: "MS"
+          id: "MS",
         },
         {
           value: "Missouri",
-          id: "MO"
+          id: "MO",
         },
         {
           value: "Montana",
-          id: "MT"
+          id: "MT",
         },
         {
           value: "Nebraska",
-          id: "NE"
+          id: "NE",
         },
         {
           value: "Nevada",
-          id: "NV"
+          id: "NV",
         },
         {
           value: "New Jersey",
-          id: "NJ"
+          id: "NJ",
         },
         {
           value: "New Mexico",
-          id: "NM"
+          id: "NM",
         },
         {
           value: "New York",
-          id: "NY"
+          id: "NY",
         },
         {
           value: "North Carolina",
-          id: "NC"
+          id: "NC",
         },
         {
           value: "North Dakota",
-          id: "ND"
+          id: "ND",
         },
         {
           value: "Ohio",
-          id: "OH"
+          id: "OH",
         },
         {
           value: "Oklahoma",
-          id: "OK"
+          id: "OK",
         },
         {
           value: "Oregon",
-          id: "OR"
+          id: "OR",
         },
         {
           value: "Pennsylvania",
-          id: "PA"
+          id: "PA",
         },
         {
           value: "Rhode Island",
-          id: "RI"
+          id: "RI",
         },
         {
           value: "South Carolina",
-          id: "SC"
+          id: "SC",
         },
         {
           value: "South Dakota",
-          id: "SD"
+          id: "SD",
         },
         {
           value: "Tennessee",
-          id: "TN"
+          id: "TN",
         },
         {
           value: "Texas",
-          id: "TX"
+          id: "TX",
         },
         {
           value: "Utah",
-          id: "UT"
+          id: "UT",
         },
         {
           value: "Vermont",
-          id: "VT"
+          id: "VT",
         },
         {
           value: "Virginia",
-          id: "VA"
+          id: "VA",
         },
         {
           value: "Washington",
-          id: "WA"
+          id: "WA",
         },
         {
           value: "West Virginia",
-          id: "WV"
+          id: "WV",
         },
         {
           value: "Wisconsin",
-          id: "WI"
+          id: "WI",
         },
         {
           value: "Wyoming",
-          id: "WY"
-        }
+          id: "WY",
+        },
       ],
-
-
 
       canadaStates: [
         {
           value: "Alberta",
-          id: "AB"
+          id: "AB",
         },
         {
           value: "British Columbia",
-          id: "BC"
+          id: "BC",
         },
         {
           value: "Manitoba",
-          id: "MB"
+          id: "MB",
         },
         {
           value: "New Brunswick",
-          id: "NB"
+          id: "NB",
         },
         {
           value: "Newfoundland and Labrador",
-          id: "NL"
+          id: "NL",
         },
         {
           value: "Northwest Territories",
-          id: "NT"
+          id: "NT",
         },
         {
           value: "Nova Scotia",
-          id: "NS"
+          id: "NS",
         },
         {
           value: "Nunavut",
-          id: "NU"
+          id: "NU",
         },
         {
           value: "Ontario",
-          id: "ON"
+          id: "ON",
         },
         {
           value: "Prince Edward Island",
-          id: "PE"
+          id: "PE",
         },
         {
           value: "Quebec",
-          id: "QC"
+          id: "QC",
         },
         {
           value: "Yukon Territory",
-          id: "YT"
-        }
+          id: "YT",
+        },
       ],
 
       fname: "",
@@ -546,14 +516,14 @@ export default {
       password: "",
       country_id: "",
       state: 0,
-      is_usa_state:0,
-      is_canada_state:0,
+      is_usa_state: 0,
+      is_canada_state: 0,
       backendErrors: {},
       submitted: false,
       countries: [],
       is_twilio_no: false,
-      role:'',
-      is_country:false
+      role: "",
+      is_country: false,
     };
   },
   validations: {
@@ -587,47 +557,42 @@ export default {
     disableSpinner() {
       this.$store.dispatch("spinner/clear", "");
     },
-    changeCountry(){
-     if(Number.isInteger(this.is_country)){
-         this.is_country=true;
-     }else{
-       this.is_country=false;
-     }
-
+    changeCountry() {
+      if (Number.isInteger(this.is_country)) {
+        this.is_country = true;
+      } else {
+        this.is_country = false;
+      }
     },
 
     generateTwilioNumber() {
-
       this.enableSpinner();
-      const payload={
-        country_id:this.country_id,
-        state:this.state
-      }
-       this.$store
-        .dispatch("createTwilioNumber",payload)
+      const payload = {
+        country_id: this.country_id,
+        state: this.state,
+      };
+      this.$store
+        .dispatch("createTwilioNumber", payload)
         .then((response) => {
-          if(response.data.status) {
+          if (response.data.status) {
             this.phone_no = response.data.data.number;
             this.is_twilio_no = true;
           }
-          this.disableSpinner()
-
+          this.disableSpinner();
         })
         .catch((error) => {
           this.backendErrors = error.response.data.errors;
-          this.disableSpinner()
-          alert('There is something going wrong please generate number again!')
-          this.removeTwilioNumber()
-
-        })
+          this.disableSpinner();
+          alert("There is something going wrong please generate number again!");
+          this.removeTwilioNumber();
+        });
     },
     removeTwilioNumber() {
-    this.phone_no = ''
-    this.country_id = ''
-    this.is_twilio_no = false
-     this.is_usa_state=0
-     this.is_canada_state=0
-
+      this.phone_no = "";
+      this.country_id = "";
+      this.is_twilio_no = false;
+      this.is_usa_state = 0;
+      this.is_canada_state = 0;
     },
     // Try to register the user in with the email, username
     // and password they provided.
@@ -671,7 +636,7 @@ export default {
     },
   },
   created() {
-        // this.enableSpinner();
+    // this.enableSpinner();
     this.$store
       .dispatch("getInfluencersDropdowns")
       .then((response) => {

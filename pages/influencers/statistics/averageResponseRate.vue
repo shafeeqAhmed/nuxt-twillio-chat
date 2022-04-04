@@ -40,11 +40,10 @@ export default {
           <div class="card-body">
             <div class="text-center" dir="ltr">
               <div class="row">
-                <div class="col-md-4 form-inline">
-                  <h4>Response Rate</h4>
-                </div>
-
-                <div class="col-md-8 form-inline d-flex justify-content-end">
+                <h4>Response Rate</h4>
+              </div>
+              <div class="row">
+                <div class="col-md-8 form-inline">
                   <label>Start Date</label>
                   <div role="group" class="form-group m-2">
                     <input type="date" v-model="start" class="form-control" />

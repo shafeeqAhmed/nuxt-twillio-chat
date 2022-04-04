@@ -1,26 +1,22 @@
 export const menuItems = [
-  {
+{
     id: 1,
-    label: 'Menu',
+    label: 'Incluencers',
+    icon: 'ri-book-line',
+    link: '/'
+  },
+  {
+    id: 2,
+    label: 'Create Influencer',
+    icon: 'ri-file-add-line',
+    link: '/influencers/add'
+  },
+
+  {
+    id: 3,
+    label: 'Statistics',
     icon: 'ri-dashboard-line',
-    isMenuCollapsed: true,
-    subItems: [
-      {
-        id: 2,
-        label: 'List',
-        link: '/'
-      },
-      {
-        id: 3,
-        label: 'Create',
-        link: '/influencers/add'
-      },
-       {
-        id: 4,
-        label: 'Statistics',
-        link: '/admin/stats'
-      },
-    ]
+    link: '/admin/stats'
   },
 
     // {
@@ -697,26 +693,39 @@ export const menuItems = [
 export const influencerMenuItems = [
   {
     id: 1,
-    label: 'Menu',
+    label: 'Sent Broadcast',
     icon: 'ri-dashboard-line',
-    isMenuCollapsed: true,
-    subItems: [
-      {
-        id: 2,
-        label: 'Sent',
-        link: '/influencers/sent'
-      },
-       {
-        id: 3,
-        label: 'Statistics',
-        link: '/influencers/statistics'
-      },
-      {
-        id: 4,
-        label: 'Graph Stats',
-        link: '/influencers/statistics/graph'
-      },
+    link: '/influencers/sent'
 
-    ]
+    // subItems: [
+    //   {
+    //     id: 2,
+    //     label: 'Sent',
+    //     link: '/influencers/sent'
+    //   },
+    //    {
+    //     id: 3,
+    //     label: 'Statistics',
+    //     link: '/influencers/statistics'
+    //   },
+    //   {
+    //     id: 4,
+    //     label: 'Graph Stats',
+    //     link: '/influencers/statistics/graph'
+    //   },
+
+    // ]
   },
+  {
+    id: 2,
+    label: 'Statics',
+    icon: 'ri-dashboard-line',
+    link: '/influencers/statistics'
+  },
+  {
+    id: 3,
+    label: 'Graph Statics',
+    icon: 'ri-dashboard-line',
+    link: '/influencers/statistics/graph'
+  }
 ];

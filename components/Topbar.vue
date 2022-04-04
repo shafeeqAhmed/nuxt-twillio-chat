@@ -202,7 +202,7 @@ export default {
           <nuxt-link
             class="nav-link dropdown-toggle arrow-none waves-effect waves-light"
             aria-current="page"
-            to="/influencers/sent"
+            to="/influencers/sent-broadcast"
           >
             <i class="ri-message-2-line"></i> <span>Sent Broadcast</span>
           </nuxt-link>

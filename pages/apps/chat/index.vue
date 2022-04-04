@@ -275,9 +275,16 @@
                 </p>
               </div>
               <div>
-                <a href="javascript: void(0);" class="text-reset font-20">
-                  <i class="mdi mdi-cog-outline"></i>
-                </a>
+                <div class="float-right">
+                  <div variant="primary">
+                    <button
+                      class="btn btn-outline-secondary btn-xs mt-1 mr-3"
+                      @click="showModal = true"
+                    >
+                      Broadcast
+                    </button>
+                  </div>
+                </div>
               </div>
             </div>
 
@@ -423,18 +430,6 @@
                        <span class="w-75">{{ item.message[0].message }}</span>
                      </p> -->
                   </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-1">
-              <div class="float-right">
-                <div class="plus-div" variant="primary">
-                  <button
-                    class="btn btn-outline-secondary btn-xs mt-1 mr-3"
-                    @click="showModal = true"
-                  >
-                    Broadcast
-                  </button>
                 </div>
               </div>
             </div>

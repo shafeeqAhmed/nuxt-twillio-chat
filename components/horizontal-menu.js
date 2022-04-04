@@ -724,7 +724,7 @@ export const influencerMenuItems = [
   },
   {
     id: 3,
-    label: 'Graph Statics',
+    label: 'Insight',
     icon: 'ri-dashboard-line',
     link: '/influencers/statistics/graph'
   }

@@ -75,9 +75,6 @@ export default {
               <div class="row">
                 <h4>Number of Text</h4>
               </div>
-              <div class="row invisible">
-                <h4>Number of Text</h4>
-              </div>
 
               <div class="row">
                 <div class="col-md-12 form-inline">
@@ -170,6 +167,9 @@ export default {
               </h6>
             </div>
             <!-- end .text-center -->
+            <div class="row invisible">
+              <h4>hidden text for manage botton space</h4>
+            </div>
           </div>
           <!-- end card-box -->
         </div>

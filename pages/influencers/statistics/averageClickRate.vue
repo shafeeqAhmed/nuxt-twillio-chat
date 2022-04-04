@@ -33,56 +33,57 @@ export default {
   <div>
     <!-- start col-->
 
-    <div class="col-12">
-      <div class="card">
-        <div class="card-body">
-          <div class="text-center" dir="ltr">
-            <div class="row">
-              <h4>Click Rate</h4>
-            </div>
-            <div class="row">
-              <div class="col-md-9 form-inline">
-                <div class="col-md-6">
-                  <div class="'form-group">
-                    <label class="label-text-left">Start Date</label>
-                    <input
-                      type="date"
-                      v-model="start"
-                      class="form-control graph-card-input"
-                    />
+    <div class="row">
+      <div class="col-12">
+        <div class="card">
+          <div class="card-body">
+            <div class="text-center" dir="ltr">
+              <div class="row">
+                <h4>Click Rate</h4>
+              </div>
+              <div class="row">
+                <div class="col-md-9 form-inline">
+                  <div class="col-md-6">
+                    <div class="'form-group">
+                      <label class="label-text-left">Start Date</label>
+                      <input
+                        type="date"
+                        v-model="start"
+                        class="form-control graph-card-input"
+                      />
+                    </div>
+                  </div>
+
+                  <div class="col-md-6">
+                    <div class="'form-group">
+                      <label class="label-text-left">End Date</label>
+                      <input
+                        type="date"
+                        v-model="end"
+                        class="form-control graph-card-input"
+                      />
+                    </div>
+                  </div>
+
+                  <div role="group" class="form-group m-2">
+                    <div class="form-group m-2"></div>
                   </div>
                 </div>
-
-                <div class="col-md-6">
-                  <div class="'form-group">
-                    <label class="label-text-left">End Date</label>
-                    <input
-                      type="date"
-                      v-model="end"
-                      class="form-control graph-card-input"
-                    />
+                <div class="col-md-2">
+                  <div class="col-md-6">
+                    <div class="'form-group">
+                      <button
+                        class="btn btn-info search-btn-alignment"
+                        @click="getData"
+                      >
+                        Search
+                      </button>
+                    </div>
                   </div>
-                </div>
-
-                <div role="group" class="form-group m-2">
-                  <div class="form-group m-2"></div>
                 </div>
               </div>
-              <div class="col-md-2">
-                <div class="col-md-6">
-                  <div class="'form-group">
-                    <button
-                      class="btn btn-info search-btn-alignment"
-                      @click="getData"
-                    >
-                      Search
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
 
-            <!-- <div class="row">
+              <!-- <div class="row">
               <div class="col-md-4 form-inline">
                 <h4>Click Rate</h4>
               </div>
@@ -102,21 +103,22 @@ export default {
               </div>
             </div> -->
 
-            <knob-control
-              v-model="mapData"
-              :min="-mapData"
-              :max="mapData"
-              class="mt-3"
-              :size="150"
-              primary-color="#4bd396"
-              secondary-color="#eeeeee"
-              text-color="#4bd396"
-            ></knob-control>
-            <h6 class="text-muted mt-2">Average Click Rate Percentage</h6>
+              <knob-control
+                v-model="mapData"
+                :min="-mapData"
+                :max="mapData"
+                class="mt-3"
+                :size="150"
+                primary-color="#4bd396"
+                secondary-color="#eeeeee"
+                text-color="#4bd396"
+              ></knob-control>
+              <h6 class="text-muted mt-2">Average Click Rate Percentage</h6>
+            </div>
+            <!-- end .text-center -->
           </div>
-          <!-- end .text-center -->
+          <!-- end card-box -->
         </div>
-        <!-- end card-box -->
       </div>
     </div>
     <!-- end col-->

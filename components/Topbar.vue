@@ -413,7 +413,7 @@ export default {
             <!-- <span class="logo-lg-text-light">Minton</span> -->
           </span>
           <span class="logo-lg">
-            <img src="~/assets/images/logo-dark.png" alt height="20" />
+            <img src="~/assets/images/logo-dark.png" alt height="40" />
             <!-- <span class="logo-lg-text-light">M</span> -->
           </span>
         </nuxt-link>

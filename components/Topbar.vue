@@ -163,7 +163,7 @@ export default {
           </div>
         </li>
 
-        <li class="dropdown d-none d-lg-inline-block">
+        <!-- <li class="dropdown d-none d-lg-inline-block">
           <a
             class="nav-link dropdown-toggle arrow-none waves-effect waves-light"
             @click="initFullScreen"
@@ -172,7 +172,7 @@ export default {
           >
             <i class="fe-maximize noti-icon"></i>
           </a>
-        </li>
+        </li> -->
 
         <li class="dropdown d-none d-lg-inline-block">
           <nuxt-link
@@ -372,39 +372,39 @@ export default {
           </a>
           <!-- End mobile menu toggle-->
         </li>
-        <b-nav-item-dropdown
+        <!-- <b-nav-item-dropdown
           class="d-none d-lg-block"
           v-if="$auth.hasScope('admin')"
-        >
-          <template slot="button-content">
-            <!--                    {{ $t('navbar.dropdown.createnew.text') }}-->
-            Influencer
-            <i class="mdi mdi-chevron-down"></i>
-          </template>
-          <!-- <b-dropdown-item href="#">
+        > -->
+        <!-- <template slot="button-content">
+                              {{ $t('navbar.dropdown.createnew.text') }}-->
+        <!-- Influencer -->
+        <!-- <i class="mdi mdi-chevron-down"></i> -->
+        <!-- </template> -->
+        <!-- <b-dropdown-item href="#">
                     <i class="fe-briefcase mr-1"></i>
                     <span>{{ $t('navbar.dropdown.createnew.list.projects') }}</span>
                 </b-dropdown-item> -->
-          <b-dropdown-item>
+        <!-- <b-dropdown-item>
             <NuxtLink to="/influencers/add">
               <i class="fe-user mr-1"></i>
               <span>Create</span>
-            </NuxtLink>
-            <!--                    <span>{{ $t('navbar.dropdown.createnew.list.users') }}</span></NuxtLink>-->
-          </b-dropdown-item>
-          <!-- <b-dropdown-item href="#">
+            </NuxtLink> -->
+        <!--                    <span>{{ $t('navbar.dropdown.createnew.list.users') }}</span></NuxtLink>-->
+        <!-- </b-dropdown-item> -->
+        <!-- <b-dropdown-item href="#">
                     <i class="fe-bar-chart-line- mr-1"></i>
                     <span>{{ $t('navbar.dropdown.createnew.list.revenue') }}</span>
                 </b-dropdown-item> -->
-          <!-- <b-dropdown-item href="#">
+        <!-- <b-dropdown-item href="#">
                     <i class="fe-settings mr-1"></i>
                     <span>{{ $t('navbar.dropdown.createnew.list.settings') }}</span>
                 </b-dropdown-item> -->
-          <!-- <b-dropdown-item href="#">
+        <!-- <b-dropdown-item href="#">
                     <i class="fe-headphones mr-1"></i>
                     <span>{{ $t('navbar.dropdown.createnew.list.help') }}</span>
                 </b-dropdown-item> -->
-        </b-nav-item-dropdown>
+        <!-- </b-nav-item-dropdown> -->
 
         <!--            <b-nav-item-dropdown class="dropdown-mega d-none d-xl-block" variant="black" menu-class="dropdown-megamenu">-->
         <!--                <template v-slot:button-content>-->

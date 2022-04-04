@@ -408,7 +408,7 @@
                   </div>
 
                   <div class="media-body">
-                    <h5 class="mt-0 mb-0 font-14">
+                    <h5 class="mt-2 mb-0 font-14">
                       <span
                         class="float-right text-muted font-weight-normal font-12"
                       >
@@ -416,9 +416,9 @@
                       </span>
                       {{ username }}
                     </h5>
-                    <p class="mt-1 mb-0 text-muted font-14">
-                      <span class="w-75"> {{ receiver_number }} </span>
-                    </p>
+                    <!-- <p class="mt-1 mb-0 text-muted font-14"> -->
+                    <!-- <span class="w-75"> {{ receiver_number }} </span> -->
+                    <!-- </p> -->
                     <!--  <p v-if="item.message[0]" class="mt-1 mb-0 text-muted font-14">
                        <span class="w-75">{{ item.message[0].message }}</span>
                      </p> -->
@@ -485,7 +485,7 @@
                             class="badge badge-pill badge-primary float-left mr-1"
                             v-html="data.total_visits"
                           ></span>
-                          {{ data.from }}
+                          {{ data.name }}
                         </i>
                         <p v-html="data.message"></p>
                       </div>

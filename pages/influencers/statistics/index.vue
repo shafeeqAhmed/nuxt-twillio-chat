@@ -63,7 +63,7 @@ export default {
   <div>
     <PageHeader :title="title" :items="items" />
 
-    <div class="row">
+    <div class="row d-flex">
       <div class="col-md-4 col-xl-4">
         <div class="widget-rounded-circle card">
           <div class="card-body">
@@ -167,8 +167,15 @@ export default {
       </div>
     </div>
 
-    <fan-reach />
-    <no-of-text />
+    <div class="row">
+      <div class="col-6">
+        <fan-reach />
+      </div>
+      <div class="col-6">
+        <no-of-text />
+      </div>
+    </div>
+
     <no-of-contact />
     <top-active-contact />
     <top-in-active-contact />

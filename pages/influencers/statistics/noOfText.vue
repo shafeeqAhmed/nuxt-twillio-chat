@@ -73,45 +73,88 @@ export default {
           <div class="card-body">
             <div class="text-center" dir="ltr">
               <div class="row">
-                <div class="col-md-3 form-inline">
-                  <h4>Number of Text</h4>
-                </div>
+                <h4>Number of Text</h4>
+              </div>
+              <div class="row invisible">
+                <h4>Number of Text</h4>
+              </div>
 
-                <div class="col-md-9 form-inline d-flex justify-content-end">
-                  <div class="form-group m-2">
-                    <select class="form-control" v-model="type">
-                      <option value="">Selection Date Type</option>
-                      <option value="range">Date Range</option>
-                      <option value="duration">Duration</option>
-                    </select>
-                  </div>
-                  <div v-if="type == 'duration'" class="form-group m-2">
-                    <select class="form-control" v-model="duration">
-                      <option value="">Select duration</option>
-                      <option
-                        v-for="(list, key) in options"
-                        :key="`${key}` - no - of - text"
-                        :value="list.value"
+              <div class="row">
+                <div class="col-md-12 form-inline">
+                  <div class="col-md-3">
+                    <div class="'form-group">
+                      <label class="label-text-left">Duration Type</label>
+                      <select
+                        class="form-control graph-card-input"
+                        v-model="type"
                       >
-                        {{ list.name }}
-                      </option>
-                    </select>
+                        <option value="">Date Type</option>
+                        <option value="range">Date Range</option>
+                        <option value="duration">Duration</option>
+                      </select>
+                    </div>
                   </div>
 
-                  <div class="form-group m-2" v-if="type == 'range'">
+                  <div class="col-md-3" v-if="type == 'duration'">
+                    <div class="'form-group">
+                      <label class="label-text-left">Select duration</label>
+                      <select
+                        class="form-control graph-card-input"
+                        v-model="duration"
+                      >
+                        <option value="">Select duration</option>
+                        <option
+                          v-for="(list, key) in options"
+                          :key="`${key}` - no - of - text"
+                          :value="list.value"
+                        >
+                          {{ list.name }}
+                        </option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div class="col-md-3" v-if="type == 'range'">
+                    <div class="'form-group">
+                      <label class="label-text-left">Start Date</label>
+                      <input
+                        type="date"
+                        v-model="start"
+                        class="form-control graph-card-input"
+                      />
+                    </div>
+                  </div>
+                  <div class="col-md-3" v-if="type == 'range'">
+                    <div class="'form-group">
+                      <label class="label-text-left">End Date</label>
+                      <input
+                        type="date"
+                        v-model="end"
+                        class="form-control graph-card-input"
+                      />
+                    </div>
+                  </div>
+
+                  <div class="col-md-3">
+                    <div class="'form-group">
+                      <button
+                        class="btn btn-info search-btn-alignment"
+                        @click="getData"
+                      >
+                        Search
+                      </button>
+                    </div>
+                  </div>
+
+                  <!-- <div class="form-group m-2" v-if="type == 'range'">
                     <input type="date" v-model="start" class="form-control" />
                   </div>
                   <div class="form-group m-2" v-if="type == 'range'">
                     <input type="date" v-model="end" class="form-control" />
-                  </div>
-                  -
-                  <div class="form-group m-2">
-                    <button class="btn btn-info" @click="getData">
-                      Search
-                    </button>
-                  </div>
+                  </div> -->
                 </div>
               </div>
+
               <knob-control
                 v-model="mapData"
                 :min="-mapData"
@@ -122,7 +165,9 @@ export default {
                 secondary-color="#eeeeee"
                 text-color="#4bd396"
               ></knob-control>
-              <h6 class="text-muted mt-2">Number of Text</h6>
+              <h6 class="text-muted mt-2" style="margin-top: 20px !important">
+                Number of Text
+              </h6>
             </div>
             <!-- end .text-center -->
           </div>
@@ -133,3 +178,17 @@ export default {
     </div>
   </div>
 </template>
+<style scoped>
+.label-text-left {
+  justify-content: left;
+}
+.graph-card-input {
+  width: 100%;
+}
+.search-btn-alignment {
+  margin-top: 22px;
+}
+input {
+  margin-right: 5px;
+}
+</style>

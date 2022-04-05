@@ -216,7 +216,7 @@ export default {
             aria-current="page"
             to="/influencers/statistics"
           >
-            <i class="ri-dashboard-line"></i> <span>Statics</span>
+            <i class="ri-dashboard-line"></i> <span>Statistics</span>
           </nuxt-link>
         </li>
         <li

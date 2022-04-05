@@ -20,7 +20,7 @@ export default {
         ticktok: "",
         password: "",
         phone_no: "",
-        password_confirmation: ""
+        password_confirmation: "",
       },
       countries: [],
       gender_list: ["Male", "Female", "Other"],
@@ -31,33 +31,32 @@ export default {
       registerSuccess: false,
       backendErrors: {},
       isDisabled: false,
-      address:'',
-      latitude:0,
-      longitude:0
+      address: "",
+      latitude: 0,
+      longitude: 0,
     };
   },
   layout: "auth",
 
-  mounted(){
- var defaultBounds = new google.maps.LatLngBounds(
-  new google.maps.LatLng(-33.8902, 151.1759),
-  new google.maps.LatLng(-33.8474, 151.2631));
-  var input = document.getElementById('address');
-  var options = {
-    bounds: defaultBounds,
-    types: ['establishment']};
+  mounted() {
+    var defaultBounds = new google.maps.LatLngBounds(
+      new google.maps.LatLng(-33.8902, 151.1759),
+      new google.maps.LatLng(-33.8474, 151.2631)
+    );
+    var input = document.getElementById("address");
+    var options = {
+      bounds: defaultBounds,
+      types: ["establishment"],
+    };
 
-   var autocomplete = new google.maps.places.Autocomplete(input, options);
-    google.maps.event.addListener(autocomplete,"place_changed", function () {
+    var autocomplete = new google.maps.places.Autocomplete(input, options);
+    google.maps.event.addListener(autocomplete, "place_changed", function () {
       var place = autocomplete.getPlace();
       var latitude = place.geometry.location.lat();
       var longitude = place.geometry.location.lng();
-      document.getElementById('latitute').value=latitude;
-      document.getElementById('longitude').value=longitude;
-
+      document.getElementById("latitute").value = latitude;
+      document.getElementById("longitude").value = longitude;
     });
-
-
   },
   computed: {
     notification() {
@@ -91,7 +90,7 @@ export default {
       // phone_no: {
       //   required,
       // },
-     dob: {
+      dob: {
         required,
       },
       // password: {
@@ -103,26 +102,24 @@ export default {
     },
   },
   created() {
-    if(!this.$route.query.id){
+    if (!this.$route.query.id) {
       this.returnLogin();
     }
 
-     this.$store
-      .dispatch("isValidReference",this.$route.query.id)
+    this.$store
+      .dispatch("isValidReference", this.$route.query.id)
       .then((response) => {
-       if(!response.data.data) {
-         const message = 'Your reference link is not valid please type message your respective user again'
-         this.$store.dispatch(
-           "notification/error",
-           message
-         );
+        if (!response.data.data) {
+          const message =
+            "Your reference link is not valid please type message your respective user again";
+          this.$store.dispatch("notification/error", message);
 
-         this.returnLogin()
-       }
+          this.returnLogin();
+        }
       })
       .catch((error) => {
-        this.returnLogin()
-      })
+        this.returnLogin();
+      });
 
     this.$store
       .dispatch("getInfluencersDropdowns")
@@ -138,7 +135,7 @@ export default {
   },
   methods: {
     returnLogin() {
-      this.$router.push({ path: "/account/login" })
+      this.$router.push({ path: "/account/login" });
     },
     // Try to register the user in with the email, username
     // and password they provided.
@@ -171,30 +168,23 @@ export default {
             // password_confirmation: this.user.password_confirmation,
             terms: "on",
             baseDomain: "customer",
-            latitude: document.getElementById('latitute').value,
-            longitude:document.getElementById('longitude').value
-            };
+            latitude: document.getElementById("latitute").value,
+            longitude: document.getElementById("longitude").value,
+          };
 
-
-           this.$store
+          this.$store
             .dispatch("register", payload)
             .then((response) => {
               if (response.data.status) {
+                this.$store.dispatch("notification/clear");
 
-
-            this.$store.dispatch(
-                  "notification/clear"
-                );
-
-           this.$store.dispatch(
+                this.$store.dispatch(
                   "notification/success",
                   "Thank you for signing up."
                 );
 
-          this.$router.push('/account/thanks')
-
+                this.$router.push("/account/thanks");
               } else {
-
                 this.$store.dispatch(
                   "notification/error",
                   response.data.message
@@ -245,7 +235,11 @@ export default {
             </p>
           </div>
 
-          <form ref="register_form" action="#" @submit.prevent="tryToRegisterIn">
+          <form
+            ref="register_form"
+            action="#"
+            @submit.prevent="tryToRegisterIn"
+          >
             <b-alert
               v-model="registerSuccess"
               class="mt-3"
@@ -275,8 +269,8 @@ export default {
             <div class="form-group">
               <label for="fullname">
                 First Name
-                  <span class="text-danger">*</span>
-                </label>
+                <span class="text-danger">*</span>
+              </label>
               <input
                 class="form-control"
                 v-model="user.first_name"
@@ -296,9 +290,10 @@ export default {
             </div>
 
             <div class="form-group">
-              <label for="fullname">Last Name
-                 <span class="text-danger">*</span>
-                 </label>
+              <label for="fullname"
+                >Last Name
+                <span class="text-danger">*</span>
+              </label>
               <input
                 class="form-control"
                 v-model="user.last_name"
@@ -318,7 +313,7 @@ export default {
               <label for="emailaddress">
                 Email address
                 <span class="text-danger">*</span>
-                </label>
+              </label>
               <input
                 class="form-control"
                 v-model="user.email"
@@ -341,18 +336,18 @@ export default {
               </span>
             </div>
 
-
             <div class="form-group">
               <label for="country">
                 Country
                 <span class="text-danger">*</span>
               </label>
               <select
-              class="form-control"
-               v-model="user.country_id"
-              :class="{ 'is-invalid': submitted && $v.user.country_id.$error }"
-
-               >
+                class="form-control"
+                v-model="user.country_id"
+                :class="{
+                  'is-invalid': submitted && $v.user.country_id.$error,
+                }"
+              >
                 <option value="">Select</option>
                 <option
                   v-for="country in countries"
@@ -366,34 +361,33 @@ export default {
                 v-if="submitted && !$v.user.country_id.required"
                 class="invalid-feedback"
               >
-                Country  is required.
+                Country is required.
               </div>
               <span v-if="backendErrors.country_id" class="text-danger">
                 {{ backendErrors.country_id[0] }}
               </span>
             </div>
 
+            <input id="latitute" type="hidden" value="" />
+            <input id="longitude" type="hidden" value="" />
 
-              <input id="latitute"  type="hidden" value=""/>
-              <input id="longitude" type="hidden" value=""/>
-
-
-              <div class="form-group">
+            <div class="form-group">
               <label for="emailaddress">
                 Address
                 <span class="text-danger">*</span>
-                </label>
+              </label>
               <input
                 id="address"
                 class="form-control"
                 type="text"
                 placeholder="Enter your Address"
-                />
+              />
             </div>
 
-
             <div class="form-group">
-              <label for="fullname">City <span class="text-danger">*</span></label>
+              <label for="fullname"
+                >City <span class="text-danger">*</span></label
+              >
               <input
                 class="form-control"
                 v-model="user.city"
@@ -409,15 +403,17 @@ export default {
                 City is required.
               </div>
             </div>
-             <div class="form-group">
+            <div class="form-group">
               <label for="phno">
                 Gender
                 <span class="text-danger">*</span>
               </label>
-              <select class="form-control"
+              <select
+                class="form-control"
                 :class="{ 'is-invalid': submitted && $v.user.gender.$error }"
-               v-model="user.gender">
-               <option value=""> Select </option>
+                v-model="user.gender"
+              >
+                <option value="">Select</option>
                 <option
                   v-for="gender in gender_list"
                   :value="gender"
@@ -435,7 +431,6 @@ export default {
               >
                 Gender is required.
               </div>
-
             </div>
             <!-- <div class="form-group">
               <label for="fullname">Phone Number<span class="text-danger">*</span></label>
@@ -454,8 +449,10 @@ export default {
                 Phone Number is required.
               </div>
             </div> -->
-             <div class="form-group">
-              <label for="fullname">Date Of Birth<span class="text-danger">*</span></label>
+            <div class="form-group">
+              <label for="fullname"
+                >Date Of Birth<span class="text-danger">*</span></label
+              >
               <input
                 class="form-control"
                 v-model="user.dob"
@@ -471,7 +468,7 @@ export default {
                 Date of Birth is required.
               </div>
             </div>
-              <div class="form-group">
+            <div class="form-group">
               <label for="instagram">Instagram</label>
               <input
                 class="form-control"
@@ -505,7 +502,7 @@ export default {
               </div> -->
             </div>
 
-          <div class="form-group">
+            <div class="form-group">
               <label for="ticktok">TickTok</label>
               <input
                 class="form-control"
@@ -522,62 +519,62 @@ export default {
               </div> -->
             </div>
 
-<!--            <div class="form-group">-->
-<!--              <label for="password">Password<span class="text-danger">*</span></label>-->
-<!--              <div class="input-group input-group-merge">-->
-<!--                <input-->
-<!--                  type="password"-->
-<!--                  v-model="user.password"-->
-<!--                  id="password"-->
-<!--                  class="form-control"-->
-<!--                  :class="{-->
-<!--                    'is-invalid': submitted && $v.user.password.$error,-->
-<!--                  }"-->
-<!--                  placeholder="Enter your password"-->
-<!--                />-->
-<!--                <div class="input-group-append" data-password="false">-->
-<!--                  <div class="input-group-text">-->
-<!--                    <span class="password-eye"></span>-->
-<!--                  </div>-->
-<!--                </div>-->
-<!--                <div-->
-<!--                  v-if="submitted && !$v.user.password.required"-->
-<!--                  class="invalid-feedback"-->
-<!--                >-->
-<!--                  Password is required.-->
-<!--                </div>-->
-<!--              </div>-->
-<!--              <span v-if="backendErrors.password" class="text-danger">-->
-<!--                {{ backendErrors.password[0] }}-->
-<!--              </span>-->
-<!--            </div>-->
-<!--            <div class="form-group">-->
-<!--              <label for="password">Confirm Password</label>-->
-<!--              <div class="input-group input-group-merge">-->
-<!--                <input-->
-<!--                  type="password"-->
-<!--                  v-model="user.password_confirmation"-->
-<!--                  id="password_confirmation"-->
-<!--                  class="form-control"-->
-<!--                  :class="{-->
-<!--                    'is-invalid':-->
-<!--                      submitted && $v.user.password_confirmation.$error,-->
-<!--                  }"-->
-<!--                  placeholder="Enter your password"-->
-<!--                />-->
-<!--                <div class="input-group-append" data-password="false">-->
-<!--                  <div class="input-group-text">-->
-<!--                    <span class="password-eye"></span>-->
-<!--                  </div>-->
-<!--                </div>-->
-<!--                <div-->
-<!--                  v-if="submitted && !$v.user.password_confirmation.required"-->
-<!--                  class="invalid-feedback"-->
-<!--                >-->
-<!--                  Confirm Password is required.-->
-<!--                </div>-->
-<!--              </div>-->
-<!--            </div>-->
+            <!--            <div class="form-group">-->
+            <!--              <label for="password">Password<span class="text-danger">*</span></label>-->
+            <!--              <div class="input-group input-group-merge">-->
+            <!--                <input-->
+            <!--                  type="password"-->
+            <!--                  v-model="user.password"-->
+            <!--                  id="password"-->
+            <!--                  class="form-control"-->
+            <!--                  :class="{-->
+            <!--                    'is-invalid': submitted && $v.user.password.$error,-->
+            <!--                  }"-->
+            <!--                  placeholder="Enter your password"-->
+            <!--                />-->
+            <!--                <div class="input-group-append" data-password="false">-->
+            <!--                  <div class="input-group-text">-->
+            <!--                    <span class="password-eye"></span>-->
+            <!--                  </div>-->
+            <!--                </div>-->
+            <!--                <div-->
+            <!--                  v-if="submitted && !$v.user.password.required"-->
+            <!--                  class="invalid-feedback"-->
+            <!--                >-->
+            <!--                  Password is required.-->
+            <!--                </div>-->
+            <!--              </div>-->
+            <!--              <span v-if="backendErrors.password" class="text-danger">-->
+            <!--                {{ backendErrors.password[0] }}-->
+            <!--              </span>-->
+            <!--            </div>-->
+            <!--            <div class="form-group">-->
+            <!--              <label for="password">Confirm Password</label>-->
+            <!--              <div class="input-group input-group-merge">-->
+            <!--                <input-->
+            <!--                  type="password"-->
+            <!--                  v-model="user.password_confirmation"-->
+            <!--                  id="password_confirmation"-->
+            <!--                  class="form-control"-->
+            <!--                  :class="{-->
+            <!--                    'is-invalid':-->
+            <!--                      submitted && $v.user.password_confirmation.$error,-->
+            <!--                  }"-->
+            <!--                  placeholder="Enter your password"-->
+            <!--                />-->
+            <!--                <div class="input-group-append" data-password="false">-->
+            <!--                  <div class="input-group-text">-->
+            <!--                    <span class="password-eye"></span>-->
+            <!--                  </div>-->
+            <!--                </div>-->
+            <!--                <div-->
+            <!--                  v-if="submitted && !$v.user.password_confirmation.required"-->
+            <!--                  class="invalid-feedback"-->
+            <!--                >-->
+            <!--                  Confirm Password is required.-->
+            <!--                </div>-->
+            <!--              </div>-->
+            <!--            </div>-->
             <div class="form-group">
               <div class="custom-control custom-checkbox">
                 <input

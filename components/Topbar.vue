@@ -228,7 +228,7 @@ export default {
             aria-current="page"
             to="/influencers/statistics/graph"
           >
-            <i class="ri-dashboard-line"></i> <span>Insight</span>
+            <i class="ri-dashboard-line"></i> <span>Insights</span>
           </nuxt-link>
         </li>
 
@@ -594,3 +594,9 @@ export default {
   </div>
   <!-- end Topbar -->
 </template>
+<style scoped>
+.nav-link span,
+.nav-link i {
+  vertical-align: middle;
+}
+</style>

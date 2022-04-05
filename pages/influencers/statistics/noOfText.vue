@@ -73,7 +73,7 @@ export default {
           <div class="card-body">
             <div class="text-center" dir="ltr">
               <div class="row">
-                <h4>Number of Text</h4>
+                <h4>Number of Messages Sent</h4>
               </div>
 
               <div class="row">
@@ -163,7 +163,7 @@ export default {
                 text-color="#4bd396"
               ></knob-control>
               <h6 class="text-muted mt-2" style="margin-top: 20px !important">
-                Number of Text
+                Number of Messages Sent
               </h6>
             </div>
             <!-- end .text-center -->

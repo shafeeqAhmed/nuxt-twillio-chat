@@ -74,7 +74,7 @@ export default {
             <div class="text-center" dir="ltr">
               <div class="row">
                 <div class="col-md-3 form-inline">
-                  <h4>Number of Contact</h4>
+                  <h4>Number of Contacts</h4>
                 </div>
 
                 <div class="col-md-9 form-inline d-flex justify-content-end">

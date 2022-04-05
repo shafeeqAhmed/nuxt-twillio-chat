@@ -45,7 +45,7 @@ export default {
                 <div class="table-responsive mb-0">
                   <div class="row">
                     <div class="col-md-4 form-inline">
-                      <h3>Top 10 Active user</h3>
+                      <h3>Top 10 Active Fan</h3>
                     </div>
 
                     <div

@@ -8,13 +8,13 @@ import {
 export default {
     head() {
         return {
-            title: `${this.title} | Minton - Nuxtjs Responsive Admin Dashboard Template`
+            title: `${this.title}`
         }
     },
     data() {
         return {
             tableData: tableData,
-            title: 'Advanced Table',
+            title: 'Users',
             items: [{
                     text: 'Minton',
                     href: '/',
@@ -85,7 +85,7 @@ export default {
             this.currentPage = 1
         },
     },
-    middleware: 'router-auth'
+    // middleware: 'router-auth'
 }
 </script>
 

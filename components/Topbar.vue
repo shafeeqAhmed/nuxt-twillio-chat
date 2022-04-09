@@ -232,6 +232,19 @@ export default {
           </nuxt-link>
         </li>
 
+        <li
+          class="dropdown d-none d-lg-inline-block"
+          v-if="$auth.hasScope('influencer')"
+        >
+          <nuxt-link
+            class="nav-link dropdown-toggle arrow-none waves-effect waves-light"
+            aria-current="page"
+            to="/influencers/general/auto-messages"
+          >
+            <i class="ri-dashboard-line"></i> <span>Auto Messages</span>
+          </nuxt-link>
+        </li>
+
         <!-- admin menus -->
         <li
           class="dropdown d-none d-lg-inline-block"

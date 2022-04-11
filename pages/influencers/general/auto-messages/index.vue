@@ -17,7 +17,7 @@ export default {
     };
   },
   async fetch() {
-    // this.getBroadCastMessage();
+    this.getAutoMessages();
   },
   data() {
     return {
@@ -30,7 +30,7 @@ export default {
       newMessage: "",
       showModal: false,
       tableData: [],
-      title: "Sent Messages",
+      title: "Auto Messages",
       items: [
         {
           text: "",
@@ -46,10 +46,6 @@ export default {
       sortBy: "age",
       sortDesc: false,
       fields: [
-        {
-          key: "message",
-          sortable: true,
-        },
         {
           label: "Type",
           key: "type",
@@ -73,7 +69,6 @@ export default {
         {
           label: "Created",
           key: "created_at",
-          label: "Clicked Link",
         },
         {
           label: "Updated",
@@ -95,11 +90,11 @@ export default {
     this.totalRows = this.items.length;
   },
   methods: {
-    async getBroadCastMessage() {
+    async getAutoMessages() {
       const {
-        data: { broadCastMessage },
-      } = await this.$axios.$get("/broad-cast-messages");
-      this.tableData = broadCastMessage;
+        data: { autoMessageList },
+      } = await this.$axios.$get("/get-auto-message");
+      this.tableData = autoMessageList;
     },
     /**
      * Search the table data with search input
@@ -149,7 +144,7 @@ export default {
       if (data.status) {
         this.showModal = false;
         setTimeout(() => {
-          this.getBroadCastMessage();
+          this.getAutoMessages();
           alert(data.message);
         }, 700);
       } else {
@@ -168,7 +163,13 @@ export default {
       <div class="col-12">
         <div class="card">
           <div class="card-body">
-            <!-- <h4 class="header-title">BroadCast Message</h4> -->
+            <button
+              class="btn btn-primary btn-xs pull-right"
+              @click="showModal = true"
+            >
+              Add Auto Messages
+            </button>
+
             <p class="text-muted font-13 mb-4"></p>
             <div class="row mb-md-2">
               <div class="col-sm-12 col-md-6">
@@ -257,12 +258,8 @@ export default {
     </div>
     <b-modal v-model="showModal" title="Follow Up Message" centered>
       <form>
-        <label> Message </label>
-        <div class="form-group">
-          <p>
-            {{ activeMessage }}
-          </p>
-        </div>
+        <label> Type </label>
+
         <div class="form-group">
           <input
             type="text"

@@ -239,9 +239,9 @@ export default {
           <nuxt-link
             class="nav-link dropdown-toggle arrow-none waves-effect waves-light"
             aria-current="page"
-            to="/influencers/general/auto-messages"
+            to="/influencers/general/keyword"
           >
-            <i class="ri-dashboard-line"></i> <span>Auto Messages</span>
+            <i class="ri-dashboard-line"></i> <span>Keyword</span>
           </nuxt-link>
         </li>
 

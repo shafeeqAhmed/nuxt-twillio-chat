@@ -1,10 +1,5 @@
 <script>
-// import {
-//     tableData
-// } from './data'
-/**
- * Advanced Table component
- */
+import { required } from "vuelidate/lib/validators";
 import CKEditor from "@ckeditor/ckeditor5-vue";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 export default {
@@ -21,13 +16,12 @@ export default {
   },
   data() {
     return {
+      uuid: "",
+      isEdit: false,
       isDisabled: false,
-      broadcast_uuid: "",
-      activeMessage: "",
-      messageFor: "",
-      is_visited: false,
       editor: ClassicEditor,
-      newMessage: "",
+      keyword: "",
+      text: "",
       showModal: false,
       tableData: [],
       title: "Auto Messages",
@@ -43,14 +37,9 @@ export default {
       pageOptions: [10, 25, 50, 100],
       filter: null,
       filterOn: [],
-      sortBy: "age",
+      sortBy: "keyword",
       sortDesc: false,
       fields: [
-        {
-          label: "Type",
-          key: "type",
-          sortable: true,
-        },
         {
           label: "Keyword",
           key: "keyword",
@@ -71,8 +60,8 @@ export default {
           key: "created_at",
         },
         {
-          label: "Updated",
-          key: "updated_at",
+          label: "Edit",
+          key: "uuid",
         },
       ],
     };
@@ -104,43 +93,47 @@ export default {
       this.totalRows = filteredItems.length;
       this.currentPage = 1;
     },
-    messageModal(is_visited, item) {
-      console.log(item);
-      if (!item.total_message_link_count) {
-        alert(
-          "you can send follow up message only those Messages which contain Link"
-        );
-        return true;
-      }
+    openModal() {
+      this.isEdit = false;
+      this.text = "";
+      this.keyword = "";
+      this.uuid = "";
       this.isDisabled = false;
       this.showModal = true;
-      this.activeMessage = item.message;
-      this.broadcast_uuid = item.broadcast_uuid;
-      this.is_visited = is_visited;
-      if (is_visited) {
-        this.messageFor = "To: who clicked the link";
-        this.newMessage = "Thanks for buying a ticket";
-      } else {
-        this.messageFor = "To: who Not clicked the link";
-        this.newMessage = "Don't forget to buy a ticket before they are gone";
-      }
     },
-    async sendFollowUpMessge() {
+    openEditModal(item) {
+      this.isEdit = true;
+      this.uuid = item.uuid;
+      this.text = item.text;
+      this.keyword = item.keyword;
+      this.isDisabled = false;
+      this.showModal = true;
+    },
+    async saveKeyword() {
+      this.submitted = true;
+
+      // stop here if form is invalid
       this.isDisabled = true;
 
-      if (!this.newMessage) {
-        alert("Empty Message not allowed!");
+      if (!this.keyword || !this.text) {
+        alert("empty message or keyword not allowed!");
         return true;
       }
       const input = {
-        broadcast_uuid: this.broadcast_uuid,
-        message: this.newMessage,
-        is_visited: this.is_visited,
+        text: this.text,
+        keyword: this.keyword,
       };
-      const { data } = await this.$axios.$post(
-        "/send-follow-up-message",
-        input
-      );
+
+      let url = "";
+
+      if (!this.isEdit) {
+        url = "/add-auto-message";
+      } else {
+        input.uuid = this.uuid;
+        url = "/update-auto-message";
+      }
+      const { data } = await this.$axios.$post(url, input);
+
       if (data.status) {
         this.showModal = false;
         setTimeout(() => {
@@ -165,7 +158,7 @@ export default {
           <div class="card-body">
             <button
               class="btn btn-primary btn-xs pull-right"
-              @click="showModal = true"
+              @click="openModal"
             >
               Add Auto Messages
             </button>
@@ -218,20 +211,18 @@ export default {
                 :filter-included-fields="filterOn"
                 @filtered="onFiltered"
               >
-                <template #cell(clicked)="data">
+                <template #cell(uuid)="data">
                   <div class="text-center">
                     <i
                       class="mdi mdi-dots-vertical font-18 btn"
-                      @click="messageModal(true, data.item)"
-                    ></i>
+                      @click="openEditModal(data.item)"
+                    >
+                    </i>
                   </div>
                 </template>
                 <template #cell(notClicked)="data">
                   <div class="text-center">
-                    <i
-                      class="mdi mdi-dots-vertical font-18 btn"
-                      @click="messageModal(false, data.item)"
-                    ></i>
+                    <i class="mdi mdi-dots-vertical font-18 btn"></i>
                   </div>
                 </template>
               </b-table>
@@ -256,39 +247,24 @@ export default {
         </div>
       </div>
     </div>
-    <b-modal v-model="showModal" title="Follow Up Message" centered>
-      <form>
-        <label> Type </label>
 
-        <div class="form-group">
-          <input
-            type="text"
-            class="form-control"
-            readonly
-            :disabled="true"
-            :value="messageFor"
-          />
-        </div>
+    <b-modal v-model="showModal" title="Keyword For Message" centered>
+      <label> Keyword </label>
 
-        <div class="form-group">
-          <textarea
-            rows="5"
-            style="width: 100%"
-            v-model="newMessage"
-          ></textarea>
-          <!-- <ckeditor v-model="editorData" :editor="editor"></ckeditor> -->
-        </div>
-      </form>
+      <div class="form-group">
+        <input type="text" class="form-control" v-model="keyword" />
+      </div>
+
+      <label>Message Text</label>
+      <div class="form-group">
+        <textarea rows="5" style="width: 100%" v-model="text"></textarea>
+      </div>
       <template v-slot:modal-footer>
         <b-button variant="secondary" @click="showModal = false"
           >Close</b-button
         >
-        <b-button
-          :disabled="isDisabled"
-          variant="primary"
-          @click="sendFollowUpMessge()"
-        >
-          Send
+        <b-button variant="primary" @click="saveKeyword()">
+          Save
           <i class="fab fa-telegram-plane ml-1"></i>
         </b-button>
       </template>

@@ -244,6 +244,18 @@ export default {
             <i class="ri-dashboard-line"></i> <span>Keyword</span>
           </nuxt-link>
         </li>
+        <li
+          class="dropdown d-none d-lg-inline-block"
+          v-if="$auth.hasScope('influencer')"
+        >
+          <nuxt-link
+            class="nav-link dropdown-toggle arrow-none waves-effect waves-light"
+            aria-current="page"
+            to="/influencers/general/personal-setting"
+          >
+            <i class="ri-dashboard-line"></i> <span>Personal Setting</span>
+          </nuxt-link>
+        </li>
 
         <!-- admin menus -->
         <li
@@ -268,6 +280,18 @@ export default {
             to="/admin/stats"
           >
             <i class="ri-file-add-line"></i> <span>Statistics</span>
+          </nuxt-link>
+        </li>
+        <li
+          class="dropdown d-none d-lg-inline-block"
+          v-if="$auth.hasScope('admin')"
+        >
+          <nuxt-link
+            class="nav-link dropdown-toggle arrow-none waves-effect waves-light"
+            aria-current="page"
+            to="/admin/setting"
+          >
+            <i class="ri-file-settings-line"></i> <span>Setting</span>
           </nuxt-link>
         </li>
 

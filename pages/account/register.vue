@@ -185,10 +185,11 @@ export default {
 
                 this.$router.push("/account/thanks");
               } else {
-                this.$store.dispatch(
-                  "notification/error",
-                  response.data.message
-                );
+                // this.$store.dispatch(
+                //   "notification/error",
+                //   response.data.message
+                // );
+                alert(response.data.message);
               }
             })
             .catch((error) => {

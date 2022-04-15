@@ -1,21 +1,10 @@
 <template>
   <div>
-    <PageHeader
-      v-if="$auth.hasScope('admin')"
-      :title="title"
-      :items="adminItems"
-    />
-    <PageHeader
-      v-if="$auth.hasScope('influencer')"
-      :title="title"
-      :items="influencerItems"
-    />
-
-    <!-- end row -->
-    <div class="row">
+    <div v-if="$auth.hasScope('admin')">
+      <PageHeader :title="title" :items="adminItems" />
       <!-- Table -->
       <div class="col-xl-12">
-        <Portlet :headertitle="tableTitle" v-if="$auth.hasScope('admin')">
+        <Portlet :headertitle="tableTitle">
           <!--              <div class="row"><div class="col-sm-3">-->
 
           <!--                 <nuxt-link to="/influencers/add" class="btn btn-primary waves-effect waves-light">  <i class="fe-plus mr-1"></i>Add New</nuxt-link>-->
@@ -76,18 +65,21 @@
             </div>
           </div>
         </Portlet>
-        <Portlet v-else>
-          <div class="text-center">
-            <h1 class="m-4">This Dashboard for Influencer</h1>
-          </div>
-        </Portlet>
       </div>
+    </div>
+    <div v-if="$auth.hasScope('influencer')">
+      <PageHeader :title="title" :items="influencerItems" />
+      <influncer-dashboard />
     </div>
   </div>
 </template>
 
 <script>
+import influncerDashboard from "./statistics/influncer-dashboard.vue";
 export default {
+  components: {
+    influncerDashboard,
+  },
   name: "index",
   head() {
     return {
@@ -97,7 +89,7 @@ export default {
   // middleware: 'router-auth',
   data() {
     return {
-      title: "Welcome !",
+      title: "Hey, " + this.$auth.user.name,
       total_contacts: 0,
       send_message_count: 0,
       received_message_count: 0,
@@ -108,12 +100,7 @@ export default {
           active: true,
         },
       ],
-      influencerItems: [
-        {
-          text: "Dashboard",
-          active: true,
-        },
-      ],
+      influencerItems: [],
       tableTitle: "In Fluencer Users",
     };
   },

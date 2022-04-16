@@ -256,6 +256,18 @@ export default {
             <i class="ri-dashboard-line"></i> <span>Personal Setting</span>
           </nuxt-link>
         </li>
+        <li
+          class="dropdown d-none d-lg-inline-block"
+          v-if="$auth.hasScope('influencer')"
+        >
+          <nuxt-link
+            class="nav-link dropdown-toggle arrow-none waves-effect waves-light"
+            aria-current="page"
+            to="/influencers/general/fan"
+          >
+            <i class="ri-dashboard-line"></i> <span>Fans</span>
+          </nuxt-link>
+        </li>
 
         <!-- admin menus -->
         <li

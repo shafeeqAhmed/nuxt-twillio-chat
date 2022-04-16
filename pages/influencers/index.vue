@@ -117,11 +117,11 @@ export default {
             response.data.data.user.received_message_count;
         });
     }
-
-    this.$store.dispatch("getInfluencers").then((response) => {
-      this.users = response.data.data;
-      console.log(response.data.data);
-    });
+    if (this.$auth.hasScope("admin")) {
+      this.$store.dispatch("getInfluencers").then((response) => {
+        this.users = response.data.data;
+      });
+    }
   },
 };
 </script>

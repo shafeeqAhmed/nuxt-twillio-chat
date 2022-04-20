@@ -46,7 +46,7 @@ export default {
     var input = document.getElementById("address");
     var options = {
       bounds: defaultBounds,
-      types: ["establishment"],
+      types: ["establishment", "address"],
     };
 
     var autocomplete = new google.maps.places.Autocomplete(input, options);
@@ -135,7 +135,7 @@ export default {
   },
   methods: {
     returnLogin() {
-      this.$router.push({ path: "/account/login" });
+      // this.$router.push({ path: "/account/login" });
     },
     // Try to register the user in with the email, username
     // and password they provided.

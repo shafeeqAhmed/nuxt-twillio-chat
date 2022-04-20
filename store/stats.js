@@ -1,4 +1,5 @@
 import {ageGroupBand, genderGroupBand, topCity, topCountry,monthlyRegistration} from "../pages/admin/stats/data";
+import { startDate,endDate,currentDate,lastWeekDate,lastMonthDate,lastYearDate } from '../helpers/general'
 
 export const state = () =>({
   ageGroupBand,
@@ -6,6 +7,8 @@ export const state = () =>({
   topCity,
   topCountry,
   monthlyRegistration,
+  startDate: startDate,
+  endDate:endDate
 });
 
 
@@ -110,6 +113,25 @@ export const actions = {
         .catch(error => reject(error))
     })
   },
+  getDateRange({}, type) {
+        let start = ''
+        let end = currentDate
+    if (type == 'week') {
+      start = lastWeekDate
+    }
+    if (type == 'month') {
+          start = lastMonthDate
+    }
+    if (type == 'year') {
+          start = lastYearDate
+    }
+    if (type == 'all') {
+      start = ''
+      end = ''
+    }
+    return {start,end}
+  },
+
 }
 export const getters={
 
@@ -128,6 +150,7 @@ export const getters={
   getMonthlyRegistration(state) {
     return state.monthlyRegistration
   },
+
 
   // genderGroupBand(state) {
   //   return state.gender

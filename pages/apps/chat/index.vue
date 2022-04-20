@@ -322,7 +322,8 @@
                         item.id,
                         item.fname,
                         '~/assets/images/users/default.png',
-                        item.local_number
+                        item.local_number,
+                        item.fan_club_uuid
                       )
                     "
                   >
@@ -375,7 +376,7 @@
       <div class="col-xl-9 col-lg-8">
         <div class="card">
           <div class="row">
-            <div class="col-11">
+            <div class="col-12">
               <div class="card-body py-2 px-3 border-bottom border-light">
                 <div class="media p-2">
                   <div class="position-relative">
@@ -391,7 +392,7 @@
                   </div>
 
                   <div class="position-relative" v-if="username">
-                    <span class="user-status online"></span>
+                    <!-- <span class="user-status online"></span> -->
                     <!--                         <span-->
                     <!--                          class="user-status"-->
                     <!--                          :class="{-->
@@ -406,12 +407,12 @@
                     <!--                          height="42"-->
                     <!--                          alt="user"-->
                     <!--                        />-->
-                    <img
+                    <!-- <img
                       src="~/assets/images/users/default.png"
                       class="mr-2 rounded-circle"
                       height="42"
                       alt="user"
-                    />
+                    /> -->
                   </div>
 
                   <div class="media-body">
@@ -429,6 +430,14 @@
                     <!--  <p v-if="item.message[0]" class="mt-1 mb-0 text-muted font-14">
                        <span class="w-75">{{ item.message[0].message }}</span>
                      </p> -->
+                  </div>
+                  <div variant="primary" v-if="username">
+                    <button
+                      class="btn btn-outline-danger btn-xs"
+                      @click="unsubscribe()"
+                    >
+                      Unsubscribe
+                    </button>
                   </div>
                 </div>
               </div>
@@ -465,11 +474,11 @@
                         />
                       </span>
                       <span v-else>
-                        <img
+                        <!-- <img
                           src="~/assets/images/users/default.png"
                           class="rounded"
                           alt="James Z"
-                        />
+                        /> -->
                       </span>
                     </div>
                     <div class="conversation-text">
@@ -599,6 +608,8 @@
 </template>
 
 <script>
+import Swal from "sweetalert2";
+
 import { required } from "vuelidate/lib/validators";
 import genderTab from "~/components/widgets/chat/gender";
 import joinDate from "~/components/widgets/chat/join_date";
@@ -673,6 +684,7 @@ export default {
       image: "",
       receiver_id: "",
       receiver_number: "",
+      active_fan_club_uuid: "",
       radius: "",
       filter_type: "recipents",
       ageFilter: {
@@ -775,6 +787,33 @@ export default {
     },
   },
   methods: {
+    unsubscribe() {
+      Swal.fire({
+        title: "Are you sure?",
+        text: `All the record against ${this.receiver_number} will be remove!`,
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, Block it!",
+      }).then((result) => {
+        if (result.value) {
+          this.$axios
+            .$post(`/block-fan`, { fan_club_uuid: this.active_fan_club_uuid })
+            .then(() => {
+              Swal.fire(
+                "Blocked!",
+                `${this.receiver_number} has been deleted Succfully!`,
+                "success"
+              );
+              this.getChatMessages();
+              this.getRecipents();
+              this.username = "";
+              this.chatMessages = [];
+            });
+        }
+      });
+    },
     debounceSearch(event) {
       clearTimeout(this.debounce);
       this.debounce = setTimeout(() => {
@@ -917,12 +956,13 @@ export default {
     /**
      * Get the name of user
      */
-    async chatUsername(id, name, image, phone_no) {
+    async chatUsername(id, name, image, phone_no, fan_club_uuid) {
       this.receiver_id = id;
       this.username = name;
       this.status = "online";
       this.image = image;
       this.receiver_number = phone_no;
+      this.active_fan_club_uuid = fan_club_uuid;
 
       const messages = await this.$axios.$get("/get_chat_users/" + id);
 

@@ -2,6 +2,11 @@
 import KnobControl from "vue-knob-control";
 
 export default {
+  created() {
+    this.start = this.$store.state.stats.startDate;
+    this.end = this.$store.state.stats.endDate;
+    this.getData();
+  },
   async fetch() {
     this.getData();
   },

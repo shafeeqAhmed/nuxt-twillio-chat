@@ -1,7 +1,7 @@
 import { getFirebaseBackend } from '../helpers/firebase/authUtils'
 
 export const state = () => ({
-    currentUser: sessionStorage.getItem('authUser'),
+  currentUser: sessionStorage.getItem('authUser'),
 });
 
 export const mutations = {

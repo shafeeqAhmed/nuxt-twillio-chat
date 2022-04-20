@@ -12,7 +12,7 @@ export default {
   },
   data() {
     return {
-      title: "Personal Settings",
+      title: "Settings",
       items: [],
       showModal: false,
       isDisabled: false,
@@ -79,7 +79,7 @@ export default {
           if (status) {
             this.isDisabled = false;
             this.showModal = false;
-            Swal.fire(message);
+            // Swal.fire(message);
           }
         })
         .catch((error) => {

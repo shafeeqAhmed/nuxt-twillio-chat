@@ -2,6 +2,11 @@
 import KnobControl from "vue-knob-control";
 
 export default {
+  created() {
+    this.start = this.$store.state.stats.startDate;
+    this.end = this.$store.state.stats.endDate;
+    this.getData();
+  },
   components: {
     KnobControl,
   },
@@ -10,18 +15,22 @@ export default {
       mapData: 0,
       start: "",
       end: "",
+      type: "",
     };
   },
   methods: {
-    async getData() {
-      if (this.start == "" || this.end == "") {
-        alert("start or end date is missing");
-        return true;
-      }
+    async getData(type = "all") {
+      const res = await this.$store.dispatch("stats/getDateRange", type);
+      console.log(res);
+
+      // if (this.start == "" || this.end == "") {
+      //   alert("start or end date is missing");
+      //   return true;
+      // }
       const {
         data: { averageResponseRate },
       } = await this.$axios.$get(
-        `/average-response-rate?start=${this.start}&end=${this.end}`
+        `/average-response-rate?start=${res.start}&end=${res.end}`
       );
       this.mapData = averageResponseRate;
     },
@@ -42,46 +51,32 @@ export default {
               <div class="row">
                 <h4>Response Rate</h4>
               </div>
-              <div class="row">
-                <div class="col-md-9 form-inline">
-                  <div class="col-md-6">
-                    <div class="'form-group">
-                      <label class="label-text-left">Start Date</label>
-                      <input
-                        type="date"
-                        v-model="start"
-                        class="form-control graph-card-input"
-                      />
-                    </div>
-                  </div>
 
-                  <div class="col-md-6">
-                    <div class="'form-group">
-                      <label class="label-text-left">End Date</label>
-                      <input
-                        type="date"
-                        v-model="end"
-                        class="form-control graph-card-input"
-                      />
-                    </div>
-                  </div>
-
-                  <div role="group" class="form-group m-2">
-                    <div class="form-group m-2"></div>
-                  </div>
-                </div>
-                <div class="col-md-2">
-                  <div class="col-md-6">
-                    <div class="'form-group">
-                      <button
-                        class="btn btn-info search-btn-alignment"
-                        @click="getData"
-                      >
-                        Search
-                      </button>
-                    </div>
-                  </div>
-                </div>
+              <div class="d-flex justify-content-around">
+                <button
+                  class="btn btn-info search-btn-alignment"
+                  @click="getData('week')"
+                >
+                  Last 7 Days
+                </button>
+                <button
+                  class="btn btn-info search-btn-alignment"
+                  @click="getData('month')"
+                >
+                  Last 30 Days
+                </button>
+                <button
+                  class="btn btn-info search-btn-alignment"
+                  @click="getData('year')"
+                >
+                  Last Year
+                </button>
+                <button
+                  class="btn btn-info search-btn-alignment"
+                  @click="getData('all')"
+                >
+                  All Time
+                </button>
               </div>
 
               <knob-control

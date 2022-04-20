@@ -5,6 +5,11 @@ export default {
   components: {
     KnobControl,
   },
+  created() {
+    this.start = this.$store.state.stats.startDate;
+    this.end = this.$store.state.stats.endDate;
+    this.getData();
+  },
   data() {
     return {
       mapData: 0,

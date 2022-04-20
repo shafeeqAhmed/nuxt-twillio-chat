@@ -244,19 +244,8 @@ export default {
             <i class="ri-dashboard-line"></i> <span>Keyword</span>
           </nuxt-link>
         </li>
-        <li
-          class="dropdown d-none d-lg-inline-block"
-          v-if="$auth.hasScope('influencer')"
-        >
-          <nuxt-link
-            class="nav-link dropdown-toggle arrow-none waves-effect waves-light"
-            aria-current="page"
-            to="/influencers/general/personal-setting"
-          >
-            <i class="ri-dashboard-line"></i> <span>Personal Setting</span>
-          </nuxt-link>
-        </li>
-        <li
+
+        <!-- <li
           class="dropdown d-none d-lg-inline-block"
           v-if="$auth.hasScope('influencer')"
         >
@@ -267,7 +256,7 @@ export default {
           >
             <i class="ri-dashboard-line"></i> <span>Fans</span>
           </nuxt-link>
-        </li>
+        </li> -->
 
         <!-- admin menus -->
         <li
@@ -303,7 +292,7 @@ export default {
             aria-current="page"
             to="/admin/setting"
           >
-            <i class="ri-file-settings-line"></i> <span>Setting</span>
+            <i class="ri-file-settings-line"></i> <span>Settings</span>
           </nuxt-link>
         </li>
 
@@ -425,6 +414,13 @@ export default {
           >
             <i class="remixicon-settings-3-line"></i>
             <span>My Account</span>
+          </b-dropdown-item>
+
+          <b-dropdown-item
+            @click="$router.push(`/influencers/general/personal-setting`)"
+          >
+            <i class="remixicon-settings-3-line"></i>
+            <span>Settings</span>
           </b-dropdown-item>
 
           <!-- <b-dropdown-item href="#">

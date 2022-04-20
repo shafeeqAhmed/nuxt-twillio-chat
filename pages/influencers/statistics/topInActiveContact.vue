@@ -6,28 +6,22 @@ export default {
     KnobControl,
   },
   created() {
-    this.start = this.$store.state.stats.startDate;
-    this.end = this.$store.state.stats.endDate;
-    this.getData();
+    this.getData("week");
   },
   data() {
     return {
       mapData: 0,
-      duration: "",
-      start: "",
-      end: "",
+      type: "",
     };
   },
   methods: {
-    async getData() {
-      if (this.start == "" || this.end == "") {
-        alert("start or end date is missing");
-        return true;
-      }
+    async getData(type = "all") {
+      this.type = type;
+      const res = await this.$store.dispatch("stats/getDateRange", type);
       const {
         data: { topActiveContact },
       } = await this.$axios.$get(
-        `/top-in-active-contact?start=${this.start}&end=${this.end}`
+        `/top-in-active-contact?start=${res.start}&end=${res.end}`
       );
       this.mapData = topActiveContact;
     },
@@ -53,28 +47,35 @@ export default {
                       <h3>Top 10 Inactive Fan</h3>
                     </div>
 
-                    <div
-                      class="col-md-8 form-inline d-flex justify-content-end"
-                    >
-                      <label>Start Date</label>
-                      <div role="group" class="form-group m-2">
-                        <input
-                          type="date"
-                          v-model="start"
-                          class="form-control"
-                        />
-                        <label class="ml-2">End Date</label>
-                        <div class="form-group m-2">
-                          <input
-                            type="date"
-                            v-model="end"
-                            class="form-control"
-                          />
-                        </div>
-                      </div>
-                      <div class="form-group m-2">
-                        <button class="btn btn-info" @click="getData">
-                          Search
+                    <div class="col-md-8">
+                      <div class="d-flex justify-content-end">
+                        <button
+                          class="btn btn-info search-btn-alignment ml-2"
+                          :class="type == 'week' ? 'btn-danger' : ''"
+                          @click="getData('week')"
+                        >
+                          Last 7 Days
+                        </button>
+                        <button
+                          class="btn btn-info search-btn-alignment ml-2"
+                          :class="type == 'month' ? 'btn-danger' : ''"
+                          @click="getData('month')"
+                        >
+                          Last 30 Days
+                        </button>
+                        <button
+                          class="btn btn-info search-btn-alignment ml-2"
+                          :class="type == 'year' ? 'btn-danger' : ''"
+                          @click="getData('year')"
+                        >
+                          Last Year
+                        </button>
+                        <button
+                          class="btn btn-info search-btn-alignment ml-2"
+                          :class="type == 'all' ? 'btn-danger' : ''"
+                          @click="getData('all')"
+                        >
+                          All Time
                         </button>
                       </div>
                     </div>

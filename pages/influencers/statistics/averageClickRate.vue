@@ -3,12 +3,10 @@ import KnobControl from "vue-knob-control";
 
 export default {
   created() {
-    this.start = this.$store.state.stats.startDate;
-    this.end = this.$store.state.stats.endDate;
     this.getData();
   },
   async fetch() {
-    this.getData();
+    this.getData("week");
   },
   components: {
     KnobControl,
@@ -16,16 +14,18 @@ export default {
   data() {
     return {
       mapData: 0,
-      start: "",
-      end: "",
+
+      type: "",
     };
   },
   methods: {
-    async getData() {
+    async getData(type = "all") {
+      this.type = type;
+      const res = await this.$store.dispatch("stats/getDateRange", type);
       const {
         data: { averageClickRate },
       } = await this.$axios.$get(
-        `/average-click-rate?start=${this.start}&end=${this.end}`
+        `/average-click-rate?start=${res.start}&end=${res.end}`
       );
       this.mapData = averageClickRate;
     },
@@ -46,46 +46,35 @@ export default {
               <div class="row">
                 <h4>Click Rate</h4>
               </div>
-              <div class="row">
-                <div class="col-md-9 form-inline">
-                  <div class="col-md-6">
-                    <div class="'form-group">
-                      <label class="label-text-left">Start Date</label>
-                      <input
-                        type="date"
-                        v-model="start"
-                        class="form-control graph-card-input"
-                      />
-                    </div>
-                  </div>
-
-                  <div class="col-md-6">
-                    <div class="'form-group">
-                      <label class="label-text-left">End Date</label>
-                      <input
-                        type="date"
-                        v-model="end"
-                        class="form-control graph-card-input"
-                      />
-                    </div>
-                  </div>
-
-                  <div role="group" class="form-group m-2">
-                    <div class="form-group m-2"></div>
-                  </div>
-                </div>
-                <div class="col-md-2">
-                  <div class="col-md-6">
-                    <div class="'form-group">
-                      <button
-                        class="btn btn-info search-btn-alignment"
-                        @click="getData"
-                      >
-                        Search
-                      </button>
-                    </div>
-                  </div>
-                </div>
+              <div class="d-flex justify-content-around">
+                <button
+                  class="btn btn-info search-btn-alignment"
+                  :class="type == 'week' ? 'btn-danger' : ''"
+                  @click="getData('week')"
+                >
+                  Last 7 Days
+                </button>
+                <button
+                  class="btn btn-info search-btn-alignment"
+                  :class="type == 'month' ? 'btn-danger' : ''"
+                  @click="getData('month')"
+                >
+                  Last 30 Days
+                </button>
+                <button
+                  class="btn btn-info search-btn-alignment"
+                  :class="type == 'year' ? 'btn-danger' : ''"
+                  @click="getData('year')"
+                >
+                  Last Year
+                </button>
+                <button
+                  class="btn btn-info search-btn-alignment"
+                  :class="type == 'all' ? 'btn-danger' : ''"
+                  @click="getData('all')"
+                >
+                  All Time
+                </button>
               </div>
 
               <!-- <div class="row">

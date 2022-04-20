@@ -3,9 +3,7 @@ import KnobControl from "vue-knob-control";
 
 export default {
   created() {
-    this.start = this.$store.state.stats.startDate;
-    this.end = this.$store.state.stats.endDate;
-    this.getData();
+    this.getData("week");
   },
   components: {
     KnobControl,
@@ -13,20 +11,13 @@ export default {
   data() {
     return {
       mapData: 0,
-      start: "",
-      end: "",
       type: "",
     };
   },
   methods: {
     async getData(type = "all") {
+      this.type = type;
       const res = await this.$store.dispatch("stats/getDateRange", type);
-      console.log(res);
-
-      // if (this.start == "" || this.end == "") {
-      //   alert("start or end date is missing");
-      //   return true;
-      // }
       const {
         data: { averageResponseRate },
       } = await this.$axios.$get(
@@ -55,24 +46,28 @@ export default {
               <div class="d-flex justify-content-around">
                 <button
                   class="btn btn-info search-btn-alignment"
+                  :class="type == 'week' ? 'btn-danger' : ''"
                   @click="getData('week')"
                 >
                   Last 7 Days
                 </button>
                 <button
                   class="btn btn-info search-btn-alignment"
+                  :class="type == 'month' ? 'btn-danger' : ''"
                   @click="getData('month')"
                 >
                   Last 30 Days
                 </button>
                 <button
                   class="btn btn-info search-btn-alignment"
+                  :class="type == 'year' ? 'btn-danger' : ''"
                   @click="getData('year')"
                 >
                   Last Year
                 </button>
                 <button
                   class="btn btn-info search-btn-alignment"
+                  :class="type == 'all' ? 'btn-danger' : ''"
                   @click="getData('all')"
                 >
                   All Time

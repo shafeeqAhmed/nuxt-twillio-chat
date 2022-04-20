@@ -6,61 +6,24 @@ export default {
     KnobControl,
   },
   created() {
-    this.start = this.$store.state.stats.startDate;
-    this.end = this.$store.state.stats.endDate;
-    this.type = "range";
-    this.getData();
+    this.getData("week");
   },
   data() {
     return {
       mapData: 0,
-      duration: "",
-      start: "",
-      end: "",
-      options: [
-        {
-          name: "A Week Ago",
-          value: "week",
-        },
-        {
-          name: "A Month Ago",
-          value: "month",
-        },
-        {
-          name: "A Year Ago",
-          value: "year",
-        },
-      ],
-      typeOPtion: [
-        {
-          name: "Date Range",
-          value: "range",
-        },
-        {
-          name: "Duration",
-          value: "duration",
-        },
-      ],
       type: "",
     };
   },
   methods: {
-    async getData() {
-      if (this.type == "") {
-        if (this.start == "" || this.end == "") {
-          alert("start and end date is missing");
-        }
-        return true;
-      }
-      var url = "";
-      if (this.type == "range") {
-        url = `/no-of-text?start=${this.start}&end=${this.end}`;
-      } else {
-        url = `/no-of-text?duration=${this.duration}`;
-      }
+    async getData(type = "all") {
+      this.type = type;
+      const res = await this.$store.dispatch("stats/getDateRange", type);
+
       const {
         data: { messageCount },
-      } = await this.$axios.$get(url);
+      } = await this.$axios.$get(
+        `/no-of-text?start=${res.start}&end=${res.end}`
+      );
       this.mapData = messageCount;
     },
   },
@@ -82,80 +45,35 @@ export default {
                 <h4>Number of Messages Sent</h4>
               </div>
 
-              <div class="row">
-                <div class="col-md-12 form-inline">
-                  <div class="col-md-3">
-                    <div class="'form-group">
-                      <label class="label-text-left">Duration Type</label>
-                      <select
-                        class="form-control graph-card-input"
-                        v-model="type"
-                      >
-                        <option value="">Date Type</option>
-                        <option value="range">Date Range</option>
-                        <option value="duration">Duration</option>
-                      </select>
-                    </div>
-                  </div>
-
-                  <div class="col-md-3" v-if="type == 'duration'">
-                    <div class="'form-group">
-                      <label class="label-text-left">Select duration</label>
-                      <select
-                        class="form-control graph-card-input"
-                        v-model="duration"
-                      >
-                        <option value="">Select duration</option>
-                        <option
-                          v-for="(list, key) in options"
-                          :key="`${key}` - no - of - text"
-                          :value="list.value"
-                        >
-                          {{ list.name }}
-                        </option>
-                      </select>
-                    </div>
-                  </div>
-
-                  <div class="col-md-3" v-if="type == 'range'">
-                    <div class="'form-group">
-                      <label class="label-text-left">Start Date</label>
-                      <input
-                        type="date"
-                        v-model="start"
-                        class="form-control graph-card-input"
-                      />
-                    </div>
-                  </div>
-                  <div class="col-md-3" v-if="type == 'range'">
-                    <div class="'form-group">
-                      <label class="label-text-left">End Date</label>
-                      <input
-                        type="date"
-                        v-model="end"
-                        class="form-control graph-card-input"
-                      />
-                    </div>
-                  </div>
-
-                  <div class="col-md-3">
-                    <div class="'form-group">
-                      <button
-                        class="btn btn-info search-btn-alignment"
-                        @click="getData"
-                      >
-                        Search
-                      </button>
-                    </div>
-                  </div>
-
-                  <!-- <div class="form-group m-2" v-if="type == 'range'">
-                    <input type="date" v-model="start" class="form-control" />
-                  </div>
-                  <div class="form-group m-2" v-if="type == 'range'">
-                    <input type="date" v-model="end" class="form-control" />
-                  </div> -->
-                </div>
+              <div class="d-flex justify-content-around">
+                <button
+                  class="btn btn-info search-btn-alignment"
+                  :class="type == 'week' ? 'btn-danger' : ''"
+                  @click="getData('week')"
+                >
+                  Last 7 Days
+                </button>
+                <button
+                  class="btn btn-info search-btn-alignment"
+                  :class="type == 'month' ? 'btn-danger' : ''"
+                  @click="getData('month')"
+                >
+                  Last 30 Days
+                </button>
+                <button
+                  class="btn btn-info search-btn-alignment"
+                  :class="type == 'year' ? 'btn-danger' : ''"
+                  @click="getData('year')"
+                >
+                  Last Year
+                </button>
+                <button
+                  class="btn btn-info search-btn-alignment"
+                  :class="type == 'all' ? 'btn-danger' : ''"
+                  @click="getData('all')"
+                >
+                  All Time
+                </button>
               </div>
 
               <knob-control
@@ -168,14 +86,9 @@ export default {
                 secondary-color="#eeeeee"
                 text-color="#4bd396"
               ></knob-control>
-              <h6 class="text-muted mt-2" style="margin-top: 20px !important">
-                Number of Messages Sent
-              </h6>
+              <h6 class="text-muted mt-2">Number of Messages Sent</h6>
             </div>
             <!-- end .text-center -->
-            <div class="row invisible">
-              <h4>hidden text for manage botton space</h4>
-            </div>
           </div>
           <!-- end card-box -->
         </div>

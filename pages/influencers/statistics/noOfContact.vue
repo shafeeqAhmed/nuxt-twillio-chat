@@ -6,61 +6,24 @@ export default {
     KnobControl,
   },
   created() {
-    this.start = this.$store.state.stats.startDate;
-    this.end = this.$store.state.stats.endDate;
-    this.type = "range";
-    this.getData();
+    this.getData("week");
   },
   data() {
     return {
       mapData: 0,
-      duration: "",
-      start: "",
-      end: "",
-      options: [
-        {
-          name: "A Week Ago",
-          value: "week",
-        },
-        {
-          name: "A Month Ago",
-          value: "month",
-        },
-        {
-          name: "A Year Ago",
-          value: "year",
-        },
-      ],
-      typeOPtion: [
-        {
-          name: "Date Range",
-          value: "range",
-        },
-        {
-          name: "Duration",
-          value: "duration",
-        },
-      ],
       type: "",
     };
   },
   methods: {
-    async getData() {
-      if (this.type == "") {
-        if (this.start == "" || this.end == "") {
-          alert("start and end date is missing");
-        }
-        return true;
-      }
-      var url = "";
-      if (this.type == "range") {
-        url = `/no-of-contact?start=${this.start}&end=${this.end}`;
-      } else {
-        url = `/no-of-contact?duration=${this.duration}`;
-      }
+    async getData(type = "all") {
+      this.type = type;
+      const res = await this.$store.dispatch("stats/getDateRange", type);
+
       const {
         data: { contactCount },
-      } = await this.$axios.$get(url);
+      } = await this.$axios.$get(
+        `/no-of-contact?start=${res.start}&end=${res.end}`
+      );
       this.mapData = contactCount;
     },
   },
@@ -79,43 +42,41 @@ export default {
           <div class="card-body">
             <div class="text-center" dir="ltr">
               <div class="row">
-                <div class="col-md-3 form-inline">
+                <div class="col-md-4 form-inline">
                   <h4>Number of Contacts</h4>
                 </div>
+              </div>
 
-                <div class="col-md-9 form-inline d-flex justify-content-end">
-                  <div class="form-group m-2">
-                    <select class="form-control" v-model="type">
-                      <option value="">Selection Date Type</option>
-                      <option value="range">Date Range</option>
-                      <option value="duration">Duration</option>
-                    </select>
-                  </div>
-                  <div v-if="type == 'duration'" class="form-group m-2">
-                    <select class="form-control" v-model="duration">
-                      <option value="">Select duration</option>
-                      <option
-                        v-for="(list, key) in options"
-                        :key="`${key}` - no - of - text"
-                        :value="list.value"
-                      >
-                        {{ list.name }}
-                      </option>
-                    </select>
-                  </div>
-
-                  <div class="form-group m-2" v-if="type == 'range'">
-                    <input type="date" v-model="start" class="form-control" />
-                  </div>
-                  <div class="form-group m-2" v-if="type == 'range'">
-                    <input type="date" v-model="end" class="form-control" />
-                  </div>
-                  -
-                  <div class="form-group m-2">
-                    <button class="btn btn-info" @click="getData">
-                      Search
-                    </button>
-                  </div>
+              <div class="col-md-12" style="margin-left: -41px">
+                <div class="d-flex justify-content-end">
+                  <button
+                    class="btn btn-info search-btn-alignment ml-2"
+                    :class="type == 'week' ? 'btn-danger' : ''"
+                    @click="getData('week')"
+                  >
+                    Last 7 Days
+                  </button>
+                  <button
+                    class="btn btn-info search-btn-alignment ml-2"
+                    :class="type == 'month' ? 'btn-danger' : ''"
+                    @click="getData('month')"
+                  >
+                    Last 30 Days
+                  </button>
+                  <button
+                    class="btn btn-info search-btn-alignment ml-2"
+                    :class="type == 'year' ? 'btn-danger' : ''"
+                    @click="getData('year')"
+                  >
+                    Last Year
+                  </button>
+                  <button
+                    class="btn btn-info search-btn-alignment ml-2"
+                    :class="type == 'all' ? 'btn-danger' : ''"
+                    @click="getData('all')"
+                  >
+                    All Time
+                  </button>
                 </div>
               </div>
               <knob-control

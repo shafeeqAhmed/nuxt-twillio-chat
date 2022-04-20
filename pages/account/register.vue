@@ -46,7 +46,7 @@ export default {
     var input = document.getElementById("address");
     var options = {
       bounds: defaultBounds,
-      types: ["establishment", "address"],
+      types: ["address"],
     };
 
     var autocomplete = new google.maps.places.Autocomplete(input, options);

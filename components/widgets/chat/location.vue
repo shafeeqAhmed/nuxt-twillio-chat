@@ -92,7 +92,7 @@ export default {
 
         var options = {
           // bounds: defaultBounds,
-          types: ["establishment", "address"],
+          types: ["address"],
           // types: ['(cities)'],
         };
 

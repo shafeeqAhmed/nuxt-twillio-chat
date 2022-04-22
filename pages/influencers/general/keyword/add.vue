@@ -87,7 +87,7 @@ export default {
         .then((response) => {
           const { status, message } = response.data;
           if (status) {
-            Swal.fire(message);
+            // Swal.fire(message);
             this.$router.push("/influencers/general/keyword");
           }
         })

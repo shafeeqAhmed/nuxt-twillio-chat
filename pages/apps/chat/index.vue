@@ -879,15 +879,17 @@ export default {
         .dispatch("chat/sendMessageToContents", filterRecord)
         .then((response) => {
           if (response.data.status) {
-            if (this.isScheduled) {
-              this.$swal.fire(
-                "Your message has been scheduled at " +
-                  this.form.schedule_date +
-                  " Successfully!"
-              );
-            } else {
-              this.$swal.fire(response.data.message);
-            }
+            this.$router.push("/influencers/sent-broadcast");
+
+            // if (this.isScheduled) {
+            // this.$swal.fire(
+            //   "Your message has been scheduled at " +
+            //     this.form.schedule_date +
+            //     " Successfully!"
+            // );
+            // } else {
+            //   this.$swal.fire(response.data.message);
+            // }
             this.showModal = false;
             this.resetModal();
           }

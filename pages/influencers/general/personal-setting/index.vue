@@ -8,6 +8,7 @@ export default {
     };
   },
   async fetch() {
+    this.getDefaultSetting();
     this.getPersonalSetting();
   },
   data() {
@@ -16,6 +17,7 @@ export default {
       items: [],
       showModal: false,
       isDisabled: false,
+      term_and_condition: "",
       form: {
         name: "",
         value: "",
@@ -46,6 +48,14 @@ export default {
     };
   },
   methods: {
+    async getDefaultSetting() {
+      const {
+        data: { defaultSetting },
+      } = await this.$axios.$get(
+        "/get-person-default-setting/term_and_condition"
+      );
+      this.term_and_condition = defaultSetting.value;
+    },
     async getPersonalSetting() {
       const {
         data: { personalSetting },
@@ -156,6 +166,13 @@ export default {
       </div>
       <div class="form-group" v-else>
         <textarea rows="5" style="width: 100%" v-model="form.value"></textarea>
+        <textarea
+          v-if="form.name == 'welcome'"
+          rows="4"
+          :readonly="true"
+          style="width: 100%"
+          v-model="term_and_condition"
+        ></textarea>
       </div>
 
       <template v-slot:modal-footer>

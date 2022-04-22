@@ -86,7 +86,7 @@ export default {
                       <tr>
                         <th>#</th>
                         <th>Name</th>
-                        <th>Phone Number</th>
+                        <th>Fan Number</th>
                         <th>Email</th>
                         <th>Total Message</th>
                         <th>Gender</th>

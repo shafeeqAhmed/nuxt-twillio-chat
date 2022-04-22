@@ -7,10 +7,16 @@ import { mapState } from "vuex";
 export default {
   name: "horizontal",
   data() {
-    return {};
+    return {
+      windowWidth: window.innerWidth,
+    };
   },
   computed: mapState(["layout"]),
   mounted() {
+    window.onresize = () => {
+      this.windowWidth = window.innerWidth;
+    };
+
     document.body.setAttribute("data-layout-mode", "horizontal");
   },
   methods: {
@@ -28,11 +34,12 @@ export default {
   <!-- Begin page -->
   <div id="wrapper">
     <Topbar />
-    <!-- <HorizontalNavbar
+    <HorizontalNavbar
+      v-if="windowWidth < 992"
       :type="layout.topbar"
       :width="layout.layoutWidth"
       :menu="layout.menuPosition"
-    /> -->
+    />
     <!-- ============================================================== -->
     <!-- Start Page Content here -->
     <!-- ============================================================== -->

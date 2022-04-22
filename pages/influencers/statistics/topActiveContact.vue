@@ -89,7 +89,7 @@ export default {
                         <th>Email</th>
                         <th>Total Message</th>
                         <th>Gender</th>
-                        <th>DOB</th>
+                        <th>Age</th>
                       </tr>
                     </thead>
                     <tbody>

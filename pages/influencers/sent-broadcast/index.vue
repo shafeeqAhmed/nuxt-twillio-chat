@@ -161,7 +161,7 @@ export default {
   <div>
     <PageHeader :title="title" :items="items" />
     <div class="row">
-      <div class="col-12">
+      <div class="col-md-12">
         <div class="card">
           <div class="card-body">
             <!-- <h4 class="header-title">BroadCast Message</h4> -->

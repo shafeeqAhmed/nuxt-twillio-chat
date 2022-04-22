@@ -1,7 +1,7 @@
 export const menuItems = [
 {
     id: 1,
-    label: 'Incluencers',
+    label: 'Dashboard',
     icon: 'ri-book-line',
     link: '/'
   },
@@ -17,6 +17,12 @@ export const menuItems = [
     label: 'Statistics',
     icon: 'ri-dashboard-line',
     link: '/admin/stats'
+  },
+  {
+    id: 4,
+    label: 'Settings',
+    icon: 'ri-file-settings-line',
+    link: '/admin/setting'
   },
 
     // {
@@ -693,39 +699,38 @@ export const menuItems = [
 export const influencerMenuItems = [
   {
     id: 1,
-    label: 'Sent Broadcast',
-    icon: 'ri-dashboard-line',
-    link: '/influencers/sent'
-
-    // subItems: [
-    //   {
-    //     id: 2,
-    //     label: 'Sent',
-    //     link: '/influencers/sent'
-    //   },
-    //    {
-    //     id: 3,
-    //     label: 'Statistics',
-    //     link: '/influencers/statistics'
-    //   },
-    //   {
-    //     id: 4,
-    //     label: 'Graph Stats',
-    //     link: '/influencers/statistics/graph'
-    //   },
-
-    // ]
+    label: 'Dashboard',
+    icon: 'ri-home-2-line',
+    link: '/'
   },
   {
     id: 2,
-    label: 'Statics',
+    label: 'Inbox',
+    icon: 'ri-message-2-line',
+    link: '/apps/chat'
+  },
+    {
+    id: 3,
+    label: 'Sent Broadcast',
+    icon: 'ri-dashboard-line',
+    link: '/influencers/sent'
+  },
+  {
+    id: 4,
+    label: 'Statistics',
     icon: 'ri-dashboard-line',
     link: '/influencers/statistics'
   },
   {
-    id: 3,
-    label: 'Insight',
+    id: 5,
+    label: 'Insights',
     icon: 'ri-dashboard-line',
     link: '/influencers/statistics/graph'
+  },
+  {
+    id: 6,
+    label: 'Keyword',
+    icon: 'ri-dashboard-line',
+    link: '/influencers/general/keyword'
   }
 ];

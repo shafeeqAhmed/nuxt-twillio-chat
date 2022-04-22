@@ -68,12 +68,12 @@ export default {
         <div class="widget-rounded-circle card">
           <div class="card-body">
             <div class="row">
-              <div class="col-6">
+              <div class="col-md-6">
                 <div :class="`avatar-lg rounded-circle bg-icon-success `">
                   <i :class="`fe-phone font-24 avatar-title text-white`"></i>
                 </div>
               </div>
-              <div class="col-6">
+              <div class="col-md-6">
                 <div class="text-right">
                   <h3 class="text-dark mt-1">
                     <span>
@@ -96,14 +96,14 @@ export default {
         <div class="widget-rounded-circle card">
           <div class="card-body">
             <div class="row">
-              <div class="col-6">
+              <div class="col-md-6">
                 <div :class="`avatar-lg rounded-circle bg-icon-primary `">
                   <i
                     :class="`fe-phone-forwarded font-24 avatar-title text-white`"
                   ></i>
                 </div>
               </div>
-              <div class="col-6">
+              <div class="col-md-6">
                 <div class="text-right">
                   <h3 class="text-dark mt-1">
                     <span>
@@ -129,14 +129,14 @@ export default {
         <div class="widget-rounded-circle card">
           <div class="card-body">
             <div class="row">
-              <div class="col-6">
+              <div class="col-md-6">
                 <div :class="`avatar-lg rounded-circle bg-icon-danger `">
                   <i
                     :class="`fe-phone-incoming font-24 avatar-title text-white`"
                   ></i>
                 </div>
               </div>
-              <div class="col-6">
+              <div class="col-md-6">
                 <div class="text-right">
                   <h3 class="text-dark mt-1">
                     <span>
@@ -159,19 +159,19 @@ export default {
       <!-- end col -->
     </div>
     <div class="row">
-      <div class="col-6">
+      <div class="col-md-6">
         <average-response-rate />
       </div>
-      <div class="col-6">
+      <div class="col-md-6">
         <average-click-rate />
       </div>
     </div>
 
     <div class="row">
-      <div class="col-6">
+      <div class="col-md-6">
         <fan-reach />
       </div>
-      <div class="col-6">
+      <div class="col-md-6">
         <no-of-text />
       </div>
     </div>

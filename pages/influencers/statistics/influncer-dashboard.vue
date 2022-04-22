@@ -67,7 +67,7 @@ export default {
 <template>
   <div>
     <div class="row">
-      <div class="col-6">
+      <div class="col-md-6">
         <Portlet :headertitle="'Monthly User Joining'">
           <div class="card-body pt-0">
             <!-- Gradient Line Chart -->
@@ -82,7 +82,7 @@ export default {
           </div>
         </Portlet>
       </div>
-      <div class="col-6">
+      <div class="col-md-6">
         <Portlet :headertitle="'Top City'">
           <div class="card-body pt-0">
             <!-- Basic Bar Chart -->
@@ -100,12 +100,12 @@ export default {
     </div>
 
     <div class="row">
-      <div class="col-6 text-center">
+      <div class="col-md-6 text-center">
         <div class="box">
           <h1>Automations</h1>
         </div>
       </div>
-      <div class="col-6">
+      <div class="col-md-6">
         <average-response-rate />
       </div>
     </div>

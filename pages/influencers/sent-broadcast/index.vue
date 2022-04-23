@@ -43,8 +43,8 @@ export default {
       pageOptions: [10, 25, 50, 100],
       filter: null,
       filterOn: [],
-      sortBy: "age",
-      sortDesc: false,
+      sortBy: "id",
+      sortDesc: true,
       fields: [
         {
           key: "message",

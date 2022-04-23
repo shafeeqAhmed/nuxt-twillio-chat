@@ -28,8 +28,8 @@ export default {
       pageOptions: [10, 25, 50, 100],
       filter: null,
       filterOn: [],
-      sortBy: "keyword",
-      sortDesc: false,
+      sortBy: "created_at",
+      sortDesc: true,
       fields: [
         {
           label: "Keyword",

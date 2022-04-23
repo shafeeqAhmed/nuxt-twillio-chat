@@ -81,8 +81,6 @@ export default {
               </div>
               <knob-control
                 v-model="mapData"
-                :min="-mapData"
-                :max="mapData"
                 class="mt-3"
                 :size="150"
                 primary-color="#f5707a"

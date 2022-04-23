@@ -45,6 +45,23 @@ export default {
           name: "min_age",
         },
       ],
+      option: {
+        theme: "bubble",
+        modules: {
+          toolbar: [
+            [],
+            [
+              {
+                header: 1,
+              },
+              {
+                header: 2,
+              },
+              "blockquote",
+            ],
+          ],
+        },
+      },
     };
   },
   methods: {
@@ -80,6 +97,11 @@ export default {
       this.showModal = true;
     },
     save() {
+      let text = this.form.value + this.term_and_condition;
+      if (this.form.name == "welcome" && text.length > 255) {
+        alert("Signup message can contaim max 255 charters");
+        return true;
+      }
       this.isDisabled = true;
       this.$axios
         .$post("add-personal-setting", this.form)
@@ -95,6 +117,20 @@ export default {
         .catch((error) => {
           this.isDisabled = false;
         });
+    },
+  },
+  computed: {
+    terms() {
+      let text =
+        this.form.value.replace(/<(.|\n)*?>/g, "") +
+        ". " +
+        this.term_and_condition;
+      console.log(text.trim());
+      return text.trim();
+    },
+    characterCount() {
+      let text = this.form.value + " " + this.term_and_condition;
+      return text.length;
     },
   },
   middleware: "router-auth",
@@ -165,14 +201,27 @@ export default {
         </div>
       </div>
       <div class="form-group" v-else>
-        <textarea rows="5" style="width: 100%" v-model="form.value"></textarea>
+        <!-- <b-input v-model="form.value" class="form-controll" /> -->
         <textarea
-          v-if="form.name == 'welcome'"
-          rows="4"
-          :readonly="true"
+          rows="5"
           style="width: 100%"
-          v-model="term_and_condition"
+          v-model="form.value"
+          class="textarea-style"
         ></textarea>
+
+        <!-- <div>
+          <quill-editor :options="option" v-model="form.value" />
+        </div> -->
+        <div class="terms-and-condition" v-if="form.name == 'welcome'">
+          <i>
+            <b>
+              {{ terms }}
+            </b>
+          </i>
+        </div>
+        <div class="float-right">
+          <b> {{ characterCount }} / 255 </b>
+        </div>
       </div>
 
       <template v-slot:modal-footer>
@@ -187,3 +236,29 @@ export default {
     </b-modal>
   </div>
 </template>
+<style scoped>
+.terms-and-condition {
+  box-sizing: border-box;
+  line-height: 1.42;
+  outline: none;
+  overflow-y: auto;
+  padding: 12px 15px;
+  -o-tab-size: 4;
+  tab-size: 4;
+  -moz-tab-size: 4;
+  text-align: left;
+  word-wrap: break-word;
+}
+.textarea-style {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, sans-serif;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #94a0ad;
+  text-align: left;
+  background: none;
+  padding: 5px;
+}
+</style>

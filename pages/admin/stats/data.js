@@ -1283,8 +1283,8 @@ const monthlyRegistration = {
       }
     },
     yaxis: {
-      min: -10,
-      max: 70,
+      min: 0,
+      max: 700,
       title: {
         text: 'Engagement',
       },

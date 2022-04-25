@@ -76,15 +76,17 @@ export default {
                   All Time
                 </button>
               </div>
-
-              <knob-control
-                v-model="mapData"
-                class="mt-3"
-                :size="150"
-                primary-color="#3ac9d6"
-                secondary-color="#eeeeee"
-                text-color="#3ac9d6"
-              ></knob-control>
+              <div>
+                <div class="knob-disable-div"></div>
+                <knob-control
+                  v-model="mapData"
+                  class="mt-3"
+                  :size="150"
+                  primary-color="#3ac9d6"
+                  secondary-color="#eeeeee"
+                  text-color="#3ac9d6"
+                ></knob-control>
+              </div>
               <h6 class="text-muted mt-2">Fan Reach</h6>
             </div>
             <!-- end .text-center -->

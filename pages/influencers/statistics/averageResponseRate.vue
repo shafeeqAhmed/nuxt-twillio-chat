@@ -73,6 +73,7 @@ export default {
                   All Time
                 </button>
               </div>
+              <div class="knob-disable-div"></div>
 
               <knob-control
                 v-model="mapData"

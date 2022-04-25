@@ -85,7 +85,7 @@ export default {
                       <tr>
                         <th>#</th>
                         <th>Name</th>
-                        <th>Fan Number</th>
+                        <!-- <th>Fan Number</th> -->
                         <th>Email</th>
                         <th>Total Message</th>
                         <th>Gender</th>
@@ -97,7 +97,7 @@ export default {
                         <tr v-for="(data, key) in mapData" :key="key">
                           <td>{{ ++key }}</td>
                           <td>{{ data.name }}</td>
-                          <td>{{ data.local_number }}</td>
+                          <!-- <td>{{ data.local_number }}</td> -->
                           <td>{{ data.email }}</td>
                           <td>{{ data.totalMessage }}</td>
                           <td>{{ data.gender }}</td>

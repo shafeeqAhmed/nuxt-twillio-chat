@@ -79,6 +79,8 @@ export default {
                   </button>
                 </div>
               </div>
+              <div class="knob-disable-div"></div>
+
               <knob-control
                 v-model="mapData"
                 class="mt-3"

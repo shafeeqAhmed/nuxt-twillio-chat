@@ -1,12 +1,6 @@
 <script>
 import countTo from "vue-count-to";
-import averageClickRate from "./averageClickRate.vue";
 import averageResponseRate from "./averageResponseRate.vue";
-import fanReach from "./fanReach.vue";
-import noOfText from "./noOfText.vue";
-import noOfContact from "./noOfContact.vue";
-import topActiveContact from "./topActiveContact.vue";
-import topInActiveContact from "./topInActiveContact.vue";
 
 /**
  * Widgets component
@@ -18,25 +12,13 @@ export default {
     };
   },
   async fetch() {
-    // const {
-    //   data: { totalContact, totalSendMessage, totalReceivedCount },
-    // } = await this.$axios.$get("/influencer-dashboard-counts");
-    // this.totalContact = totalContact;
-    // this.totalSendMessage = totalSendMessage;
-    // this.totalReceivedCount = totalReceivedCount;
     this.$store.dispatch("stats/getMonthlyRegistration");
     this.$store.dispatch("stats/getTopCity");
   },
   components: {
     apexchart: () => import("vue-apexcharts"),
     countTo,
-    averageClickRate,
     averageResponseRate,
-    fanReach,
-    noOfText,
-    noOfContact,
-    topActiveContact,
-    topInActiveContact,
   },
   data() {
     return {

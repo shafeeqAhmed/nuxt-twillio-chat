@@ -427,6 +427,14 @@ export default {
             <span>My Account</span>
           </b-dropdown-item>
 
+          <b-dropdown-item
+            @click="$router.push(`/influencers/general/personal-setting`)"
+            v-if="$auth.hasScope('influencer')"
+          >
+            <i class="remixicon-settings-3-line"></i>
+            <span>Settings</span>
+          </b-dropdown-item>
+
           <!-- <b-dropdown-item href="#">
                     <i class="remixicon-wallet-line"></i>
                     <span>

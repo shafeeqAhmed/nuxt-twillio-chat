@@ -115,8 +115,8 @@ export default {
     }
   },
   axios: {
-  baseURL: 'https://text-app.tkit.co.uk/twillo-api/api'
-      // baseURL: 'http://localhost/twillo-api/api'
+  // baseURL: 'https://colony.rocks/twillo-api/api'
+      baseURL: 'http://localhost/twillo-api/api'
     },
   auth: {
     redirect: {
@@ -143,7 +143,6 @@ export default {
           login: { url: '/login', method: 'post' },
           logout: { url: '/logout', method: 'post' },
           refresh: { url: '/refresh', method: 'post' },
-
         },
         localStorage: {
           prefix: 'auth.'

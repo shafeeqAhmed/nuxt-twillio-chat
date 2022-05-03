@@ -115,8 +115,10 @@ export default {
     }
   },
   axios: {
+    credential: true,
   // baseURL: 'https://colony.rocks/twillo-api/api'
       baseURL: 'http://localhost/twillo-api/api'
+      // baseURL: 'localhost:8000/api'
     },
   auth: {
     redirect: {

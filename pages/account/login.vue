@@ -49,27 +49,29 @@ export default {
         device_name: this.device_name,
       };
       if (!this.$v.$invalid) {
-        this.$auth
-          .loginWith("local", { data: payload })
-          .then((response) => {
-            // if(!response.data.status) {
-            //    this.invalidCredential= response.data.message
-            // }
-            if (response.data.status) {
-              this.$auth.setUser(response.data.data.userData);
-              this.$auth.$storage.setUniversal(
-                "user",
-                response.data.data.userData
-              );
-              this.$auth.$storage.setUniversal("loggedIn", true);
-              this.$router.push("/");
-            } else {
-              this.invalidCredential = response.data.message;
-            }
-          })
-          .catch((error) => {
-            this.backendErrors = error.response.data.errors;
-          });
+        this.$axios.get("/csrf-cookie").then((response) => {
+          this.$auth
+            .loginWith("local", { data: payload })
+            .then((response) => {
+              // if(!response.data.status) {
+              //    this.invalidCredential= response.data.message
+              // }
+              if (response.data.status) {
+                this.$auth.setUser(response.data.data.userData);
+                this.$auth.$storage.setUniversal(
+                  "user",
+                  response.data.data.userData
+                );
+                this.$auth.$storage.setUniversal("loggedIn", true);
+                this.$router.push("/");
+              } else {
+                this.invalidCredential = response.data.message;
+              }
+            })
+            .catch((error) => {
+              this.backendErrors = error.response.data.errors;
+            });
+        });
       }
     },
   },

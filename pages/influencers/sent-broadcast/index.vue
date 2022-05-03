@@ -91,6 +91,11 @@ export default {
     this.totalRows = this.items.length;
   },
   methods: {
+    test() {
+      this.$axios.get("/csrf-cookie").then((response) => {
+        this.$axios.$post("/user/two-factor-authentication");
+      });
+    },
     async getBroadCastMessage() {
       const {
         data: { broadCastMessage },
@@ -160,6 +165,10 @@ export default {
 <template>
   <div>
     <PageHeader :title="title" :items="items" />
+    <b-button :disabled="isDisabled" variant="primary" @click="test()">
+      test
+      <i class="fab fa-telegram-plane ml-1"></i>
+    </b-button>
     <div class="row">
       <div class="col-12">
         <div class="card">

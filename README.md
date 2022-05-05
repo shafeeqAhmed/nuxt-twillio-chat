@@ -1,5 +1,25 @@
 # Minton - Nuxtjs Responsive Admin Dashboard Template
 
+## setup-1
+
+open nuxt.config.js file
+
+# 1.1
+
+update base url of the backed api for axios call
+
+# 1.2
+
+update pusher information under the buildModules array
+[
+'@nuxtjs/laravel-echo', {
+broadcaster: 'pusher',
+key: '1234564556a4568cab9c',
+cluster: 'mt1',
+forceTLS: true
+}
+]
+
 ## Build Setup
 
 ```bash
@@ -17,4 +37,4 @@ $ yarn start
 $ yarn generate
 ```
 
-For detailed explanation on how things work, check out [Nuxt.js docs](https://nuxtjs.org).
+make build by using above command place the dist folder file inside root directory

@@ -418,6 +418,7 @@ export default {
 
           <b-dropdown-item
             @click="$router.push(`/influencers/general/personal-setting`)"
+            v-if="$auth.hasScope('influencer')"
           >
             <i class="remixicon-settings-3-line"></i>
             <span>Settings</span>

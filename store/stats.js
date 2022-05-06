@@ -1,6 +1,5 @@
 import {ageGroupBand, genderGroupBand, topCity, topCountry,monthlyRegistration} from "../pages/admin/stats/data";
 import { startDate,endDate,currentDate,lastWeekDate,lastMonthDate,lastYearDate } from '../helpers/general'
-
 export const state = () =>({
   ageGroupBand,
   genderGroupBand,

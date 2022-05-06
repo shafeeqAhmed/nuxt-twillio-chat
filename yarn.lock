@@ -6343,7 +6343,7 @@
   "resolved" "https://registry.npmjs.org/mkdirp/-/mkdirp-1.0.4.tgz"
   "version" "1.0.4"
 
-"moment@^2.10.2":
+"moment@^2.10.2", "moment@^2.19.2":
   "integrity" "sha512-kHmoybcPV8Sqy59DwNDY3Jefr64lK/by/da0ViFcuA4DH0vQg5Q6Ze5VimxkfQNSC+Mls/Kx53s7TjP1RhFEDQ=="
   "resolved" "https://registry.npmjs.org/moment/-/moment-2.29.1.tgz"
   "version" "2.29.1"
@@ -9538,6 +9538,13 @@
   dependencies:
     "deepmerge" "^4.2.2"
 
+"vue-moment@^4.1.0":
+  "integrity" "sha512-Gzisqpg82ItlrUyiD9d0Kfru+JorW2o4mQOH06lEDZNgxci0tv/fua1Hl0bo4DozDV2JK1r52Atn/8QVCu8qQw=="
+  "resolved" "https://registry.npmjs.org/vue-moment/-/vue-moment-4.1.0.tgz"
+  "version" "4.1.0"
+  dependencies:
+    "moment" "^2.19.2"
+
 "vue-multiselect@^2.1.6":
   "integrity" "sha512-s7jmZPlm9FeueJg1RwJtnE9KNPtME/7C8uRWSfp9/yEN4M8XcS/d+bddoyVwVnvFyRh9msFo0HWeW0vTL8Qv+w=="
   "resolved" "https://registry.npmjs.org/vue-multiselect/-/vue-multiselect-2.1.6.tgz"
@@ -9641,7 +9648,7 @@
   dependencies:
     "window-resize-subject" "^1.4.2"
 
-"vue@*", "vue@^2.0.0", "vue@^2.2.6", "vue@^2.5.0", "vue@^2.5.17 || ^2.6", "vue@^2.5.18", "vue@^2.5.22", "vue@^2.6.10", "vue@^2.6.11", "vue@^2.6.12", "vue@>=2.6":
+"vue@*", "vue@^2.0.0", "vue@^2.2.6", "vue@^2.5.0", "vue@^2.5.17 || ^2.6", "vue@^2.5.18", "vue@^2.5.22", "vue@^2.6.10", "vue@^2.6.11", "vue@^2.6.12", "vue@>=1.x.x", "vue@>=2.6":
   "integrity" "sha512-x2284lgYvjOMj3Za7kqzRcUSxBboHqtgRE2zlos1qWaOye5yUmHn42LB1250NJBLRwEcdrB0JRwyPTEPhfQjiQ=="
   "resolved" "https://registry.npmjs.org/vue/-/vue-2.6.14.tgz"
   "version" "2.6.14"

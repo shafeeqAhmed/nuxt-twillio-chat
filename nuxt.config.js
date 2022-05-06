@@ -67,7 +67,9 @@ export default {
     "~/plugins/string-filter",
     "~/plugins/persistedstate.js",
     '~/plugins/axios',
-    '~/plugins/filter.js'
+    '~/plugins/filter.js',
+     '~/plugins/moment.js'
+
   ],
   /*
   ** Auto import components

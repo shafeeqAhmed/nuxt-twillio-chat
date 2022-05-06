@@ -1,22 +1,11 @@
-var today = new Date();
+import moment from "moment";
+const  startDate = moment().subtract(7,'d').format('YYYY-MM-DD')
+const endDate = moment().format('YYYY-MM-DD')
 
-const  startDate = today.getFullYear()+'-'+formateDate((today.getMonth()+1))+'-'+formateDate(today.getDate()-7)
-const endDate = today.getFullYear() + '-' + formateDate((today.getMonth() + 1)) + '-' + formateDate(today.getDate())
-
-const  currentDate = today.getFullYear()+'-'+formateDate((today.getMonth()+1))+'-'+formateDate(today.getDate())
-const  lastWeekDate = today.getFullYear()+'-'+formateDate((today.getMonth()+1))+'-'+formateDate(today.getDate()-7)
-const  lastMonthDate = today.getFullYear()+'-'+formateDate((today.getMonth()))+'-'+formateDate(today.getDate())
-const  lastYearDate = (today.getFullYear()-1)+'-'+formateDate((today.getMonth()+1))+'-'+formateDate(today.getDate())
-
-
-function formateDate(val) {
-  if (val < 10) {
-    return '0' + val;
-  }
-  return val
-}
-
-
+const  currentDate = moment().format('YYYY-MM-DD')
+const  lastWeekDate = moment().subtract(7,'d').format('YYYY-MM-DD')
+const  lastMonthDate = moment().subtract(1,'months').format('YYYY-MM-DD')
+const  lastYearDate = moment().subtract(1,'years').format('YYYY-MM-DD')
 
 
 export { startDate, endDate,currentDate,lastWeekDate,lastMonthDate,lastYearDate };
